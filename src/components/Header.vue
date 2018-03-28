@@ -94,8 +94,9 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
-  .app-header
+<style scoped lang="scss">
+  .app-header {
     height: 60px
+  }
 
 </style>

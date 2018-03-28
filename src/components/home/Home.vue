@@ -65,19 +65,30 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
-  .home_page
+<style scoped lang="scss">
+  .home_page {
     overflow: hidden
-    .swiper_slide
-      background: url("../../../static/bg/home/draft_bg.png") no-repeat
-      width: 100vw
-      height: 100vh
-      z-index: 2
-    .slide_1
-    .slide_2
-      background: linear-gradient(to right, #161516, #0d0d0d)
-    .slide_3
-      background: linear-gradient(to right, $--color-secondary, #0d0d0d)
-    .slide_4
-      background: linear-gradient(to right, #161516, #0d0d0d)
+  }
+
+  .swiper_slide {
+    background: url("../../../static/bg/home/draft_bg.png") no-repeat;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .slide_1 {
+
+  }
+
+  .slide_2 {
+    background: linear-gradient(to right, #161516, #0d0d0d)
+  }
+
+  .slide_3 {
+    background: linear-gradient(to right, $--color-secondary, #0d0d0d)
+  }
+
+  .slide_4 {
+    background: linear-gradient(to right, #161516, #0d0d0d)
+  }
 </style>

@@ -30,27 +30,32 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
-  .main_header
-    color: $--color-secondary
-    display: flex
-    padding-top: 40px
-    font-size: 14px
-    .header_link
-      padding-top: 20px
-      padding-right: 30px
-      padding-left: 30px
-      border-bottom: solid white 2px
-      width: 30px
-    .next_slide
-      position: absolute
-      bottom: 35px
-      -webkit-transform: rotate(-90deg)
-      -moz-transform: rotate(-90deg)
-      -ms-transform: rotate(-90deg)
-      -o-transform: rotate(-90deg)
-      border-bottom: solid $--color-secondary 2px
-      padding-right: -10px
-      height: 35px
-      font-size: 13px
+<style scoped lang="scss">
+  .main_header {
+    color: $--color-secondary;
+    display: flex;
+    padding-top: 40px;
+    font-size: 14px;
+  }
+
+  .header_link {
+    padding-top: 20px;
+    padding-right: 30px;
+    padding-left: 30px;
+    border-bottom: solid white 2px;
+    width: 30px
+  }
+
+  .next_slide {
+    position: absolute;
+    bottom: 35px;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    border-bottom: solid $--color-secondary 2px;
+    padding-right: -10px;
+    height: 35px;
+    font-size: 13px;
+  }
 </style>

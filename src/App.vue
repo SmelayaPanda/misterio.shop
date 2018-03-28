@@ -22,22 +22,31 @@ export default {
 }
 </script>
 
-<style lang="sass">
-  body, html
-    margin: 0
-    padding: 0
-    #app
-      font-family: Montserrat, 'Avenir', Helvetica, Arial, sans-serif
-      -webkit-font-smoothing: antialiased
-      -moz-osx-font-smoothing: grayscale
-      background-color: white
-      text-align: center
-      color: #2c3e50
-    .fade-enter-active, .fade-leave-active
-      transition-property: opacity
-      transition-duration: .25s
-    .fade-enter-active
-      transition-delay: .25s
-    .fade-enter, .fade-leave-active
-      opacity: 0
+<style lang="scss">
+  body, html {
+    margin: 0;
+    padding: 0;
+  }
+
+  #app {
+    font-family: Montserrat, 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: white;
+    text-align: center;
+    color: #2c3e50
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition-property: opacity;
+    transition-duration: .25s
+  }
+
+  .fade-enter-active {
+    transition-delay: .25s
+  }
+
+  .fade-enter, .fade-leave-active {
+    opacity: 0
+  }
 </style>
