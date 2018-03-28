@@ -2,6 +2,7 @@
   <div class="full_slide">
     <user-icons></user-icons>
     <social-icons></social-icons>
+    <div id="phone_number">+7 (800) <b>100 66 66</b></div>
     <app-header></app-header>
     <div id="flip_down_wrapper">
       <p id="flip_down">Листай вниз</p>
@@ -53,5 +54,13 @@ export default {
       margin: 5px auto;
       border-bottom: 1px solid $color-secondary;
     }
+  }
+
+  #phone_number {
+    position: absolute;
+    bottom: 54px;
+    left: 40px;
+    font-size: 19px;
+    color: $color-secondary;
   }
 </style>
