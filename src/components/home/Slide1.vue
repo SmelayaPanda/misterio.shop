@@ -35,11 +35,15 @@ export default {
 
   #main_title_2 {
     position: relative;
-    color: white;
     font-family: $secondary-font;
     font-size: 45px;
     margin-bottom: 0;
     padding-right: 30px;
+
+    background: linear-gradient(55deg, $color-secondary 32%, $color-info 55%, $color-secondary 63%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
   }
 
   #main_title_3 {
