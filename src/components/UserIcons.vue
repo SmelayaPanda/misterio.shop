@@ -50,9 +50,11 @@ export default {
     right: 30px;
     top: 45px;
     width: 174px;
+    height: 140px;
   }
 
   .mobile_user_icons {
     margin-top: 20px;
+    margin-bottom: 30px;
   }
 </style>

@@ -1,102 +1,65 @@
 <template>
-  <div class="mb-3">
-    <!--Toolbar-->
-    <el-row type="flex" justify="center" class="hidden-xs-only">
-      <el-menu :default-active="this.$router.history.current.name"
-               :router="true"
-               mode="horizontal">
-        <el-menu-item index="home" route="/">ReHigh Store</el-menu-item>
-        <el-menu-item index="shop" route="/shop">Shop</el-menu-item>
-        <el-menu-item index="about" route="/about"> About</el-menu-item>
-        <el-menu-item index="cart" route="/cart">
-          Cart
-          <el-tag size="mini" class="mb-1">{{ productCount }}</el-tag>
-        </el-menu-item>
-        <el-submenu index="user">
-          <template slot="title">User</template>
-          <el-menu-item index="account" route="/account">
-            Account
-          </el-menu-item>
-          <el-menu-item index="signin" route="/signin" v-if="this.isAnonymousUser">
-            Sign in
-          </el-menu-item>
-          <el-menu-item index="signup" route="/signup" v-if="this.isAnonymousUser">
-            Sign up
-          </el-menu-item>
-          <el-menu-item index="logout" route="/logout" v-if="!this.isAnonymousUser"
-                        @click="onLogout"> Logout
-          </el-menu-item>
-        </el-submenu>
-      </el-menu>
-    </el-row>
-    <!--Mobile toolbar-->
-    <v-toolbar class="hidden-sm-and-up primary white--text">
-      <v-toolbar-side-icon
-        @click="sideNav = !sideNav"
-        class="hidden-sm-and-up white--text">
-      </v-toolbar-side-icon>
-      <h2>ReHigh Store</h2>
-    </v-toolbar>
-    <!--Navigation drawer-->
-    <v-navigation-drawer temporary absolute v-model="sideNav" height="100vh">
-      <v-list>
-        <v-list-tile
-          v-for="item in menuItems"
-          :key="item.title"
-          :to="item.link"
-        >
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>{{ item.title }}</v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <!--LIVE CHAT-->
-    <div v-if="this.$store.getters.user">
-      <live-chat :chatId="this.$store.getters.user.uid"
-                 :isUserSide="true"
-                 :isCollapsed="true"
-      ></live-chat>
-    </div>
-  </div>
+  <el-row type="flex" justify="center" class="main_header hidden-sm-and-down">
+    <el-col :xs="14" :sm="14" :md="14" :lg="12" :xl="10">
+      <el-row type="flex" justify="center" class="pl-1 pr-3">
+        <el-col>
+          <router-link to="/" active-class="active_header_link" exact>
+            ГЛАВНАЯ
+          </router-link>
+        </el-col>
+        <el-col>
+          <router-link to="/shop" active-class="active_header_link" exact>
+            КАТАЛОГ
+          </router-link>
+        </el-col>
+        <el-col>
+          <router-link to="/about" active-class="active_header_link" exact>
+            О НАС
+          </router-link>
+        </el-col>
+        <el-col>
+          <router-link to="/sale" active-class="active_header_link" exact>
+            АКЦИИ
+          </router-link>
+        </el-col>
+        <el-col>
+          <router-link to="/contacts" active-class="active_header_link" exact>
+            КОНТАКТЫ
+          </router-link>
+        </el-col>
+      </el-row>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
-import LiveChat from '@/components/shared/LiveChat'
-
 export default {
-  components: {
-    LiveChat
-  },
-  data () {
-    return {
-      sideNav: false,
-      menuItems: [
-        {title: 'Home', link: '/', icon: 'home'},
-        {title: 'Shop', link: '/shop', icon: 'loyalty'},
-        {title: 'Info', link: '/info', icon: 'info'},
-        {title: 'Account', link: '/account', icon: 'people'},
-        {title: 'Sing in', link: '/signin', icon: 'perm_identity'}
-      ]
-    }
-  },
-  methods: {
-    onLogout () {
-      this.$store.dispatch('logout')
-    }
-  },
-  computed: {
-    productCount () {
-      return this.$store.getters.cart.length
-    }
-  }
+  name: 'Header'
 }
 </script>
 
 <style scoped lang="scss">
-  .app-header {
-    height: 60px
+  a {
+    color: $color-secondary;
+    text-decoration: none;
   }
 
+  .main_header {
+    flex-wrap: wrap;
+    color: $color-secondary;
+    padding-top: 40px;
+    font-size: 13px;
+    line-height: 34px;
+    margin-bottom: 30px;
+  }
+
+  .header_link {
+  }
+
+  .active_header_link {
+    color: white;
+    padding-bottom: 7px;
+    font-weight: bold;
+    border-bottom: 1px solid $color-secondary;
+  }
 </style>

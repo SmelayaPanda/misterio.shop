@@ -1,7 +1,10 @@
 <template>
   <v-app id="app">
     <app-header v-if="!this.$router.history.current.fullPath.includes('admin') &&
-                       this.$router.history.current.fullPath !== '/'"></app-header>
+                       this.$router.history.current.fullPath !== '/'">
+    </app-header>
+    <user-icons v-if="!this.$router.history.current.fullPath.includes('admin') &&
+                       this.$router.history.current.fullPath !== '/'"></user-icons>
     <!--Content-->
     <transition name="fade">
       <router-view></router-view>
@@ -12,11 +15,13 @@
 <script>
 import AppHeader from '@/components/Header'
 import AdminPanel from '@/components/admin/AdminPanel'
+import UserIcons from '@/components/UserIcons'
 
 export default {
   components: {
     AppHeader,
-    AdminPanel
+    AdminPanel,
+    UserIcons
   },
   name: 'App'
 }

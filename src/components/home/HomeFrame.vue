@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import UserIcons from '@/components/home/UserIcons'
+import UserIcons from '@/components/UserIcons'
 import SocialIcons from '@/components/home/SocialIcons'
-import AppHeader from '@/components/home/Header'
+import AppHeader from '@/components/Header'
 
 export default {
   name: 'HomeFrame',

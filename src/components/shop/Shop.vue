@@ -3,20 +3,23 @@
     <el-row type="flex" justify="left" style="flex-wrap: wrap">
       <el-col :xs="24" :sm="6" :md="5" :lg="4" :xl="4" align="left">
         <el-button type="text" @click="isCollapsed = !isCollapsed" class="mt-2 ml-3 pl-1">
-          <v-icon v-if="isCollapsed">hdr_strong</v-icon>
-          <v-icon v-if="!isCollapsed">hdr_weak</v-icon>
+          <v-icon v-if="isCollapsed" class="info--text">hdr_strong</v-icon>
+          <v-icon v-if="!isCollapsed" class="info--text">hdr_weak</v-icon>
         </el-button>
         <el-menu :default-active="selectedCategory"
                  @select="changeCategory"
+                 background-color="#0d0d0d"
+                 text-color="#fff"
+                 active-text-color="#810101"
                  :collapse="isCollapsed">
           <!--Nav Menu-->
           <el-menu-item index="" @click="filterProducts">
-            <v-icon class="pr-2">select_all</v-icon>
+            <v-icon class="pr-2 info--text">select_all</v-icon>
             <span slot="title">All categories</span>
           </el-menu-item>
           <el-submenu index="Category A">
             <template slot="title">
-              <v-icon class="pr-2">looks_one</v-icon>
+              <v-icon class="pr-2 white--text">looks_one</v-icon>
               <span slot="title">Group A</span>
             </template>
             <el-menu-item-group>
@@ -32,15 +35,15 @@
             </el-menu-item-group>
           </el-submenu>
           <el-menu-item index="Category B" @click="filterProducts">
-            <v-icon class="pr-2">looks_two</v-icon>
+            <v-icon class="pr-2 white--text">looks_two</v-icon>
             <span slot="title">Category B</span>
           </el-menu-item>
           <el-menu-item index="Category C" @click="filterProducts">
-            <v-icon class="pr-2">looks_3</v-icon>
+            <v-icon class="pr-2 white--text">looks_3</v-icon>
             <span slot="title">Category C</span>
           </el-menu-item>
           <el-menu-item index="Category D" @click="filterProducts">
-            <v-icon class="pr-2">looks_4</v-icon>
+            <v-icon class="pr-2 white--text">looks_4</v-icon>
             <span slot="title">Category D</span>
           </el-menu-item>
         </el-menu>
@@ -71,9 +74,9 @@
           </el-button>
         </el-input>
         <!--FILTER-->
-        <el-collapse v-model="activeName" accordion style="margin-left: 16px; margin-right: 16px">
+        <el-collapse v-model="activeName" accordion style="margin-left: 16px; margin-right: 16px" class="primary">
           <!--PRICE FILTER-->
-          <el-collapse-item title="Filter" name="1">
+          <el-collapse-item title="Filter" name="1" class="primary">
             <el-button type="text" class="pr-4 pb-0" @click="sortByPrice">
               <span class="pl-3">Price</span>
               <el-tag size="mini">
@@ -145,12 +148,15 @@
           </el-col>
         </el-row>
         <div class="mb-4 mt-3">
-          <el-button type="text" @click="loadMore" v-if="this.$store.getters.lastVisible">Load more</el-button>
+          <el-button type="text"
+                     class="white--text"
+                     @click="loadMore"
+                     v-if="this.$store.getters.lastVisible">Load more</el-button>
         </div>
       </el-col>
     </el-row>
     <back-to-top visibleOffset="500" :right="110" :bottom="30">
-      <v-btn fab class="success">
+      <v-btn fab class="secondary">
         <v-icon>keyboard_arrow_up</v-icon>
       </v-btn>
     </back-to-top>
@@ -258,7 +264,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped type="scss">
   .main_card {
     margin: 10px;
     padding: 0 0 10px;
@@ -271,5 +277,9 @@ export default {
   .search_input {
     margin-left: 12px;
     padding-right: 24px;
+  }
+
+  #accordion {
+    background: #000 !important;
   }
 </style>
