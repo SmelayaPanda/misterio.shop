@@ -33,6 +33,7 @@ import {purchaseStatuses} from '@/mixins/purchaseStatuses'
 // SHARED
 import AlertComp from '@/components/shared/Alert'
 import Loader from '@/components/shared/Loader'
+import HeartLoader from '@/components/shared/HeartLoader'
 import BallsLoader from '@/components/shared/BallsLoader'
 import HelpTooltip from '@/components/shared/HelpTooltip'
 import MaskedInput from 'vue-masked-input'
@@ -53,6 +54,7 @@ Vue.filter('snippet', Snippet)
 Vue.component('masked-input', MaskedInput)
 Vue.component('app-alert', AlertComp)
 Vue.component('app-loader', Loader)
+Vue.component('app-heart-loader', HeartLoader)
 Vue.component('app-balls-loader', BallsLoader)
 Vue.component('app-help-tooltip', HelpTooltip)
 

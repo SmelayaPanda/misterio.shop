@@ -1,25 +1,25 @@
 <template>
   <div>
-    <div class="user_icons hidden-xs-only">
-      <el-row type="flex" justify="center" style="flex-wrap: wrap">
-        <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
+    <div class="user_icons hidden-sm-and-down">
+      <el-row type="flex" justify="center">
+        <el-col :xs="24" :sm="8" :md="8" :lg="8" :xl="8">
           <img src="@/assets/img/common/favorite.svg" alt=""
                class="favorite_icon"
                height="40px">
         </el-col>
-        <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
+        <el-col :xs="24" :sm="8" :md="8" :lg="8" :xl="8">
           <img src="@/assets/img/common/user.svg" alt=""
                class="user_icon"
                height="40px">
         </el-col>
-        <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
+        <el-col :xs="24" :sm="8" :md="8" :lg="8" :xl="8">
           <img src="@/assets/img/common/bag.svg" alt=""
                height="40px">
         </el-col>
       </el-row>
     </div>
     <!--Mobile version-->
-    <el-row type="flex" justify="center" class="mobile_user_icons hidden-sm-and-up">
+    <el-row type="flex" justify="center" class="mobile_user_icons hidden-md-and-up">
       <el-col :span="5">
         <img src="@/assets/img/common/favorite.svg" alt=""
              class="favorite_icon"

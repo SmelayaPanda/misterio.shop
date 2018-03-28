@@ -1,6 +1,6 @@
 <template>
   <div id="slide_1">
-    <div id="title">
+    <div id="title" class="hidden-sm-and-down">
       <p id="main_title_1" align="left">Не зная Вас</p>
       <p id="main_title_2" align="left">
           МЫ ЗНАЕМ ВСЁ<br>
@@ -26,6 +26,7 @@ export default {
     left: 54%;
     top: 132px;
   }
+
   #main_title_1 {
     position: relative;
     color: white;
@@ -57,6 +58,7 @@ export default {
     font-size: 32px;
     margin-top: -8px;
   }
+
   .choice_btn {
     font-family: $primary-font;
     font-size: 12px;

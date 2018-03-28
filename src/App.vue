@@ -39,7 +39,7 @@ export default {
     font-family: $primary-font;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: white;
+    background: linear-gradient(to right, $color-primary, #161516);
     text-align: center;
     color: $color-primary;
   }
