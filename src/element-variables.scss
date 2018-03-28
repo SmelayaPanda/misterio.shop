@@ -1,11 +1,12 @@
-/* theme color */
-//$--color-primary: teal;
-$--color-primary: #409EFF;
-$--color-secondary: #2c3e50;
+/* Theme color for components styles */
+/* Default global in global_styles.scss*/
+$--color-primary: #0d0d0d;
+$--color-secondary: #810101;
+
+$--color-info: #d0d0d0;
+$--color-danger: #810101;
 $--color-success: #67c23a;
 $--color-warning: #e6a23c;
-$--color-danger: #f56c6c;
-$--color-info: #909399;
 
 /* icon font path, required */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';

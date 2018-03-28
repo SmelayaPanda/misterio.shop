@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // MAIN
-import Home from '@/components/Home'
+import Home from '@/components/home/Home'
 import About from '@/components/about/About'
 import ShoppingCart from '@/components/shop/ShoppingCart'
 // AUTH

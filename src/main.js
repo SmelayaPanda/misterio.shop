@@ -60,12 +60,12 @@ Vue.use(VueAwesomeSwiper)
 Vue.use(ElementUI, {locale})
 Vue.use(Vuetify, {
   theme: {
-    primary: '#409EFF',
-    secondary: '#2c3e50',
+    primary: '#0d0d0d',
+    secondary: '#810101',
+    danger: '#810101',
+    info: '#d0d0d0',
     success: '#67c23a',
-    warning: '#e6a23c',
-    danger: '#f56c6c',
-    info: '#909399'
+    warning: '#e6a23c'
   }
 })
 // -----------------------------
