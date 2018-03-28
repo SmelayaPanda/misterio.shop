@@ -31,6 +31,9 @@
         </el-row>
       </el-col>
     </el-row>
+    <div id="flip_down_wrapper">
+      <p id="flip_down">Листай вниз</p>
+    </div>
     <slot name="bg_image"></slot>
     <slot name="content"></slot>
   </div>
@@ -72,5 +75,24 @@ export default {
     padding-bottom: 7px;
     font-weight: bold;
     border-bottom: 1px solid $color-secondary;
+  }
+
+  #flip_down_wrapper {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    @include translateX(-43px);
+    #flip_down {
+      font-size: 11px;
+      color: white;
+      @include rotate(-90deg);
+    }
+    #flip_down:after {
+      content: "";
+      display: block;
+      width: 60px;
+      margin: 5px auto;
+      border-bottom: 1px solid $color-secondary;
+    }
   }
 </style>
