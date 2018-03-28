@@ -1,11 +1,13 @@
 <template>
   <div id="slide_1">
-    <p id="main_title_1">Не зная Вас</p>
-    <p id="main_title_2" align="left">
-      МЫ ЗНАЕМ ВСЁ<br>
-      О ВАШИХ ЖЕЛАНИЯХ
-    </p>
-    <p id="main_title_3">и даже больше...</p>
+    <div id="title">
+      <p id="main_title_1" align="left">Не зная Вас</p>
+      <p id="main_title_2" align="left">
+          МЫ ЗНАЕМ ВСЁ<br>
+          О ВАШИХ ЖЕЛАНИЯХ
+      </p>
+      <p id="main_title_3" align="right">и даже больше...</p>
+    </div>
   </div>
 </template>
 
@@ -16,30 +18,36 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  #main_title_1 {
-    position: absolute;
-    left: 55%;
-    top: 132px;
-    color: white;
-    font-family: $third-font;
-    font-weight: bold;
-    font-size: 32px;
-  }
-  #main_title_2 {
+  #title {
     position: absolute;
     left: 54%;
-    top: 179px;
-    color: white;
-    font-family: $secondary-font;
-    font-size: 46px;
+    top: 132px;
   }
-  #main_title_3 {
-    position: absolute;
-    left: 75%;
-    top: 308px;
+  #main_title_1 {
+    position: relative;
     color: white;
     font-family: $third-font;
     font-weight: bold;
     font-size: 32px;
+    margin-bottom: 0;
+    padding-left: 10px;
+  }
+
+  #main_title_2 {
+    position: relative;
+    color: white;
+    font-family: $secondary-font;
+    font-size: 45px;
+    margin-bottom: 0;
+    padding-right: 30px;
+  }
+
+  #main_title_3 {
+    position: relative;
+    color: white;
+    font-family: $third-font;
+    font-weight: bold;
+    font-size: 32px;
+    margin-top: -8px;
   }
 </style>
