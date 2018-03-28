@@ -6,7 +6,10 @@
           МЫ ЗНАЕМ ВСЁ<br>
           О ВАШИХ ЖЕЛАНИЯХ
       </p>
-      <p id="main_title_3" align="right">и даже больше...</p>
+      <p id="main_title_3" align="right">
+        и даже больше...<br>
+        <v-btn class="secondary white--text choice_btn">Выбрать товар</v-btn>
+      </p>
     </div>
   </div>
 </template>
@@ -53,5 +56,12 @@ export default {
     font-weight: bold;
     font-size: 32px;
     margin-top: -8px;
+  }
+  .choice_btn {
+    font-family: $primary-font;
+    font-size: 12px;
+    top: 35px;
+    width: 178px;
+    height: 42px;
   }
 </style>

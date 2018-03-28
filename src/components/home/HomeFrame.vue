@@ -75,7 +75,7 @@ export default {
   #load_wrapper {
     position: absolute;
     bottom: 40px;
-    right: 40px;
+    right: 45px;
   }
   .load {
     width: 80px;
