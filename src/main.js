@@ -11,7 +11,7 @@ import * as firebase from 'firebase'
 import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css'
-import './element-variables.scss'
+import '@/styles/element-variables.scss'
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'

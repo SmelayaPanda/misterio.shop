@@ -71,9 +71,10 @@ export default {
   }
 
   .swiper_slide {
-    background: url("../../../static/bg/home/draft_bg.png") no-repeat;
+    background: url("../../../static/bg/home/home_screen.png") no-repeat;
     width: 100vw;
     height: 100vh;
+    background-size: cover;
   }
 
   .slide_1 {
@@ -85,7 +86,7 @@ export default {
   }
 
   .slide_3 {
-    background: linear-gradient(to right, $--color-secondary, #0d0d0d)
+    background: linear-gradient(to right, $color-secondary, #0d0d0d)
   }
 
   .slide_4 {

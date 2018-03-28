@@ -1,5 +1,4 @@
-/* Theme color for components styles */
-/* Default global in global_styles.scss*/
+// OVERRIDE ELEMENTS STYLES
 $--color-primary: #0d0d0d;
 $--color-secondary: #810101;
 
@@ -11,4 +10,4 @@ $--color-warning: #e6a23c;
 /* icon font path, required */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
-@import "~element-ui/packages/theme-chalk/src/index";
+@import "../../node_modules/element-ui/packages/theme-chalk/src/index";

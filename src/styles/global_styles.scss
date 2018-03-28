@@ -1,11 +1,11 @@
 // Global
-$--color-primary: #0d0d0d;
-$--color-secondary: #810101;
+// Don't forget synchronize with Vuetify theme config
+$color-primary: #0d0d0d;
+$color-secondary: #810101;
 
-$--color-info: #d0d0d0;
-$--color-danger: #810101;
-$--color-success: #67c23a;
-$--color-warning: #e6a23c;
-// Main theme in:
-//   1. Element-variables.scss
-//   2. Vuetify theme config
+$color-info: #d0d0d0;
+$color-danger: #810101;
+$color-success: #67c23a;
+$color-warning: #e6a23c;
+
+@import "mixins";

@@ -34,13 +34,17 @@ export default {
     padding: 0;
   }
 
+  a {
+    color: $color-secondary;
+  }
+
   #app {
     font-family: $primary-font;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: white;
     text-align: center;
-    color: #2c3e50
+    color: $color-primary;
   }
 
   .fade-enter-active, .fade-leave-active {
