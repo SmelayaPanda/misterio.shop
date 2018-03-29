@@ -3,6 +3,14 @@
     <app-header class="app_header"></app-header>
     <user-icons class="user_icons"></user-icons>
     <social-icons class="social_icons"></social-icons>
+    <!--LIVE CHAT-->
+    <div v-if="this.$store.getters.user" class="live_chat">
+      <live-chat :chatId="this.$store.getters.user.uid"
+                 :isUserSide="true"
+                 :isCollapsed="true"
+                 class="live_chat">
+      </live-chat>
+    </div>
     <div id="phone_number">+7 (800) <b>100 66 66</b></div>
     <div id="flip_down_wrapper">
       <p id="flip_down">Листай вниз</p>
@@ -37,6 +45,7 @@ import HomeFrame from '@/components/home/HomeFrame'
 import AppHeader from '@/components/Header'
 import UserIcons from '@/components/UserIcons'
 import SocialIcons from '@/components/home/SocialIcons'
+import LiveChat from '@/components/shared/LiveChat'
 import Slide1 from '@/components/home/Slide1'
 import Slide2 from '@/components/home/Slide2'
 import Slide3 from '@/components/home/Slide3'
@@ -49,6 +58,7 @@ export default {
     AppHeader,
     UserIcons,
     SocialIcons,
+    LiveChat,
     Slide1,
     Slide2,
     Slide3,
@@ -59,6 +69,7 @@ export default {
       swiperOption: {
         direction: 'vertical',
         slidesPerView: 1,
+        effect: 'fade',
         speed: 1000,
         spaceBetween: 0,
         mousewheel: true
@@ -149,5 +160,12 @@ export default {
     left: 40px;
     font-size: 19px;
     color: $color-secondary;
+  }
+
+  .live_chat {
+    position: absolute;
+    z-index: 3;
+    bottom: 20px;
+    right: 30px;
   }
 </style>

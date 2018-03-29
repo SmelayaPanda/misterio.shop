@@ -245,7 +245,7 @@ export default {
       return this.$store.dispatch('fetchProducts')
     },
     algoliaSearch () {
-      this.$store.dispatch('USER_EVENT', `Algolia search word: "${this.algoliaSearchText}"`)
+      // this.$store.dispatch('USER_EVENT', `Algolia search word: "${this.algoliaSearchText}"`)
       this.$store.dispatch('algoliaSearch', this.algoliaSearchText)
     }
   },

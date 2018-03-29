@@ -1,14 +1,21 @@
 <template>
   <transition name="bounce">
-    <v-btn fab class="primary collapsed_chat"
-           v-if="isCollapsedChat"
-           @click="openChat"
-    >
+    <!--Admin-->
+    <v-btn v-if="!isUserSide && isCollapsedChat"
+           fab class="primary collapsed_chat"
+           @click="openChat">
       <v-icon v-if="isUserSide && !unreadByUser">chat</v-icon>
       <v-icon v-if="!isUserSide && !unreadByAdmin">chat</v-icon>
       <h2 v-if="isUserSide && unreadByUser"> +{{ unreadByUser }}</h2>
       <h2 v-if="!isUserSide && unreadByAdmin"> +{{ unreadByAdmin }}</h2>
     </v-btn>
+    <!--User Heart-->
+    <div v-if="isUserSide && isCollapsedChat"
+         @click="openChat">
+      <div class="heart">
+        <i class="fa fa-heartbeat fa-3x"></i>
+      </div>
+    </div>
     <v-card v-if="!isCollapsedChat" :class="isUserSide ? 'user_live_chat' : 'admin_live_chat'">
       <v-card-title class="chat_header primary">
         <el-button type="text"
@@ -203,7 +210,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .chat_header {
     margin-bottom: 1px;
     padding-bottom: 12px;
@@ -292,5 +299,236 @@ export default {
   .chat_msg {
     white-space: pre-wrap;
     text-align: left;
+  }
+
+  /* User live chat heart */
+  .heart {
+    width: 80px;
+    height: 80px;
+    /** height is required as absolute value **/
+    background-color: $color-secondary;
+    border-radius: 100%;
+    position: relative;
+    animation: pulse 2000ms linear infinite;
+    -webkit-animation: pulse 2000ms linear infinite;
+    -moz-animation: pulse 2000ms linear infinite;
+  }
+  .heart:hover {
+    cursor: pointer;
+  }
+
+  .heart i {
+    position: absolute;
+    top: 22px;
+    left: 18px;
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 1em red;
+  }
+
+  .heart:after,
+  .heart:before {
+    display: block;
+    margin: auto;
+    position: absolute;
+    content: "";
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    background-color: $color-secondary;
+  }
+
+  .heart:after {
+    z-index: -100;
+    -webkit-animation: outer-ripple 2000ms linear infinite;
+    -moz-animation: outer-ripple 2000ms linear infinite;
+    animation: outer-ripple 2000ms linear infinite;
+  }
+
+  .heart:before {
+    z-index: -200;
+    -webkit-animation: inner-ripple 2000ms linear infinite;
+    -moz-animation: inner-ripple 2000ms linear infinite;
+    animation: inner-ripple 2000ms linear infinite;
+  }
+
+  /* outer ripple */
+
+  @keyframes pulse {
+    0% {
+      transform: scale(0.8);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+    10% {
+      transform: scale(1.1);
+      filter: alpha(opacity=1);
+      opacity: 1;
+    }
+    20% {
+      transform: scale(0.9);
+      filter: alpha(opacity=1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0.8);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+  }
+
+  @-moz-keyframes pulse {
+    0% {
+      transform: scale(0.8);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+    10% {
+      transform: scale(1.1);
+      filter: alpha(opacity=1);
+      opacity: 1;
+    }
+    20% {
+      transform: scale(0.9);
+      filter: alpha(opacity=1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0.8);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+  }
+
+  @-webkit-keyframes pulse {
+    0% {
+      transform: scale(0.8);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+    10% {
+      transform: scale(1.1);
+      filter: alpha(opacity=1);
+      opacity: 1;
+    }
+    20% {
+      transform: scale(0.9);
+      filter: alpha(opacity=1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0.8);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes outer-ripple {
+    0% {
+      transform: scale(1);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+    80% {
+      transform: scale(3);
+      filter: alpha(opacity=0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(3);
+      filter: alpha(opacity=0);
+      opacity: 0;
+    }
+  }
+
+  @-webkit-keyframes outer-ripple {
+    0% {
+      transform: scale(1);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+    80% {
+      transform: scale(3);
+      filter: alpha(opacity=0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(3);
+      filter: alpha(opacity=0);
+      opacity: 0;
+    }
+  }
+
+  @-moz-keyframes outer-ripple {
+    0% {
+      transform: scale(1);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+    80% {
+      transform: scale(3);
+      filter: alpha(opacity=0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(3);
+      filter: alpha(opacity=0);
+      opacity: 0;
+    }
+  }
+
+  /* inner ripple */
+
+  @keyframes inner-ripple {
+    0% {
+      transform: scale(1);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+    30% {
+      transform: scale(1);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(2.5);
+      filter: alpha(opacity=0);
+      opacity: 0;
+    }
+  }
+
+  @-webkit-keyframes inner-ripple {
+    0% {
+      transform: scale(1);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+    30% {
+      transform: scale(1);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(2.5);
+      filter: alpha(opacity=0);
+      opacity: 0;
+    }
+  }
+
+  @-moz-keyframes inner-ripple {
+    0% {
+      transform: scale(1);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+    30% {
+      transform: scale(1);
+      filter: alpha(opacity=50);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(2.5);
+      filter: alpha(opacity=0);
+      opacity: 0;
+    }
   }
 </style>
