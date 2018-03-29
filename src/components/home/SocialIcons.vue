@@ -1,10 +1,10 @@
 <template>
   <div id="social_icons">
     <div id="vk_icon">
-      <img src="@/assets/img/common/vk.svg" alt="" height="20px">
+      <img src="@/assets/icons/vk.svg" alt="" height="20px">
     </div>
     <div id="inst_icon">
-      <img src="@/assets/img/common/inst.svg" alt="" height="24px">
+      <img src="@/assets/icons/inst.svg" alt="" height="24px">
     </div>
   </div>
 </template>

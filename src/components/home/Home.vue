@@ -12,7 +12,7 @@
       </live-chat>
     </div>
     <div id="phone_number">+7 (800) <b>100 66 66</b></div>
-    <div id="flip_down_wrapper">
+    <div id="flip_down_wrapper" @click="nextSlide">
       <p id="flip_down">Листай вниз</p>
     </div>
     <swiper :options="swiperOption" ref="homeSwiper" class="swiper_slide">
@@ -69,6 +69,8 @@ export default {
       swiperOption: {
         direction: 'vertical',
         slidesPerView: 1,
+        initialSlide: 0,
+        loop: true,
         effect: 'fade',
         speed: 1000,
         spaceBetween: 0,
@@ -77,13 +79,16 @@ export default {
     }
   },
   methods: {
-    nextSlide (index) {
+    nextSlide () {
+      console.log(this.swiper.realIndex)
       this.swiper.slideNext()
     }
   },
   computed: {
     swiper () {
-      return this.$refs.homeSwiper.swiper
+      if (this.$refs.homeSwiper) {
+        return this.$refs.homeSwiper.swiper
+      }
     }
   }
 }
@@ -128,17 +133,15 @@ export default {
     z-index: 2;
   }
 
-  .user_icons {
-    position: absolute;
-    z-index: 2;
-  }
-
   #flip_down_wrapper {
     position: absolute;
     z-index: 2;
     bottom: 12px;
     left: 50%;
     @include translateX(-43px);
+    :hover {
+      cursor: pointer;
+    }
     #flip_down {
       font-size: 11px;
       color: white;
