@@ -9,8 +9,8 @@
         <el-col :span="1">
           <router-link to="/shop">
             <el-button type="text" style="margin-left: -10px;" class="hidden-sm-and-down">
-              <p class="back_to_shop">
-                Back to Shop
+              <p class="back_to_shop secondary--text">
+                Обратно в каталог
               </p>
             </el-button>
           </router-link>
@@ -38,7 +38,7 @@
                 <el-row class="mt-4">
                   <p style="font-size: 24px">
                     <i class="el-icon-minus"></i>
-                    Re<span class="primary--text">High</span> Store
+                    Open <span class="primary--text">X</span> Game
                     <i class="el-icon-minus"></i>
                   </p>
                 </el-row>
@@ -49,12 +49,12 @@
                 <v-divider class="mb-3 mt-3"></v-divider>
                 <div class="product_info">
                   <p class="info--text">SKU: {{ product.SKU }}</p>
-                  <p>Description: {{ product.description }} </p>
-                  <p>Brand: {{ product.brand }} </p>
-                  <p>Color: {{ product.color }} </p>
-                  <p>Total Quantity:
+                  <p>Описание: {{ product.description }} </p>
+                  <p>Бренд: {{ product.brand }} </p>
+                  <p>Цвет: {{ product.color }} </p>
+                  <p>Количество:
                     <span v-if="product.totalQty < 1" class="error--text">
-                      Not allowed
+                      Нет в наличии
                     </span>
                     <span v-else>
                       {{ product.totalQty }}
@@ -62,7 +62,7 @@
                   </p>
                 </div>
                 <v-divider class="mb-3 mt-4"></v-divider>
-                <p>Price: {{ product.price }} {{ product.currency }}</p>
+                <p>Цена: {{ product.price }} {{ product.currency }}</p>
                 <el-button v-if="!alreadyAddedProduct"
                            size="medium"
                            type="primary"
@@ -70,21 +70,20 @@
                            :disabled="product.totalQty < 1"
                            @click="addToCart">
                   <span style="font-size: 14px">
-                    Add to cart
+                    В корзину
                   </span>
                   <i class="el-icon-goods ml-2" style="transform: scale(1.5)"></i>
                 </el-button>
                 <!--ONE CLICK-->
                 <one-click :disabled="product.totalQty < 1"
                            :alreadyAddedProduct="alreadyAddedProduct"
-                           :product="product"
-                >
+                           :product="product">
                 </one-click>
                 <!--ALREADY IN CART-->
                 <div v-if="alreadyAddedProduct">
                   <router-link to="/cart">
-                    <el-button type="text" class="mb-2 success--text">
-                      Already added to cart!
+                    <el-button type="text" class="mb-2 secondary--text">
+                      Добавлено в корзину!
                       <i class="el-icon-d-arrow-right"></i>
                     </el-button>
                   </router-link>

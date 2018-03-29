@@ -6,12 +6,12 @@
                :disabled="disabled"
                @click="buyOneClick">
     <span style="font-size: 14px">
-      Buy one click
+      В один клик
     </span>
     <i class="el-icon-check ml-2" style="transform: scale(1.5)"></i>
   </el-button>
   <el-dialog
-    :title="`Buy one click: ${product.title}`"
+    :title="`Купить в один клик  ${product.title}`"
     width="100%"
     :visible.sync="dialogVisible">
     <el-row type="flex" justify="center">
@@ -22,13 +22,13 @@
                  ref="oneClickForm"
                  label-width="120px"
                  label-position="top">
-          <el-form-item label="Nickname" prop="nickname">
+          <el-form-item label="Имя" prop="nickname">
             <el-input type="text" v-model="oneClickForm.nickname" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item label="Email" prop="email">
             <el-input type="email" v-model="oneClickForm.email" auto-complete="on"></el-input>
           </el-form-item>
-          <el-form-item label="Phone" prop="phone">
+          <el-form-item label="Телефон" prop="phone">
             <masked-input v-model="oneClickForm.phone"
                           class="el-input__inner"
                           required
@@ -39,9 +39,9 @@
           <el-button type="primary"
                      @click="submitForm"
                      :disabled="!isValidForm">
-            One Click!
+            Отправить заявку!
           </el-button>
-          <el-button @click="closeOneClick">Cancel</el-button>
+          <el-button @click="closeOneClick">Отмена</el-button>
         </el-form>
       </el-col>
     </el-row>

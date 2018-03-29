@@ -34,8 +34,8 @@ REVIEW STATUSES:
     </el-carousel-item>
   </el-carousel>
   <!--ADD REVIEW-->
-  <el-button type="text" @click="addReviewDialog = true">
-    Add review
+  <el-button type="text" class="white--text" @click="addReviewDialog = true">
+    Добавить отзыв
   </el-button>
   <el-dialog
     title="Add review!"
@@ -43,16 +43,16 @@ REVIEW STATUSES:
     width="500px"
     center
   >
-    <el-input v-model="review.name" placeholder="Name" class="mb-2 mt-2"></el-input>
+    <el-input v-model="review.name" placeholder="Имя" class="mb-2 mt-2"></el-input>
     <el-input v-model="review.text"
               type="textarea"
-              placeholder="Review (max 300 symbols)"
+              placeholder="Отзыв ( максимум 300 символов )"
               :autosize="{ minRows: 3, maxRows: 7}"
-              :maxlength="300"
-    ></el-input>
+              :maxlength="300">
+    </el-input>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="addReview" class="mt-3" type="primary" :disabled="!isValidForm">Add</el-button>
-      <el-button @click="addReviewDialog = false" class="mt-3">Cancel</el-button>
+      <el-button @click="addReview" class="mt-3" type="primary" :disabled="!isValidForm">Отправить!</el-button>
+      <el-button @click="addReviewDialog = false" class="mt-3">Отмена</el-button>
     </span>
   </el-dialog>
 </div>
