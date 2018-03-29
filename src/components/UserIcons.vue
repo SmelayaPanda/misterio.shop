@@ -60,7 +60,7 @@ export default {
   .user_icons {
     position: absolute;
     right: 30px;
-    top: 45px;
+    top: 25px;
     width: 174px;
     height: 140px;
   }

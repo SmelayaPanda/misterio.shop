@@ -1,5 +1,12 @@
 <template>
   <div class="home_page">
+    <app-header class="app_header"></app-header>
+    <user-icons class="user_icons"></user-icons>
+    <social-icons class="social_icons"></social-icons>
+    <div id="phone_number">+7 (800) <b>100 66 66</b></div>
+    <div id="flip_down_wrapper">
+      <p id="flip_down">Листай вниз</p>
+    </div>
     <swiper :options="swiperOption" ref="homeSwiper" class="swiper_slide">
       <swiper-slide class="slide_1">
         <home-frame>
@@ -27,6 +34,9 @@
 
 <script>
 import HomeFrame from '@/components/home/HomeFrame'
+import AppHeader from '@/components/Header'
+import UserIcons from '@/components/UserIcons'
+import SocialIcons from '@/components/home/SocialIcons'
 import Slide1 from '@/components/home/Slide1'
 import Slide2 from '@/components/home/Slide2'
 import Slide3 from '@/components/home/Slide3'
@@ -36,6 +46,9 @@ export default {
   name: 'Home',
   components: {
     HomeFrame,
+    AppHeader,
+    UserIcons,
+    SocialIcons,
     Slide1,
     Slide2,
     Slide3,
@@ -91,5 +104,50 @@ export default {
 
   .slide_4 {
     background: linear-gradient(to right, #161516, $color-primary)
+  }
+
+  .app_header {
+    position: absolute;
+    z-index: 2;
+    width: 100vw;
+  }
+
+  .social_icons {
+    position: absolute;
+    z-index: 2;
+  }
+
+  .user_icons {
+    position: absolute;
+    z-index: 2;
+  }
+
+  #flip_down_wrapper {
+    position: absolute;
+    z-index: 2;
+    bottom: 12px;
+    left: 50%;
+    @include translateX(-43px);
+    #flip_down {
+      font-size: 11px;
+      color: white;
+      @include rotate(-90deg);
+    }
+    #flip_down:after {
+      content: "";
+      display: block;
+      width: 60px;
+      margin: 5px auto;
+      border-bottom: 1px solid $color-secondary;
+    }
+  }
+
+  #phone_number {
+    position: absolute;
+    z-index: 2;
+    bottom: 54px;
+    left: 40px;
+    font-size: 19px;
+    color: $color-secondary;
   }
 </style>
