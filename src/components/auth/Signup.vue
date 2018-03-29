@@ -4,42 +4,42 @@
     <!--Authentication form-->
     <el-row type="flex" justify="center">
       <el-col :xs="24" :sm="14" :md="12" :lg="10" :xl="8">
-        <app-alert v-if="error" :text="error.message"></app-alert>
+        <app-alert v-if="this.appError" :text="this.appError.message"></app-alert>
         <el-card>
-          <h2>Sign up</h2>
+          <h2>Регистрация</h2>
           <v-container>
 
             <el-form :model="formRule"
                      status-icon
                      :rules="rules"
                      auto-complete="on"
-                     ref="formRule"
-            >
+                     ref="formRule">
               <el-form-item label="Email" prop="email">
                 <el-input type="email"
                           :autofocus="true"
                           v-model="formRule.email"
-                          auto-complete="on"
-                >
+                          auto-complete="on">
                 </el-input>
               </el-form-item>
-              <el-form-item label="Password" prop="password">
+              <el-form-item label="Пароль" prop="password">
                 <el-input type="password"
                           v-model="formRule.password"
                           auto-complete="off">
                 </el-input>
               </el-form-item>
-              <el-form-item label="Confirm" prop="checkPass">
-              <el-input type="password" v-model="formRule.checkPass" auto-complete="off"></el-input>
+              <el-form-item label="Подтверждение пароля" prop="checkPass">
+                <el-input type="password" v-model="formRule.checkPass" auto-complete="off"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary"
-                           :disabled="loading"
-                           @click="submitForm('formRule')">Sign up</el-button>
+                <el-button type="danger mt-2"
+                           :disabled="this.isLoading"
+                           @click="submitForm('formRule')">
+                  Вперед!
+                </el-button>
               </el-form-item>
             </el-form>
             <router-link to="/signin">
-              <el-button type="text">Have an account?</el-button>
+              <el-button type="text">Есть аккаунт?</el-button>
             </router-link>
           </v-container>
         </el-card>
@@ -54,11 +54,11 @@ export default {
   data () {
     let checkEmail = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('Please input the Email'))
+        return callback(new Error('Укажите вашу электронную почту'))
       }
       setTimeout(() => {
         if (!this.isValidEmail(value)) {
-          callback(new Error('Email is not valid'))
+          callback(new Error('Введена некорректная почта'))
         } else {
           callback()
         }
@@ -66,9 +66,9 @@ export default {
     }
     let validatePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Please input the password'))
+        callback(new Error('Введите пароль'))
       } else if (value.length < 6) {
-        callback(new Error('Password should be at least 6 characters'))
+        callback(new Error('Пароль дожен быть не менее 6 символов'))
       } else {
         if (this.formRule.checkPass !== '') {
           this.$refs.formRule.validateField('checkPass')
@@ -78,9 +78,9 @@ export default {
     }
     let validateConfPass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Please input the password again'))
+        callback(new Error('Введите пароль повторно'))
       } else if (value !== this.formRule.password) {
-        callback(new Error('Two inputs don\'t match!'))
+        callback(new Error('Пароли не совпадают!'))
       } else {
         callback()
       }
@@ -104,35 +104,13 @@ export default {
       }
     }
   },
-  computed: {
-    user:
-        function () {
-          return this.$store.getters.user
-        },
-    error:
-        function () {
-          return this.$store.getters.error
-        },
-    loading:
-        function () {
-          return this.$store.getters.loading
-        }
-  },
-  watch: {
-    user:
-        function (value) {
-          if (value !== null && value !== undefined) {
-            this.$router.push('/account')
-          }
-        }
-  },
   methods: {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$store.dispatch('signUserUp', {email: this.formRule.email, password: this.formRule.password})
         } else {
-          return this.$store.dispatch('ERR', { message: 'Please, fill in the fields correctly' })
+          return this.$store.dispatch('ERR', {message: 'Пожалуйста, заполните поля корректно!'})
         }
       })
     },

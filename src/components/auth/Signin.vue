@@ -1,50 +1,45 @@
 <template>
   <v-container>
-    <!--Loading circular-->
-    <v-container v-if="this.isLoading">
-      <app-loader></app-loader>
-    </v-container>
-    <!--Authentication form-->
-    <el-row type="flex" justify="center" v-if="!this.isLoading">
+    <app-heart-loader v-if="this.isLoading"></app-heart-loader>
+    <el-row v-else type="flex" justify="center">
       <el-col :xs="24" :sm="14" :md="12" :lg="10" :xl="8">
-        <app-alert v-if="error" :text="error.message"></app-alert>
+        <app-alert v-if="this.appError" :text="this.appError.message"></app-alert>
         <el-card>
-          <h2>Sign in</h2>
+          <h2>Вход</h2>
           <v-container>
             <el-form :model="formRule"
                      status-icon
                      :rules="rules"
                      auto-complete="on"
-                     ref="formRule"
-            >
+                     ref="formRule">
               <el-form-item label="Email" prop="email">
                 <el-input type="email"
                           id="email"
                           :autofocus="true"
                           v-model="formRule.email"
-                          auto-complete="on"
-                >
+                          auto-complete="on">
                 </el-input>
               </el-form-item>
-              <el-form-item label="Password" prop="password">
+              <el-form-item label="Пароль" prop="password">
                 <el-input type="password"
                           v-model="formRule.password"
                           auto-complete="off">
                 </el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary"
+                <el-button type="danger"
                            :disabled="this.isLoading"
-                           @click="submitForm('formRule')"> Sign In
+                           @click="submitForm('formRule')">
+                  Вперед!
                 </el-button>
               </el-form-item>
               <div v-if="submitCount > 2">
-                <span class="primary--text ml-3">Forgot password?</span>
-                <p>Enter your email in the above field and click:</p>
-                <el-button type="success" @click="resetPassword">Reset password</el-button>
+                <span class="primary--text ml-3">Забыли пароль?</span>
+                <p>Ввведите свою почту в форме выше и нажмите:</p>
+                <el-button type="danger" @click="resetPassword">Сбросить пароль</el-button>
               </div>
               <router-link to="/signup">
-                <el-button type="text">Do not have an account?</el-button>
+                <el-button type="text">Нет аккаунта?</el-button>
               </router-link>
             </el-form>
           </v-container>
@@ -60,11 +55,11 @@ export default {
   data () {
     let checkEmail = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('Please input the Email'))
+        return callback(new Error('Укажите вашу электронную почту'))
       }
       setTimeout(() => {
         if (!this.isValidEmail(value)) {
-          callback(new Error('Email is not valid'))
+          callback(new Error('Введена некорректная почта'))
         } else {
           callback()
         }
@@ -72,7 +67,7 @@ export default {
     }
     let validatePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Please input the password'))
+        callback(new Error('Введите пароль'))
       } else {
         if (this.formRule.checkPass !== '') {
           this.$refs.formRule.validateField('checkPass')
@@ -97,24 +92,6 @@ export default {
       submitCount: 0
     }
   },
-  computed: {
-    user:
-        function () {
-          return this.$store.getters.user
-        },
-    error:
-        function () {
-          return this.$store.getters.error
-        }
-  },
-  watch: {
-    user:
-        function (value) {
-          if (value !== null && value !== undefined) {
-            this.$router.push('/account')
-          }
-        }
-  },
   methods: {
     submitForm (formName) {
       this.submitCount++
@@ -122,14 +99,14 @@ export default {
         if (valid) {
           this.$store.dispatch('signUserIn', {email: this.formRule.email, password: this.formRule.password})
         } else {
-          return this.$store.dispatch('ERR', {message: 'Please, fill in the fields correctly'})
+          return this.$store.dispatch('ERR', {message: 'Пожалуйста, заполните поля корректно!'})
         }
       })
     },
-    isValidEmail: function (email) {
+    isValidEmail (email) {
       return /^\S+@\S+\.\S+$/.test(email)
     },
-    resetPassword: function sendPasswordReset () {
+    resetPassword () {
       let email = document.getElementById('email').value
       this.$store.dispatch('resetPassword', email)
     }

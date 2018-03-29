@@ -4,33 +4,33 @@
                type="text"
                class="button mt-2">
       <i class="el-icon-edit secondary--text"></i>
-      <span class="white--text">edit info</span>
+      <span class="white--text">редактировать</span>
     </el-button>
-  <el-dialog title="Edit personal info"
+  <el-dialog title="Редактировать"
              width="360px"
              :visible.sync="dialogVisible">
     <el-row type="flex" justify="center">
       <el-col :span="20">
         <el-form label-position="top" label-width="80px">
-          <el-form-item label="Firstname">
+          <el-form-item label="Имя">
             <el-input v-model="firstname"></el-input>
           </el-form-item>
-          <el-form-item label="Lastname">
+          <el-form-item label="Отчество">
             <el-input v-model="lastname"></el-input>
           </el-form-item>
-          <el-form-item label="Phone" prop="phone">
+          <el-form-item label="Телефон" prop="phone">
           <masked-input v-model="phone"
                         class="el-input__inner"
                         required
                         mask="\+\7 (111) 111-11-11"
                         placeholder="Phone number"/>
           </el-form-item>
-          <el-form-item label="Birthday" prop="birthday">
+          <el-form-item label="Дата рождения" prop="birthday">
           <el-date-picker
             v-model="birthday"
             type="date"
             format="yyyy/MM/dd"
-            placeholder="Pick a birthday"
+            placeholder="Выберите дату"
             default-value="2000-01-01">
           </el-date-picker>
           </el-form-item>
@@ -38,9 +38,9 @@
           <el-button type="danger"
                      @click="editPersonalInfo"
                      :disabled="!isValidForm">
-            Save
+            Сохранить
           </el-button>
-          <el-button @click="dialogVisible = false">Cancel</el-button>
+          <el-button @click="dialogVisible = false">Отмена</el-button>
       </el-col>
     </el-row>
   </el-dialog>

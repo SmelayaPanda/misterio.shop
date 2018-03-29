@@ -28,6 +28,7 @@ import Snippet from '@/filters/snippet'
 import {authMixin} from '@/mixins/autentication'
 import {image} from '@/mixins/image'
 import {isLoading} from '@/mixins/loading'
+import {appError} from '@/mixins/error'
 import {mailing} from '@/mixins/mailing'
 import {purchaseStatuses} from '@/mixins/purchaseStatuses'
 // SHARED
@@ -44,6 +45,7 @@ unsync()
 Vue.mixin(authMixin)
 Vue.mixin(image)
 Vue.mixin(isLoading)
+Vue.mixin(appError)
 Vue.mixin(mailing)
 Vue.mixin(purchaseStatuses)
 Vue.filter('date', DateFilter)

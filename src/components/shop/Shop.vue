@@ -15,36 +15,36 @@
           <!--Nav Menu-->
           <el-menu-item index="" @click="filterProducts">
             <v-icon class="pr-2 info--text">select_all</v-icon>
-            <span slot="title">All categories</span>
+            <span slot="title">Все товары</span>
           </el-menu-item>
           <el-submenu index="Category A">
             <template slot="title">
               <v-icon class="pr-2 white--text">looks_one</v-icon>
-              <span slot="title">Group A</span>
+              <span slot="title">Группа А</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="Group A" @click="filterProducts">All in Group A</el-menu-item>
+              <el-menu-item index="Group A" @click="filterProducts">Все в группе А</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group>
-              <span slot="title">Group One</span>
-              <el-menu-item index="Category A1" @click="filterProducts">Category A1</el-menu-item>
-              <el-menu-item index="Category A2" @click="filterProducts">Category A2</el-menu-item>
+              <span slot="title">Группа 1</span>
+              <el-menu-item index="Category A1" @click="filterProducts">Категория 1</el-menu-item>
+              <el-menu-item index="Category A2" @click="filterProducts">Категория 2</el-menu-item>
             </el-menu-item-group>
-            <el-menu-item-group title="Group Two">
-              <el-menu-item index="Category A3" @click="filterProducts">Category A3</el-menu-item>
+            <el-menu-item-group title="Группа 2">
+              <el-menu-item index="Category A3" @click="filterProducts">Категория 3</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <el-menu-item index="Category B" @click="filterProducts">
             <v-icon class="pr-2 white--text">looks_two</v-icon>
-            <span slot="title">Category B</span>
+            <span slot="title">Категория Б</span>
           </el-menu-item>
           <el-menu-item index="Category C" @click="filterProducts">
             <v-icon class="pr-2 white--text">looks_3</v-icon>
-            <span slot="title">Category C</span>
+            <span slot="title">Категория В</span>
           </el-menu-item>
           <el-menu-item index="Category D" @click="filterProducts">
             <v-icon class="pr-2 white--text">looks_4</v-icon>
-            <span slot="title">Category D</span>
+            <span slot="title">Категория Г</span>
           </el-menu-item>
         </el-menu>
       </el-col>
@@ -85,9 +85,11 @@
         <!--FILTER-->
         <el-collapse v-model="activeName" accordion style="margin-left: 16px; margin-right: 16px" class="primary">
           <!--PRICE FILTER-->
-          <el-collapse-item title="Filter" name="1" class="primary">
+          <el-collapse-item title="Фильтр" name="1" class="primary">
             <el-button type="text" class="pr-4 pb-0 white--text" @click="sortByPrice">
-              <span class="pl-4 white--text">Price</span>
+              <span class="pl-4 white--text">
+                Цена
+              </span>
               <el-tag size="mini">
                 <i class="el-icon-caret-top white--text" v-if="!this.sortAsc"></i>
                 <i class="el-icon-caret-bottom white--text" v-else></i>
@@ -108,9 +110,9 @@
               <el-col :span="12" align="right" class="pr-1">
                 <el-select filterable
                            clearable
-                           no-match-text="Brand is missing"
+                           no-match-text="Брэнд отсутствует"
                            v-model="selectedBrand"
-                           placeholder="Brand"
+                           placeholder="Бренд"
                            @change="filterProducts"
                            v-if="brands">
                   <el-option
@@ -125,9 +127,9 @@
               <el-col :span="12" align="left" class="pl-1">
                 <el-select filterable
                            clearable
-                           no-match-text="Color is missing"
+                           no-match-text="Цвет отсутствует"
                            v-model="selectedColor"
-                           placeholder="Color"
+                           placeholder="Цвет"
                            @change="filterProducts"
                            v-if="colors">
                   <el-option
@@ -148,7 +150,7 @@
               <v-card class="main_card primary" height="410px">
                 <v-card-media :src="p.img_0.card" height="300px"></v-card-media>
                 <v-card-title style="height: 30px">
-                  <p class="grey--text mt-4">{{ p.price }} {{ p.currency }}</p>
+                  <p class="grey--text mt-4">{{ p.price }} &#8381;</p>
                 </v-card-title>
                 <p class="pl-3 pr-3 pt-1 white--text">{{ p.title | snippet(60) }}</p>
               </v-card>
@@ -159,7 +161,8 @@
           <el-button type="text"
                      class="white--text"
                      @click="loadMore"
-                     v-if="this.$store.getters.lastVisible">Load more
+                     v-if="this.$store.getters.lastVisible">
+            Загрузить больше
           </el-button>
         </div>
       </el-col>
@@ -246,7 +249,7 @@ export default {
       return this.$store.dispatch('fetchProducts')
     },
     algoliaSearch () {
-      // this.$store.dispatch('USER_EVENT', `Algolia search word: "${this.algoliaSearchText}"`)
+      this.$store.dispatch('USER_EVENT', `Algolia search word: "${this.algoliaSearchText}"`)
       this.$store.dispatch('algoliaSearch', this.algoliaSearchText)
     }
   },
@@ -276,7 +279,7 @@ export default {
       } else if (this.selectedGroup) {
         searchGroup = this.selectedGroup
       } else {
-        searchGroup = 'All'
+        searchGroup = 'Все'
       }
       return searchGroup + ' : '
     }

@@ -45,7 +45,7 @@
                 <h2 class="mt-3">{{ product.title }}</h2>
                 <v-divider class="mb-3 mt-3"></v-divider>
                 <div class="product_info">
-                  <p class="info--text">SKU: {{ product.SKU }}</p>
+                  <p class="info--text">Арт. : {{ product.SKU }}</p>
                   <p>Описание: {{ product.description }} </p>
                   <p>Бренд: {{ product.brand }} </p>
                   <p>Цвет: {{ product.color }} </p>
@@ -59,7 +59,7 @@
                   </p>
                 </div>
                 <v-divider class="mb-3 mt-4"></v-divider>
-                <p>Цена: {{ product.price }} {{ product.currency }}</p>
+                <p>Цена: {{ product.price }} &#8381;</p>
                 <el-button v-if="!alreadyAddedProduct"
                            size="medium"
                            type="primary"

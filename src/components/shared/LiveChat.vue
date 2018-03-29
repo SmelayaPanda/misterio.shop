@@ -13,7 +13,7 @@
     <div v-if="isUserSide && isCollapsedChat"
          @click="openChat">
       <div class="heart">
-        <i class="fa fa-heartbeat fa-3x"></i>
+        <i class="fa fa-heartbeat fa-2x"></i>
       </div>
     </div>
     <v-card v-if="!isCollapsedChat" :class="isUserSide ? 'user_live_chat' : 'admin_live_chat'">
@@ -309,8 +309,8 @@ export default {
 
   /* User live chat heart */
   .heart {
-    width: 72px;
-    height: 72px;
+    width: 64px;
+    height: 64px;
     /** height is required as absolute value **/
     background-color: $color-secondary;
     border-radius: 100%;
@@ -325,8 +325,8 @@ export default {
 
   .heart i {
     position: absolute;
-    top: 18px;
-    left: 15px;
+    top: 20px;
+    left: 18px;
     color: white;
     text-shadow: 1px 1px 2px black, 0 0 1em red;
   }
@@ -337,8 +337,8 @@ export default {
     margin: auto;
     position: absolute;
     content: "";
-    width: 72px;
-    height: 72px;
+    width: 64px;
+    height: 64px;
     border-radius: 100%;
     background-color: $color-secondary;
   }

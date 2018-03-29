@@ -38,7 +38,7 @@ REVIEW STATUSES:
     Добавить отзыв
   </el-button>
   <el-dialog
-    title="Add review!"
+    title="Ваш отзыв!"
     :visible.sync="addReviewDialog"
     width="500px"
     center

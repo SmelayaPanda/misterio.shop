@@ -5,36 +5,36 @@
                class="button mt-2">
       <i class="el-icon-edit secondary--text"></i>
     </el-button>
-  <el-dialog title="Edit personal info"
-             width="360px"
+  <el-dialog title="Редактировать"
+             width="380px"
              :visible.sync="dialogVisible">
     <el-row type="flex" justify="center">
       <el-col :span="20">
         <el-form label-position="left" label-width="80px">
-          <el-form-item label="Country">
+          <el-form-item label="Старана">
             <el-input v-model="address.country"></el-input>
           </el-form-item>
-          <el-form-item label="City">
+          <el-form-item label="Город">
             <el-input v-model="address.city"></el-input>
           </el-form-item>
-          <el-form-item label="Street">
+          <el-form-item label="Улица">
             <el-input v-model="address.street"></el-input>
           </el-form-item>
-          <el-form-item label="Build">
+          <el-form-item label="Дом">
             <el-input v-model="address.build"></el-input>
           </el-form-item>
-          <el-form-item label="House">
+          <el-form-item label="Квартира">
             <el-input v-model="address.house"></el-input>
           </el-form-item>
-          <el-form-item label="Post Code">
+          <el-form-item label="Почтовый код">
             <el-input v-model="address.postCode"></el-input>
           </el-form-item>
         </el-form>
           <el-button type="danger"
                      @click="editPersonalInfo">
-            Save
+            Сохранить
           </el-button>
-          <el-button @click="dialogVisible = false">Cancel</el-button>
+          <el-button @click="dialogVisible = false">Отмена</el-button>
       </el-col>
     </el-row>
   </el-dialog>

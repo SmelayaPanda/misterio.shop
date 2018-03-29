@@ -91,6 +91,7 @@ export default {
         firebase.auth().signInAndRetrieveDataWithEmailAndPassword(payload.email, payload.password)
           .then(() => { // onAuthStateChanged works
             console.log('Successful Login')
+            router.push('/account')
             commit('LOADING', false)
           })
           .catch(

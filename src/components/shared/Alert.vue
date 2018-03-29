@@ -12,10 +12,9 @@ export default {
   name: 'alert',
   props: ['text'],
   methods: {
-    onClose:
-        function () {
-          this.$emit('dismissed') // my custom event with name dismiss (see signUp app-alert element)
-        }
+    onClose () {
+      this.$emit('dismissed') // my custom event with name dismiss (see signUp app-alert element)
+    }
   }
 }
 </script>
