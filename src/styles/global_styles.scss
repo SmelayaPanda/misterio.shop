@@ -1,10 +1,11 @@
 // Global
 // Don't forget synchronize with Vuetify theme config
 $color-primary: #0d0d0d;
-$color-secondary: #810101;
+$color-primary-light: #161516;
+$color-secondary: #8B0000; // darkred
 
 $color-info: #d0d0d0;
-$color-danger: #810101;
+$color-danger: #8B0000; // darkred
 $color-success: #67c23a;
 $color-warning: #e6a23c;
 
@@ -12,4 +13,21 @@ $primary-font: 'Montserrat', sans-serif;
 $secondary-font: 'Yeseva One', cursive;
 $third-font: 'Snell Roundhand', serif;
 
+// OVERRIDE ELEMENTS STYLES
+.el-slider__bar {
+  background: $color-secondary;
+}
+
+.el-slider__button {
+  background: $color-secondary;
+}
+
+.el-collapse-item__header, .el-collapse-item__content {
+  background: $color-primary;
+  color: white;
+}
+
+.el-input__inner {
+  background: $color-primary;
+}
 @import "mixins";

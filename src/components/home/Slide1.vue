@@ -62,6 +62,8 @@ export default {
   .choice_btn {
     font-family: $primary-font;
     font-size: 12px;
+    font-weight: 500;
+    border-radius: 1px;
     top: 35px;
     width: 178px;
     height: 42px;

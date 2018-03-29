@@ -4,7 +4,7 @@
       <el-col :xs="24" :sm="6" :md="5" :lg="4" :xl="4" align="left">
         <el-button type="text" @click="isCollapsed = !isCollapsed" class="mt-2 ml-3 pl-1">
           <v-icon v-if="isCollapsed" class="info--text">hdr_strong</v-icon>
-          <v-icon v-if="!isCollapsed" class="info--text">hdr_weak</v-icon>
+          <v-icon v-else class="info--text">hdr_weak</v-icon>
         </el-button>
         <el-menu :default-active="selectedCategory"
                  @select="changeCategory"
@@ -50,38 +50,46 @@
       </el-col>
       <!--ALGOLIA SEARCH-->
       <el-col :xs="24" :sm="18" :md="18" :lg="16" :xl="14" type="flex" align="middle">
-        <el-input
-          placeholder="Search product..."
-          class="search_input"
-          @change="algoliaSearch"
-          v-model="algoliaSearchText">
-          <template slot="prepend" class="pr-3">
-            <i v-if="this.isLoading" class="el-icon-loading" style="margin-right: -4px;"></i>
-            <el-tooltip placement="bottom" effect="light">
-              <div slot="content">
-                Type something and press enter! <br>
-                Like: cool, beautiful, Sennheiser, black, Group A ...<br>
+        <el-row type="flex" justify="start">
+          <el-col :span="14">
+            <v-text-field
+              name="Algolia search"
+              single-line
+              dark
+              v-model="algoliaSearchText"
+              @input="algoliaSearch"
+              color="white"
+              :prefix="searchGroup"
+              prepend-icon="search">
+            </v-text-field>
+          </el-col>
+          <el-col :span="6" align="start">
+            <transition name="fade">
+              <div style="margin-top: 25px; margin-left: -20px;">
+                <i v-if="this.isLoading"
+                   class="el-icon-loading white--text">
+                </i>
+                <el-tag v-if="!this.isLoading && algoliaSearchText"
+                        type="danger"
+                        size="mini"
+                        class="white--text">
+                  <span v-if="products">
+                    {{ Object.keys(products).length }}
+                  </span>
+                </el-tag>
               </div>
-              <el-button>
-                <i v-if="!this.isLoading" class="el-icon-search"></i>
-              </el-button>
-            </el-tooltip>
-            <span v-if="this.selectedCategory" class="ml-1">{{ this.selectedCategory }}</span>
-            <span v-if="this.selectedGroup" class="ml-1">{{ this.selectedGroup }}</span>
-          </template>
-          <el-button slot="append" class="pt-3">
-            <img src="@/assets/icons/search_by_algolia.svg">
-          </el-button>
-        </el-input>
+            </transition>
+          </el-col>
+        </el-row>
         <!--FILTER-->
         <el-collapse v-model="activeName" accordion style="margin-left: 16px; margin-right: 16px" class="primary">
           <!--PRICE FILTER-->
           <el-collapse-item title="Filter" name="1" class="primary">
-            <el-button type="text" class="pr-4 pb-0" @click="sortByPrice">
-              <span class="pl-3">Price</span>
+            <el-button type="text" class="pr-4 pb-0 white--text" @click="sortByPrice">
+              <span class="pl-4 white--text">Price</span>
               <el-tag size="mini">
-                <i class="el-icon-caret-top" v-if="!this.sortAsc"></i>
-                <i class="el-icon-caret-bottom" v-else></i>
+                <i class="el-icon-caret-top white--text" v-if="!this.sortAsc"></i>
+                <i class="el-icon-caret-bottom white--text" v-else></i>
               </el-tag>
             </el-button>
             <div class="pl-3 pr-3">
@@ -134,15 +142,14 @@
         </el-collapse>
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :xs="23" :sm="12" :md="8" :lg="8" :xl="8"
-                  v-for="(p,key) in products" :key="key"
-          >
+                  v-for="(p,key) in products" :key="key">
             <div @click="viewProduct(p.productId, p.title)" class="card_wrapper">
-              <v-card class="main_card" height="410px">
+              <v-card class="main_card primary" height="410px">
                 <v-card-media :src="p.img_0.card" height="300px"></v-card-media>
-                <v-card-title>
-                  <span class="grey--text">{{ p.price }} {{ p.currency }}</span>
+                <v-card-title style="height: 30px">
+                  <p class="grey--text mt-4">{{ p.price }} {{ p.currency }}</p>
                 </v-card-title>
-                <p class="pl-2 pr-2">{{ p.title | snippet(60) }}</p>
+                <p class="pl-3 pr-3 pt-1 white--text">{{ p.title | snippet(60) }}</p>
               </v-card>
             </div>
           </el-col>
@@ -151,7 +158,8 @@
           <el-button type="text"
                      class="white--text"
                      @click="loadMore"
-                     v-if="this.$store.getters.lastVisible">Load more</el-button>
+                     v-if="this.$store.getters.lastVisible">Load more
+          </el-button>
         </div>
       </el-col>
     </el-row>
@@ -259,6 +267,17 @@ export default {
     },
     colors () {
       return this.$store.getters.colors
+    },
+    searchGroup () {
+      let searchGroup
+      if (this.selectedCategory) {
+        searchGroup = this.selectedCategory
+      } else if (this.selectedGroup) {
+        searchGroup = this.selectedGroup
+      } else {
+        searchGroup = 'All'
+      }
+      return searchGroup + ' : '
     }
   }
 }
@@ -268,6 +287,10 @@ export default {
   .main_card {
     margin: 10px;
     padding: 0 0 10px;
+    border: 1px solid white !important;
+  }
+
+  .card_wrapper {
   }
 
   .card_wrapper:hover {

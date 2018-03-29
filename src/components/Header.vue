@@ -47,6 +47,7 @@ export default {
   .main_header {
     flex-wrap: wrap;
     color: $color-secondary;
+    font-weight: 500;
     padding-top: 40px;
     font-size: 13px;
     line-height: 34px;

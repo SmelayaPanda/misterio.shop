@@ -63,8 +63,9 @@ Vue.use(ElementUI, {locale})
 Vue.use(Vuetify, {
   theme: {
     primary: '#0d0d0d',
-    secondary: '#810101',
-    danger: '#810101',
+    primaryLight: '#161516',
+    secondary: '#8B0000',
+    danger: '#8B0000',
     info: '#d0d0d0',
     success: '#67c23a',
     warning: '#e6a23c'
