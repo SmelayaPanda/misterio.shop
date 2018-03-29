@@ -15,21 +15,19 @@
             <edit-company-info-field document="main"
                                      field="name"
                                      title="Name"
-                                     :value="companyInfo.main.name"
-            >
+                                     :value="companyInfo.main.name">
               Name:
             </edit-company-info-field>
-            <el-tag type="info">{{ companyInfo.main.name }}</el-tag>
+            <el-tag >{{ companyInfo.main.name }}</el-tag>
           </p>
           <p>
             <edit-company-info-field document="main"
                                      field="INN"
                                      title="INN"
-                                     :value="companyInfo.main.INN"
-            >
+                                     :value="companyInfo.main.INN">
               INN:
             </edit-company-info-field>
-            <el-tag type="info">{{ companyInfo.main.INN }}</el-tag>
+            <el-tag >{{ companyInfo.main.INN }}</el-tag>
           </p>
         </div>
       </el-card>
@@ -52,7 +50,7 @@
             >
               Country:
             </edit-company-info-field>
-            <el-tag type="info">{{ companyInfo.address.country }}</el-tag>
+            <el-tag >{{ companyInfo.address.country }}</el-tag>
           </p>
           <p>
             <edit-company-info-field document="address"
@@ -62,7 +60,7 @@
             >
               City:
             </edit-company-info-field>
-            <el-tag type="info">{{ companyInfo.address.city }}</el-tag>
+            <el-tag >{{ companyInfo.address.city }}</el-tag>
           </p>
           <p>
             <edit-company-info-field document="address"
@@ -72,7 +70,7 @@
             >
               Street:
             </edit-company-info-field>
-            <el-tag type="info">{{ companyInfo.address.street }}</el-tag>
+            <el-tag >{{ companyInfo.address.street }}</el-tag>
           </p>
           <p>
             <edit-company-info-field document="address"
@@ -82,7 +80,7 @@
             >
               Build:
             </edit-company-info-field>
-            <el-tag type="info">{{ companyInfo.address.build }}</el-tag>
+            <el-tag >{{ companyInfo.address.build }}</el-tag>
           </p>
           <p>
             <edit-company-info-field document="address"
@@ -92,7 +90,7 @@
             >
               House:
             </edit-company-info-field>
-            <el-tag type="info">{{ companyInfo.address.house }}</el-tag>
+            <el-tag >{{ companyInfo.address.house }}</el-tag>
           </p>
           <p>
             <edit-company-info-field document="address"
@@ -102,7 +100,7 @@
             >
               Post Code:
             </edit-company-info-field>
-            <el-tag type="info">{{ companyInfo.address.postCode }}</el-tag>
+            <el-tag >{{ companyInfo.address.postCode }}</el-tag>
           </p>
         </div>
       </el-card>
@@ -125,7 +123,7 @@
             >
               Phone:
             </edit-company-info-field>
-            <el-tag type="info">{{ companyInfo.contacts.phone }}</el-tag>
+            <el-tag >{{ companyInfo.contacts.phone }}</el-tag>
           </p>
           <p>
             <edit-company-info-field document="contacts"
@@ -135,7 +133,7 @@
             >
               Email:
             </edit-company-info-field>
-            <el-tag type="info">{{ companyInfo.contacts.email }}</el-tag>
+            <el-tag >{{ companyInfo.contacts.email }}</el-tag>
           </p>
         </div>
       </el-card>

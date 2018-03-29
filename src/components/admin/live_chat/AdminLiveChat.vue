@@ -5,7 +5,7 @@
       <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8"
               class="pl-2 pr-2 mt-2">
         <v-card>
-          <v-card-title class="event_header primary white--text">
+          <v-card-title class="event_header primary_a white--text">
             <h3 class="pl-3 white--text">
               Live chat users
             </h3>
@@ -24,9 +24,9 @@
               <div v-for="(chat, id) of liveChats"
                    :key="id"
                    v-if="showOnlineUsers ? chat.props.onlineFrom : chat.props.lastOnline"
-                   :class="chatId === id ? 'primary' : ''">
+                   :class="chatId === id ? 'primary_a' : ''">
                 <span v-if="chat.props.isTypingUser">
-                  ...<v-icon size="small" class="primary--text">edit</v-icon>
+                  ...<v-icon size="small" class="primary_a--text">edit</v-icon>
                 </span>
                 <el-button type="text"
                            :class="chatId === id ? 'white--text' : ''"
@@ -36,7 +36,7 @@
                           :type="chatId === id ? '' : 'success'">
                     {{ chat.props.unreadByAdmin }}
                   </el-tag>
-                  <span :class="chatId === id ? 'primary--text' : 'info--text'">/</span>
+                  <span :class="chatId === id ? 'primary_a--text' : 'info--text'">/</span>
                   <el-tag size="mini"
                           :type="chatId === id ? '' : 'info'">
                     <span v-if="chat.events">{{ Object.keys(chat.events).length }}</span>
@@ -53,7 +53,7 @@
               class="pl-2 pr-2 mt-2"
               v-if="userEvents">
         <v-card>
-          <v-card-title class="event_header primary white--text">
+          <v-card-title class="event_header primary_a white--text">
             <h3 class="pl-3 white--text">
               User Events
             </h3>

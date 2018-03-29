@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn class="primary" @click="dialogFormVisible = true">
+    <v-btn class="primary_a" @click="dialogFormVisible = true">
       <v-icon class="white--text">add</v-icon>
     </v-btn>
 

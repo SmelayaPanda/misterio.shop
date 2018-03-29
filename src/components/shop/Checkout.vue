@@ -1,7 +1,7 @@
 <template>
   <span style="text-align: center">
     <el-button size="small"
-               type="primary"
+               type="danger"
                @click="clickBuy">
       {{ btnName }}
     </el-button>

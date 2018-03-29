@@ -57,7 +57,8 @@
               single-line
               dark
               v-model="algoliaSearchText"
-              @input="algoliaSearch"
+              @change="algoliaSearch"
+              @keyup.enter.exact="algoliaSearch"
               color="white"
               :prefix="searchGroup"
               prepend-icon="search">

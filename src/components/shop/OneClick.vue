@@ -35,7 +35,7 @@
                           mask="\+\7 (111) 111-11-11"
                           placeholder="Phone number"/>
           </el-form-item>
-          <el-button type="primary"
+          <el-button type="danger"
                      @click="submitForm"
                      :disabled="!isValidForm">
             Отправить заявку!

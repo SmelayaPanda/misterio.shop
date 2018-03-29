@@ -35,7 +35,7 @@
           </el-date-picker>
           </el-form-item>
         </el-form>
-          <el-button type="primary"
+          <el-button type="danger"
                      @click="editPersonalInfo"
                      :disabled="!isValidForm">
             Save

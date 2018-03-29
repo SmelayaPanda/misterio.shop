@@ -68,7 +68,15 @@ Vue.use(Vuetify, {
     danger: '#8B0000',
     info: '#d0d0d0',
     success: '#67c23a',
-    warning: '#e6a23c'
+    warning: '#e6a23c',
+
+    // admin colors
+    primary_a: '#409EFF',
+    secondary_a: '#2c3e50',
+    success_a: '#67c23a',
+    warning_a: '#e6a23c',
+    danger_a: '#f56c6c',
+    info_a: '#909399'
   }
 })
 // -----------------------------

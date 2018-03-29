@@ -10,8 +10,7 @@
       @open="handleOpen"
       @close="handleClose"
       :collapse="isCollapsed"
-      :router="true"
-    >
+      :router="true">
       <el-menu-item index="/admin" route="/admin">
         <v-icon>insert_chart</v-icon>
         <span slot="title">Dashboard</span>
@@ -44,7 +43,7 @@
         <v-icon>chat</v-icon>
         <span slot="title">
           <span class="mr-1">Live Chat</span>
-          <el-tag type="info" size="mini" class="mb-1">
+          <el-tag size="mini" class="mb-1">
             {{ onlineUsers }}
           </el-tag>
         </span>

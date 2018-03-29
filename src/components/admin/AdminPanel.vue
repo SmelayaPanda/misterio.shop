@@ -1,13 +1,11 @@
 <template>
-  <v-app light>
-
+  <v-app id="admin_panel">
     <!--Navigation drawer-->
     <v-navigation-drawer temporary absolute v-model="sideNav">
       <v-list>
         <v-list-tile v-for="item in menuItems"
                      :key="item.title"
-                     :to="item.link"
-        >
+                     :to="item.link">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -24,7 +22,7 @@
     </v-navigation-drawer>
 
     <!--Toolbar-->
-    <v-toolbar dark class="primary">
+    <v-toolbar dark class="primary_a">
       <v-toolbar-title>
         <router-link to="/admin" class="title">
           {{ mainTitle }}
@@ -38,8 +36,8 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <!--Go Home-->
-        <v-btn flat @click="goHome" class="primary white--text">
-          <v-icon left dark>home</v-icon>
+        <v-btn flat @click="goHome" class="primary_a white--text">
+          <v-icon left dark>important_devices</v-icon>
           Home
         </v-btn>
 
@@ -47,8 +45,7 @@
                v-for="item in menuItems"
                :key="item.title"
                :to="item.link"
-               class="primary white--text"
-        >
+               class="primary_a white--text">
           <v-icon left>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
@@ -57,8 +54,7 @@
         <v-btn flat
                v-if="!this.isAnonymousUser"
                @click="onLogout"
-               class="primary white--text"
-        >
+               class="primary_a white--text">
           <v-icon left dark>exit_to_app</v-icon>
           Logout
         </v-btn>
@@ -98,7 +94,6 @@
         </main>
       </el-col>
     </el-row>
-
   </v-app>
 </template>
 
@@ -150,10 +145,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .title {
     cursor: pointer;
     color: white;
     text-decoration: none
+  }
+
+  #admin_panel {
+    background: white;
   }
 </style>

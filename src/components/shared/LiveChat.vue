@@ -17,7 +17,7 @@
       </div>
     </div>
     <v-card v-if="!isCollapsedChat" :class="isUserSide ? 'user_live_chat' : 'admin_live_chat'">
-      <v-card-title class="chat_header primary">
+      <v-card-title :class="isUserSide ? 'chat_header_user' : 'chat_header_admin'">
         <el-button type="text"
                    class="closeChat"
                    @click="closeChat"
@@ -211,9 +211,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .chat_header {
+  .chat_header_user {
     margin-bottom: 1px;
     padding-bottom: 12px;
+    background: $color-primary;
+  }
+
+  .chat_header_admin {
+    margin-bottom: 1px;
+    padding-bottom: 12px;
+    background: $color-primary_a;
   }
 
   .chat_input {

@@ -2,12 +2,19 @@
 // Don't forget synchronize with Vuetify theme config
 $color-primary: #0d0d0d;
 $color-primary-light: #161516;
-$color-secondary: #8B0000; // darkred
-
+$color-secondary: #8B0000;
 $color-info: #d0d0d0;
-$color-danger: #8B0000; // darkred
+$color-danger: #8B0000;
 $color-success: #67c23a;
 $color-warning: #e6a23c;
+
+// admin panel
+$color-primary_a: #409EFF;
+$color-secondary_a: #2c3e50;
+$color-success_a: #67c23a;
+$color-warning_a: #e6a23c;
+$color-danger_a: #f56c6c;
+$color-info_a: #909399;
 
 $primary-font: 'Montserrat', sans-serif;
 $secondary-font: 'Yeseva One', cursive;
@@ -27,8 +34,8 @@ $third-font: 'Snell Roundhand', serif;
   color: white;
 }
 
-.el-input__inner {
-  background: $color-primary;
-  color: white;
-}
+//.el-input__inner {
+//  background: $color-primary;
+//  color: white;
+//}
 @import "mixins";

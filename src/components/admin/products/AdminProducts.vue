@@ -17,8 +17,7 @@
       :data="products"
       highlight-current-row
       empty-text="No data"
-      style="width: 100vw; text-align: left"
-    >
+      style="width: 100vw; text-align: left">
       <el-table-column type="expand">
         <template slot-scope="props">
           <p><span>Database id:</span>
@@ -33,7 +32,7 @@
       <!--THUMBNAIL-->
       <el-table-column
         label="Image"
-        width="62">
+        width="68">
         <template slot-scope="scope">
           <img :src="scope.row.img_0.thumbnail" height="40px" width="auto">
         </template>
@@ -67,7 +66,7 @@
           <el-popover trigger="hover" placement="top">
             <p>Brand: {{ scope.row.brand }}</p>
             <div slot="reference" class="name-wrapper">
-              <el-tag size="medium" type="info">{{ scope.row.brand | snippet(14) }}</el-tag>
+              <el-tag size="medium">{{ scope.row.brand | snippet(14) }}</el-tag>
             </div>
           </el-popover>
         </template>
@@ -83,7 +82,7 @@
       <!--QUANTITY-->
       <el-table-column
         label="Total Qty"
-        width="82">
+        width="90">
         <template slot-scope="scope">
           <span>{{ scope.row.totalQty }}</span>
         </template>

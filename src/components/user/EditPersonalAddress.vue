@@ -30,7 +30,7 @@
             <el-input v-model="address.postCode"></el-input>
           </el-form-item>
         </el-form>
-          <el-button type="primary"
+          <el-button type="danger"
                      @click="editPersonalInfo">
             Save
           </el-button>

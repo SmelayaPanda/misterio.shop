@@ -1,7 +1,7 @@
 <template>
   <div class="ml-5">
     <h2>{{ this.title }}</h2>
-    <v-btn class="primary"
+    <v-btn class="primary_a"
            @click="addDialogVisible = true">
       <v-icon class="white--text">add</v-icon>
     </v-btn>
@@ -13,7 +13,7 @@
       <el-input v-model="item"></el-input>
       <span slot="footer" class="dialog-footer">
         <el-button @click="addDialogVisible = false">Cancel</el-button>
-        <el-button type="primary"
+        <el-button type="primary_a"
                    @click="addDictionaryItem">Add</el-button>
       </span>
     </el-dialog>
