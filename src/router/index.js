@@ -25,6 +25,10 @@ import Shop from '@/components/shop/Shop'
 import Product from '@/components/shop/Product'
 import UserAgreement from '@/components/info/UserAgreement'
 
+// NEWS
+import News from '@/components/news/News'
+import Article from '@/components/news/Article'
+
 Vue.use(Router)
 
 export default new Router({
@@ -70,6 +74,17 @@ export default new Router({
       name: 'product',
       props: true,
       component: Product
+    },
+    {
+      path: '/news',
+      name: 'news',
+      component: News
+    },
+    {
+      path: '/news/:id',
+      name: 'article',
+      props: true,
+      component: Article
     },
     {
       path: '/admin',

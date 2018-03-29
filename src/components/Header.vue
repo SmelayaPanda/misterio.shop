@@ -1,6 +1,6 @@
 <template>
   <el-row type="flex" justify="center" class="main_header hidden-sm-and-down">
-    <el-col :xs="14" :sm="14" :md="14" :lg="12" :xl="10">
+    <el-col :xs="14" :sm="12" :md="11" :lg="10" :xl="9">
       <el-row type="flex" justify="center" class="pl-1 pr-3">
         <el-col>
           <router-link to="/" active-class="active_header_link" exact>
@@ -18,7 +18,7 @@
           </router-link>
         </el-col>
         <el-col>
-          <router-link to="/sale" active-class="active_header_link" exact>
+          <router-link to="/news" active-class="active_header_link" exact>
             <span class="header_link">АКЦИИ</span>
           </router-link>
         </el-col>

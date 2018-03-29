@@ -64,7 +64,7 @@ export default {
   }
 
   .user_icons {
-    right: 25px;
+    right: 20px;
     top: 22px;
   }
 </style>
