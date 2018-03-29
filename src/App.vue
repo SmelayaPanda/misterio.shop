@@ -1,14 +1,15 @@
 <template>
   <v-app id="app">
-    <app-header v-if="!this.$router.history.current.fullPath.includes('admin') &&
-                       this.$router.history.current.fullPath !== '/'">
-    </app-header>
-    <user-icons v-if="!this.$router.history.current.fullPath.includes('admin') &&
-                       this.$router.history.current.fullPath !== '/'"></user-icons>
-    <!--Content-->
-    <transition name="fade">
-      <router-view></router-view>
-    </transition>
+    <transition-group name="fade">
+      <div key="toolbar"
+           v-if="!this.$router.history.current.fullPath.includes('admin') &&
+                  this.$router.history.current.fullPath !== '/'">
+        <app-header key="head"></app-header>
+        <user-icons key="user"></user-icons>
+      </div>
+      <!--Content-->
+      <router-view key="routers"></router-view>
+    </transition-group>
   </v-app>
 </template>
 

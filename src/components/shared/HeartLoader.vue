@@ -19,9 +19,9 @@ export default {
     width: 100px;
     height: 100px;
     left: 50%;
-    margin-left: -50px;
+    margin-left: -100px;
     top: 50%;
-    margin-top: -50px;
+    margin-top: -100px;
     opacity: 0.5;
   }
   #spinner .loader {
