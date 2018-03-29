@@ -3,7 +3,7 @@
     <el-button @click="dialogVisible = true"
                type="text"
                class="button mt-2">
-      <i class="el-icon-edit"></i>
+      <i class="el-icon-edit secondary--text"></i>
     </el-button>
   <el-dialog title="Edit personal info"
              width="360px"
