@@ -20,8 +20,7 @@
       <v-card-title :class="isUserSide ? 'chat_header_user' : 'chat_header_admin'">
         <el-button type="text"
                    class="closeChat"
-                   @click="closeChat"
-        >
+                   @click="closeChat">
           <v-icon class="white--text">close</v-icon>
         </el-button>
         <h3 class="pl-3 white--text">
@@ -214,7 +213,7 @@ export default {
   .chat_header_user {
     margin-bottom: 1px;
     padding-bottom: 12px;
-    background: $color-primary;
+    background: $color-secondary;
   }
 
   .chat_header_admin {
@@ -310,8 +309,8 @@ export default {
 
   /* User live chat heart */
   .heart {
-    width: 80px;
-    height: 80px;
+    width: 72px;
+    height: 72px;
     /** height is required as absolute value **/
     background-color: $color-secondary;
     border-radius: 100%;
@@ -326,8 +325,8 @@ export default {
 
   .heart i {
     position: absolute;
-    top: 22px;
-    left: 18px;
+    top: 18px;
+    left: 15px;
     color: white;
     text-shadow: 1px 1px 2px black, 0 0 1em red;
   }
@@ -338,8 +337,8 @@ export default {
     margin: auto;
     position: absolute;
     content: "";
-    width: 80px;
-    height: 80px;
+    width: 72px;
+    height: 72px;
     border-radius: 100%;
     background-color: $color-secondary;
   }

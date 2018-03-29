@@ -1,9 +1,6 @@
 <template>
   <div>
-    <!--Loading circular-->
-    <v-container v-if="this.isLoading">
-      <app-loader></app-loader>
-    </v-container>
+    <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
       <el-row el-row type="flex" justify="center" v-if="product" style="flex-wrap: wrap">
         <el-col :span="1">
