@@ -1,7 +1,3 @@
-<!--
-Now Order History placed not in user account -
-In user cart for simple visualization and minimum clicks
--->
 <template>
   <el-row el-row type="flex" justify="center" class="mt-3" v-if="userOrders.length !== 0">
     <el-col :xs="24" :sm="20" :md="18" :lg="16" :xl="12" type="flex" align="middle">

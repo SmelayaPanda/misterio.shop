@@ -1,9 +1,6 @@
 <template>
   <div>
-    <!--Loading circular-->
-    <v-container v-if="this.isLoading">
-      <app-loader></app-loader>
-    </v-container>
+    <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <el-row v-else el-row type="flex" justify="center">
       <el-col :xs="24" :sm="20" :md="18" :lg="16" :xl="12" type="flex" align="middle">
         <el-card v-if="userCart">

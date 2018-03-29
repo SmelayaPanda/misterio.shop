@@ -21,8 +21,7 @@
             </div>
           <div class="order_info"
                v-for="product in orderProducts"
-               :key="product.productId"
-          >
+               :key="product.productId">
             <span style="font-weight: bold;">{{ product.title }}: </span><br>
             <el-tag>{{ product.price }}</el-tag>
             x
@@ -38,8 +37,7 @@
           <el-row class="mt-4">
           <el-steps :active="activeStep"
                     align-center
-                    finish-status="success"
-          >
+                    finish-status="success">
             <el-step title="Personal Details" icon="el-icon-info"></el-step>
             <el-step title="Shipping" icon="el-icon-location"></el-step>
             <el-step title="Delivery / Payment" icon="el-icon-document"></el-step>
@@ -211,8 +209,7 @@
                   </p>
                   <el-button class="mb-4"
                              @click="checkout"
-                             type="success"
-                  >
+                             type="success">
                     CHECKOUT
                   </el-button>
                 </div>

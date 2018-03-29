@@ -1,13 +1,9 @@
 <template>
   <div>
-    <!--Loading circular-->
-    <v-container v-if="this.isLoading">
-      <app-loader></app-loader>
-    </v-container>
-    <div v-else>
-      <div v-if="user.emailVerified">
+    <app-heart-loader v-if="this.isLoading"></app-heart-loader>
+    <div v-else-if="user">
+      <div v-if="!user.isAnonymous">
         <!--Personal card-->
-        <div></div>
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :xs="24" :sm="6" :md="5" :lg="4" :xl="3" class="ml-1 mr-1 mb-2">
             <el-card :body-style="{ padding: '0px' }">
@@ -26,8 +22,8 @@
             </el-card>
             <el-card class="mt-2" :body-style="{ padding: '0px' }">
               <div style="padding: 14px;">
-                <span v-if="this.user.email">{{ this.user.email }}</span><br>
-                <span v-if="this.user.phone">{{ this.user.phone }}</span>
+                <span v-if="user.email">{{ user.email }}</span><br>
+                <span v-if="user.phone">{{ user.phone }}</span>
               </div>
             </el-card>
             <!--EDIT PERSONAL INFO-->
@@ -75,7 +71,8 @@
           </el-col>
         </el-row>
       </div>
-      <div v-else-if="!this.isAnonymousUser">
+      <!--Anonimous-->
+      <div v-else>
         <h3>
           <i class="el-icon-info"></i>
           Confirm your email address to continue

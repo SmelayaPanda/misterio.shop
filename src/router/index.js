@@ -8,7 +8,7 @@ import ShoppingCart from '@/components/shop/ShoppingCart'
 import Signin from '@/components/auth/Signin'
 import Signup from '@/components/auth/Signup'
 import Account from '@/components/user/Account'
-import AuthGuard from '@/router/auth-guard'
+// import AuthGuard from '@/router/auth-guard'
 // ADMIN
 import AdminPanel from '@/components/admin/AdminPanel'
 import Dashboard from '@/components/admin/dashboard/Dashboard'
@@ -47,8 +47,8 @@ export default new Router({
     {
       path: '/account',
       name: 'account',
-      component: Account,
-      beforeEnter: AuthGuard
+      component: Account
+      // beforeEnter: AuthGuard
     },
     {
       path: '/cart',

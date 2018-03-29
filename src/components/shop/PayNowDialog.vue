@@ -1,16 +1,14 @@
 <template>
   <div>
     <el-button @click="dialogVisible = true"
-               class="ml-2"
-    >
+               class="ml-2">
       Pay now
     </el-button>
 
     <el-dialog title="Pay now with PayPal"
                :visible.sync="dialogVisible"
                width="30%"
-               center
-    >
+               center>
       <p>Currently, our system supports payment with PayPal only</p>
       <p class="success--text">Pay {{ amount }} RUB</p>
       <PayPal
@@ -21,8 +19,7 @@
         :amount="amount"
         :client="credentials"
         :buttonStyle="btnStyle"
-        notify-url="https://us-central1-e-store-dev.cloudfunctions.net/processPayPal"
-      >
+        notify-url="https://us-central1-e-store-dev.cloudfunctions.net/processPayPal">
       </PayPal>
     </el-dialog>
   </div>
