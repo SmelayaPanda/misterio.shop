@@ -40,7 +40,7 @@
               Готовы проконсультировать по всем предложениям и не только.
             </p>
             <router-link :to="'/news/' + 1">
-              <div class="more_btn">Узнать больше</div>
+              <div class="main_btn">Узнать больше</div>
             </router-link>
           </el-col>
         </el-row>
@@ -78,7 +78,7 @@
               пользовались им в том числе и мужчины.
             </p>
             <router-link :to="'/news/' + 2">
-              <div class="more_btn">Узнать больше</div>
+              <div class="main_btn">Узнать больше</div>
             </router-link>
           </el-col>
         </el-row>
@@ -112,7 +112,7 @@
               18-каратным золотом фаллоиметатор стоимостью в $4 000.
             </p>
             <router-link :to="'/news/' + 3">
-              <div class="more_btn">Узнать больше</div>
+              <div class="main_btn">Узнать больше</div>
             </router-link>
           </el-col>
         </el-row>
@@ -205,21 +205,6 @@ export default {
     font-weight: 600;
     color: white;
     margin-top: 14px;
-  }
-
-  .more_btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid $color-secondary;
-    color: white;
-    width: 170px;
-    height: 44px;
-  }
-
-  .more_btn:hover {
-    cursor: pointer;
-    text-shadow: $primary-text-shadow;
   }
 
   @media only screen and (max-width: 767px) {

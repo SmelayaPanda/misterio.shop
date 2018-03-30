@@ -42,12 +42,12 @@ export default {
   }
 
   #app {
-    font-family: $primary-font;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: $primary-font;
     background: $color-primary;
-    text-align: center;
     color: $color-primary;
+    text-align: center;
   }
 
   .fade-enter-active, .fade-leave-active {
@@ -66,5 +66,22 @@ export default {
   .user_icons {
     right: 20px;
     top: 22px;
+  }
+
+  .main_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $color-secondary;
+    color: white;
+    padding-right: 20px;
+    padding-left: 20px;
+    height: 44px;
+    width: 180px;
+  }
+
+  .main_btn:hover {
+    cursor: pointer;
+    text-shadow: $primary-text-shadow;
   }
 </style>

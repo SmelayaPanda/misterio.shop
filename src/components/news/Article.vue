@@ -15,7 +15,7 @@
           </el-col>
           <el-col id="last_news" :xs="20" :sm="9" :md="9" :lg="9" :xl="9" align="left">
             <router-link to="/news" exact>
-              <div id="last_news_btn">
+              <div class="main_btn main_btn_add">
                 Последние новости
               </div>
             </router-link>
@@ -99,20 +99,9 @@ export default {
     padding-left: 90px;
   }
 
-  #last_news_btn {
+  .main_btn_add {
     font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid $color-secondary;
-    color: white;
     width: 190px;
-    height: 44px;
-  }
-
-  #last_news_btn:hover {
-    cursor: pointer;
-    text-shadow: $primary-text-shadow;
   }
 
   .last_news_list {

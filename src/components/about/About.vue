@@ -40,12 +40,17 @@
       </el-row>
       <el-row type="flex" justify="center">
         <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex">
-          <h2 id="our_partners_title">Наши партнеры</h2>
+          <h2 id="partners_title">Наши партнеры</h2>
+          <div id="partners">
+            <img class="partner_logo" src="@/assets/img/about/company_logo1.png" alt="">
+            <img class="partner_logo" src="@/assets/img/about/company_logo2.png" alt="">
+            <img class="partner_logo" src="@/assets/img/about/company_logo1.png" alt="">
+            <img class="partner_logo" src="@/assets/img/about/company_logo2.png" alt="">
+          </div>
         </el-col>
       </el-row>
       <el-row type="flex" justify="center">
-        <el-col :xs="24" :sm="20" :md="18" :lg="16" :xl="14" type="flex" align="middle">
-          <h3 id="review_title">Reviews</h3>
+        <el-col :xs="24" :sm="22" :md="20" :lg="18" :xl="16" type="flex" align="middle">
           <reviews></reviews>
         </el-col>
       </el-row>
@@ -55,15 +60,13 @@
 
 <script>
 import Reviews from './Reviews'
-import Contacts from './Contacts'
 import AboutHeader from './AboutHeader'
 
 export default {
   name: 'info',
   components: {
     AboutHeader,
-    Reviews,
-    Contacts
+    Reviews
   },
   methods: {
     fetchAboutData () {
@@ -105,7 +108,7 @@ export default {
     position: absolute;
     display: block;
     width: 2px;
-    height: 110px;
+    height: 140px;
     margin: 30px 6px;
     border-left: 1px solid;
     background-image: linear-gradient(to bottom, white 0%, $color-secondary 100%);
@@ -126,16 +129,30 @@ export default {
     content: "";
     display: block;
     width: 2px;
-    height: 110px;
-    margin: -136px 6px;
+    height: 140px;
+    margin: -160px 6px;
     border-left: 1px solid;
     background-image: linear-gradient(to bottom, $color-secondary 0%, white 100%);
   }
 
-  #our_partners_title {
-    color: $color-info;
-    padding: 40px 40px 40px 55px;
-    font-size: 13px;
+  #partners_title {
+    font-family: $secondary-font;
+    font-size: 24px;
+    font-weight: 400;
+    color: $color-secondary;
+    padding: 40px 40px 20px 55px;
     margin-top: 50px;
+  }
+
+  #partners {
+    border-bottom: 1px solid $color-info;
+    border-top: 1px solid $color-info;
+    padding: 10px;
+    margin-bottom: 40px;
+  }
+
+  .partner_logo {
+    padding: 10px;
+    transform: scale(0.8);
   }
 </style>
