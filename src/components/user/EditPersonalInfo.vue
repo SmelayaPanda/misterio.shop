@@ -6,24 +6,26 @@
       <i class="el-icon-edit secondary--text"></i>
       <span class="white--text">редактировать</span>
     </el-button>
-  <el-dialog title="Редактировать"
-             width="360px"
-             :visible.sync="dialogVisible">
+  <el-dialog
+    title="Редактировать"
+    width="360px"
+    :visible.sync="dialogVisible">
     <el-row type="flex" justify="center">
       <el-col :span="20">
         <el-form label-position="top" label-width="80px">
           <el-form-item label="Имя">
             <el-input v-model="firstname"></el-input>
           </el-form-item>
-          <el-form-item label="Отчество">
+          <el-form-item label="Фамилия">
             <el-input v-model="lastname"></el-input>
           </el-form-item>
           <el-form-item label="Телефон" prop="phone">
-          <masked-input v-model="phone"
-                        class="el-input__inner"
-                        required
-                        mask="\+\7 (111) 111-11-11"
-                        placeholder="Phone number"/>
+          <masked-input
+            v-model="phone"
+            class="el-input__inner"
+            required
+            mask="\+\7 (111) 111-11-11"
+            placeholder="Phone number"/>
           </el-form-item>
           <el-form-item label="Дата рождения" prop="birthday">
           <el-date-picker
@@ -35,9 +37,10 @@
           </el-date-picker>
           </el-form-item>
         </el-form>
-          <el-button type="danger"
-                     @click="editPersonalInfo"
-                     :disabled="!isValidForm">
+          <el-button
+            type="danger"
+            @click="editPersonalInfo"
+            :disabled="!isValidForm">
             Сохранить
           </el-button>
           <el-button @click="dialogVisible = false">Отмена</el-button>

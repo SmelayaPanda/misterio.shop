@@ -107,19 +107,19 @@ export default {
   }
 
   .slide_1 {
-    background: linear-gradient(to right, $color-primary, #161516)
+    background: linear-gradient(to right, $color-primary, $color-primary-light);
   }
 
   .slide_2 {
-    background: linear-gradient(to right, #161516, $color-primary)
+    background: linear-gradient(to right, $color-primary-light, $color-primary);
   }
 
   .slide_3 {
-    background: linear-gradient(to right, $color-secondary, #0d0d0d)
+    background: linear-gradient(to right, $color-secondary, $color-primary)
   }
 
   .slide_4 {
-    background: linear-gradient(to right, #161516, $color-primary)
+    background: linear-gradient(to right, $color-primary-light, $color-primary);
   }
 
   .app_header {
