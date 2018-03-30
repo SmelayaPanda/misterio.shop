@@ -34,8 +34,7 @@ export default {
   #middle_title {
     font-family: $secondary-font;
     font-size: 39px;
-    margin-top: -8px;
-
+    margin-top: -25px;
     background: linear-gradient(to right, white 43%, $color-secondary 51%);
     color: transparent;
     -webkit-background-clip: text;
@@ -46,7 +45,7 @@ export default {
     display: block;
     width: 238px;
     height: 3px;
-    margin: -5px auto;
+    margin: -15px auto -5px;
     border-bottom: 2px solid $color-secondary;
   }
 
