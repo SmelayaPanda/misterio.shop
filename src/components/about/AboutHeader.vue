@@ -1,14 +1,14 @@
 <template>
   <div id="news_header">
     <p id="for_you">только для Вас</p>
-    <p id="sales_title">АКЦИИ И НОВОСТИ</p>
-    <p id="sales_sub_title">Самые привлекательные предложения и жгучие новости</p>
+    <p id="sales_title">О нас и наших партнерах</p>
+    <p id="sales_sub_title">Мы предлагаем не просто товары, а море удовольствия и наслаждения</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'NewsHeader'
+  name: 'AboutHeader'
 }
 </script>
 
@@ -48,5 +48,7 @@ export default {
     font-family: $primary-font;
     font-size: 12px;
     color: white;
+    padding-right: 10px;
+    padding-left: 10px;
   }
 </style>

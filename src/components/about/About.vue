@@ -2,14 +2,50 @@
   <div>
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
+      <about-header></about-header>
       <el-row type="flex" justify="center">
-        <el-col :xs="22" :sm="18" :md="16" :lg="14" :xl="12" type="flex" align="middle">
-          <contacts></contacts>
+        <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex" align="left">
+          <h2 class="about_corner">О нас</h2>
+          <span id="hor_line_1"></span>
+          <span id="ver_line_1"></span>
+        </el-col>
+      </el-row>
+      <el-row type="flex" justify="center">
+        <el-col :xs="22" :sm="22" :md="22" :lg="22" :xl="22" type="flex" align="middle">
+          <el-row type="flex" justify="center" style="flex-wrap: wrap">
+            <el-col :xs="24" :sm="22" :md="11" :lg="11" :xl="11" align="left">
+              <p class="about_text">
+                Разнообразный и богатый опыт укрепление и развитие структуры позволяет выполнять важные задания по
+                разработке системы обучения кадров, соответствует насущным потребностям. Разнообразный и богатый опыт
+                укрепление и развитие структуры способствует подготовки и реализации модели развития.
+              </p>
+            </el-col>
+            <el-col :xs="24" :sm="22" :md="11" :lg="11" :xl="11" align="left">
+              <p class="about_text">
+                Не следует, однако забывать, что постоянное информационно-пропагандистское обеспечение нашей
+                деятельности представляет собой интересный эксперимент проверки модели развития. Идейные соображения
+                высшего порядка, а также консультация с широким активом обеспечивает широкому кругу (специалистов)
+                участие в формировании направлений прогрессивного развития.
+              </p>
+            </el-col>
+          </el-row>
+        </el-col>
+      </el-row>
+      <el-row type="flex" justify="center">
+        <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex" align="right">
+          <h2 class="about_corner">О продукции</h2>
+          <span id="hor_line_2"></span>
+          <span id="ver_line_2"></span>
+        </el-col>
+      </el-row>
+      <el-row type="flex" justify="center">
+        <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex">
+          <h2 id="our_partners_title">Наши партнеры</h2>
         </el-col>
       </el-row>
       <el-row type="flex" justify="center">
         <el-col :xs="24" :sm="20" :md="18" :lg="16" :xl="14" type="flex" align="middle">
-          <h3>Reviews</h3>
+          <h3 id="review_title">Reviews</h3>
           <reviews></reviews>
         </el-col>
       </el-row>
@@ -20,10 +56,12 @@
 <script>
 import Reviews from './Reviews'
 import Contacts from './Contacts'
+import AboutHeader from './AboutHeader'
 
 export default {
   name: 'info',
   components: {
+    AboutHeader,
     Reviews,
     Contacts
   },
@@ -39,6 +77,65 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .about_corner {
+    font-family: $secondary-font;
+    font-weight: 400;
+    color: $color-info;
+  }
 
+  .about_text {
+    color: $color-info;
+    padding: 40px 40px 40px 55px;
+    font-size: 13px;
+  }
+
+  #hor_line_1:after {
+    content: "";
+    display: block;
+    width: 40%;
+    height: 2px;
+    margin: -15px 70px;
+    border-bottom: 1px solid;
+    background-image: linear-gradient(to right, white 0%, $color-secondary 100%);
+  }
+
+  #ver_line_1:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 2px;
+    height: 110px;
+    margin: 30px 6px;
+    border-left: 1px solid;
+    background-image: linear-gradient(to bottom, white 0%, $color-secondary 100%);
+  }
+
+  #hor_line_2:after {
+    content: "";
+    display: block;
+    width: 30%;
+    height: 2px;
+    margin: -15px 155px;
+    padding-right: -10px;
+    border-bottom: 1px solid;
+    background-image: linear-gradient(to right, $color-secondary 0%, white 100%);
+  }
+
+  #ver_line_2:after {
+    content: "";
+    display: block;
+    width: 2px;
+    height: 110px;
+    margin: -136px 6px;
+    border-left: 1px solid;
+    background-image: linear-gradient(to bottom, $color-secondary 0%, white 100%);
+  }
+
+  #our_partners_title {
+    color: $color-info;
+    padding: 40px 40px 40px 55px;
+    font-size: 13px;
+    margin-top: 50px;
+  }
 </style>

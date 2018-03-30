@@ -125,7 +125,7 @@
 import NewsHeader from './NewsHeader'
 
 export default {
-  name: 'AllArticles',
+  name: 'News',
   components: {NewsHeader}
 }
 </script>
