@@ -1,6 +1,10 @@
 <template>
   <div>
-    <news-header></news-header>
+    <page-title>
+      <p slot="topTitle">только для Вас</p>
+      <p slot="middleTitle">АКЦИИ И НОВОСТИ</p>
+      <p slot="bottomTitle">Самые привлекательные предложения и жгучие новости</p>
+    </page-title>
     <!--NEWS 1-->
     <div id="article_wrapper">
       <div class="news_block">
@@ -73,11 +77,9 @@
 </template>
 
 <script>
-import NewsHeader from './NewsHeader'
 
 export default {
   name: 'Article',
-  components: {NewsHeader},
   props: ['id'],
   data () {
     return {}

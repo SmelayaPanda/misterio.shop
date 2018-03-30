@@ -38,6 +38,7 @@ import HeartLoader from '@/components/shared/HeartLoader'
 import BallsLoader from '@/components/shared/BallsLoader'
 import HelpTooltip from '@/components/shared/HelpTooltip'
 import MaskedInput from 'vue-masked-input'
+import PageTitle from '@/components/PageTitle'
 // for router in store
 const unsync = sync(store, router)
 unsync()
@@ -59,6 +60,7 @@ Vue.component('app-loader', Loader)
 Vue.component('app-heart-loader', HeartLoader)
 Vue.component('app-balls-loader', BallsLoader)
 Vue.component('app-help-tooltip', HelpTooltip)
+Vue.component('page-title', PageTitle)
 
 Vue.use(VueAwesomeSwiper)
 Vue.use(ElementUI, {locale})

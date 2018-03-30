@@ -4,6 +4,12 @@ import Router from 'vue-router'
 import Home from '@/components/home/Home'
 import About from '@/components/about/About'
 import ShoppingCart from '@/components/shop/ShoppingCart'
+import News from '@/components/news/News'
+import Article from '@/components/news/Article'
+import Contacts from '@/components/contacts/Contacts'
+import Shop from '@/components/shop/Shop'
+import Product from '@/components/shop/Product'
+import UserAgreement from '@/components/info/UserAgreement'
 // AUTH
 import Signin from '@/components/auth/Signin'
 import Signup from '@/components/auth/Signup'
@@ -19,15 +25,6 @@ import AdminReviews from '@/components/admin/reviews/AdminReviews'
 import CompanyInfo from '@/components/admin/company_info/CompanyInfo'
 import Dictionaries from '@/components/admin/dictionaries/Dictionaries'
 import AdminLiveChat from '@/components/admin/live_chat/AdminLiveChat'
-
-// SHOP
-import Shop from '@/components/shop/Shop'
-import Product from '@/components/shop/Product'
-import UserAgreement from '@/components/info/UserAgreement'
-
-// NEWS
-import News from '@/components/news/News'
-import Article from '@/components/news/Article'
 
 Vue.use(Router)
 
@@ -63,6 +60,11 @@ export default new Router({
       path: '/about',
       name: 'about',
       component: About
+    },
+    {
+      path: '/contacts',
+      name: 'contacts',
+      component: Contacts
     },
     {
       path: '/shop',

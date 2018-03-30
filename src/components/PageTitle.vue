@@ -1,31 +1,37 @@
 <template>
-  <div id="news_header">
-    <p id="for_you">только для Вас</p>
-    <p id="sales_title">АКЦИИ И НОВОСТИ</p>
-    <p id="sales_sub_title">Самые привлекательные предложения и жгучие новости</p>
+  <div id="page_title">
+    <p id="top_title">
+      <slot name="topTitle"></slot>
+    </p>
+    <p id="middle_title">
+      <slot name="middleTitle"></slot>
+    </p>
+    <p id="bottom_title">
+      <slot name="bottomTitle"></slot>
+    </p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'NewsHeader'
+  name: 'PageTitle'
 }
 </script>
 
 <style scoped lang="scss">
-  #news_header {
+  #page_title {
+    padding-top: 100px;
     padding-bottom: 130px;
   }
 
-  #for_you {
+  #top_title {
     font-family: $third-font;
     font-size: 24px;
     color: white;
-    padding-top: 130px;
     margin-bottom: 0;
   }
 
-  #sales_title {
+  #middle_title {
     font-family: $secondary-font;
     font-size: 39px;
     margin-top: -8px;
@@ -35,16 +41,16 @@ export default {
     -webkit-background-clip: text;
   }
 
-  #sales_title:after {
+  #middle_title:after {
     content: "";
     display: block;
     width: 238px;
     height: 3px;
     margin: -5px auto;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid $color-secondary;
   }
 
-  #sales_sub_title {
+  #bottom_title {
     font-family: $primary-font;
     font-size: 12px;
     color: white;

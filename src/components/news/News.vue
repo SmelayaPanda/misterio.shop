@@ -1,6 +1,10 @@
 <template>
   <div>
-    <news-header></news-header>
+    <page-title>
+      <p slot="topTitle">только для Вас</p>
+      <p slot="middleTitle">АКЦИИ И НОВОСТИ</p>
+      <p slot="bottomTitle">Самые привлекательные предложения и жгучие новости</p>
+    </page-title>
     <el-row id="filter_block" type="flex">
       <el-col align="right">
         <el-checkbox class="white--text">Все</el-checkbox>
@@ -122,11 +126,8 @@
 </template>
 
 <script>
-import NewsHeader from './NewsHeader'
-
 export default {
-  name: 'News',
-  components: {NewsHeader}
+  name: 'News'
 }
 </script>
 
