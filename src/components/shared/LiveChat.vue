@@ -328,7 +328,7 @@ export default {
     top: 20px;
     left: 18px;
     color: white;
-    text-shadow: 1px 1px 2px black, 0 0 1em red;
+    text-shadow: $primary-text-shadow;
   }
 
   .heart:after,
