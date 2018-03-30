@@ -50,7 +50,7 @@
         </el-col>
       </el-row>
       <el-row type="flex" justify="center">
-        <el-col :xs="24" :sm="22" :md="20" :lg="18" :xl="16" type="flex" align="middle">
+        <el-col :xs="23" :sm="22" :md="19" :lg="17" :xl="15" type="flex" align="middle">
           <reviews></reviews>
         </el-col>
       </el-row>

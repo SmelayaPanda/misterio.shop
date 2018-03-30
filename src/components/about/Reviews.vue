@@ -29,8 +29,7 @@ REVIEW STATUSES:
             </el-row>
           </div>
           <el-col :span="24">
-            <!--300 symbols-->
-            <p>{{ item.text }}</p>
+            <p>{{ item.text | snippet(300) }}</p>
             <p class="info--text right">{{ item.date | date }}</p>
           </el-col>
         </el-card>
@@ -53,7 +52,7 @@ REVIEW STATUSES:
         v-model="review.text"
         type="textarea"
         placeholder="Отзыв ( максимум 300 символов )"
-        :autosize="{ minRows: 3, maxRows: 7}"
+        :autosize="{ minRows: 5, maxRows: 7}"
         :maxlength="300">
       </el-input>
       <span slot="footer" class="dialog-footer">
