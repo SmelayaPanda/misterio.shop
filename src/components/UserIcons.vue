@@ -66,6 +66,8 @@ export default {
 <style scoped lang="scss">
   .user_icons {
     position: absolute;
+    top: 40px;
+    right: 40px;
     width: 200px;
     z-index: 2;
   }

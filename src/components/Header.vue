@@ -28,13 +28,16 @@
           </router-link>
         </el-col>
       </el-row>
+      <user-icons></user-icons>
     </el-col>
   </el-row>
 </template>
 
 <script>
+import UserIcons from './UserIcons'
 export default {
-  name: 'Header'
+  name: 'Header',
+  components: {UserIcons}
 }
 </script>
 

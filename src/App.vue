@@ -1,12 +1,7 @@
 <template>
   <v-app id="app">
     <transition-group name="fade">
-      <div key="toolbar"
-           v-if="!this.$route.path.includes('admin') &&
-                  this.$route.path !== '/'">
-        <app-header key="head"></app-header>
-        <user-icons class="user_icons" key="user"></user-icons>
-      </div>
+      <app-header key="head" v-if="!this.$route.path.includes('admin') && this.$route.path !== '/'"></app-header>
       <!--Content-->
       <router-view key="routers"></router-view>
     </transition-group>
@@ -61,11 +56,6 @@ export default {
 
   .fade-enter, .fade-leave-active {
     opacity: 0
-  }
-
-  .user_icons {
-    right: 20px;
-    top: 22px;
   }
 
   .main_btn {

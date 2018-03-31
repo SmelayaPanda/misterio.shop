@@ -1,7 +1,6 @@
 <template>
   <div class="home_page">
     <app-header class="app_header"></app-header>
-    <user-icons class="user_icons"></user-icons>
     <social-icons class="social_icons"></social-icons>
     <!--LIVE CHAT-->
     <div v-if="this.$store.getters.user" class="live_chat">
