@@ -12,7 +12,6 @@
           class="mt-4"
           type="primary"
           width="178px"
-          height="42px"
           fontSize="12px">
           ВЫБРАТЬ ТОВАР
         </app-theme-btn>

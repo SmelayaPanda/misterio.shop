@@ -39,7 +39,9 @@
               Нужна консультация? <br>
               <span class="we_answer">Мы ответим на любой Ваш вопрос</span>
             </p>
-            <app-theme-btn>Задать вопрос</app-theme-btn>
+            <app-theme-btn>
+              Задать вопрос
+            </app-theme-btn>
           </el-col>
         </el-row>
       </el-col>
