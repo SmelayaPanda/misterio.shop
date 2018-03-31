@@ -2,6 +2,17 @@
   <v-app id="app">
     <transition-group name="fade">
       <app-header key="head" v-if="!this.$route.path.includes('admin') && this.$route.path !== '/'"></app-header>
+      <div
+        key="liveChat"
+        id="live_chat"
+        v-if="showLiveChat">
+        <live-chat :chatId="this.$store.getters.user.uid"
+                   :isUserSide="true"
+                   :isCollapsed="true"
+                   key="liveChatIn"
+                   class="live_chat">
+        </live-chat>
+      </div>
       <!--Content-->
       <router-view key="routers"></router-view>
     </transition-group>
@@ -12,14 +23,23 @@
 import AppHeader from '@/components/Header'
 import AdminPanel from '@/components/admin/AdminPanel'
 import UserIcons from '@/components/UserIcons'
+import LiveChat from '@/components/shared/LiveChat'
 
 export default {
   components: {
     AppHeader,
     AdminPanel,
-    UserIcons
+    UserIcons,
+    LiveChat
   },
-  name: 'App'
+  name: 'App',
+  computed: {
+    showLiveChat () {
+      let showIn = ['/account', '/shop', '/cart', '/favorite']
+      return this.$store.getters.user &&
+          (showIn.includes(this.$route.path) || this.$route.path.indexOf('/product') !== -1)
+    }
+  }
 }
 </script>
 
@@ -43,6 +63,13 @@ export default {
     background: $color-primary;
     color: $color-primary;
     text-align: center;
+  }
+
+  #live_chat {
+    position: fixed;
+    bottom: 40px;
+    right: 60px;
+    z-index: 10;
   }
 
   .fade-enter-active, .fade-leave-active {

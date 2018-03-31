@@ -13,7 +13,7 @@
           </router-link>
         </el-col>
         <el-col :xs="24" :sm="20" :md="18" :lg="16" :xl="14" type="flex" align="middle">
-          <el-card>
+          <el-card id="product_card">
             <el-row type="flex" style="flex-wrap: wrap">
               <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                 <zoom-on-hover :img-normal="viewImage ? viewImage : product.img_0.original"
@@ -180,5 +180,9 @@ export default {
     text-align: left;
     margin-left: 40px;
     height: 300px;
+  }
+
+  #product_card {
+    margin-bottom: 70px;
   }
 </style>
