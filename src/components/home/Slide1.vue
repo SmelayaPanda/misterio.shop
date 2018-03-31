@@ -3,12 +3,19 @@
     <div id="title" class="hidden-sm-and-down">
       <p id="main_title_1" align="left">Не зная Вас</p>
       <p id="main_title_2" align="left">
-          МЫ ЗНАЕМ ВСЁ<br>
-          О ВАШИХ ЖЕЛАНИЯХ
+        МЫ ЗНАЕМ ВСЁ<br>
+        О ВАШИХ ЖЕЛАНИЯХ
       </p>
       <p id="main_title_3" align="right">
         и даже больше...<br>
-        <v-btn class="secondary white--text choice_btn">Выбрать товар</v-btn>
+        <app-theme-btn
+          class="mt-4"
+          type="primary"
+          width="178px"
+          height="42px"
+          fontSize="12px">
+          ВЫБРАТЬ ТОВАР
+        </app-theme-btn>
       </p>
     </div>
   </div>
@@ -56,15 +63,5 @@ export default {
     font-weight: bold;
     font-size: 32px;
     margin-top: -8px;
-  }
-
-  .choice_btn {
-    font-family: $primary-font;
-    font-size: 12px;
-    font-weight: 500;
-    border-radius: 1px;
-    top: 35px;
-    width: 178px;
-    height: 42px;
   }
 </style>

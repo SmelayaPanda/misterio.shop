@@ -2,11 +2,11 @@
   <div>
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
-      <page-title>
+      <app-theme-page-title>
         <p slot="topTitle">только для Вас</p>
         <p slot="middleTitle">О НАС И НАШИХ ПАРТНЕРАХ</p>
         <p slot="bottomTitle">Мы предлагаем не просто товары, а море удовольствия и наслаждения</p>
-      </page-title>
+      </app-theme-page-title>
       <el-row type="flex" justify="center">
         <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex" align="left">
           <h2 class="about_corner">О нас</h2>

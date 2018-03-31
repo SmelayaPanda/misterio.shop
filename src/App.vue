@@ -84,21 +84,4 @@ export default {
   .fade-enter, .fade-leave-active {
     opacity: 0
   }
-
-  .main_btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid $color-secondary;
-    color: white;
-    padding-right: 20px;
-    padding-left: 20px;
-    height: 44px;
-    width: 180px;
-  }
-
-  .main_btn:hover {
-    cursor: pointer;
-    text-shadow: $primary-text-shadow;
-  }
 </style>

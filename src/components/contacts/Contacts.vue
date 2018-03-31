@@ -1,10 +1,10 @@
 <template>
   <div id="main">
-    <page-title>
+    <app-theme-page-title>
       <p slot="topTitle">только для Вас</p>
       <p slot="middleTitle">КОНТАКТЫ</p>
       <p slot="bottomTitle">Мы всегда на связи, чтобы подобрать для Вас самое подходящее</p>
-    </page-title>
+    </app-theme-page-title>
     <el-row type="flex" justify="center" style="flex-wrap: wrap">
       <el-col :xs="18" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle">
         <el-row type="flex" justify="start" style="flex-wrap: wrap">
@@ -39,7 +39,7 @@
               Нужна консультация? <br>
               <span class="we_answer">Мы ответим на любой Ваш вопрос</span>
             </p>
-            <div id="question_btn" class="main_btn">Задать вопрос</div>
+            <app-theme-btn>Задать вопрос</app-theme-btn>
           </el-col>
         </el-row>
       </el-col>
@@ -170,10 +170,6 @@ export default {
 
   .inst_card_wrap {
     padding: 10px;
-  }
-
-  #question_btn {
-    margin-bottom: 50px;
   }
 
   #watch_news_wrap {

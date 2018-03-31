@@ -16,7 +16,7 @@
         <i class="fa fa-heartbeat fa-2x"></i>
       </div>
     </div>
-    <v-card v-if="!isCollapsedChat" :class="isUserSide ? 'user_live_chat' : 'admin_live_chat'">
+    <v-card id="liveChat" v-if="!isCollapsedChat" :class="isUserSide ? 'user_live_chat' : 'admin_live_chat'">
       <v-card-title :class="isUserSide ? 'chat_header_user' : 'chat_header_admin'">
         <el-button type="text"
                    class="closeChat"
@@ -210,6 +210,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  #liveChat {
+    z-index: 10;
+  }
   .chat_header_user {
     margin-bottom: 1px;
     padding-bottom: 12px;

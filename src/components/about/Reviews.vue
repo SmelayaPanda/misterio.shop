@@ -36,8 +36,10 @@ REVIEW STATUSES:
       </el-carousel-item>
     </el-carousel>
     <!--ADD REVIEW-->
-    <div class="main_btn" @click="addReviewDialog = true">
-      Добавить отзыв
+    <div @click="addReviewDialog = true">
+      <app-theme-btn>
+        Добавить отзыв
+      </app-theme-btn>
     </div>
     <el-dialog
       title="Ваш отзыв!"

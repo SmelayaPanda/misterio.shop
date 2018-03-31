@@ -167,7 +167,7 @@
         </div>
       </el-col>
     </el-row>
-    <back-to-top visibleOffset="500" :right="130" :bottom="37" style="opacity: 0.9">
+    <back-to-top visibleOffset="500" :right="130" :bottom="37" style="opacity: 0.9; z-index: 9">
       <v-btn fab class="secondary">
         <v-icon>keyboard_arrow_up</v-icon>
       </v-btn>

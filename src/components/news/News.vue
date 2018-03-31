@@ -1,10 +1,10 @@
 <template>
   <div>
-    <page-title>
+    <app-theme-page-title>
       <p slot="topTitle">только для Вас</p>
       <p slot="middleTitle">АКЦИИ И НОВОСТИ</p>
       <p slot="bottomTitle">Самые привлекательные предложения и жгучие новости</p>
-    </page-title>
+    </app-theme-page-title>
     <el-row id="filter_block" type="flex">
       <el-col align="right">
         <el-checkbox class="white--text">Все</el-checkbox>
@@ -44,7 +44,9 @@
               Готовы проконсультировать по всем предложениям и не только.
             </p>
             <router-link :to="'/news/' + 1">
-              <div class="main_btn">Узнать больше</div>
+              <app-theme-btn>
+                Узнать больше
+              </app-theme-btn>
             </router-link>
           </el-col>
         </el-row>
@@ -82,7 +84,9 @@
               пользовались им в том числе и мужчины.
             </p>
             <router-link :to="'/news/' + 2">
-              <div class="main_btn">Узнать больше</div>
+              <app-theme-btn>
+                Узнать больше
+              </app-theme-btn>
             </router-link>
           </el-col>
         </el-row>
@@ -116,7 +120,9 @@
               18-каратным золотом фаллоиметатор стоимостью в $4 000.
             </p>
             <router-link :to="'/news/' + 3">
-              <div class="main_btn">Узнать больше</div>
+              <app-theme-btn>
+                Узнать больше
+              </app-theme-btn>
             </router-link>
           </el-col>
         </el-row>

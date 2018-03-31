@@ -74,12 +74,15 @@
             </el-row>
             <v-divider class="secondary mt-3 mb-3"></v-divider>
           </div>
-          <div v-if="userCart.length > 1">
+          <div v-if="userCart.length > 0">
             <el-row type="flex">
               <el-col :span="9" align="left">
-                <div class="main_btn continue_main_btn">
+                <app-theme-btn
+                  class="mr-5"
+                  width="220px"
+                  fontSize="12px">
                   ПРОДОЛЖИТЬ ПОКУПКИ
-                </div>
+                </app-theme-btn>
               </el-col>
               <el-col :span="9" align="left">
                 <div class="paypal_total_btn">
@@ -209,12 +212,5 @@ export default {
     color: $color-secondary;
     font-size: 16px;
     font-weight: 600;
-  }
-
-  .continue_main_btn {
-    font-size: 12px;
-    width: 220px;
-    height: 38px;
-    margin-right: 40px;
   }
 </style>

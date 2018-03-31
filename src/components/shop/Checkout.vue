@@ -1,16 +1,14 @@
 <template>
   <span style="text-align: center">
-    <span
-      v-if="type === 'single'"
-      class="main_btn add_main_btn"
-      @click="clickBuy">
-      КУПИТЬ
+    <span v-if="type === 'single'" @click="clickBuy">
+      <app-theme-btn font-size="12px" width="110px">
+          КУПИТЬ
+      </app-theme-btn>
     </span>
-    <span
-      v-else
-      class="main_btn add_all_main_btn"
-      @click="clickBuy">
-      ОФОРМИТЬ ЗАКАЗ
+    <span v-else @click="clickBuy">
+      <app-theme-btn type="primary" font-size="12px" width="220px">
+          КУПИТЬ ВСЕ
+      </app-theme-btn>
     </span>
     <el-dialog title="CHECKOUT"
                v-if="orderProducts"
@@ -18,7 +16,7 @@
                :visible.sync="dialogFormVisible"
                :fullscreen="true">
       <el-row type="flex" justify="center" style="flex-wrap: wrap">
-                <!--ITEMS INFO-->
+        <!--ITEMS INFO-->
         <el-col :xs="24" :sm="24" :md="9" :lg="8" :xl="7" class="mt-3 pl-4 pr-4 mb-4">
           <el-card>
             <div slot="header" class="clearfix">
@@ -412,17 +410,5 @@ export default {
     font-size: 16px;
     margin-bottom: 20px;
     padding-top: 0;
-  }
-
-  .add_main_btn {
-    font-size: 12px;
-    width: 110px;
-    height: 38px;
-  }
-
-  .add_all_main_btn {
-    font-size: 12px;
-    width: 180px;
-    height: 38px;
   }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <page-title>
+    <app-theme-page-title>
       <p slot="topTitle">только для Вас</p>
       <p slot="middleTitle">АКЦИИ И НОВОСТИ</p>
       <p slot="bottomTitle">Самые привлекательные предложения и жгучие новости</p>
-    </page-title>
+    </app-theme-page-title>
     <!--NEWS 1-->
     <div id="article_wrapper">
       <div class="news_block">
@@ -19,9 +19,10 @@
           </el-col>
           <el-col id="last_news" :xs="20" :sm="9" :md="9" :lg="9" :xl="9" align="left">
             <router-link to="/news" exact>
-              <div class="main_btn main_btn_add">
+              <app-theme-btn
+                width="200px">
                 Последние новости
-              </div>
+              </app-theme-btn>
             </router-link>
             <div class="last_news_list">
               <span class="last_news_arrow"> > </span>
@@ -99,11 +100,6 @@ export default {
     color: white;
     padding-top: 16px;
     padding-left: 90px;
-  }
-
-  .main_btn_add {
-    font-size: 14px;
-    width: 190px;
   }
 
   .last_news_list {
