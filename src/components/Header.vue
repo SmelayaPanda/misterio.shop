@@ -52,6 +52,7 @@ export default {
     font-size: 13px;
     line-height: 34px;
     margin-bottom: 30px;
+    z-index: 10;
   }
 
   .header_link:hover {
