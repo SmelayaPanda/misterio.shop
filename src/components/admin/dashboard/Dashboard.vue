@@ -74,10 +74,10 @@
           </div>
           <div>
             <p>Average price:
-              <el-tag>{{ productStatistics.avgPrice }} RUB</el-tag>
+              <el-tag>{{ productStatistics.avgPrice }} &#8381;</el-tag>
             </p>
             <p>Max price:
-              <el-tag>{{ productStatistics.maxPrice }} RUB</el-tag>
+              <el-tag>{{ productStatistics.maxPrice }} &#8381;</el-tag>
             </p>
             <p>Unique Products Qty:
               <el-tag>{{ productStatistics.uniqueProductQty }}</el-tag>
@@ -86,7 +86,7 @@
               <el-tag>{{ productStatistics.totalProductQty }}</el-tag>
             </p>
             <p>Total Store coast:
-              <el-tag>{{ productStatistics.totalStoreCoast }} RUB</el-tag>
+              <el-tag>{{ productStatistics.totalStoreCoast }} &#8381;</el-tag>
             </p>
           </div>
         </el-card>

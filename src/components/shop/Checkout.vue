@@ -1,10 +1,17 @@
 <template>
   <span style="text-align: center">
-    <el-button size="small"
-               type="danger"
-               @click="clickBuy">
-      {{ btnName }}
-    </el-button>
+    <span
+      v-if="type === 'single'"
+      class="main_btn add_main_btn"
+      @click="clickBuy">
+      КУПИТЬ
+    </span>
+    <span
+      v-else
+      class="main_btn add_all_main_btn"
+      @click="clickBuy">
+      ОФОРМИТЬ ЗАКАЗ
+    </span>
     <el-dialog title="CHECKOUT"
                v-if="orderProducts"
                width="100%"
@@ -27,9 +34,10 @@
             x
             <el-tag>{{ product.qty }}</el-tag>
             =
-            <el-tag class="mb-2">{{ parseFloat(product.price * product.qty).toFixed(2) }} {{ product.currency }}</el-tag>
+            <el-tag
+              class="mb-2">{{ parseFloat(product.price * product.qty).toFixed(2) }} {{ product.currency }}</el-tag>
           </div>
-          <b class="success--text">Total: {{ this.totalPrice }} RUB</b>
+          <b class="success--text">Total: {{ this.totalPrice }} &#8381;</b>
           </el-card>
         </el-col>
         <el-col :xs="24" :sm="16" :md="14" :lg="12" :xl="10">
@@ -182,7 +190,8 @@
                     <v-icon>monetization_on</v-icon><br>
                     Pay the courier can cash only!
                   </h4>
-                  <h4 v-if="deliveryMethod === delivery.russianPost && paymentMethod === payment.onReceipt" class="mt-4">
+                  <h4 v-if="deliveryMethod === delivery.russianPost && paymentMethod === payment.onReceipt"
+                      class="mt-4">
                     <v-icon>assignment</v-icon><br>
                     The parcel will be shipped by cash on delivery!
                   </h4>
@@ -235,7 +244,7 @@
 
 export default {
   name: 'Checkout',
-  props: ['checkoutObj', 'btnName'],
+  props: ['checkoutObj', 'type'],
   data () {
     let notEmptyString = (rule, value, callback) => {
       if (!value) {
@@ -403,5 +412,17 @@ export default {
     font-size: 16px;
     margin-bottom: 20px;
     padding-top: 0;
+  }
+
+  .add_main_btn {
+    font-size: 12px;
+    width: 110px;
+    height: 38px;
+  }
+
+  .add_all_main_btn {
+    font-size: 12px;
+    width: 180px;
+    height: 38px;
   }
 </style>

@@ -1,74 +1,106 @@
 <template>
   <div>
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
-    <el-row v-else el-row type="flex" justify="center">
+    <el-row v-else type="flex" justify="center">
       <el-col :xs="24" :sm="20" :md="18" :lg="16" :xl="12" type="flex" align="middle">
-        <el-card v-if="userCart">
-          <p class="mb-3" style="font-size: 18px;">
-            <span v-if="userCart.length === 0">Your cart is empty</span>
-            <span v-else>My shopping cart</span>
+        <div v-if="userCart">
+          <p id="cart_title" align="left">
+            <img src="@/assets/icons/cart_bag.svg" id="cart_bag" alt="">
+            КОРЗИНА
           </p>
-          <i class="el-icon-goods mb-3" style="transform: scale(2)"></i>
-          <p>
-            <router-link to="/shop">
-              <el-button type="text" v-if="userCart.length === 0" class="mt-3">Go to shop</el-button>
-            </router-link>
+          <p v-if="userCart.length === 0" class="cart_text">
+            Ваша корзина пуста
           </p>
+          <router-link to="/shop">
+            <p
+              v-if="userCart.length === 0"
+              id="into_catalog">
+              В каталог
+              <v-icon class="secondary--text">arrow_forward</v-icon>
+            </p>
+          </router-link>
           <!--PRODUCTS-->
-          <el-row v-for="product in userCart"
-                  :key="product.productId"
-                  v-if="product"
-                  type="flex"
-                  justify="center"
-                  class="mb-3"
-                  style="flex-wrap: wrap">
-            <el-col :sm="3" :md="3" :lg="3" :xl="3" align="left" class="mr-1">
-              <img v-if="product.img_0.thumbnail"
-                   :src="product.img_0.thumbnail"
-                   ref="img_0" class="thumb_img"/>
-            </el-col>
-            <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10" align="left">
-              <router-link :to="'/product/' + product.productId">
-                <h3>{{ product.title }}</h3>
-              </router-link>
-              <p class="mb-0 info--text">SKU: {{ product.SKU }}</p>
-              <p class="mb-0">Brand: {{ product.brand }}</p>
-              <p class="mb-0">Color: {{ product.color }}</p>
-            </el-col>
-            <el-col :xs="24" :sm="9" :md="9" :lg="9" :xl="9" align="right">
-              <p>{{ parseFloat(product.qty * product.price).toFixed(2) }} {{ product.currency }}</p>
-              <el-input-number size="small"
-                               v-model="product.qty"
-                               :min="1"
-                               :max="product.totalQty">
-              </el-input-number>
-              <el-button type="secondary" size="small" @click="removeFromCart(product.productId)">
-                <i class="el-icon-delete"></i>
-              </el-button>
-              <checkout btn-name="Buy"
-                        :checkout-obj="[{
-                          productId: product.productId,
-                          qty: product.qty
-                        }]"
-              >
-              </checkout>
-            </el-col>
-          </el-row>
-          <div v-if="userCart.length > 1">
-            <v-divider></v-divider>
-            <p class="pt-3">Total price: {{ parseFloat(totalPrice).toFixed(2) }} RUB </p>
-            <div class="paypal_total_btn">
-              <checkout btn-name="Buy all"
-                        :checkout-obj="totalItems"
-              >
-              </checkout>
-            </div>
+          <v-divider class="secondary mt-3 mb-3"></v-divider>
+          <div
+            v-for="product in userCart"
+            :key="product.productId"
+            v-if="product">
+            <el-row
+              type="flex"
+              justify="center"
+              style="flex-wrap: wrap; align-items: center">
+              <el-col :sm="3" :md="3" :lg="3" :xl="3" align="left">
+                <img
+                  v-if="product.img_0.thumbnail"
+                  :src="product.img_0.thumbnail"
+                  ref="img_0" class="thumb_img"/>
+              </el-col>
+              <el-col :xs="24" :sm="8" :md="8" :lg="8" :xl="8" align="left" class="pr-2">
+                <router-link :to="'/product/' + product.productId">
+                  <p class="cart_text">
+                    {{ product.title }},
+                    {{ product.color }}
+                  </p>
+                  <span class="cart_sub_text">
+                  Артикул: {{ product.SKU }}
+                </span>
+                </router-link>
+              </el-col>
+              <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4" align="left">
+                <el-input-number
+                  size="small"
+                  v-model="product.qty"
+                  :min="1"
+                  :max="product.totalQty">
+                </el-input-number>
+              </el-col>
+              <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3" align="center">
+                <p class="cart_text mb-0">
+                  {{ parseFloat(product.qty * product.price).toFixed(2) }} &#8381;
+                </p>
+              </el-col>
+              <el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" align="center">
+                <i
+                  @click="removeFromCart(product.productId)"
+                  class="el-icon-close remove_product secondary--text">
+                </i>
+              </el-col>
+              <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3" align="right">
+                <checkout
+                  type="single"
+                  :checkout-obj="[{productId: product.productId, qty: product.qty}]">
+                </checkout>
+              </el-col>
+            </el-row>
+            <v-divider class="secondary mt-3 mb-3"></v-divider>
           </div>
-        </el-card>
+          <div v-if="userCart.length > 1">
+            <el-row type="flex">
+              <el-col :span="9" align="left">
+                <div class="main_btn continue_main_btn">
+                  ПРОДОЛЖИТЬ ПОКУПКИ
+                </div>
+              </el-col>
+              <el-col :span="9" align="left">
+                <div class="paypal_total_btn">
+                  <checkout
+                    type="all"
+                    :checkout-obj="totalItems">
+                  </checkout>
+                </div>
+              </el-col>
+              <el-col align="right">
+                <p class="total_price">
+                  ИТОГО: {{ parseFloat(totalPrice).toFixed(2) }} &#8381;
+                </p>
+              </el-col>
+            </el-row>
+          </div>
+        </div>
       </el-col>
     </el-row>
     <!--ORDERS HISTORY-->
-    <orders-history></orders-history>
+    <orders-history class="mt-5"></orders-history>
   </div>
 </template>
 
@@ -132,12 +164,57 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .thumb_img {
     height: 90px;
     width: 78px;
     object-fit: cover;
-    margin-right: 1px;
-    margin-left: 1px;
+  }
+
+  .cart_text {
+    color: white;
+  }
+
+  .cart_sub_text {
+    color: $color-info;
+    font-size: 12px;
+  }
+
+  .total_price {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .remove_product {
+    transform: scale(1.8);
+  }
+
+  .remove_product:hover {
+    cursor: pointer;
+  }
+
+  #cart_title {
+    color: $color-secondary;
+    font-size: 18px;
+  }
+
+  #cart_bag {
+    height: 28px;
+    margin-bottom: -5px;
+    margin-right: 2px;
+  }
+
+  #into_catalog {
+    color: $color-secondary;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .continue_main_btn {
+    font-size: 12px;
+    width: 220px;
+    height: 38px;
+    margin-right: 40px;
   }
 </style>
