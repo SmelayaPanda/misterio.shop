@@ -8,7 +8,7 @@
             <img src="@/assets/icons/cart_bag.svg" id="cart_bag" alt="">
             КОРЗИНА
           </p>
-          <p v-if="userCart.length === 0" class="cart_text">
+          <p v-if="userCart.length === 0" class="white--text">
             Ваша корзина пуста
           </p>
           <router-link to="/shop">
@@ -37,7 +37,7 @@
               </el-col>
               <el-col :xs="24" :sm="8" :md="8" :lg="8" :xl="8" align="left" class="pr-2">
                 <router-link :to="'/product/' + product.productId">
-                  <p class="cart_text">
+                  <p class="white--text">
                     {{ product.title }},
                     {{ product.color }}
                   </p>
@@ -47,15 +47,24 @@
                 </router-link>
               </el-col>
               <el-col :xs="24" :sm="4" :md="4" :lg="4" :xl="4" align="left">
+                <div>
+                  <i @click="product.qty--" class="el-icon-arrow-left count_control"></i>
+                  <span class="product_count">
+                    {{ product.qty }}
+                  </span>
+                  <i @click="product.qty++" class="el-icon-arrow-right count_control"></i>
+                </div>
+                <!--Keep for easy min/max control-->
                 <el-input-number
                   size="small"
+                  hidden
                   v-model="product.qty"
                   :min="1"
                   :max="product.totalQty">
                 </el-input-number>
               </el-col>
               <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3" align="center">
-                <p class="cart_text mb-0">
+                <p class="price mb-0">
                   {{ parseFloat(product.qty * product.price).toFixed(2) }} &#8381;
                 </p>
               </el-col>
@@ -77,12 +86,14 @@
           <div v-if="userCart.length > 0">
             <el-row type="flex">
               <el-col :span="9" align="left">
-                <app-theme-btn
-                  class="mr-5"
-                  width="220px"
-                  fontSize="12px">
-                  ПРОДОЛЖИТЬ ПОКУПКИ
-                </app-theme-btn>
+                <router-link to="/shop" exact>
+                  <app-theme-btn
+                    class="mr-5"
+                    width="220px"
+                    fontSize="12px">
+                    ПРОДОЛЖИТЬ ПОКУПКИ
+                  </app-theme-btn>
+                </router-link>
               </el-col>
               <el-col :span="9" align="left">
                 <div class="paypal_total_btn">
@@ -122,6 +133,11 @@ export default {
       cartProduct: ''
     }
   },
+  methods: {
+    removeFromCart (productId) {
+      this.$store.dispatch('updateCart', {operation: 'remove', productId: productId})
+    }
+  },
   computed: {
     userCart () {
       let cart = this.$store.getters.cart
@@ -158,11 +174,6 @@ export default {
       }
       return items
     }
-  },
-  methods: {
-    removeFromCart (productId) {
-      this.$store.dispatch('updateCart', {operation: 'remove', productId: productId})
-    }
   }
 }
 </script>
@@ -174,10 +185,6 @@ export default {
     object-fit: cover;
   }
 
-  .cart_text {
-    color: white;
-  }
-
   .cart_sub_text {
     color: $color-info;
     font-size: 12px;
@@ -187,6 +194,11 @@ export default {
     color: white;
     font-size: 16px;
     font-weight: 600;
+  }
+
+  .price {
+    color: white;
+    font-weight: 500;
   }
 
   .remove_product {
@@ -212,5 +224,27 @@ export default {
     color: $color-secondary;
     font-size: 16px;
     font-weight: 600;
+  }
+
+  .count_control {
+    color: $color-info;
+    transform: scale(2);
+  }
+
+  .count_control:hover {
+    cursor: pointer;
+    color: white;
+  }
+
+  .product_count {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    width: 30px;
+    height: 30px;
+    border: 1px solid $color-secondary;
   }
 </style>
