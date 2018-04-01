@@ -10,5 +10,5 @@ export default (value) => {
     hour: 'numeric',
     minute: 'numeric'
   }
-  return date.toLocaleString('en-US', options) // 'ru'
+  return date.toLocaleString('ru', options) // 'ru'
 }
