@@ -6,12 +6,13 @@
           <v-icon v-if="isCollapsed" class="info--text">hdr_strong</v-icon>
           <v-icon v-else class="info--text">hdr_weak</v-icon>
         </el-button>
-        <el-menu :default-active="selectedCategory"
-                 @select="changeCategory"
-                 background-color="#0d0d0d"
-                 text-color="#fff"
-                 active-text-color="#810101"
-                 :collapse="isCollapsed">
+        <el-menu
+          :default-active="selectedCategory"
+          @select="changeCategory"
+          background-color="#0d0d0d"
+          text-color="#fff"
+          active-text-color="#810101"
+          :collapse="isCollapsed">
           <!--Nav Menu-->
           <el-menu-item index="" @click="filterProducts">
             <v-icon class="pr-2 info--text">select_all</v-icon>
@@ -70,10 +71,11 @@
                 <i v-if="this.isLoading"
                    class="el-icon-loading white--text">
                 </i>
-                <el-tag v-if="!this.isLoading && algoliaSearchText"
-                        type="danger"
-                        size="mini"
-                        class="white--text">
+                <el-tag
+                  v-if="!this.isLoading && algoliaSearchText"
+                  type="danger"
+                  size="mini"
+                  class="white--text">
                   <span v-if="products">
                     {{ Object.keys(products).length }}
                   </span>
@@ -83,7 +85,12 @@
           </el-col>
         </el-row>
         <!--FILTER-->
-        <el-collapse v-model="activeName" accordion style="margin-left: 16px; margin-right: 16px" class="primary">
+        <el-collapse
+          id="products_filter"
+          v-model="activeName"
+          accordion
+          style="margin-left: 16px; margin-right: 16px"
+          class="primary">
           <!--PRICE FILTER-->
           <el-collapse-item title="Фильтр" name="1" class="primary">
             <el-button type="text" class="pr-4 pb-0 white--text" @click="sortByPrice">
@@ -108,13 +115,14 @@
             <!--BRAND-->
             <el-row type="flex" justify="center" style="flex-wrap: wrap" class="pt-2">
               <el-col :span="12" align="right" class="pr-1">
-                <el-select filterable
-                           clearable
-                           no-match-text="Брэнд отсутствует"
-                           v-model="selectedBrand"
-                           placeholder="Бренд"
-                           @change="filterProducts"
-                           v-if="brands">
+                <el-select
+                  filterable
+                  clearable
+                  no-match-text="Брэнд отсутствует"
+                  v-model="selectedBrand"
+                  placeholder="Бренд"
+                  @change="filterProducts"
+                  v-if="brands">
                   <el-option
                     v-for="val in brands"
                     :key="val"
@@ -125,13 +133,14 @@
               </el-col>
               <!--COLOR-->
               <el-col :span="12" align="left" class="pl-1">
-                <el-select filterable
-                           clearable
-                           no-match-text="Цвет отсутствует"
-                           v-model="selectedColor"
-                           placeholder="Цвет"
-                           @change="filterProducts"
-                           v-if="colors">
+                <el-select
+                  filterable
+                  clearable
+                  no-match-text="Цвет отсутствует"
+                  v-model="selectedColor"
+                  placeholder="Цвет"
+                  @change="filterProducts"
+                  v-if="colors">
                   <el-option
                     v-for="val in colors"
                     :key="val"
@@ -150,18 +159,23 @@
               <v-card class="main_card primary" height="410px">
                 <v-card-media :src="p.img_0.card" height="300px"></v-card-media>
                 <v-card-title style="height: 30px">
-                  <p class="grey--text mt-4">{{ p.price }} &#8381;</p>
+                  <p class="grey--text mt-4">
+                    {{ p.price }} &#8381;
+                  </p>
                 </v-card-title>
-                <p class="pl-3 pr-3 pt-1 white--text">{{ p.title | snippet(60) }}</p>
+                <p class="pl-3 pr-3 pt-1 white--text">
+                  {{ p.title | snippet(60) }}
+                </p>
               </v-card>
             </div>
           </el-col>
         </el-row>
         <div class="mb-4 mt-3">
-          <el-button type="text"
-                     class="white--text"
-                     @click="loadMore"
-                     v-if="this.$store.getters.lastVisible">
+          <el-button
+            type="text"
+            class="white--text"
+            @click="loadMore"
+            v-if="this.$store.getters.lastVisible">
             Загрузить больше
           </el-button>
         </div>

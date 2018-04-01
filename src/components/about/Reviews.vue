@@ -10,6 +10,7 @@ REVIEW STATUSES:
       Отзывы о нас
     </h2>
     <el-carousel
+      id="reviews_carousel"
       :autoplay="false"
       trigger="click"
       :type="this.$vuetify.breakpoint.name === 'xs' ? '' : 'card'"

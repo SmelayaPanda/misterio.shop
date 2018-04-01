@@ -25,30 +25,34 @@ $third-font: 'Snell Roundhand', serif;
 $primary-text-shadow: 1px 1px 2px black, 0 0 1em red;
 
 // OVERRIDE ELEMENTS STYLES
-.el-slider__bar {
-  background: $color-secondary;
-}
-
-.el-slider__button {
-  background: $color-secondary;
-}
-
-.el-collapse-item__header, .el-collapse-item__content {
-  background: $color-primary;
-  color: white;
+.el-button {
+  border-radius: 1px;
 }
 
 .el-checkbox__input.is-checked + .el-checkbox__label {
   color: white;
 }
 
-.el-carousel__mask {
-  border-radius: 20px;
-  height: 94%;
+#products_filter {
+  .el-slider__bar {
+    background: $color-secondary;
+  }
+
+  .el-slider__button {
+    background: $color-secondary;
+  }
+
+  .el-collapse-item__header, .el-collapse-item__content {
+    background: $color-primary;
+    color: white;
+  }
 }
 
-.el-button {
-  border-radius: 1px;
+#reviews_carousel {
+  .el-carousel__mask {
+    border-radius: 20px;
+    height: 94%;
+  }
 }
 
 #checkoutDialog {
