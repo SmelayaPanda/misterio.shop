@@ -5,7 +5,10 @@ import {Message, Notification} from 'element-ui'
 export default {
   // State ---------------------------------------------------
   state: {
-    user: null,
+    user: {
+      cart: [],
+      orders: []
+    },
     isAdmin: false
   },
   // Mutations ---------------------------------------------------
@@ -30,7 +33,6 @@ export default {
             if (snapshot.data()) {
               // add to auth user data own firestore
               let extendUser = Object.assign(user, snapshot.data())
-              commit('setCart', snapshot.data().cart)
               commit('setUser', extendUser)
               commit('setAdmin', payload)
               commit('setAdmin', user.email === 'smelayapandagm@gmail.com')
@@ -200,6 +202,25 @@ export default {
       },
     editUserData:
       () => {
+      },
+    updateCart:
+      ({commit, getters}, payload) => {
+        commit('LOADING', true)
+        const user = getters.user
+        if (payload.operation === 'add') {
+          user.cart.push(payload.productId)
+        } else if (payload.operation === 'remove') {
+          user.cart.splice(user.cart.indexOf(payload), 1)
+        }
+        firebase.firestore().collection('users').doc(user.uid).update({cart: user.cart})
+          .then(() => {
+            commit('setUser', {...user})
+            commit('LOADING', false)
+          })
+          .catch(err => {
+            console.log(err)
+            commit('LOADING', false)
+          })
       }
   },
   // Getters  ---------------------------------------------------

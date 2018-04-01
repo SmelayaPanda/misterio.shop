@@ -3,7 +3,7 @@
     <app-header class="app_header"></app-header>
     <social-icons class="social_icons"></social-icons>
     <!--LIVE CHAT-->
-    <div v-if="this.$store.getters.user" class="live_chat">
+    <div class="live_chat">
       <live-chat :chatId="this.$store.getters.user.uid"
                  :isUserSide="true"
                  :isCollapsed="true"

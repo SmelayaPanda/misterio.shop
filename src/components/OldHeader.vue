@@ -53,11 +53,12 @@
       </v-list>
     </v-navigation-drawer>
     <!--LIVE CHAT-->
-    <div v-if="this.$store.getters.user">
-      <live-chat :chatId="this.$store.getters.user.uid"
-                 :isUserSide="true"
-                 :isCollapsed="true"
-      ></live-chat>
+    <div>
+      <live-chat
+        :chatId="this.$store.getters.user.uid"
+        :isUserSide="true"
+        :isCollapsed="true">
+      </live-chat>
     </div>
   </div>
 </template>
@@ -88,7 +89,7 @@ export default {
   },
   computed: {
     productCount () {
-      return this.$store.getters.cart.length
+      return this.$store.getters.user.cart.length
     }
   }
 }

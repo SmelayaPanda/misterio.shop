@@ -118,10 +118,10 @@ export default {
       return this.$store.getters.productById(this.id)
     },
     cart () {
-      return this.$store.getters.cart
+      return this.$store.getters.user.cart
     },
     alreadyAddedProduct () {
-      return this.$store.getters.cart.indexOf(this.id) !== -1
+      return this.$store.getters.user.cart.indexOf(this.id) !== -1
     }
   },
   methods: {

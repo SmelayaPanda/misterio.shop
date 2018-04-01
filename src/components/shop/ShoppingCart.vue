@@ -83,13 +83,15 @@
                   <i @click="product.qty++" class="el-icon-arrow-right count_control"></i>
                 </div>
                 <!--Keep for easy min/max control-->
-                <el-input-number
-                  size="small"
-                  hidden
-                  v-model="product.qty"
-                  :min="1"
-                  :max="product.totalQty">
-                </el-input-number>
+                <div style="display: none">
+                  <el-input-number
+                    size="small"
+                    hidden
+                    v-model="product.qty"
+                    :min="1"
+                    :max="product.totalQty">
+                  </el-input-number>
+                </div>
               </el-col>
               <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3" align="center">
                 <p class="price mb-0">
@@ -168,7 +170,7 @@ export default {
   },
   computed: {
     userCart () {
-      let cart = this.$store.getters.cart
+      let cart = this.$store.getters.user.cart
       let products = []
       let product
       if (cart.length > 0) {

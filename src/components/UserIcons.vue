@@ -46,9 +46,9 @@
         </el-col>
         <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3" align="left">
           <span id="cart_count"
-                v-if="this.$store.getters.cart.length"
+                v-if="this.$store.getters.user.cart.length"
                 :class="this.$route.path === '/cart' ? 'white--text' : 'secondary--text'">
-                +{{ this.$store.getters.cart.length }}
+                +{{ this.$store.getters.user.cart.length }}
           </span>
         </el-col>
       </el-row>

@@ -77,7 +77,7 @@ export default {
             let decreaseTotalQty = function (productId, totalQty) {
               return firebase.firestore().collection('products').doc(productId).update({totalQty: totalQty})
             }
-            let cart = getters.cart
+            let cart = getters.user.cart
             let product
             for (let p of payload.products) {
               cart.splice(cart.indexOf(p.productId))
