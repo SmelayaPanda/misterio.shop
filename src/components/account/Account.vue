@@ -5,9 +5,17 @@
       <div v-if="!user.isAnonymous">
         <!--Personal card-->
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
-          <el-col :xs="24" :sm="6" :md="5" :lg="4" :xl="4" class="ml-1 mr-1 mb-2">
+          <el-col :xs="23" :sm="23" :md="20" :lg="16" :xl="13" align="left" class="ml-1 mr-1 mb-3">
+              <img src="@/assets/icons/user_account.svg" id="user_icon" alt="">
+              <span id="account_title">
+                ЛИЧНЫЙ КАБИНЕТ
+              </span>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="center" style="flex-wrap: wrap">
+          <el-col :xs="23" :sm="6" :md="5" :lg="4" :xl="4" class="ml-1 mr-1 mb-2">
             <el-card :body-style="{ padding: '0px' }">
-              <img src="@/assets/placeholders/person_placeholder.png" height="200px">
+              <img src="@/assets/placeholders/person_placeholder.png" height="210px">
               <div style="padding: 14px;">
                 <span v-if="user.firstname">{{ user.firstname }}</span>
                 <span v-if="user.lastname">{{ user.lastname }}</span>
@@ -34,19 +42,17 @@
             <br>
             <div @click="onLogout">
               <app-theme-btn
-              type="primary"
-              width="120px">
+                id="logout"
+                type="primary"
+                width="120px">
                 Выйти
               </app-theme-btn>
             </div>
           </el-col>
-          <el-col :xs="24" :sm="16" :md="14" :lg="11" :xl="8" class="ml-1 mr-1">
+          <el-col :xs="23" :sm="16" :md="14" :lg="11" :xl="8" class="ml-1 mr-1">
             <el-card>
-              <h3 class="mb-3">
-                Адрес
-                <!--EDIT CONTACTS-->
-                <edit-personal-address></edit-personal-address>
-              </h3>
+              <!--EDIT CONTACTS-->
+              <edit-personal-address></edit-personal-address>
               <el-row type="flex"
                       style="flex-wrap: wrap">
                 <el-col :xs="22" :sm="12" :md="12" :lg="12" :xl="12" class="pl-2 pr-2" align="left">
@@ -123,6 +129,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  #logout {
+    margin: 0 auto;
+  }
 
+  #account_title {
+    color: $color-secondary;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+
+  #user_icon {
+    position: relative;
+    height: 28px;
+    margin-bottom: -7px;
+    padding-right: 12px;
+  }
 </style>

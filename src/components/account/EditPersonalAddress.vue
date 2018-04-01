@@ -2,8 +2,9 @@
   <span>
     <el-button @click="dialogVisible = true"
                type="text"
-               class="button mt-2">
-      <i class="el-icon-edit secondary--text"></i>
+               class="button">
+      <span>Адрес</span>
+      <img src="@/assets/icons/red_pencil.svg" id="red_pencil" height="12px" alt="">
     </el-button>
   <el-dialog title="Редактировать"
              width="380px"
@@ -74,5 +75,7 @@ export default {
 </script>
 
 <style scoped>
-
+  #red_pencil {
+    margin-bottom: -2px;
+  }
 </style>
