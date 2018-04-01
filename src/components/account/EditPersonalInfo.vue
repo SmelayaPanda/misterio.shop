@@ -3,8 +3,8 @@
     <el-button @click="dialogVisible = true"
                type="text"
                class="button mt-2">
-      <i class="el-icon-edit secondary--text"></i>
-      <span class="white--text">редактировать</span>
+      <img src="@/assets/icons/grey_pencilsvg.svg" height="12px" alt="">
+      <span id="edit_personal_info">Редактировать</span>
     </el-button>
   <el-dialog
     title="Редактировать"
@@ -87,6 +87,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+  #edit_personal_info {
+    color: $color-info;
+    font-size: 12px;
+  }
 </style>

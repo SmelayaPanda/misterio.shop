@@ -13,7 +13,7 @@ import UserAgreement from '@/components/info/UserAgreement'
 // AUTH
 import Signin from '@/components/auth/Signin'
 import Signup from '@/components/auth/Signup'
-import Account from '@/components/user/Account'
+import Account from '@/components/account/Account'
 // import AuthGuard from '@/router/auth-guard'
 // ADMIN
 import AdminPanel from '@/components/admin/AdminPanel'

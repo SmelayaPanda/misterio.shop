@@ -5,5 +5,5 @@ export default (value) => {
     month: 'long',
     day: 'numeric'
   }
-  return date.toLocaleString('en', options)
+  return date.toLocaleString('ru', options)
 }

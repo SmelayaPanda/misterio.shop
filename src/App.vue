@@ -54,6 +54,7 @@ export default {
 
   a {
     color: $color-secondary;
+    text-decoration: none;
   }
 
   #app {
