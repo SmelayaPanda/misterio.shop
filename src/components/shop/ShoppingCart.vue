@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="cart">
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <el-row v-else type="flex" justify="center">
       <el-col :xs="24" :sm="20" :md="18" :lg="16" :xl="12" type="flex" align="middle">
@@ -209,6 +209,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  #cart {
+    margin-bottom: 40px;
+  }
+
   .thumb_img {
     height: 90px;
     width: 78px;
