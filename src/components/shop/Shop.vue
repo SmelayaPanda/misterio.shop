@@ -222,16 +222,16 @@ export default {
   },
   methods: {
     sortByPrice () {
-      this.$store.dispatch('USER_EVENT', 'Sort by price')
+      this.$store.dispatch('USER_EVENT', `Сортировка по цене ${this.sortAsc}`)
       this.sortAsc = !this.sortAsc
       this.filterProducts()
     },
     viewProduct (id, title) {
-      this.$store.dispatch('USER_EVENT', `Watch product: ${title}`)
+      this.$store.dispatch('USER_EVENT', `Просмотр: ${title}`)
       this.$router.push('/product/' + id)
     },
     changeCategory (key) {
-      this.$store.dispatch('USER_EVENT', `Change category to ${key}`)
+      this.$store.dispatch('USER_EVENT', `Категория: ${key}`)
       let groupList = ['Group A', 'Group B', '...']
       if (groupList.indexOf(key) !== -1) {
         this.selectedGroup = key
@@ -246,7 +246,7 @@ export default {
       this.filter()
     },
     loadMore () {
-      this.$store.dispatch('USER_EVENT', 'Load more')
+      this.$store.dispatch('USER_EVENT', 'Загрузить больше')
       this.filter()
     },
     filter () {
@@ -263,7 +263,7 @@ export default {
       return this.$store.dispatch('fetchProducts')
     },
     algoliaSearch () {
-      this.$store.dispatch('USER_EVENT', `Algolia search word: "${this.algoliaSearchText}"`)
+      this.$store.dispatch('USER_EVENT', `Поиск по слову: "${this.algoliaSearchText}"`)
       this.$store.dispatch('algoliaSearch', this.algoliaSearchText)
     }
   },

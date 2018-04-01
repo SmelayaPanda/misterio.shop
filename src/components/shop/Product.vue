@@ -126,11 +126,11 @@ export default {
   },
   methods: {
     addToCart () {
-      this.$store.dispatch('USER_EVENT', 'Add to cart last product')
+      this.$store.dispatch('USER_EVENT', 'Продукт добавлен в корзину')
       this.$store.dispatch('updateCart', {operation: 'add', productId: this.id})
     },
     removeFromCart () {
-      this.$store.dispatch('USER_EVENT', 'Remove from cart last product')
+      this.$store.dispatch('USER_EVENT', 'Продукт удален из корзины')
       this.$store.dispatch('updateCart', {operation: 'remove', productId: this.id})
     },
     loadOriginal (name) {

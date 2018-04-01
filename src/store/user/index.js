@@ -34,7 +34,6 @@ export default {
               // add to auth user data own firestore
               let extendUser = Object.assign(user, snapshot.data())
               commit('setUser', extendUser)
-              commit('setAdmin', payload)
               commit('setAdmin', user.email === 'smelayapandagm@gmail.com')
             }
             dispatch('fetchOrders', {userId: user.uid})
@@ -104,7 +103,8 @@ export default {
       },
     signInAnonymously:
     // All users initially register as anonymous
-      () => {
+      ({commit}) => {
+        commit('setUser', {cart: [], orders: []})
         firebase.auth().signInAnonymouslyAndRetrieveData()
           .then((data) => { // onAuthStateChanged works
             return firebase.firestore().collection('users').doc(data.user.uid)

@@ -85,9 +85,9 @@ export default {
               let isEndedProducts = product.totalQty - p.qty < 0
               if (isEndedProducts) {
                 this.$notify({
-                  title: 'Ahh...',
-                  message: 'Probably while you were buying the goods it ended. ' +
-                  'Our administrator will contact you to clarify the remaining quantity',
+                  title: 'Воу...',
+                  message: 'Вероятно, пока Вы оформляли покупку товар купил другой человек.' +
+                  'Мы свяжемся с Вами в ближайшее время для уточнения деталей.',
                   type: 'error',
                   showClose: true,
                   duration: 30000,
@@ -98,9 +98,7 @@ export default {
                 isEndedProducts ? 0 : product.totalQty - p.qty))
             }
             let orderIds = []
-            orders.forEach(order => {
-              orderIds.push(order.id)
-            })
+            orders.forEach(order => orderIds.push(order.id)) // to array
             actions.push(updateUserData(cart, orderIds))
             return Promise.all(actions)
           })

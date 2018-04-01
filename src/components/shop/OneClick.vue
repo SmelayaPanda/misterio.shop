@@ -93,15 +93,15 @@ export default {
   },
   methods: {
     buyOneClick () {
-      this.$store.dispatch('USER_EVENT', 'Click By one click last product')
+      this.$store.dispatch('USER_EVENT', 'Купить в один клик')
       this.dialogVisible = true
     },
     closeOneClick () {
       this.dialogVisible = false
-      this.$store.dispatch('USER_EVENT', 'Close one click')
+      this.$store.dispatch('USER_EVENT', 'Отмена')
     },
     submitForm () {
-      this.$store.dispatch('USER_EVENT', 'One click submit! Bingo!')
+      this.$store.dispatch('USER_EVENT', 'Товар куплен в один клик!')
       this.dialogVisible = false
       axios.post('https://us-central1-e-store-dev.cloudfunctions.net/oneClickNotification', {
         nickname: this.oneClickForm.nickname,
@@ -120,9 +120,9 @@ export default {
           console.log(res)
           if (res.status === 200) {
             this.$notify({
-              title: 'Cool!',
-              message: 'Your request has been delivered! ' +
-                'Our manager will contact you soon.',
+              title: 'Поздравляем!',
+              message: 'Ваша заявка доставлена! ' +
+                'Мы свяжемся с Вами в ближайшее время.',
               type: 'success',
               showClose: true,
               duration: 10000,
@@ -132,9 +132,9 @@ export default {
         })
         .catch(() => {
           this.$notify({
-            title: 'Ahh...',
-            message: 'Something is wrong with one click function. ' +
-              'Please write into tec-support SmelayaPandaGM@gmail.com',
+            title: 'Ахх...',
+            message: 'Что-то пошло не так. ' +
+              'Пожалуйста напишите нам в техническую поддержку на почту SmelayaPandaGM@gmail.com',
             type: 'error',
             showClose: true,
             duration: 100000,
