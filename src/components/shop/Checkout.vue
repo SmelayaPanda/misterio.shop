@@ -362,7 +362,6 @@ export default {
       return this.form_1.phone.replace(/[^0-9]/g, '').length === 11
     },
     checkout () {
-      this.$store.dispatch('USER_EVENT', 'Успешная покупка!')
       this.orderIsProcessed = true
       let lightProducts = []
       for (let p of this.orderProducts) {
@@ -388,6 +387,7 @@ export default {
         currency: 'RUB'
       }
       this.$store.dispatch('checkout', order)
+      this.$store.dispatch('USER_EVENT', 'Успешная покупка!')
     }
   },
   computed: {

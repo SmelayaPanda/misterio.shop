@@ -80,7 +80,7 @@ export default {
             let cart = getters.user.cart
             let product
             for (let p of payload.products) {
-              cart.splice(cart.indexOf(p.productId))
+              cart.splice(cart.indexOf(p.productId), 1)
               product = getters.productById(p.productId)
               let isEndedProducts = product.totalQty - p.qty < 0
               if (isEndedProducts) {
