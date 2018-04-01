@@ -6,7 +6,7 @@
         ИСТОРИЯ ПОКУПОК
       </p>
       <div v-if="userOrders">
-        <v-divider class="secondary mb-3"></v-divider>
+        <v-divider class="secondary"></v-divider>
         <el-row
           v-for="order in userOrders" :key="order.id"
           type="flex"
@@ -17,6 +17,7 @@
             <el-row
               type="flex"
               justify="center"
+              class="mt-3 mb-3"
               style="flex-wrap: wrap; align-items: center">
               <el-col :xs="6" :sm="3" :md="3" :lg="2" :xl="2">
                 <el-switch
@@ -35,7 +36,7 @@
                 <el-tag type="info">
                   {{ order.totalPrice }} {{ order.currency }}
                 </el-tag>
-                <el-tag v-if="order.paymentDate" type="success">
+                <el-tag v-if="order.paymentDate" type="danger">
                   ОПЛАЧЕНО
                 </el-tag>
                 <el-tag v-if="order.paymentMethod === 'On receipt'" type="danger">
@@ -127,7 +128,7 @@
                   <div v-for="i in 10" :key="i">
                     <div v-if="order.products[i-1]">
                       Артикул:
-                      <el-tag size="mini" type="success">
+                      <el-tag size="mini" type="info">
                         {{ order.products[i-1].SKU }}
                       </el-tag>
                       <p>
@@ -147,7 +148,7 @@
                 </el-col>
               </el-row>
             </div>
-            <v-divider class="secondary mb-3 mt-3"></v-divider>
+            <v-divider class="secondary"></v-divider>
           </el-col>
         </el-row>
       </div>
@@ -193,6 +194,16 @@ export default {
 
   .order {
     color: white;
+  }
+  .order:before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background:white;
+    opacity: .05;
   }
 
   .info_title {
