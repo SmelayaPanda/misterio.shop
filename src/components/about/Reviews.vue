@@ -114,6 +114,6 @@ export default {
 
   .el-card {
     border-radius: 20px;
-    background: $color-info;
+    background: white;
   }
 </style>
