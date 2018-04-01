@@ -3,6 +3,7 @@
 $color-primary: #0d0d0d;
 $color-primary-light: #161516;
 $color-secondary: #8B0000;
+$color-secondary-dark: #710101;
 $color-secondary-light: #b90000;
 $color-info: #d0d0d0;
 $color-danger: #8B0000;
@@ -22,7 +23,6 @@ $secondary-font: 'Yeseva One', cursive;
 $third-font: 'Snell Roundhand', serif;
 
 $primary-text-shadow: 1px 1px 2px black, 0 0 1em red;
-
 
 // OVERRIDE ELEMENTS STYLES
 .el-slider__bar {
@@ -46,4 +46,43 @@ $primary-text-shadow: 1px 1px 2px black, 0 0 1em red;
   border-radius: 20px;
   height: 94%;
 }
+
+.el-button {
+  border-radius: 1px;
+}
+
+#checkoutDialog {
+  .el-dialog,
+  .el-step__icon {
+    background: $color-primary;
+  }
+
+  .el-step__title,
+  .el-step__icon-inner,
+  .el-icon-check {
+    color: $color-secondary;
+  }
+
+  .el-step__line-inner,
+  .el-step__line {
+    border-color: $color-secondary
+  }
+
+  .el-dialog__close {
+    color: $color-secondary;
+    transform: scale(2);
+    padding-top: 10px;
+    padding-right: 10px;
+  }
+}
+
+#checkout_form_3 {
+  .el-radio__label {
+    color: white;
+  }
+  .el-radio.is-bordered.is-checked {
+    border-color: $color-secondary;
+  }
+}
+
 @import "mixins";

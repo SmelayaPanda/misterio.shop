@@ -1,16 +1,15 @@
 <template>
   <div>
     <el-button @click="dialogVisible = true"
-               class="ml-2">
-      Pay now
+               class="ml-2 secondary white--text">
+      Оплатить
     </el-button>
-
-    <el-dialog title="Pay now with PayPal"
+    <el-dialog title="Оплата"
                :visible.sync="dialogVisible"
                width="30%"
                center>
-      <p>Currently, our system supports payment with PayPal only</p>
-      <p class="success--text">Pay {{ amount }} RUB</p>
+      <p>На данный момент мы поддерживаем оплату только с PayPal</p>
+      <p class="success--text">Оплатить {{ amount }} РУБ</p>
       <PayPal
         env="sandbox"
         locale="en_US"
