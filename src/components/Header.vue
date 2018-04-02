@@ -1,5 +1,5 @@
 <template>
-  <el-row type="flex" justify="center" class="main_header hidden-sm-and-down">
+  <el-row type="flex" justify="center" class="main_header">
     <el-col :xs="14" :sm="12" :md="11" :lg="10" :xl="9">
       <el-row type="flex" justify="center" class="pl-1 pr-3">
         <el-col>
@@ -67,5 +67,11 @@ export default {
     padding-bottom: 7px;
     font-weight: bold;
     border-bottom: 1px solid $color-secondary;
+  }
+
+  @media only screen and (max-width: $sm-screen) {
+    .main_header {
+      display: none;
+    }
   }
 </style>

@@ -170,4 +170,18 @@ export default {
     bottom: 20px;
     right: 30px;
   }
+
+  @media only screen and (max-width: $sm-screen) {
+    #phone_number {
+      font-size: 13px;
+      bottom: 25px;
+      left: 20px;
+    }
+    #flip_down, .social_icons {
+      display: none;
+    }
+    .live_chat {
+      bottom: 10px;
+    }
+  }
 </style>
