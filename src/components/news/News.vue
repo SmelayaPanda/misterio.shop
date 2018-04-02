@@ -139,7 +139,7 @@ export default {
 
 <style scoped lang="scss">
   #news_wrapper {
-    margin-bottom: 30px;
+    margin-bottom: 60px;
   }
 
   #filter_block {
