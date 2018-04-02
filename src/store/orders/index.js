@@ -56,7 +56,7 @@ export default {
     checkout:
       ({commit, getters}, payload) => {
         commit('LOADING', true)
-        const user = getters.user
+        let user = getters.user
         let orderId
         let orders = getters.orders ? getters.orders : []
         payload.userId = user.uid
@@ -77,11 +77,11 @@ export default {
             let decreaseTotalQty = function (productId, totalQty) {
               return firebase.firestore().collection('products').doc(productId).update({totalQty: totalQty})
             }
-            let cart = getters.user.cart
             let product
             for (let p of payload.products) {
-              cart.splice(cart.indexOf(p.productId), 1)
-              product = getters.productById(p.productId)
+              user.cart.splice(user.cart.indexOf(p.productId), 1)
+              product = user.cartProducts[p.productId]
+              delete user.cartProducts[p.productId]
               let isEndedProducts = product.totalQty - p.qty < 0
               if (isEndedProducts) {
                 this.$notify({
@@ -94,16 +94,16 @@ export default {
                   offset: 50
                 })
               }
-              actions.push(decreaseTotalQty(p.productId,
-                isEndedProducts ? 0 : product.totalQty - p.qty))
+              actions.push(decreaseTotalQty(p.productId, isEndedProducts ? 0 : product.totalQty - p.qty))
             }
             let orderIds = []
-            orders.forEach(order => orderIds.push(order.id)) // to array
-            actions.push(updateUserData(cart, orderIds))
+            orders.forEach(order => orderIds.push(order.id))
+            actions.push(updateUserData(user.cart, orderIds))
             return Promise.all(actions)
           })
           .then(() => {
             commit('setOrders', orders)
+            commit('setUser', {...user})
             commit('LOADING', false)
             console.log('Order added')
             router.push('/cart')

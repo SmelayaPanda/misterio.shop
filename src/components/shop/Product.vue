@@ -62,8 +62,7 @@
                 <p>Цена: {{ product.price }} &#8381;</p>
                 <el-button v-if="!alreadyAddedProduct"
                            size="medium"
-                           type="primary"
-                           class="mt-3"
+                           class="mt-3 secondary white--text"
                            :disabled="product.totalQty < 1"
                            @click="addToCart">
                   <span style="font-size: 14px">
@@ -117,9 +116,6 @@ export default {
     product () {
       return this.$store.getters.productById(this.id)
     },
-    cart () {
-      return this.$store.getters.user.cart
-    },
     alreadyAddedProduct () {
       return this.$store.getters.user.cart.indexOf(this.id) !== -1
     }
@@ -127,11 +123,11 @@ export default {
   methods: {
     addToCart () {
       this.$store.dispatch('USER_EVENT', 'Продукт добавлен в корзину')
-      this.$store.dispatch('updateCart', {operation: 'add', productId: this.id})
+      this.$store.dispatch('updateCart', {operation: 'add', product: this.product})
     },
     removeFromCart () {
       this.$store.dispatch('USER_EVENT', 'Продукт удален из корзины')
-      this.$store.dispatch('updateCart', {operation: 'remove', productId: this.id})
+      this.$store.dispatch('updateCart', {operation: 'remove', product: this.product})
     },
     loadOriginal (name) {
       for (let i = 0; i < 5; i++) {

@@ -280,6 +280,7 @@ export default {
     return {
       deliveryMethod: 'Курьер',
       delivery: {
+        // Very bad! replace
         courier: 'Курьер', // TODO: bad idea store cyrillic values
         russianPost: 'Почта России',
         pickPoint: 'PickPoint'
@@ -399,9 +400,10 @@ export default {
     },
     orderProducts () {
       let checkoutObj = this.checkoutObj
+      let cartProducts = this.$store.getters.user.cartProducts
       let products = []
       checkoutObj.forEach(el => {
-        let product = this.$store.getters.productById(el.productId)
+        let product = cartProducts[el.productId]
         product.qty = el.qty
         products.push(product)
       })

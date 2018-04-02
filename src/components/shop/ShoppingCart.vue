@@ -3,28 +3,27 @@
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <el-row v-else type="flex" justify="center">
       <el-col :xs="24" :sm="20" :md="18" :lg="16" :xl="12" type="flex" align="middle">
-        <div v-if="userCart">
-          <p id="cart_title" align="left">
-            <img src="@/assets/icons/cart_bag.svg" id="cart_bag" alt="">
-            КОРЗИНА
-          </p>
-          <p v-if="userCart.length === 0" class="white--text">
+        <p id="cart_title" align="left">
+          <img src="@/assets/icons/cart_bag.svg" id="cart_bag" alt="">
+          КОРЗИНА
+        </p>
+        <div v-if="!Object.keys(userCart).length">
+          <p class="white--text">
             Ваша корзина пуста
           </p>
           <router-link to="/shop">
-            <p
-              v-if="userCart.length === 0"
-              id="into_catalog">
+            <p id="into_catalog">
               В каталог
               <v-icon class="secondary--text">arrow_forward</v-icon>
             </p>
           </router-link>
-          <!--PRODUCTS-->
-          <!--TODO: mobile version of cart-->
-          <el-row
-            v-if="userCart.length !== 0 &&
+        </div>
+        <!--PRODUCTS-->
+        <!--TODO: mobile version of cart-->
+        <div v-if="Object.keys(userCart).length &&
                   this.$vuetify.breakpoint.name !== 'xs' &&
-                  this.$vuetify.breakpoint.name !== 'sm'"
+                  this.$vuetify.breakpoint.name !== 'sm'">
+          <el-row
             id="cart_table_header"
             type="flex"
             justify="center"
@@ -86,7 +85,6 @@
                 <div style="display: none">
                   <el-input-number
                     size="small"
-                    hidden
                     v-model="product.qty"
                     :min="1"
                     :max="product.totalQty">
@@ -100,7 +98,7 @@
               </el-col>
               <el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" align="center">
                 <i
-                  @click="removeFromCart(product.productId)"
+                  @click="removeFromCart(product)"
                   class="el-icon-close remove_product secondary--text">
                 </i>
               </el-col>
@@ -113,7 +111,7 @@
             </el-row>
             <v-divider class="secondary mt-3 mb-3"></v-divider>
           </div>
-          <div v-if="userCart.length > 0">
+          <div v-if="Object.keys(userCart).length">
             <el-row type="flex">
               <el-col :span="9" align="left">
                 <router-link to="/shop" exact>
@@ -129,13 +127,13 @@
                 <div class="paypal_total_btn">
                   <checkout
                     type="all"
-                    :checkout-obj="totalItems">
+                    :checkout-obj="totalOrder.items">
                   </checkout>
                 </div>
               </el-col>
               <el-col align="right">
                 <p class="total_price">
-                  ИТОГО: {{ parseFloat(totalPrice).toFixed(2) }} &#8381;
+                  ИТОГО: {{ parseFloat(totalOrder.price).toFixed(2) }} &#8381;
                 </p>
               </el-col>
             </el-row>
@@ -159,50 +157,33 @@ export default {
     OrdersHistory
   },
   data () {
-    return {
-      cartProduct: ''
-    }
+    return {}
   },
   methods: {
-    removeFromCart (productId) {
-      this.$store.dispatch('updateCart', {operation: 'remove', productId: productId})
+    removeFromCart (product) {
+      this.$store.dispatch('updateCart', {operation: 'remove', product: product})
     }
   },
   computed: {
     userCart () {
-      let cart = this.$store.getters.user.cart
-      let products = []
-      let product
-      if (cart.length > 0) {
-        for (const productId of cart) {
-          product = this.$store.getters.productById(productId)
-          products.push(product)
-        }
-      }
-      return products
+      return this.$store.getters.user.cartProducts ? this.$store.getters.user.cartProducts : {}
     },
-    totalPrice () {
-      let total = 0
-      let cart = this.userCart
-      for (let product of cart) {
-        if (product) {
-          total += product.qty * product.price
-        }
-      }
-      return total
-    },
-    totalItems () {
+    totalOrder () {
       let items = []
+      let price = 0
       let cart = this.userCart
-      for (let el of cart) {
-        if (el) {
-          let item = {}
-          item.productId = el.productId
-          item.qty = el.qty
-          items.push(item)
+      if (cart && Object.keys(cart).length) {
+        for (let pId in cart) {
+          if (cart.hasOwnProperty(pId)) {
+            let item = {}
+            item.productId = cart[pId].productId
+            item.qty = cart[pId].qty
+            price += cart[pId].qty * cart[pId].price
+            items.push(item)
+          }
         }
       }
-      return items
+      return {items: items, price: price}
     }
   }
 }

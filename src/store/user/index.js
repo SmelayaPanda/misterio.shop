@@ -3,15 +3,14 @@ import router from '../../router'
 import {Message, Notification} from 'element-ui'
 
 export default {
-  // State ---------------------------------------------------
   state: {
     user: {
-      cart: [],
+      cart: [], // ids only
+      cartProducts: {}, // { productId : {}, ... }
       orders: []
     },
     isAdmin: false
   },
-  // Mutations ---------------------------------------------------
   mutations: { // change state
     setUser:
       (state, payload) => {
@@ -22,7 +21,6 @@ export default {
         state.isAdmin = payload
       }
   },
-  // Actions ---------------------------------------------------
   actions: {
     fetchUserData: // one action with another vuex dependencies
       ({commit, dispatch, getters}, payload) => {
@@ -37,6 +35,7 @@ export default {
               commit('setAdmin', user.email === 'smelayapandagm@gmail.com')
             }
             dispatch('fetchOrders', {userId: user.uid})
+            return dispatch('loadCartProducts')
           })
           .then(() => {
             commit('LOADING', false)
@@ -69,8 +68,8 @@ export default {
         dispatch('upgradeAnonymousAccount', payload)
           .then(() => {
             Notification({
-              title: 'Congratulations',
-              message: 'The account was created!',
+              title: 'Поздравляем',
+              message: 'Аккаунт был успешно создан!',
               type: 'success',
               showClose: true,
               duration: 10000,
@@ -171,8 +170,8 @@ export default {
         firebase.auth().sendPasswordResetEmail(payload)
           .then(function () {
             Notification({
-              title: 'Info',
-              message: `Reset password form sent to your email: ${payload}!`,
+              title: 'Внимание',
+              message: `На почту ${payload} отправлено письмо для восстановления пароля!`,
               type: 'info',
               showClose: true,
               duration: 20000,
@@ -207,10 +206,13 @@ export default {
       ({commit, getters}, payload) => {
         commit('LOADING', true)
         const user = getters.user
+        let pId = payload.product.productId
         if (payload.operation === 'add') {
-          user.cart.push(payload.productId)
+          user.cart.push(pId)
+          user.cartProducts[pId] = payload.product
         } else if (payload.operation === 'remove') {
-          user.cart.splice(user.cart.indexOf(payload), 1)
+          user.cart.splice(user.cart.indexOf(pId), 1)
+          delete user.cartProducts[pId]
         }
         firebase.firestore().collection('users').doc(user.uid).update({cart: user.cart})
           .then(() => {
@@ -221,9 +223,33 @@ export default {
             console.log(err)
             commit('LOADING', false)
           })
+      },
+    loadCartProducts:
+      ({commit, getters}) => {
+        // TODO: if product was removed?
+        let user = getters.user
+        let actions = []
+        let cartProducts = {}
+        let loadProduct = function (pId) {
+          return firebase.firestore().collection('products').doc(pId).get()
+            .then(snap => {
+              cartProducts[pId] = snap.data()
+            })
+        }
+        user.cart.forEach(pId => {
+          actions.push(loadProduct(pId))
+        })
+        Promise.all(actions)
+          .then(() => {
+            user.cartProducts = cartProducts
+            commit('setUser', {...user})
+            console.log('Fetched: user cart products')
+          })
+          .catch(err => {
+            console.log(err)
+          })
       }
   },
-  // Getters  ---------------------------------------------------
   getters: {
     user:
       state => {
