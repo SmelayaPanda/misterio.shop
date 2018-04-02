@@ -99,23 +99,26 @@ export default {
       },
     notifyAdminAboutNewMessage:
       ({commit, getters}, payload) => {
-        if (getters.liveChats[payload.key].props.unreadByAdmin !== payload.val().props.unreadByAdmin &&
-          getters.liveChats[payload.key].props.isCollapsedAdmin) {
-          let userName
-          if (getters.liveChats[payload.key].props.userEmail) {
-            userName = getters.liveChats[payload.key].props.userEmail
-          } else {
-            userName = `Anonymous ( ${payload.key.substring(0, 5)} )`
+        let chat = getters.liveChats[payload.key]
+        if (chat) {
+          if (chat.props.unreadByAdmin !== payload.val().props.unreadByAdmin &&
+            chat.props.isCollapsedAdmin) {
+            let userName
+            if (chat.props.userEmail) {
+              userName = chat.props.userEmail
+            } else {
+              userName = `Anonymous ( ${payload.key.substring(0, 5)} )`
+            }
+            Message({
+              type: 'success',
+              showClose: true,
+              message: `New message from ${userName}`,
+              duration: 10000
+            })
+            let audio = new Audio(require('@/assets/sounds/iphone_notification.mp3'))
+            audio.setAttribute('crossorigin', 'anonymous')
+            audio.play()
           }
-          Message({
-            type: 'success',
-            showClose: true,
-            message: `New message from ${userName}`,
-            duration: 10000
-          })
-          let audio = new Audio(require('@/assets/sounds/iphone_notification.mp3'))
-          audio.setAttribute('crossorigin', 'anonymous')
-          audio.play()
         }
       },
     subscribeToAllChats: // for admin
@@ -155,8 +158,8 @@ export default {
         dispatch('subscribeToAdminConnectionDevices')
       },
     subscribeToAdminConnectionDevices:
-      // TODO: set for all chats isCollapsedAdmin when admin go away from chat or offline
-      // for users to detect online admin
+    // TODO: set for all chats isCollapsedAdmin when admin go away from chat or offline
+    // for users to detect online admin
       ({commit}) => {
         let adminConn = firebase.database().ref('admin').child('connections')
         adminConn.on('child_added', () => {

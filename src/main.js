@@ -122,10 +122,9 @@ new Vue({
     firebase.initializeApp(config)
     firebase.auth().onAuthStateChanged(
       user => {
-        let isAdminPanel = this.$router.history.current.fullPath.includes('admin')
         if (user) {
           this.$store.dispatch('fetchUserData', user)
-          if (isAdminPanel) {
+          if (this.$route.path.includes('admin')) {
             this.$store.dispatch('fetchAllChats')
           } else {
             this.$store.dispatch('initializeChat', user)

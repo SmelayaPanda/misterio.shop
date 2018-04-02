@@ -25,7 +25,7 @@ export default {
     fetchUserData: // one action with another vuex dependencies
       ({commit, dispatch, getters}, payload) => {
         commit('LOADING', true)
-        let user = {...payload}
+        let user = {...payload} // auth object read only, copy them!
         firebase.firestore().collection('users').doc(user.uid).get()
           .then(snapshot => {
             if (snapshot.data()) {
@@ -123,23 +123,23 @@ export default {
       },
     upgradeAnonymousAccount:
       ({commit, dispatch}, payload) => {
-        let userId
         let credential = firebase.auth.EmailAuthProvider.credential(payload.email, payload.password)
         firebase.auth().currentUser.linkWithCredential(credential)
           .then(user => {
-            userId = user.uid
             user.sendEmailVerification() // TODO: verification link may be expired, force resend
             commit('setUser', {...user})
             console.log('User register. Email verification sent.')
             console.log('Anonymous account successfully upgraded', user)
-            return firebase.firestore().collection('users').doc(user.uid).update({
-              email: user.email,
-              emailVerified: user.emailVerified,
-              isAnonymous: false
-            })
-          })
-          .then(() => {
-            return firebase.database().ref(`liveChats/${userId}/props`).update({userEmail: payload.email})
+            return Promise.all([
+              firebase.firestore().collection('users').doc(user.uid).update({
+                email: user.email,
+                emailVerified: user.emailVerified,
+                isAnonymous: false
+              }),
+              firebase.database().ref(`liveChats/${user.uid}/props`).update({
+                userEmail: user.email
+              })
+            ])
           })
           .then(() => {
             console.log('Live chat email updated', payload.email)
@@ -228,26 +228,28 @@ export default {
       ({commit, getters}) => {
         // TODO: if product was removed?
         let user = getters.user
-        let actions = []
-        let cartProducts = {}
-        let loadProduct = function (pId) {
-          return firebase.firestore().collection('products').doc(pId).get()
-            .then(snap => {
-              cartProducts[pId] = snap.data()
+        if (user.cart) {
+          let actions = []
+          let cartProducts = {}
+          let loadProduct = function (pId) {
+            return firebase.firestore().collection('products').doc(pId).get()
+              .then(snap => {
+                cartProducts[pId] = snap.data()
+              })
+          }
+          user.cart.forEach(pId => {
+            actions.push(loadProduct(pId))
+          })
+          Promise.all(actions)
+            .then(() => {
+              user.cartProducts = cartProducts
+              commit('setUser', {...user})
+              console.log('Fetched: user cart products')
+            })
+            .catch(err => {
+              console.log(err)
             })
         }
-        user.cart.forEach(pId => {
-          actions.push(loadProduct(pId))
-        })
-        Promise.all(actions)
-          .then(() => {
-            user.cartProducts = cartProducts
-            commit('setUser', {...user})
-            console.log('Fetched: user cart products')
-          })
-          .catch(err => {
-            console.log(err)
-          })
       }
   },
   getters: {

@@ -6,11 +6,12 @@
         key="liveChat"
         id="live_chat"
         v-if="showLiveChat">
-        <live-chat :chatId="this.$store.getters.user.uid"
-                   :isUserSide="true"
-                   :isCollapsed="true"
-                   key="liveChatIn"
-                   class="live_chat">
+        <live-chat
+          :chatId="this.$store.getters.user.uid"
+          :isUserSide="true"
+          :isCollapsed="true"
+          key="liveChatIn"
+          class="live_chat">
         </live-chat>
       </div>
       <!--Content-->
@@ -37,7 +38,8 @@ export default {
     showLiveChat () {
       let showIn = ['/account', '/shop', '/cart', '/favorite']
       return this.$store.getters.user &&
-          (showIn.includes(this.$route.path) || this.$route.path.indexOf('/product') !== -1)
+          (showIn.includes(this.$route.path) || this.$route.path.endsWith('/product') !== -1) &&
+        this.$route.path.indexOf('admin') === -1
     }
   }
 }

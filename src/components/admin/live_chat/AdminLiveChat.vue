@@ -36,7 +36,7 @@
                           :type="chatId === id ? '' : 'success'">
                     {{ chat.props.unreadByAdmin }}
                   </el-tag>
-                  <span :class="chatId === id ? 'primary_a--text' : 'info--text'">/</span>
+                  <span class="info--text">/</span>
                   <el-tag size="mini"
                           :type="chatId === id ? '' : 'info'">
                     <span v-if="chat.events">{{ Object.keys(chat.events).length }}</span>
@@ -158,6 +158,7 @@ export default {
     width: 100%;
     height: 420px;
     overflow: scroll;
+    padding-right: 8px;
   }
 
   #chat_users {

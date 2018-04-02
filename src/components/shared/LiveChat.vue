@@ -172,7 +172,7 @@ export default {
   },
   computed: {
     chatMessages () {
-      return this.$store.getters.chatMessages
+      return this.$store.getters.chatMessages ? this.$store.getters.chatMessages : {}
     },
     isTypingUser () {
       return this.$store.getters.chatPropByName('isTypingUser')

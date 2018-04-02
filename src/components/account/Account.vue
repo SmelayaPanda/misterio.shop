@@ -5,7 +5,7 @@
       <div v-if="!user.isAnonymous">
         <!--Personal card-->
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
-          <el-col :xs="23" :sm="23" :md="20" :lg="16" :xl="13" align="left" class="ml-1 mr-1 mb-3 mt-2">
+          <el-col :xs="23" :sm="23" :md="21" :lg="16" :xl="13" align="left" class="ml-1 mr-1 mb-3 mt-2">
               <img src="@/assets/icons/user_account.svg" id="user_icon" alt="">
               <span id="account_title">
                 ЛИЧНЫЙ КАБИНЕТ
@@ -13,7 +13,7 @@
           </el-col>
         </el-row>
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
-          <el-col :xs="23" :sm="6" :md="5" :lg="4" :xl="4" class="ml-1 mr-1 mb-2">
+          <el-col :xs="23" :sm="6" :md="6" :lg="4" :xl="4" class="ml-1 mr-1 mb-2">
             <el-card :body-style="{ padding: '0px' }">
               <img src="@/assets/placeholders/person_placeholder.png" height="210px">
               <div style="padding: 14px;">

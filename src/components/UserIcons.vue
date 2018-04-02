@@ -44,7 +44,9 @@
             </div>
           </router-link>
         </el-col>
-        <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3" align="left">
+        <el-col
+          v-if="this.$store.getters.user.cart"
+          :xs="24" :sm="3" :md="3" :lg="3" :xl="3" align="left">
           <span id="cart_count"
                 v-if="this.$store.getters.user.cart.length"
                 :class="this.$route.path === '/cart' ? 'white--text' : 'secondary--text'">
