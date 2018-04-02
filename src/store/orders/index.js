@@ -82,6 +82,7 @@ export default {
               user.cart.splice(user.cart.indexOf(p.productId), 1)
               product = user.cartProducts[p.productId]
               delete user.cartProducts[p.productId]
+              // TODO: not working notification
               let isEndedProducts = product.totalQty - p.qty < 0
               if (isEndedProducts) {
                 this.$notify({
