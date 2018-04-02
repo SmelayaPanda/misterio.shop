@@ -3,7 +3,7 @@
     <div class="user_icons hidden-sm-and-down">
       <el-row type="flex" justify="center">
         <el-col :xs="24" :sm="7" :md="7" :lg="7" :xl="7">
-          <router-link to="/favorite" exact>
+          <router-link to="/favorites" exact>
             <div>
               <img v-if="this.$route.path === '/favorite'"
                    src="@/assets/icons/user/favorite_white.svg" alt=""

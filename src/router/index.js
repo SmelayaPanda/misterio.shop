@@ -10,6 +10,7 @@ import Contacts from '@/components/contacts/Contacts'
 import Shop from '@/components/shop/Shop'
 import Product from '@/components/shop/Product'
 import UserAgreement from '@/components/info/UserAgreement'
+import Favorites from '@/components/favorites/Favorites'
 // AUTH
 import Signin from '@/components/auth/Signin'
 import Signup from '@/components/auth/Signup'
@@ -55,6 +56,11 @@ export default new Router({
       path: '/cart',
       name: 'cart',
       component: ShoppingCart
+    },
+    {
+      path: '/favorites',
+      name: 'favorites',
+      component: Favorites
     },
     {
       path: '/about',
