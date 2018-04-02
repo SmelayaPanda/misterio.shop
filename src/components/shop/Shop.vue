@@ -171,11 +171,11 @@
           </el-col>
         </el-row>
         <div class="mb-4 mt-3">
-          <!--TODO: double click 2x products loaded! =)-->
           <el-button
             type="text"
             class="white--text"
             @click="loadMore"
+            :disabled="this.isLoading"
             v-if="this.$store.getters.lastVisible">
             Загрузить больше
           </el-button>
