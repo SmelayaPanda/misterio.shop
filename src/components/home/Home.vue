@@ -1,20 +1,38 @@
 <template>
   <div class="home_page">
-    <app-header class="app_header"></app-header>
-    <social-icons class="social_icons"></social-icons>
+    <app-header
+      :color="currentSwiperIndex === 2 ? 'black' : 'red'"
+      class="app_header">
+    </app-header>
+    <social-icons
+      :color="currentSwiperIndex === 2 ? 'black' : 'red'"
+      class="social_icons">
+    </social-icons>
     <!--LIVE CHAT-->
     <div class="live_chat">
-      <live-chat :chatId="this.$store.getters.user.uid"
-                 :isUserSide="true"
-                 :isCollapsed="true"
-                 class="live_chat">
+      <live-chat
+        :color="currentSwiperIndex === 2 ? 'black' : 'red'"
+        :chatId="this.$store.getters.user.uid"
+        :isUserSide="true"
+        :isCollapsed="true"
+        class="live_chat">
       </live-chat>
     </div>
-    <div id="phone_number">+7 (800) <b>100 66 66</b></div>
-    <div id="flip_down_wrapper" @click="nextSlide">
-      <p id="flip_down">Листай вниз</p>
+    <div
+      :class="currentSwiperIndex === 2 ? 'primary--text' : ''"
+      id="phone_number">
+      +7 (800) <b>100 66 66</b>
     </div>
-    <swiper :options="swiperOption" ref="homeSwiper" class="swiper_slide">
+    <div id="flip_down_wrapper" @click="nextSlide">
+      <p id="flip_down">
+        Листай вниз
+      </p>
+    </div>
+    <swiper
+      v-on:slideChange="nextSlide"
+      :options="swiperOption"
+      ref="homeSwiper"
+      class="swiper_slide">
       <swiper-slide class="slide_1">
         <home-frame>
           <slide1 slot="content"></slide1>
@@ -65,6 +83,7 @@ export default {
   },
   data () {
     return {
+      currentSwiperIndex: 0,
       swiperOption: {
         direction: 'vertical',
         slidesPerView: 1,
@@ -79,8 +98,8 @@ export default {
   },
   methods: {
     nextSlide () {
-      console.log(this.swiper.realIndex)
-      this.swiper.slideNext()
+      this.currentSwiperIndex = this.swiper.realIndex
+      // this.swiper.slideNext()
     }
   },
   computed: {
@@ -114,7 +133,7 @@ export default {
   }
 
   .slide_3 {
-    background: linear-gradient(to right, $color-secondary, $color-primary)
+    background: linear-gradient(to right, $color-secondary-dark, $color-secondary-ultra-dark)
   }
 
   .slide_4 {

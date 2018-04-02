@@ -6,7 +6,7 @@
         <!--Personal card-->
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :xs="23" :sm="23" :md="21" :lg="16" :xl="13" align="left" class="ml-1 mr-1 mb-3 mt-2">
-              <img src="@/assets/icons/user_account.svg" id="user_icon" alt="">
+              <img src="@/assets/icons/user/user_account.svg" id="user_icon" alt="">
               <span id="account_title">
                 ЛИЧНЫЙ КАБИНЕТ
               </span>

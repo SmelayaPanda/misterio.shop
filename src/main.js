@@ -73,6 +73,8 @@ Vue.use(Vuetify, {
     primary: '#0d0d0d',
     primaryLight: '#161516',
     secondary: '#8B0000',
+    secondaryDark: '#710101',
+    secondaryUltraDark: '#650000',
     danger: '#8B0000',
     info: '#d0d0d0',
     success: '#67c23a',

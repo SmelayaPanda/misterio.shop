@@ -27,15 +27,15 @@
         <el-row type="flex" justify="start" style="flex-wrap: wrap; margin-top: 40px;">
           <el-col :span="22" align="left">
             <p class="contacts">
-              <img src="@/assets/icons/phone_footer.svg" height="22px" class="contact_icon" alt="">
+              <img src="@/assets/icons/footer/phone.svg" height="22px" class="contact_icon" alt="">
               +7 (800) 100 66 66
             </p>
             <p class="contacts">
-              <img src="@/assets/icons/mail_footer.svg" height="17px" class="contact_icon" alt="">
+              <img src="@/assets/icons/footer/mail.svg" height="17px" class="contact_icon" alt="">
               otkrovennieigri@mail.ru
             </p>
             <p class="contacts">
-              <img src="@/assets/icons/chat_footer.svg" height="27px" class="contact_icon" alt="">
+              <img src="@/assets/icons/footer/chat.svg" height="27px" class="contact_icon" alt="">
               Нужна консультация? <br>
               <span class="we_answer">Мы ответим на любой Ваш вопрос</span>
             </p>
@@ -61,9 +61,9 @@
             <p id="watch_news" align="left">СЛЕДИ ЗА НОВОСТЯМИ</p>
           </el-col>
           <el-col id="soc_icons_wrap" :span="14" align="right">
-            <img class="soc_icon" src="@/assets/icons/vk_footer.svg" alt="">
-            <img class="soc_icon" src="@/assets/icons/inst_footer.svg" alt="">
-            <img class="soc_icon" src="@/assets/icons/facebook_footer.svg" alt="">
+            <img class="soc_icon" src="@/assets/icons/footer/vk.svg" alt="">
+            <img class="soc_icon" src="@/assets/icons/footer/inst.svg" alt="">
+            <img class="soc_icon" src="@/assets/icons/footer/facebook.svg" alt="">
           </el-col>
         </el-row>
       </el-col>

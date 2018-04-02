@@ -8,13 +8,15 @@
       </p>
       <p id="main_title_3" align="right">
         и даже больше...<br>
-        <app-theme-btn
-          class="mt-4"
-          type="primary"
-          width="178px"
-          fontSize="12px">
-          ВЫБРАТЬ ТОВАР
-        </app-theme-btn>
+        <router-link to="/shop">
+          <app-theme-btn
+            class="mt-4"
+            type="primary"
+            width="178px"
+            fontSize="12px">
+            ВЫБРАТЬ ТОВАР
+          </app-theme-btn>
+        </router-link>
       </p>
     </div>
   </div>

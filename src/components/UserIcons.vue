@@ -6,13 +6,17 @@
           <router-link to="/favorite" exact>
             <div>
               <img v-if="this.$route.path === '/favorite'"
-                   src="@/assets/icons/favorite_white.svg" alt=""
+                   src="@/assets/icons/user/favorite_white.svg" alt=""
+                   class="favorite_icon"
+                   height="40px" width="40px">
+              <img v-else-if="color === 'red'"
+                   src="@/assets/icons/user/favorite.svg" alt=""
                    class="favorite_icon"
                    height="40px" width="40px">
               <img v-else
-                   src="@/assets/icons/favorite.svg" alt=""
-                   class="favorite_icon"
-                   height="40px" width="40px">
+                   src="@/assets/icons/user/favorite_black.svg"
+                   alt=""
+                   height="40px">
             </div>
           </router-link>
         </el-col>
@@ -20,12 +24,16 @@
           <router-link to="/account" exact>
             <div>
               <img v-if="this.$route.path === '/account'"
-                   src="@/assets/icons/user_white.svg" alt=""
+                   src="@/assets/icons/user/user_white.svg" alt=""
+                   class="user_icon"
+                   height="40px">
+              <img v-else-if="color === 'red'"
+                   src="@/assets/icons/user/user.svg" alt=""
                    class="user_icon"
                    height="40px">
               <img v-else
-                   src="@/assets/icons/user.svg" alt=""
-                   class="user_icon"
+                   src="@/assets/icons/user/user_black.svg"
+                   alt=""
                    height="40px">
             </div>
           </router-link>
@@ -34,11 +42,15 @@
           <router-link to="/cart" exact>
             <div>
               <img v-if="this.$route.path === '/cart'"
-                   src="@/assets/icons/bag_white.svg"
+                   src="@/assets/icons/user/bag_white.svg"
+                   alt=""
+                   height="40px">
+              <img v-else-if="color === 'red'"
+                   src="@/assets/icons/user/bag.svg"
                    alt=""
                    height="40px">
               <img v-else
-                   src="@/assets/icons/bag.svg"
+                   src="@/assets/icons/user/bag_black.svg"
                    alt=""
                    height="40px">
             </div>
@@ -49,7 +61,8 @@
           :xs="24" :sm="3" :md="3" :lg="3" :xl="3" align="left">
           <span id="cart_count"
                 v-if="this.$store.getters.user.cart.length"
-                :class="this.$route.path === '/cart' ? 'white--text' : 'secondary--text'">
+                :class="this.$route.path === '/cart' ? 'white--text' :
+                        ( color === 'red' ? 'secondary--text' : 'primary--text' )">
                 +{{ this.$store.getters.user.cart.length }}
           </span>
         </el-col>
@@ -61,7 +74,8 @@
 
 <script>
 export default {
-  name: 'UserIcons'
+  name: 'UserIcons',
+  props: ['color']
 }
 </script>
 
