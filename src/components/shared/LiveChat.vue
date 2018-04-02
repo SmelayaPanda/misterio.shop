@@ -13,7 +13,10 @@
     <div v-if="isUserSide && isCollapsedChat"
          @click="openChat">
       <div class="heart">
-        <i class="fa fa-heartbeat fa-2x"></i>
+        <h2 v-if="isUserSide && unreadByUser">
+          <span class="unread_by_user">+{{ unreadByUser }}</span>
+        </h2>
+        <i v-else class="fa fa-heartbeat fa-2x"></i>
       </div>
     </div>
     <v-card id="liveChat" v-if="!isCollapsedChat" :class="isUserSide ? 'user_live_chat' : 'admin_live_chat'">
@@ -332,6 +335,14 @@ export default {
     left: 18px;
     color: white;
     text-shadow: $primary-text-shadow;
+  }
+
+  .unread_by_user {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    font-size: 22px;
+    color: white;
   }
 
   .heart:after,

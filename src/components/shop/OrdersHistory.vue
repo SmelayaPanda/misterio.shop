@@ -42,6 +42,7 @@
                 <el-tag v-if="order.paymentMethod === 'On receipt'" type="danger">
                   ОПЛАТА ПРИ ПОЛУЧЕНИИ
                 </el-tag>
+                <!--TODO: process all statuses!!!-->
                 <el-button type="text" class="info--text">
                   <!--Status:-->
                   <el-tag type="danger" v-if="order.status === 'payPending'">
@@ -138,13 +139,13 @@
                       </p>
                     </div>
                   </div>
-                  <span v-if="order.comments">
+                  <p v-if="order.comments">
                     <span>
                       <i class="el-icon-warning"></i>
                       Комментарии:
                     </span>
                     {{ order.comments }}<br>
-                  </span>
+                  </p>
                 </el-col>
               </el-row>
             </div>

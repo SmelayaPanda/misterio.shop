@@ -24,7 +24,7 @@
               <el-col :span="14" class="product_descr">
                 <p class="product_title">Продукт название {{ i }}</p>
                 <p class="product_price">{{ i * 10 }} РУБ</p>
-                <app-theme-btn width="120px">
+                <app-theme-btn width="120px" class="into_cart">
                   В корзину
                 </app-theme-btn>
               </el-col>
@@ -56,10 +56,10 @@ export default {
   }
 
   .favorites_product {
-    padding:  10px;
+    padding:  20px;
   }
   .product_descr {
-    padding-left: 10px;
+    padding-left: 15px;
   }
 
   .product_thumb {
@@ -75,5 +75,13 @@ export default {
 
   .product_price {
     color: white;
+  }
+
+  .into_cart {
+  }
+
+  .into_cart:hover {
+    transition: all 0.3s;
+    background: $color-secondary;
   }
 </style>

@@ -53,7 +53,7 @@
           <el-popover trigger="hover" placement="top">
             <p>Title: {{ scope.row.title }}</p>
             <div slot="reference" class="name-wrapper">
-              <el-tag size="medium">{{ scope.row.title | snippet(34) }}</el-tag>
+              <v-chip outline label color="info_a">{{ scope.row.title | snippet(30) }}</v-chip>
             </div>
           </el-popover>
         </template>
@@ -61,12 +61,12 @@
       <!--BRAND-->
       <el-table-column
         label="Brand"
-        width="114">
+        width="124">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <p>Brand: {{ scope.row.brand }}</p>
             <div slot="reference" class="name-wrapper">
-              <el-tag size="medium">{{ scope.row.brand | snippet(14) }}</el-tag>
+              {{ scope.row.brand | snippet(12) }}
             </div>
           </el-popover>
         </template>

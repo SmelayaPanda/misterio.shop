@@ -85,6 +85,7 @@ export default {
     font-family: $secondary-font;
     font-weight: 400;
     color: $color-info;
+    margin-top: -20px;
   }
 
   .about_text {

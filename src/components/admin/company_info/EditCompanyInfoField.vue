@@ -1,6 +1,9 @@
 <template>
 <span>
-    <el-button @click="dialogVisible=true" type="text">{{ this.title }}</el-button>
+    <el-button @click="dialogVisible=true" type="text">
+      <i class="el-icon-edit"></i>
+      {{ this.title }}
+    </el-button>
     <el-dialog
       :title="'Edit'"
       :visible.sync="dialogVisible"

@@ -123,6 +123,7 @@ export default {
       },
     upgradeAnonymousAccount:
       ({commit, dispatch}, payload) => {
+        // TODO: may be set user from state? cart lost - only reload return it
         let credential = firebase.auth.EmailAuthProvider.credential(payload.email, payload.password)
         firebase.auth().currentUser.linkWithCredential(credential)
           .then(user => {

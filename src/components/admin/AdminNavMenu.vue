@@ -1,5 +1,5 @@
 <template>
-  <div align="left">
+  <div align="left" id="admin_nav_menu">
     <el-button type="text" @click="isCollapsed = !isCollapsed" class="mt-2 ml-3 pl-1">
       <v-icon v-if="isCollapsed">hdr_strong</v-icon>
       <v-icon v-if="!isCollapsed">hdr_weak</v-icon>
@@ -43,9 +43,9 @@
         <v-icon>chat</v-icon>
         <span slot="title">
           <span class="mr-1">Live Chat</span>
-          <el-tag size="mini" class="mb-1">
+          <v-chip small outline label color="primary_a">
             {{ onlineUsers }}
-          </el-tag>
+          </v-chip>
         </span>
       </el-menu-item>
     </el-menu>

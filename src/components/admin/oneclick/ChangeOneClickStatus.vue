@@ -1,15 +1,13 @@
 <template>
   <el-row type="flex" justify="start">
     <el-button @click="dialogVisible = true"
-               v-if="oneClick.status === this.SENT_PEND || oneClick.status === this.SENT"
-    >
+               v-if="oneClick.status === this.SENT_PEND || oneClick.status === this.SENT">
       <v-icon small v-if="oneClick.status === this.SENT_PEND">flight_takeoff</v-icon>
       <v-icon small v-if="oneClick.status === this.SENT">flight_land</v-icon>
     </el-button>
     <el-button @click="refuseDialogVisible = true"
-               v-if="oneClick.status !== this.REFUSED"
-    >
-      <v-icon small>close</v-icon>
+               v-if="oneClick.status !== this.REFUSED">
+      <i class="el-icon-close"></i>
     </el-button>
     <!--Main statuses dialog-->
     <el-dialog

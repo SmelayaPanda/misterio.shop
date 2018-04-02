@@ -10,24 +10,24 @@
               Orders
             </h3>
           </div>
-          <div>
+          <div align="right" style="padding-right: 40%">
             <p>Pay Pending:
-              <el-tag type="danger">{{ orderStatistics.payPending }}</el-tag>
+              <v-chip outline label color="danger_a">{{ orderStatistics.payPending }}</v-chip>
             </p>
             <p>Sent Pending:
-              <el-tag type="danger">{{ orderStatistics.sentPending }}</el-tag>
+              <v-chip outline label color="danger_a">{{ orderStatistics.sentPending }}</v-chip>
             </p>
             <p>Sent:
-              <el-tag>{{ orderStatistics.sent }}</el-tag>
+              <v-chip outline label color="info_a">{{ orderStatistics.sent }}</v-chip>
             </p>
             <p>Delivered:
-              <el-tag type="success">{{ orderStatistics.delivered }}</el-tag>
+              <v-chip outline label color="success_a">{{ orderStatistics.delivered }}</v-chip>
             </p>
             <p>Refused:
-              <el-tag type="warning">{{ orderStatistics.refused }}</el-tag>
+              <v-chip outline label color="warning_a">{{ orderStatistics.refused }}</v-chip>
             </p>
             <p>Total orders count:
-              <el-tag>{{ orderStatistics.totalOrders }}</el-tag>
+              <v-chip label color="primary_a" text-color="white">{{ orderStatistics.totalOrders }}</v-chip>
             </p>
           </div>
         </el-card>
@@ -41,24 +41,24 @@
               One clicks
             </h3>
           </div>
-          <div>
+          <div align="right" style="padding-right: 40%">
             <p>Created:
-              <el-tag type="danger">{{ oneClickStatistics.created }}</el-tag>
+              <v-chip outline label color="danger_a">{{ oneClickStatistics.created }}</v-chip>
             </p>
             <p>Sent Pending:
-              <el-tag type="danger">{{ oneClickStatistics.sentPending }}</el-tag>
+              <v-chip outline label color="danger_a">{{ oneClickStatistics.sentPending }}</v-chip>
             </p>
             <p>Sent:
-              <el-tag>{{ oneClickStatistics.sent }}</el-tag>
+              <v-chip outline label color="info_a">{{ oneClickStatistics.sent }}</v-chip>
             </p>
             <p>Delivered:
-              <el-tag type="success">{{ oneClickStatistics.delivered }}</el-tag>
+              <v-chip outline label color="success_a">{{ oneClickStatistics.delivered }}</v-chip>
             </p>
             <p>Refused:
-              <el-tag type="warning">{{ oneClickStatistics.refused }}</el-tag>
+              <v-chip outline label color="warning_a">{{ oneClickStatistics.refused }}</v-chip>
             </p>
             <p>Total One Click count:
-              <el-tag>{{ oneClickStatistics.totalOneClick }}</el-tag>
+              <v-chip label color="primary_a" text-color="white">{{ oneClickStatistics.totalOneClick }}</v-chip>
             </p>
           </div>
         </el-card>
@@ -72,21 +72,21 @@
               Products
             </h3>
           </div>
-          <div>
+          <div align="left" style="padding-left: 10%">
             <p>Average price:
-              <el-tag>{{ productStatistics.avgPrice }} &#8381;</el-tag>
+              <v-chip>{{ productStatistics.avgPrice }} &#8381;</v-chip>
             </p>
             <p>Max price:
-              <el-tag>{{ productStatistics.maxPrice }} &#8381;</el-tag>
+              <v-chip>{{ productStatistics.maxPrice }} &#8381;</v-chip>
             </p>
             <p>Unique Products Qty:
-              <el-tag>{{ productStatistics.uniqueProductQty }}</el-tag>
+              <v-chip>{{ productStatistics.uniqueProductQty }}</v-chip>
             </p>
             <p>Total Products Qty:
-              <el-tag>{{ productStatistics.totalProductQty }}</el-tag>
+              <v-chip>{{ productStatistics.totalProductQty }}</v-chip>
             </p>
             <p>Total Store coast:
-              <el-tag>{{ productStatistics.totalStoreCoast }} &#8381;</el-tag>
+              <v-chip label>{{ productStatistics.totalStoreCoast }} &#8381;</v-chip>
             </p>
           </div>
         </el-card>
@@ -100,18 +100,18 @@
               Reviews
             </h3>
           </div>
-          <div>
+          <div align="right" style="padding-right: 40%">
             <p>New:
-              <el-tag type="danger">{{ reviewStatistics.newReview }}</el-tag>
+              <v-chip  outline label  color="danger_a">{{ reviewStatistics.newReview }}</v-chip>
             </p>
             <p>Published:
-              <el-tag type="success">{{ reviewStatistics.published }}</el-tag>
+              <v-chip  outline label  color="success_a">{{ reviewStatistics.published }}</v-chip>
             </p>
             <p>Archived:
-              <el-tag>{{ reviewStatistics.archived }}</el-tag>
+              <v-chip outline label color="warning_a">{{ reviewStatistics.archived }}</v-chip>
             </p>
             <p>Total:
-              <el-tag>{{ reviewStatistics.totalReviews }}</el-tag>
+              <v-chip label color="primary_a" text-color="white">{{ reviewStatistics.totalReviews }}</v-chip>
             </p>
           </div>
         </el-card>

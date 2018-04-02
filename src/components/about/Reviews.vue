@@ -30,6 +30,7 @@ REVIEW STATUSES:
             </el-row>
           </div>
           <el-col :span="24">
+            <!-- TODO: center text -->
             <p>{{ item.text | snippet(300) }}</p>
             <p class="info--text right">{{ item.date | date }}</p>
           </el-col>

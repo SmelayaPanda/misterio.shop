@@ -119,8 +119,10 @@ export default {
   #slide_2_title {
     position: relative;
     font-family: $secondary-font;
-    font-size: 38px;
+    font-weight: 400;
+    font-size: 32px;
     margin-bottom: 30px;
+    letter-spacing: 1px;
 
     background: linear-gradient(55deg, $color-info 40%, $color-secondary 60%);
     color: transparent;

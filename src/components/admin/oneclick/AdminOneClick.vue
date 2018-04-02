@@ -10,12 +10,12 @@ ORDER STATUS CHAIN:
   <div v-if="oneClick">
     <el-row type="flex" justify="start" align="middle" class="mb-4">
       <h2 class="ml-3 mr-2">Status</h2>
-      <el-select filterable
-                 no-match-text="Status is missing"
-                 v-model="status"
-                 placeholder="Brand"
-                 @change="loadStatusOneClick"
-      >
+      <el-select
+        filterable
+        no-match-text="Status is missing"
+        v-model="status"
+        placeholder="Brand"
+        @change="loadStatusOneClick">
         <el-option
           v-for="val in statuses"
           :key="val"
@@ -29,8 +29,7 @@ ORDER STATUS CHAIN:
       :data="oneClick"
       :highlight-current-row="true"
       empty-text="No data"
-      style="width: 100vw; text-align: left"
-    >
+      style="width: 100vw; text-align: left">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-row>
@@ -47,7 +46,9 @@ ORDER STATUS CHAIN:
                 Product info:
               </h3>
               <p>
-                Product Id: <el-tag size="mini" type="success">{{ props.row.product.id }}</el-tag><br>
+                Product Id:
+                <el-tag size="mini" type="success">{{ props.row.product.id }}</el-tag>
+                <br>
                 Title: {{ props.row.product.title }}<br>
                 SKU: {{ props.row.product.SKU }}<br>
                 Price: {{ props.row.product.price }}<br>
@@ -78,7 +79,7 @@ ORDER STATUS CHAIN:
             <el-col :span="24">
               <h3 class="mt-3">Status history:</h3>
               <span>
-                  <el-tag type="info">Created
+                  <el-tag>Created
                     <p>
                       {{ props.row.creationDate | date }}<br>
                       <span v-if="props.row.processDate || props.row.refuseDate">
@@ -90,7 +91,7 @@ ORDER STATUS CHAIN:
               <!--PROCESS-->
               <span v-if="props.row.processDate">
                   <i class="el-icon-caret-right"></i>
-                    <el-tag type="info">Processed
+                    <el-tag>Processed
                       <p>
                         {{ props.row.processDate | date }}<br>
                         {{(Math.abs(props.row.processDate - props.row.creationDate) / 36e5).toFixed(1) }} hours
@@ -100,7 +101,7 @@ ORDER STATUS CHAIN:
               <!--SENT-->
               <span v-if="props.row.sentDate">
                   <i class="el-icon-caret-right"></i>
-                    <el-tag type="info">Sent
+                    <el-tag>Sent
                       <p>
                         {{ props.row.sentDate | date }}<br>
                         {{(Math.abs(props.row.sentDate - props.row.processDate) / 36e5).toFixed(1) }} hours
@@ -110,7 +111,7 @@ ORDER STATUS CHAIN:
               <!--DELIVERED-->
               <span v-if="props.row.deliveryDate">
                   <i class="el-icon-caret-right"></i>
-                    <el-tag type="info">Delivered
+                    <el-tag>Delivered
                       <p>
                         {{ props.row.deliveryDate | date }}<br>
                         {{(Math.abs(props.row.deliveryDate - props.row.sentDate) / 36e5).toFixed(1) }} hours
@@ -120,7 +121,7 @@ ORDER STATUS CHAIN:
               <!--RETURNED-->
               <span v-if="props.row.returnDate">
                   <i class="el-icon-caret-right"></i>
-                    <el-tag type="info">Returned
+                    <el-tag>Returned
                       <p>
                         {{ props.row.returnDate | date }}<br>
                         {{(Math.abs(props.row.returnDate - props.row.deliveryDate) / 36e5).toFixed(1) }} hours
@@ -130,7 +131,7 @@ ORDER STATUS CHAIN:
               <!--REFUSE-->
               <span v-if="props.row.refuseDate">
                   <i class="el-icon-caret-right"></i>
-                    <el-tag type="info">Refuse
+                    <el-tag>Refuse
                       <p>
                         {{ props.row.refuseDate | date }}<br>
                         {{(Math.abs(props.row.refuseDate - props.row.creationDate) / 36e5).toFixed(1) }} hours (from creation)
@@ -157,7 +158,9 @@ ORDER STATUS CHAIN:
           <el-popover trigger="hover" placement="top">
             <p>Title: {{ scope.row.product.title }}</p>
             <div slot="reference" class="name-wrapper">
-              <el-tag size="medium">{{ scope.row.product.title | snippet(32) }}</el-tag>
+              <v-chip outline label color="info_a">
+                {{ scope.row.product.title | snippet(30) }}
+              </v-chip>
             </div>
           </el-popover>
         </template>

@@ -1,10 +1,13 @@
 <template>
 <span>
-    <el-button v-if="!alreadyAddedProduct"
-               size="medium"
-               class="mt-3"
-               :disabled="disabled"
-               @click="buyOneClick">
+  <!--TODO: how confirm one click person?-->
+  <!--TODO: sort by date decs-->
+    <el-button
+      v-if="!alreadyAddedProduct"
+      size="medium"
+      class="mt-3"
+      :disabled="disabled"
+      @click="buyOneClick">
     <span style="font-size: 14px">
       В один клик
     </span>

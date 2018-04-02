@@ -2,12 +2,12 @@
   <div v-if="reviews">
     <el-row type="flex" justify="start" align="middle" class="mb-4">
       <h2 class="ml-3 mr-2">Status</h2>
-      <el-select filterable
-                 no-match-text="Status is missing"
-                 v-model="status"
-                 placeholder="Brand"
-                 @change="loadStatusReviews"
-      >
+      <el-select
+        filterable
+        no-match-text="Status is missing"
+        v-model="status"
+        placeholder="Brand"
+        @change="loadStatusReviews">
         <el-option
           v-for="val in statuses"
           :key="val"
@@ -21,8 +21,7 @@
       :data="reviews"
       :highlight-current-row="true"
       empty-text="No data"
-      style="width: 100vw; text-align: left"
-    >
+      style="width: 100vw; text-align: left">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-row>
@@ -64,7 +63,7 @@
         <template slot-scope="scope">
           <span>
             <el-tag type="success" v-if="scope.row.corrected">+</el-tag>
-            <el-tag v-else>-</el-tag>
+            <v-chip outline label color="info_a"  v-else>-</v-chip>
           </span>
         </template>
       </el-table-column>
@@ -74,18 +73,18 @@
         label="Action">
         <template slot-scope="scope">
           <el-row type="flex" justify="start">
-            <process-review :reviewId="scope.row.id"
-                            v-if="status === 'new'"
-            >
+            <process-review
+              :reviewId="scope.row.id"
+              v-if="status === 'new'">
             </process-review>
-            <change-review-status :reviewId="scope.row.id"
-                                  toStatus="published"
-            >
+            <change-review-status
+              :reviewId="scope.row.id"
+              toStatus="published">
             </change-review-status>
-            <change-review-status :reviewId="scope.row.id"
-                                  toStatus="archived"
-                                  v-if="status !== 'archived'"
-            >
+            <change-review-status
+              :reviewId="scope.row.id"
+              toStatus="archived"
+              v-if="status !== 'archived'">
             </change-review-status>
           </el-row>
         </template>

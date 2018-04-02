@@ -63,6 +63,7 @@
                   ref="img_0" class="thumb_img"/>
               </el-col>
               <el-col :xs="24" :sm="8" :md="8" :lg="8" :xl="8" align="left" class="pr-2">
+                <!--TODO: link not working if product not loaded!!!-->
                 <router-link :to="'/product/' + product.productId">
                   <p class="white--text">
                     {{ product.title }},

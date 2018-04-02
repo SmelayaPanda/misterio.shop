@@ -40,6 +40,10 @@ $lg-screen: 1920px;
   color: white;
 }
 
+.el-select-dropdown__item {
+  font-family: $primary-font;
+}
+
 #products_filter {
   .el-slider__bar {
     background: $color-secondary;
@@ -99,6 +103,17 @@ $lg-screen: 1920px;
   .el-radio.is-bordered.is-checked {
     border-color: $color-secondary;
   }
+}
+
+// ADMIN PANEL
+#admin_nav_menu {
+  .el-menu-item.is-active, .el-menu-item.is-active i {
+    color: $color-primary_a;
+  }
+}
+
+.chip--label, .chip--label .chip__content {
+  border-radius: 5px;
 }
 
 @import "mixins";

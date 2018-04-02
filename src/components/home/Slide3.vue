@@ -59,6 +59,7 @@ export default {
     content: "";
     display: block;
     width: 45%;
+    margin-top: 10px;
     border-bottom: 1px solid $color-primary;
   }
 

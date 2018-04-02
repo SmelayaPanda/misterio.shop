@@ -1,13 +1,15 @@
 <template>
   <div>
     <el-button @click="openProcessDialog">
-      <i class="el-icon-service"></i>
+      <i class="el-icon-service" style="transform: scale(1.1)"></i>
     </el-button>
 
-    <el-dialog title="Process oneclick" :visible.sync="dialogFormVisible" width="100%"
-               :fullscreen="true"
-               center
-    >
+    <el-dialog
+      title="Process oneclick"
+      :visible.sync="dialogFormVisible"
+      width="100%"
+      :fullscreen="true"
+      center>
       <el-row type="flex" justify="center" v-if="oneClick">
         <el-col :xs="24" :sm="20" :md="10" :lg="8" :xl="6">
           <el-card>
@@ -87,6 +89,7 @@
 
 <script>
 import * as firebase from 'firebase'
+
 export default {
   name: 'ProcessOneClick',
   props: ['oneClickId'],

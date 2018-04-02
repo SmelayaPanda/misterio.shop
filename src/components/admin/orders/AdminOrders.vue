@@ -10,12 +10,12 @@ ORDER STATUS CHAIN:
   <div v-if="orders">
     <el-row type="flex" justify="start" align="middle" class="mb-4">
       <h2 class="ml-3 mr-2">Status</h2>
-      <el-select filterable
-                 no-match-text="Status is missing"
-                 v-model="status"
-                 placeholder="Brand"
-                 @change="loadOrdersWithStatus"
-      >
+      <el-select
+        filterable
+        no-match-text="Status is missing"
+        v-model="status"
+        placeholder="Brand"
+        @change="loadOrdersWithStatus">
         <el-option
           v-for="val in statuses"
           :key="val"
@@ -29,8 +29,7 @@ ORDER STATUS CHAIN:
       :data="orders"
       :highlight-current-row="true"
       empty-text="No data"
-      style="width: 100vw; text-align: left;"
-    >
+      style="width: 100vw; text-align: left;">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-row>
@@ -45,7 +44,10 @@ ORDER STATUS CHAIN:
                 Product info:
               </h3>
               <p>
-                Product Id: <el-tag size="mini" type="success">{{ props.row.products[0].productId }}</el-tag><br>
+                <!--TODO: loop through all products!-->
+                Product Id:
+                <el-tag size="mini" type="success">{{ props.row.products[0].productId }}</el-tag>
+                <br>
                 Title: {{ props.row.products[0].title }}<br>
                 SKU: {{ props.row.products[0].SKU }}<br>
                 Price: {{ props.row.products[0].price }}<br>
@@ -78,7 +80,7 @@ ORDER STATUS CHAIN:
             <el-col :span="24">
               <h3 class="mt-3">Status history:</h3>
               <span>
-                  <el-tag type="info">Checkout
+                  <el-tag>Checkout
                     <p>
                       {{ props.row.checkoutDate | date }}<br>
                       <span v-if="props.row.checkoutDate">
@@ -90,7 +92,7 @@ ORDER STATUS CHAIN:
               <!--SENT-->
               <span v-if="props.row.sentDate">
                   <i class="el-icon-caret-right"></i>
-                    <el-tag type="info">Sent
+                    <el-tag>Sent
                       <p>
                         {{ props.row.sentDate | date }}<br>
                         {{(Math.abs(props.row.sentDate - props.row.checkoutDate) / 36e5).toFixed(1) }} hours
@@ -100,7 +102,7 @@ ORDER STATUS CHAIN:
               <!--DELIVERED-->
               <span v-if="props.row.deliveryDate">
                   <i class="el-icon-caret-right"></i>
-                    <el-tag type="info">Delivered
+                    <el-tag>Delivered
                       <p>
                         {{ props.row.deliveryDate | date }}<br>
                         {{(Math.abs(props.row.deliveryDate - props.row.sentDate) / 36e5).toFixed(1) }} hours
@@ -110,7 +112,7 @@ ORDER STATUS CHAIN:
               <!--REFUSE-->
               <span v-if="props.row.refuseDate">
                   <i class="el-icon-caret-right"></i>
-                    <el-tag type="info">Refused
+                    <el-tag>Refused
                       <p>
                         {{ props.row.refuseDate | date }}<br>
                         {{(Math.abs(props.row.refuseDate - props.row.checkoutDate) / 36e5).toFixed(1) }} hours (from checkout)
@@ -127,8 +129,7 @@ ORDER STATUS CHAIN:
               <el-switch v-model="showPayPalIPN"></el-switch>
               <span v-for="(prop, key) in props.row.payPalIPN"
                     :key="prop.txn_id"
-                    v-if="showPayPalIPN"
-              >
+                    v-if="showPayPalIPN">
                 <span class="primary--text">{{key}}:</span>
                 {{prop}} /
               </span>
@@ -147,12 +148,12 @@ ORDER STATUS CHAIN:
       <!--Title-->
       <el-table-column
         label="Title"
-        width="260">
+        width="280">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <p>Title: {{ scope.row.products[0].title }}</p>
             <div slot="reference" class="name-wrapper">
-              <el-tag size="medium">{{ scope.row.products[0].title | snippet(32) }}</el-tag>
+              <v-chip outline label color="info_a">{{ scope.row.products[0].title | snippet(32) }}</v-chip>
             </div>
           </el-popover>
         </template>
