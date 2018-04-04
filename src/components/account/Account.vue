@@ -2,12 +2,12 @@
   <div>
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else-if="user">
-      <div v-if="!user.isAnonymous">
+      <div v-if="!user.isAnonymous && user.emailVerified">
         <!--Personal card-->
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :xs="23" :sm="23" :md="21" :lg="16" :xl="13" align="left" class="ml-1 mr-1 mb-3 mt-2">
-              <img src="@/assets/icons/user/user_account.svg" id="user_icon" alt="">
-              <span id="account_title">
+            <img src="@/assets/icons/user/user_account.svg" id="user_icon" alt="">
+            <span id="account_title">
                 ЛИЧНЫЙ КАБИНЕТ
               </span>
           </el-col>
@@ -88,12 +88,24 @@
           </el-col>
         </el-row>
       </div>
-      <div v-else>
-        <h3>
-          <i class="el-icon-info"></i>
-          Чтобы продолжить, подтвердите свой аккаунт.
-        </h3>
-        <p>Верификационная ссылка отправлена на почту: <br><span>{{ user.email }}</span></p>
+      <div v-else style="margin-top: 60px;">
+        <el-row type="flex" justify="center">
+          <el-col :xs="23" :sm="20" :md="15" :lg="13" :xl="12" type="flex" align="center">
+            <b class="white--text">
+              <i class="el-icon-info"></i>
+              Чтобы продолжить, подтвердите свой аккаунт.
+            </b>
+            <p class="white--text">
+              Верификациооная ссылка отправлена на Вашу почту <span>{{ user.email }}</span>
+            </p>
+            <p id="error_email">Ошиблись с email?</p>
+            <router-link to="/signup" exact>
+              <app-theme-btn type="primary" class="mt-1 mb-2">
+                Зарегистрироваться
+              </app-theme-btn>
+            </router-link>
+          </el-col>
+        </el-row>
       </div>
       <!--Anonymous-->
       <anonymous-account></anonymous-account>
@@ -145,5 +157,13 @@ export default {
     height: 28px;
     margin-bottom: -7px;
     padding-right: 12px;
+  }
+
+  #error_email {
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 60px;
+    margin-bottom: 0;
   }
 </style>
