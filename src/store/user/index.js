@@ -107,35 +107,29 @@ export default {
       },
     upgradeAnonymousAccount:
       ({commit, dispatch}, payload) => {
-        // TODO: may be set user from state? cart lost - only reload return it
         let credential = firebase.auth.EmailAuthProvider.credential(payload.email, payload.password)
         firebase.auth().currentUser.linkWithCredential(credential)
           .then(user => {
+            dispatch('fetchUserData', user)
             user.sendEmailVerification() // TODO: verification link may be expired, force resend
-            commit('setUser', {...user})
             console.log('User register. Email verification sent.')
             console.log('Anonymous account successfully upgraded', user)
             return Promise.all([
-              firebase.firestore().collection('users').doc(user.uid).update({
-                email: user.email,
-                emailVerified: user.emailVerified,
-                isAnonymous: false
-              }),
-              firebase.database().ref(`liveChats/${user.uid}/props`).update({
-                userEmail: user.email
-              })
+              firebase.firestore().collection('users').doc(user.uid)
+                .update({
+                  email: user.email,
+                  emailVerified: user.emailVerified,
+                  isAnonymous: false
+                }),
+              firebase.database().ref(`liveChats/${user.uid}/props`).update({userEmail: user.email})
             ])
           })
-          .then(() => {
-            console.log('Live chat email updated', payload.email)
-          })
-          .catch(err => {
-            console.log('Error upgrading anonymous account', err)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     updateEmailVerification:
       ({commit, dispatch}, payload) => {
-        firebase.firestore().collection('users').doc(payload.uid).update({emailVerified: payload.emailVerified})
+        firebase.firestore().collection('users').doc(payload.uid)
+          .update({emailVerified: payload.emailVerified})
           .catch(err => dispatch('LOG', err))
       },
     logout:
