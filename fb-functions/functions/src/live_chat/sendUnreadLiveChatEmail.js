@@ -1,16 +1,14 @@
-exports.handleUnreadMsg = function (event, admin, transporter) {
+exports.handler = function (snap, context, admin, transporter) {
   console.log(CONST.LOG_DELIMITER)
-  sendEmailNotificationToAdmin(transporter, event.data.val())
+  return sendEmailNotificationToAdmin(transporter, snap.val())
     .then(() => {
-      return admin.database().ref(`unreadLiveChat/${event.params.msgId}`).remove()
+      return admin.database().ref(`unreadLiveChat/${context.params.msgId}`).remove()
     })
     .then(() => {
-      console.log('Message handled')
+      console.log('Message handled!')
       return true
     })
-    .catch(err => {
-      console.log(err)
-    })
+    .catch(err => err)
 }
 
 
@@ -19,9 +17,9 @@ let sendEmailNotificationToAdmin = function (transporter, info) {
     let mailOptions = {
       from: ADMIN_EMAIL,
       to: ADMIN_EMAIL,
-      subject: `Re:High Store notification: new live chat message`,
+      subject: 'LiveChat',
       text:
-        `New message from ${info.from}:
+        `Новое сообщение от ${info.from}:
         "${info.msg.trim()}"
         `
     };
@@ -32,6 +30,6 @@ let sendEmailNotificationToAdmin = function (transporter, info) {
       } else {
         resolve('Email sent: ' + info.response)
       }
-    });
+    })
   }))
 }

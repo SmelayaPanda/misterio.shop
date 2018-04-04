@@ -4,17 +4,18 @@ const createProductSubImages = require('./src/storage/createProductSubImages')
 // AUTH
 const onUserCreate = require('./src/auth/onUserCreate')
 // DB
-const updateOneClickStatistics = require('./src/db/updateOneClickStatistics')
-const sendOneClickNotification = require('./src/db/sendOneClickNotification')
-const updateOrdersStatistics = require('./src/db/updateOrdersStatistics')
-const sendOrderNotification = require('./src/db/sendOrderNotification')
+const updateOneClickStatistics = require('./src/db/oneclick/updateOneClickStatistics')
+const sendOneClickNotification = require('./src/db/oneclick/sendOneClickNotification')
+const updateOrdersStatistics = require('./src/db/orders/updateOrdersStatistics')
+const sendOrderNotification = require('./src/db/orders/sendOrderNotification')
+const updateReviewsStatistics = require('./src/db/reviews/updateReviewsStatistics')
+const sendReviewNotification = require('./src/db/reviews/sendReviewNotification')
+const updateProductStatistics = require('./src/db/products/updateProductStatistics')
+const updateAlgoliaIndex = require('./src/db/products/updateAlgoliaIndex')
+const deleteAlgoliaIndex = require('./src/db/products/deleteAlgoliaIndex')
+const sendUnreadLiveChatEmail = require('./src/live_chat/sendUnreadLiveChatEmail')
 // HTTP
 const processPayPal = require('./src/http/processPayPal')
-
-
-const productHandlers = require('./src/productHandlers')
-const reviewHandlers = require('./src/reviewHandlers')
-const liveChat = require('./src/liveChat')
 
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
@@ -22,6 +23,8 @@ admin.initializeApp();
 
 // GLOBAL CONST
 global.CONST = require('./src/constants')
+// firebase functions:config:set algolia.app_id="<YOUR-ALGOLIA-APP-ID>"
+// firebase functions:config:set algolia.api_key="<YOUR-ALGOLIA-APP-PUBLIC-KEY>"
 // firebase functions:config:set admin.email="SmelayaPandaGM@gmail.com"
 // firebase functions:config:set admin.password="***"
 global.ADMIN_EMAIL = functions.config().admin.email
@@ -39,7 +42,7 @@ let transporter = nodemailer.createTransport({
 // ALL CLOUD FUNCTIONS
 // *******************
 // AUTH
-exports.onUserCreate = functions
+exports.onCreateUser = functions
   .auth.user()
   .onCreate((userMetadata, context) => {
     return onUserCreate.handler(userMetadata, context, admin)
@@ -60,56 +63,58 @@ exports.processPayPal = functions
   })
 
 // DATABASE
-exports.sendOneClickEmailNotification = functions
-  .firestore.document('oneclick/{oneClickId}')
+// oneclick
+exports.onCreateOneClick = functions.firestore
+  .document('oneclick/{oneClickId}')
   .onCreate((snap, context) => {
-    return sendOneClickNotification.handler(snap, context, admin, transporter)
+    return sendOneClickNotification.handler(snap, context, transporter)
   })
-exports.updateOneClickStatistics = functions
-  .firestore.document('oneclick/{oneClickId}')
+exports.onWriteOneClick = functions.firestore
+  .document('oneclick/{oneClickId}')
   .onWrite((change, context) => {
     return updateOneClickStatistics.handler(change, context, admin)
   })
-
-exports.sendOrderNotification = functions
-  .firestore.document('orders/{orderId}')
-  .onCreate((change, context) => {
-    return sendOrderNotification.handler(change, context, admin, transporter)
+// order
+exports.onCreateOrder = functions.firestore
+  .document('orders/{orderId}')
+  .onCreate((snap, context) => {
+    return sendOrderNotification.handler(snap, context, transporter)
   })
-exports.updateOrdersStatistics = functions
-  .firestore.document('orders/{orderId}')
+exports.onWriteOrder = functions.firestore
+  .document('orders/{orderId}')
   .onWrite((change, context) => {
     return updateOrdersStatistics.handler(change, context, admin)
   })
-
-// PRODUCT HANDLERS:
-// 1. ALGOLIA SEARCH
-// 2. STATISTICS
+// review
+exports.onCreateReview = functions.firestore
+  .document('reviews/{reviewId}')
+  .onCreate((snap, context) => {
+    return sendReviewNotification.handler(snap, context, transporter)
+  })
+exports.onWriteReview = functions.firestore
+  .document('reviews/{reviewId}')
+  .onWrite((change, context) => {
+    return updateReviewsStatistics.handler(change, context, admin)
+  })
 // Now, product updated after insertion (.onWrite not necessary)
-// exports.onProductUpdate = functions.firestore.document('products/{productId}').onUpdate(event => {
-//   return productHandlers.updateProductHandler(event, functions, admin)
-// })
-// exports.onProductDelete = functions.firestore.document('products/{productId}').onDelete(event => {
-//   return productHandlers.deleteProductHandler(event, functions, admin)
-// })
-//
-//
-// // ORDER HANDLERS:
-// // 1. STATISTICS
-
-//
-// // ONE CLICK HANDLERS:
-
-//
-// // REVIEW HANDLERS:
-// // 1. STATISTICS
-// exports.onReviewWrite = functions.firestore.document('reviews/{reviewId}').onWrite(event => {
-//   return reviewHandlers.updateReviewHandler(event, admin)
-// })
-//
-// // HANDLE UNREAD LIVE CHAT MESSAGE
-// exports.liveChatNewMsgNotification = functions.database.ref('unreadLiveChat/{msgId}').onCreate(event => {
-//   return liveChat.handleUnreadMsg(event, admin, transporter)
-// })
+exports.onUpdateProduct = functions.firestore
+  .document('products/{productId}')
+  .onUpdate((change, context) => {
+    return Promise.all([
+      updateProductStatistics.handler(change, context, admin),
+      updateAlgoliaIndex.handler(change, context, functions)
+    ])
+  })
+exports.onDeleteProduct = functions.firestore
+  .document('products/{productId}')
+  .onDelete((change, context) => {
+    return deleteAlgoliaIndex.handler(change, context, functions)
+  })
+// live chat
+exports.onCreateUnreadLiveChatMsg = functions
+  .database.ref('unreadLiveChat/{msgId}')
+  .onCreate((snap, context) => {
+  return sendUnreadLiveChatEmail.handler(snap, context, admin, transporter)
+})
 
 // onWrite = created, updated, or deleted

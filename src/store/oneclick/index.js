@@ -69,7 +69,8 @@ export default {
               title: 'Ахх...',
               message:
               'Что-то пошло не так. ' +
-              'Пожалуйста напишите нам в техническую поддержку на почту SmelayaPandaGM@gmail.com',
+              'Если проблема повторяется, пожалуйста, ' +
+              'сообщите в отдел технической поддержки по почте SmelayaPandaGM@gmail.com',
               type: 'error',
               showClose: true,
               duration: 100000,

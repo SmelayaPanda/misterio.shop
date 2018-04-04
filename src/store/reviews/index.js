@@ -1,4 +1,5 @@
 import * as firebase from 'firebase'
+import {Notification} from 'element-ui'
 
 export default {
   state: {
@@ -53,6 +54,14 @@ export default {
         // TODO: add notification
         firebase.firestore().collection('reviews').add(payload)
           .then((docRef) => {
+            Notification({
+              title: 'Спасибо',
+              message: 'Ваш отзыв будет опубликован после проходения модерации!',
+              type: 'success',
+              showClose: true,
+              duration: 10000,
+              offset: 50
+            })
             let reviews = getters.reviews
             reviews[docRef.id] = payload
             commit('setReviews', reviews)
@@ -62,6 +71,16 @@ export default {
           .catch(err => {
             console.log(err)
             commit('LOADING', false)
+            Notification({
+              title: 'Упс',
+              message: 'Произошла ошибка ' + err +
+              'Если проблема повторяется, пожалуйста, ' +
+              'сообщите в отдел технической поддержки по почте SmelayaPandaGM@gmail.com',
+              type: 'success',
+              showClose: true,
+              duration: 10000,
+              offset: 50
+            })
           })
       },
     updateReview:
