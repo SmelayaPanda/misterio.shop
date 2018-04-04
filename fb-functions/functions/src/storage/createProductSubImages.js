@@ -31,11 +31,11 @@ const CARD_MAX_WIDTH = 800;
 const CARD_PREFIX = 'card_';
 
 
-exports.handler = function (event, admin) {
-  console.log(LOG_DELIMITER)
+exports.handler = function (object, context, admin) {
+  console.log(CONST.LOG_DELIMITER)
   // File and directory paths.
-  const contentType = event.data.contentType; // This is the image Mime type
-  const originalFilePath = event.data.name;
+  const contentType = object.contentType; // This is the image Mime type
+  const originalFilePath = object.name;
   const originalFileDir = path.dirname(originalFilePath);
   const originalFileName = path.basename(originalFilePath);
 
@@ -63,13 +63,13 @@ exports.handler = function (event, admin) {
   }
 
   // Exit if this is a move or deletion event.
-  if (event.data.resourceState === 'not_exists') {
+  if (object.resourceState === 'not_exists') {
     console.log('This is a deletion event.');
     return true;
   }
 
   // Cloud Storage files.
-  const bucket = gcs.bucket(event.data.bucket);
+  const bucket = gcs.bucket(object.bucket);
   const originalFile = bucket.file(originalFilePath);
   const thumbFile = bucket.file(thumbFilePath);
   const cardFile = bucket.file(cardFilePath);

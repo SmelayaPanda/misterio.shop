@@ -1,16 +1,16 @@
-exports.updateOrderHandler = function (event, admin) {
-  console.log(LOG_DELIMITER)
-  let payPending = 0
+exports.handler = function (change, context, admin) {
+  console.log(CONST.LOG_DELIMITER)
+  let created = 0
   let sentPending = 0
   let sent = 0
   let delivered = 0
   let refused = 0
-  let totalOrders = 0
-  return admin.firestore().collection('orders').get()
+  let totalOneClick = 0
+  return admin.firestore().collection('oneclick').get()
     .then(snapshot => {
       snapshot.docs.forEach(doc => {
-        if (doc.data().status === 'payPending') {
-          payPending += 1
+        if (doc.data().status === 'created') {
+          created += 1
         } else if (doc.data().status === 'sentPending') {
           sentPending += 1
         } else if (doc.data().status === 'sent') {
@@ -20,19 +20,19 @@ exports.updateOrderHandler = function (event, admin) {
         } else if (doc.data().status === 'refused') {
           refused += 1
         }
-        totalOrders++
+        totalOneClick++
       })
-      return admin.firestore().collection('statistics').doc('orders').update({
-        payPending: payPending,
+      return admin.firestore().collection('statistics').doc('oneclick').update({
+        created: created,
         sentPending: sentPending,
         sent: sent,
         delivered: delivered,
         refused: refused,
-        totalOrders: totalOrders
+        totalOneClick: totalOneClick
       })
     })
     .then(() => {
-      console.log('Statistics: orders data updated!')
+      console.log('Statistics: one click data updated!')
       return true
     })
     .catch(err => {

@@ -1,24 +1,31 @@
-// Function for Handle IPN Notification
 'use strict'
-const processPayPal = require('./sub_functions/processPayPal')
-const generateProductImages = require('./sub_functions/generateProductImages')
-const oneClickNotification = require('./sub_functions/oneClickNotification')
-const productHandlers = require('./sub_functions/productHandlers')
-const orderHandlers = require('./sub_functions/orderHandlers')
-const oneClickHandlers = require('./sub_functions/oneClickHandlers')
-const reviewHandlers = require('./sub_functions/reviewHandlers')
-const userHandlers = require('./sub_functions/userHandlers')
-const liveChat = require('./sub_functions/liveChat')
+// STORAGE
+const createProductSubImages = require('./src/storage/createProductSubImages')
+// AUTH
+const onUserCreate = require('./src/auth/onUserCreate')
+// DB
+const updateOneClickStatistics = require('./src/db/updateOneClickStatistics')
+const sendOneClickNotification = require('./src/db/sendOneClickNotification')
+const updateOrdersStatistics = require('./src/db/updateOrdersStatistics')
+const sendOrderNotification = require('./src/db/sendOrderNotification')
+// HTTP
+const processPayPal = require('./src/http/processPayPal')
+
+
+const productHandlers = require('./src/productHandlers')
+const reviewHandlers = require('./src/reviewHandlers')
+const liveChat = require('./src/liveChat')
 
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-admin.initializeApp(functions.config().firebase);
+admin.initializeApp();
 
+// GLOBAL CONST
+global.CONST = require('./src/constants')
 // firebase functions:config:set admin.email="SmelayaPandaGM@gmail.com"
 // firebase functions:config:set admin.password="***"
 global.ADMIN_EMAIL = functions.config().admin.email
 global.ADMIN_PASS = functions.config().admin.password
-global.LOG_DELIMITER = '>-------------------------------------------------------------------------------------------------------'
 let nodemailer = require('nodemailer')
 let transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -28,58 +35,81 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-// ---------------------------[ ALL FUNCTIONS ]---------------------------
-exports.onUserCreate = functions.auth.user().onCreate(event => {
-  return userHandlers.onUserCreate(event, admin)
-})
-// PAYPAL
-exports.processPayPal = functions.https.onRequest((req, res) => {
-  processPayPal.handler(req, res, admin, transporter)
-})
+// *******************
+// ALL CLOUD FUNCTIONS
+// *******************
+// AUTH
+exports.onUserCreate = functions
+  .auth.user()
+  .onCreate((userMetadata, context) => {
+    return onUserCreate.handler(userMetadata, context, admin)
+  })
 
-// ONE CLICK
-exports.oneClickNotification = functions.https.onRequest((req, res) => {
-  oneClickNotification.handler(req, res, admin, transporter)
-})
+// STORAGE
+exports.createProductSubImages = functions
+  .storage.object()
+  .onFinalize((object, context) => {
+    return createProductSubImages.handler(object, context, admin)
+  })
 
-// PRODUCT IMAGES
-exports.generateProductImages = functions.storage.object().onChange(event => {
-  return generateProductImages.handler(event, admin)
-})
+// HTTP
+exports.processPayPal = functions
+  .https
+  .onRequest((req, res) => {
+    processPayPal.handler(req, res, admin, transporter)
+  })
+
+// DATABASE
+exports.sendOneClickEmailNotification = functions
+  .firestore.document('oneclick/{oneClickId}')
+  .onCreate((snap, context) => {
+    return sendOneClickNotification.handler(snap, context, admin, transporter)
+  })
+exports.updateOneClickStatistics = functions
+  .firestore.document('oneclick/{oneClickId}')
+  .onWrite((change, context) => {
+    return updateOneClickStatistics.handler(change, context, admin)
+  })
+
+exports.sendOrderNotification = functions
+  .firestore.document('orders/{orderId}')
+  .onCreate((change, context) => {
+    return sendOrderNotification.handler(change, context, admin, transporter)
+  })
+exports.updateOrdersStatistics = functions
+  .firestore.document('orders/{orderId}')
+  .onWrite((change, context) => {
+    return updateOrdersStatistics.handler(change, context, admin)
+  })
 
 // PRODUCT HANDLERS:
 // 1. ALGOLIA SEARCH
 // 2. STATISTICS
 // Now, product updated after insertion (.onWrite not necessary)
-exports.onProductUpdate = functions.firestore.document('products/{productId}').onUpdate(event => {
-  return productHandlers.updateProductHandler(event, functions, admin)
-})
-exports.onProductDelete = functions.firestore.document('products/{productId}').onDelete(event => {
-  return productHandlers.deleteProductHandler(event, functions, admin)
-})
+// exports.onProductUpdate = functions.firestore.document('products/{productId}').onUpdate(event => {
+//   return productHandlers.updateProductHandler(event, functions, admin)
+// })
+// exports.onProductDelete = functions.firestore.document('products/{productId}').onDelete(event => {
+//   return productHandlers.deleteProductHandler(event, functions, admin)
+// })
+//
+//
+// // ORDER HANDLERS:
+// // 1. STATISTICS
 
+//
+// // ONE CLICK HANDLERS:
 
-// ORDER HANDLERS:
-// 1. STATISTICS
-exports.onOrderWrire = functions.firestore.document('orders/{orderId}').onWrite(event => {
-  return orderHandlers.updateOrderHandler(event, admin)
-})
-
-// ONE CLICK HANDLERS:
-// 1. STATISTICS
-exports.onOneCLickWrite = functions.firestore.document('oneclick/{oneClickId}').onWrite(event => {
-  return oneClickHandlers.updateOneClickHandler(event, admin)
-})
-
-// REVIEW HANDLERS:
-// 1. STATISTICS
-exports.onReviewWrite = functions.firestore.document('reviews/{reviewId}').onWrite(event => {
-  return reviewHandlers.updateReviewHandler(event, admin)
-})
-
-// HANDLE UNREAD LIVE CHAT MESSAGE
-exports.liveChatNewMsgNotification = functions.database.ref('unreadLiveChat/{msgId}').onCreate(event => {
-  return liveChat.handleUnreadMsg(event, admin, transporter)
-})
+//
+// // REVIEW HANDLERS:
+// // 1. STATISTICS
+// exports.onReviewWrite = functions.firestore.document('reviews/{reviewId}').onWrite(event => {
+//   return reviewHandlers.updateReviewHandler(event, admin)
+// })
+//
+// // HANDLE UNREAD LIVE CHAT MESSAGE
+// exports.liveChatNewMsgNotification = functions.database.ref('unreadLiveChat/{msgId}').onCreate(event => {
+//   return liveChat.handleUnreadMsg(event, admin, transporter)
+// })
 
 // onWrite = created, updated, or deleted

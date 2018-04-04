@@ -1,6 +1,6 @@
-exports.onUserCreate = function (event, admin) {
-  console.log(LOG_DELIMITER)
-  const user = event.data
+exports.handler = function (userMetadata, context, admin) {
+  console.log(CONST.LOG_DELIMITER)
+  console.log(userMetadata)
   let userStatRef = admin.firestore().collection('statistics').doc('user')
   let newCount
   return admin.firestore().runTransaction(t => {
@@ -10,13 +10,10 @@ exports.onUserCreate = function (event, admin) {
         return t.update(userStatRef, {count: newCount})
       })
       .then(() => {
-        return admin.firestore().collection('users').doc(user.uid).update({
-          userNo: newCount,
-          accountCreationDate: new Date()
-        })
+        return admin.firestore().collection('users').doc(userMetadata.uid).update({userNo: newCount})
       })
       .then(() => {
-        console.log(`New user created! No.: ${newCount} / id: ${user.uid} created`)
+        console.log(`New user created! No.: ${newCount} / id: ${userMetadata.uid} created`)
         return true
       })
       .catch(err => {

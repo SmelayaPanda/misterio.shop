@@ -1,4 +1,5 @@
 import * as firebase from 'firebase'
+import {Notification} from 'element-ui'
 
 export default {
   state: {
@@ -45,6 +46,35 @@ export default {
           .catch(err => {
             console.log(err)
             commit('LOADING', false)
+          })
+      },
+    addOneClick:
+      ({commit, getters}, payload) => {
+        commit('LOADING', true)
+        firebase.firestore().collection('oneclick').add(payload)
+          .then(() => {
+            commit('LOADING', false)
+            Notification({
+              title: 'Поздравляем!',
+              message: 'Ваша заявка доставлена! Мы свяжемся с Вами в ближайшее время.',
+              type: 'success',
+              showClose: true,
+              duration: 10000,
+              offset: 50
+            })
+          })
+          .catch(() => {
+            commit('LOADING', false)
+            Notification({
+              title: 'Ахх...',
+              message:
+              'Что-то пошло не так. ' +
+              'Пожалуйста напишите нам в техническую поддержку на почту SmelayaPandaGM@gmail.com',
+              type: 'error',
+              showClose: true,
+              duration: 100000,
+              offset: 50
+            })
           })
       },
     updateOneClick:

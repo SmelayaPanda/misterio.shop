@@ -2,7 +2,7 @@ const productHandlers = require('algoliasearch');
 // DON'T FORGET SEE WHAT PRODUCT UPDATED AFTER CREATION!
 // TODO: not update algolia index if it totalQty update
 exports.updateProductHandler = function (event, functions, admin) {
-  console.log(LOG_DELIMITER)
+  console.log(CONST.LOG_DELIMITER)
   return Promise.all([
     updateProductStatistics(event, admin),
     updateAlgoliaIndex(functions, event, 'update')
@@ -16,7 +16,7 @@ exports.updateProductHandler = function (event, functions, admin) {
 }
 
 exports.deleteProductHandler = function (event, functions, admin) {
-  console.log(LOG_DELIMITER)
+  console.log(CONST.LOG_DELIMITER)
   return Promise.all([
     updateProductStatistics(event, admin),
     updateAlgoliaIndex(functions, event, 'delete')

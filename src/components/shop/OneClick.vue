@@ -39,7 +39,7 @@
                           placeholder="Phone number"/>
           </el-form-item>
           <el-button type="danger"
-                     @click="submitForm"
+                     @click="addOneClick"
                      :disabled="!isValidForm">
             Отправить заявку!
           </el-button>
@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
   name: 'OneClick',
@@ -103,14 +102,17 @@ export default {
       this.dialogVisible = false
       this.$store.dispatch('USER_EVENT', 'Отмена')
     },
-    submitForm () {
+    addOneClick () {
       this.$store.dispatch('USER_EVENT', 'Товар куплен в один клик!')
       this.dialogVisible = false
-      axios.post('https://us-central1-e-store-dev.cloudfunctions.net/oneClickNotification', {
+
+      this.$store.dispatch('addOneClick', {
         nickname: this.oneClickForm.nickname,
         email: this.oneClickForm.email,
         phone: this.oneClickForm.phone,
         userId: this.$store.getters.user.uid,
+        creationDate: new Date(),
+        status: 'created',
         qty: 1,
         product: {
           title: this.product.title,
@@ -119,31 +121,6 @@ export default {
           id: this.product.productId
         }
       })
-        .then(res => {
-          console.log(res)
-          if (res.status === 200) {
-            this.$notify({
-              title: 'Поздравляем!',
-              message: 'Ваша заявка доставлена! ' +
-                'Мы свяжемся с Вами в ближайшее время.',
-              type: 'success',
-              showClose: true,
-              duration: 10000,
-              offset: 50
-            })
-          }
-        })
-        .catch(() => {
-          this.$notify({
-            title: 'Ахх...',
-            message: 'Что-то пошло не так. ' +
-              'Пожалуйста напишите нам в техническую поддержку на почту SmelayaPandaGM@gmail.com',
-            type: 'error',
-            showClose: true,
-            duration: 100000,
-            offset: 50
-          })
-        })
     },
     isValidEmail () {
       return /^\S+@\S+\.\S+$/.test(this.oneClickForm.email)

@@ -1,5 +1,5 @@
 exports.handler = function (req, res, admin, transporter) {
-  console.log(LOG_DELIMITER)
+  console.log(CONST.LOG_DELIMITER)
   const payInfo = req.body;
   console.log(payInfo);
 
@@ -35,7 +35,7 @@ exports.handler = function (req, res, admin, transporter) {
     })
     .catch(err => {
       console.log(err);
-      return res.sendStatus(200) // TODO: change to 500
+      return res.sendStatus(500)
     })
 };
 
@@ -46,39 +46,37 @@ function logPaymentInfo(payInfo, orderId) {
 }
 
 function payPalSuccessOrderMail(transporter, info, orderId, to) {
+  let itemsInfo = ''
+  for (let i = 1; i < 20; i++){
+    if(info['item_name' + i]) {
+      itemsInfo += `${info['item_name' + i]} - ${info['mc_gross_' + i]} ( ${info['quantity' + i]}x )\n`
+    }
+  }
   let mailOptions = {
     from: ADMIN_EMAIL,
     to: to,
-    subject: `New PayPal order: ${info.txn_id}`,
+    subject: `PayPal ордер: ${info.txn_id}`,
     text:
-      `Re:High Store message:
+      `Совершена оплата товаров через PayPal.
      
-       PayPal order complete.
+       Покупатель:
        --------------------------------------------------
-       Payer info ............ ${info.last_name} ${info.first_name} 
-       Email .................... ${info.payer_email}
-       Country ................ ${info.address_country}
-       State .................... ${info.address_state}
-       City ...................... ${info.address_city}
-       Street ................... ${info.address_street}
-       Zip code ............... ${info.address_zip}
+       Фамилия Имя ......... ${info.last_name} ${info.first_name} 
+       Email ....................... ${info.payer_email}
+       Страна .................... ${info.address_country}
+       Город ....................... ${info.address_city}
+       Улица ...................... ${info.address_street}
+       Почтовый код ......... ${info.address_zip}
        --------------------------------------------------
-       PayPal transaction Id: ${info.txn_id}
-       Firebase Database Order Id: ${orderId}
-       Total Gross: ${info.mc_gross} ${info.mc_currency}
-       Fee: ${info.mc_fee} ${info.mc_currency}
+       ИД транзакции: ${info.txn_id}
+       ИД ордера (FirebaseDB): ${orderId}
+       Сумма: ${info.mc_gross} ${info.mc_currency}
+       Налог: ${info.mc_fee} ${info.mc_currency}
        
-       Items Info:
-       #1 Item name: ${info.item_name1} - ${info.mc_gross_1} ( ${info.quantity1}x )
-       ${info.item_name2 ? `#2 Item name: ${info.item_name2} - ${info.mc_gross_2} ( ${info.quantity2}x )` : ''}
-       ${info.item_name3 ? `#3 Item name: ${info.item_name3} - ${info.mc_gross_3} ( ${info.quantity3}x )` : ''}
-       ${info.item_name4 ? `#4 Item name: ${info.item_name4} - ${info.mc_gross_4} ( ${info.quantity4}x )` : ''}
-       ${info.item_name5 ? `#5 Item name: ${info.item_name5} - ${info.mc_gross_5} ( ${info.quantity5}x )` : ''}
-       ${info.item_name5 ? `#6 Item name: ${info.item_name6} - ${info.mc_gross_6} ( ${info.quantity6}x )` : ''}
-       ${info.item_name5 ? `#7 Item name: ${info.item_name7} - ${info.mc_gross_7} ( ${info.quantity7}x )` : ''}
-       ${info.item_name5 ? `#8 Item name: ${info.item_name8} - ${info.mc_gross_8} ( ${info.quantity8}x )` : ''}
-       ${info.item_name5 ? `#9 Item name: ${info.item_name9} - ${info.mc_gross_9} ( ${info.quantity9}x )` : ''}
-       ${info.item_name5 ? `#10 Item name: ${info.item_name10} - ${info.mc_gross_10} ( ${info.quantity10}x )` : ''}
+       Информация о товарах:
+       ${itemsInfo}
+       
+       ${to === ADMIN_EMAIL ? '' : CONST.EMAIL_SIGN}
        `
   };
 
@@ -93,9 +91,11 @@ function payPalSuccessOrderMail(transporter, info, orderId, to) {
 }
 
 
-// PayPal Instant Payment Notification (IPN) example:
 
 /*
+
+  PayPal Instant Payment Notification (IPN) example:
+
   mc_gross: '33.00',
   mc_currency: 'RUB',
   mc_fee: '11.29',
@@ -144,4 +144,5 @@ function payPalSuccessOrderMail(transporter, info, orderId, to) {
   test_ipn: '1',
   transaction_subject: '',
   ipn_track_id: '3b21f369b7bab'
-* */
+
+*/

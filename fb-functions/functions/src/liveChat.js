@@ -1,5 +1,5 @@
 exports.handleUnreadMsg = function (event, admin, transporter) {
-  console.log(LOG_DELIMITER)
+  console.log(CONST.LOG_DELIMITER)
   sendEmailNotificationToAdmin(transporter, event.data.val())
     .then(() => {
       return admin.database().ref(`unreadLiveChat/${event.params.msgId}`).remove()

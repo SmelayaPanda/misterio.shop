@@ -10,10 +10,10 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
-    "algoliasearch": "^3.25.1",
+    "algoliasearch": "^3.26.0",
     "express": "^4.16.3",
     "firebase-admin": "^5.11.0",
-    "firebase-functions": "^0.8.2",
+    "firebase-functions": "^1.0.0",
     "@google-cloud/storage": "^1.6.0",
     "child-process-promise": "^2.2.1",
     "cors": "^2.8.4",
