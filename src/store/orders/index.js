@@ -25,7 +25,7 @@ export default {
   },
   actions: {
     fetchOrders:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         let query = firebase.firestore().collection('orders')
         if (payload.userId) {
@@ -47,14 +47,10 @@ export default {
               commit('setOrders', orders)
               commit('LOADING', false)
             })
-          .catch(
-            error => {
-              console.log(error)
-              commit('LOADING', false)
-            })
+          .catch(err => dispatch('LOG', err))
       },
     checkout:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         let user = getters.user
         let orderId
@@ -109,13 +105,10 @@ export default {
             console.log('Order added')
             router.push('/cart')
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     updateOrder:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         let orders = getters.orders
         firebase.firestore().collection('orders').doc(payload.orderId).update(payload.updateData)
@@ -132,21 +125,16 @@ export default {
             commit('setOrders', orders)
             commit('LOADING', false)
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     fetchOrderStatistics:
-      ({commit}) => {
+      ({commit, dispatch}) => {
         firebase.firestore().collection('statistics').doc('orders').get()
           .then(snapshot => {
             console.log('Statistics: for orders')
             commit('orderStatistics', snapshot.data())
           })
-          .catch(err => {
-            console.log(err)
-          })
+          .catch(err => dispatch('LOG', err))
       }
   },
   getters: {

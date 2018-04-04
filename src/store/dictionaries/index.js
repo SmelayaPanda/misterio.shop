@@ -17,7 +17,7 @@ export default {
   },
   actions: {
     fetchDictionaries:
-      ({commit}) => {
+      ({commit, dispatch}) => {
         commit('LOADING', true)
         firebase.firestore().collection('dictionaries').get()
           .then(snapshot => {
@@ -33,13 +33,10 @@ export default {
             console.log('Fetched: dictionaries')
             commit('LOADING', false)
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     uploadDictionary:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         let name = payload.name
         delete payload.dictionary
         commit('LOADING', true)
@@ -49,10 +46,7 @@ export default {
             commit('setBrands', payload.data)
             commit('LOADING', false)
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       }
   },
   getters: {

@@ -25,7 +25,7 @@ export default {
   },
   actions: {
     fetchOneClick:
-      ({commit}, payload) => {
+      ({commit, dispatch}, payload) => {
         commit('LOADING', true)
         let query = firebase.firestore().collection('oneclick')
         if (payload) {
@@ -43,10 +43,7 @@ export default {
             commit('setOneClick', oneClick)
             commit('LOADING', false)
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     addOneClick:
       ({commit, getters}, payload) => {
@@ -79,7 +76,7 @@ export default {
           })
       },
     updateOneClick:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         let oneClick = getters.oneClick
         firebase.firestore().collection('oneclick').doc(payload.oneClickId).update(payload.updateData)
@@ -95,21 +92,16 @@ export default {
             commit('setOneClick', oneClick)
             commit('LOADING', false)
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     fetchOneClickStatistics:
-      ({commit}) => {
+      ({commit, dispatch}) => {
         firebase.firestore().collection('statistics').doc('oneclick').get()
           .then(snapshot => {
             console.log('Statistics: for one click')
             commit('oneClickStatistics', snapshot.data())
           })
-          .catch(err => {
-            console.log(err)
-          })
+          .catch(err => dispatch('LOG', err))
       }
   },
   getters: {

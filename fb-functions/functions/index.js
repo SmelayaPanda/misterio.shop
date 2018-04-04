@@ -14,6 +14,7 @@ const updateProductStatistics = require('./src/db/products/updateProductStatisti
 const updateAlgoliaIndex = require('./src/db/products/updateAlgoliaIndex')
 const deleteAlgoliaIndex = require('./src/db/products/deleteAlgoliaIndex')
 const sendUnreadLiveChatEmail = require('./src/live_chat/sendUnreadLiveChatEmail')
+const notifyDeveloperAboutError = require('./src/common/notifyDeveloperAboutError')
 // HTTP
 const processPayPal = require('./src/http/processPayPal')
 
@@ -22,19 +23,33 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 // GLOBAL CONST
-global.CONST = require('./src/constants')
+global.CONST = require('./src/common/constants')
 // firebase functions:config:set algolia.app_id="<YOUR-ALGOLIA-APP-ID>"
 // firebase functions:config:set algolia.api_key="<YOUR-ALGOLIA-APP-PUBLIC-KEY>"
 // firebase functions:config:set admin.email="SmelayaPandaGM@gmail.com"
 // firebase functions:config:set admin.password="***"
+// firebase functions:config:set developer.email="SmelayaPandaGM@gmail.com"
+// firebase functions:config:set developer.password="***"
 global.ADMIN_EMAIL = functions.config().admin.email
 global.ADMIN_PASS = functions.config().admin.password
+global.DEVELOPER_EMAIL = functions.config().developer.email
+global.DEVELOPER_PASS = functions.config().developer.password
+
 let nodemailer = require('nodemailer')
+
 let transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: ADMIN_EMAIL,
     pass: ADMIN_PASS
+  }
+});
+
+let devTransporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: DEVELOPER_EMAIL,
+    pass: DEVELOPER_PASS
   }
 });
 
@@ -61,7 +76,6 @@ exports.processPayPal = functions
   .onRequest((req, res) => {
     processPayPal.handler(req, res, admin, transporter)
   })
-
 // DATABASE
 // oneclick
 exports.onCreateOneClick = functions.firestore
@@ -114,7 +128,13 @@ exports.onDeleteProduct = functions.firestore
 exports.onCreateUnreadLiveChatMsg = functions
   .database.ref('unreadLiveChat/{msgId}')
   .onCreate((snap, context) => {
-  return sendUnreadLiveChatEmail.handler(snap, context, admin, transporter)
-})
+    return sendUnreadLiveChatEmail.handler(snap, context, admin, transporter)
+  })
+// error log
+exports.errLog = functions
+  .database.ref('errLog/{oneClickId}')
+  .onCreate((snap, context) => {
+    return notifyDeveloperAboutError.handler(snap, context, devTransporter)
+  })
 
 // onWrite = created, updated, or deleted

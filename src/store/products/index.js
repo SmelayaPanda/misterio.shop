@@ -54,7 +54,7 @@ export default {
   },
   actions: {
     fetchProducts:
-      ({commit, getters}) => {
+      ({commit, getters, dispatch}) => {
         commit('LOADING', true)
         let filter = getters.productFilters
         let query = firebase.firestore().collection('products')
@@ -109,10 +109,7 @@ export default {
             commit('setProducts', products)
             commit('LOADING', false)
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     productFilters:
       ({commit, getters}, payload) => {
@@ -143,17 +140,14 @@ export default {
             commit('setLastVisible', null)
             dispatch('fetchProducts')
           })
-          .catch(err => {
-            commit('LOADING', false)
-            console.log(err)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     setLastVisible:
       ({commit}, payload) => {
         commit('setLastVisible', payload)
       },
     addNewProduct:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         let productId
         firebase.firestore().collection('products').add(payload)
@@ -175,26 +169,20 @@ export default {
             commit('LOADING', false)
             window.location.reload() // TODO: fix it
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     editProduct:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         firebase.firestore().collection('products').doc(payload.productId).update(payload)
           .then(() => {
             console.log('Product edited')
             commit('LOADING', false)
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     editProductImage:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         let images = payload.images
         delete payload.images
@@ -211,13 +199,10 @@ export default {
             commit('LOADING', false)
             window.location.reload() // TODO: fix it
           })
-          .catch((error) => {
-            console.log(error)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     deleteProduct:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         firebase.firestore().collection('products').doc(payload).delete()
           .then(() => {
@@ -241,21 +226,16 @@ export default {
             commit('LOADING', false)
             window.location.reload() // TODO: fix it!
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     fetchProductStatistics:
-      ({commit}) => {
+      ({commit, dispatch}) => {
         firebase.firestore().collection('statistics').doc('products').get()
           .then(snapshot => {
             console.log('Statistics: for products')
             commit('productStatistics', snapshot.data())
           })
-          .catch(err => {
-            console.log(err)
-          })
+          .catch(err => dispatch('LOG', err))
       }
   },
   // Getters  ---------------------------------------------------

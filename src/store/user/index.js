@@ -41,13 +41,10 @@ export default {
             commit('LOADING', false)
             console.log('Fetched: user data')
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     editPersonalInfo:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         let user = getters.user
         firebase.firestore().collection('users').doc(user.uid).update(payload)
@@ -56,10 +53,7 @@ export default {
             commit('LOADING', false)
             console.log('Personal info updated!')
           })
-          .catch(err => {
-            commit('LOADING', false)
-            console.log(err)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     signUserUp:
       ({commit, dispatch}, payload) => {
@@ -78,11 +72,7 @@ export default {
             router.push('/account')
             commit('LOADING', false)
           })
-          .catch(err => {
-            commit('LOADING', false)
-            commit('ERR', err)
-            console.log(err)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     signUserIn:
       ({commit}, payload) => {
@@ -102,7 +92,7 @@ export default {
       },
     signInAnonymously:
     // All users initially register as anonymous
-      ({commit}) => {
+      ({commit, dispatch}) => {
         commit('setUser', {cart: [], orders: []})
         firebase.auth().signInAnonymouslyAndRetrieveData()
           .then((data) => { // onAuthStateChanged works
@@ -117,9 +107,7 @@ export default {
           .then(() => {
             console.log('You are sign in anonymously')
           })
-          .catch(err => {
-            console.log(err)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     upgradeAnonymousAccount:
       ({commit, dispatch}, payload) => {
@@ -150,9 +138,9 @@ export default {
           })
       },
     updateEmailVerification:
-      ({commit}, payload) => {
+      ({commit, dispatch}, payload) => {
         firebase.firestore().collection('users').doc(payload.uid).update({emailVerified: payload.emailVerified})
-          .catch((err) => console.log(err))
+          .catch(err => dispatch('LOG', err))
       },
     logout:
       ({commit, dispatch}) => {
@@ -161,12 +149,10 @@ export default {
             router.push('/')
             commit('setChatMessages', [])
           })
-          .catch(err => {
-            console.log(err)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     resetPassword:
-      ({commit}, payload) => {
+      ({commit, dispatch}, payload) => {
         commit('CLEAR_ERR')
         firebase.auth().sendPasswordResetEmail(payload)
           .then(function () {
@@ -197,14 +183,14 @@ export default {
                 duration: 10000
               })
             }
-            console.log(err)
+            dispatch('LOG', err)
           })
       },
     editUserData:
       () => {
       },
     updateCart:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         const user = getters.user
         let pId = payload.product.productId
@@ -220,13 +206,10 @@ export default {
             commit('setUser', {...user})
             commit('LOADING', false)
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     loadCartProducts:
-      ({commit, getters}) => {
+      ({commit, getters, dispatch}) => {
         // TODO: if product was removed?
         let user = getters.user
         if (user.cart) {
@@ -247,9 +230,7 @@ export default {
               commit('setUser', {...user})
               console.log('Fetched: user cart products')
             })
-            .catch(err => {
-              console.log(err)
-            })
+            .catch(err => dispatch('LOG', err))
         }
       }
   },

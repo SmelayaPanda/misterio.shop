@@ -12,7 +12,7 @@ export default {
   },
   actions: {
     fetchCompanyInfo:
-      ({commit}) => {
+      ({commit, dispatch}) => {
         commit('LOADING', true)
         firebase.firestore().collection('companyInfo').get()
           .then(snapshot => {
@@ -24,13 +24,10 @@ export default {
             console.log('Fetched: company info')
             commit('LOADING', false)
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     updateCompanyInfo:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         let companyInfo = getters.companyInfo
         firebase.firestore().collection('companyInfo').doc(payload.document).update({[payload.field]: payload.value})
@@ -40,10 +37,7 @@ export default {
             commit('setCompanyInfo', companyInfo)
             commit('LOADING', false)
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       }
   },
   getters: {

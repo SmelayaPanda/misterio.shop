@@ -23,7 +23,7 @@ export default {
   },
   actions: {
     fetchReviews:
-      ({commit}, payload) => {
+      ({commit, dispatch}, payload) => {
         commit('LOADING', true)
         let query = firebase.firestore().collection('reviews')
         if (payload.status) {
@@ -41,19 +41,20 @@ export default {
             commit('LOADING', false)
             console.log('Fetched: reviews')
           })
-          .catch(
-            error => {
-              console.log(error)
-              commit('LOADING', false)
-            })
+          .catch(err => dispatch('LOG', err))
       },
     addReview:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         // TODO: add userId to payload and change security rule!
         // TODO: add notification
         firebase.firestore().collection('reviews').add(payload)
           .then((docRef) => {
+            let reviews = getters.reviews
+            reviews[docRef.id] = payload
+            commit('setReviews', reviews)
+            commit('LOADING', false)
+            console.log('Review added')
             Notification({
               title: 'Спасибо',
               message: 'Ваш отзыв будет опубликован после проходения модерации!',
@@ -62,25 +63,10 @@ export default {
               duration: 10000,
               offset: 50
             })
-            let reviews = getters.reviews
-            reviews[docRef.id] = payload
-            commit('setReviews', reviews)
-            commit('LOADING', false)
-            console.log('Review added')
           })
           .catch(err => {
-            console.log(err)
+            dispatch('LOG', err)
             commit('LOADING', false)
-            Notification({
-              title: 'Упс',
-              message: 'Произошла ошибка ' + err +
-              'Если проблема повторяется, пожалуйста, ' +
-              'сообщите в отдел технической поддержки по почте SmelayaPandaGM@gmail.com',
-              type: 'success',
-              showClose: true,
-              duration: 10000,
-              offset: 50
-            })
           })
       },
     updateReview:
@@ -92,21 +78,16 @@ export default {
             commit('LOADING', false)
             console.log('Review updated')
           })
-          .catch(err => {
-            console.log(err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     fetchReviewStatistics:
-      ({commit}) => {
+      ({commit, dispatch}) => {
         firebase.firestore().collection('statistics').doc('reviews').get()
           .then(snapshot => {
             console.log('Statistics: for reviews')
             commit('reviewStatistics', snapshot.data())
           })
-          .catch(err => {
-            console.log(err)
-          })
+          .catch(err => dispatch('LOG', err))
       }
   },
   getters: {

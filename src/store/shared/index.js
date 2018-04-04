@@ -1,3 +1,5 @@
+import * as firebase from 'firebase'
+
 export default {
   // State ---------------------------------------------------
   state: {
@@ -32,6 +34,12 @@ export default {
     LOADING:
       ({commit}, payload) => {
         commit('LOADING', payload)
+      },
+    LOG:
+      ({commit}, payload) => {
+        commit('ERR', payload)
+        commit('LOADING', false)
+        firebase.database().ref('errLog').push(payload.stack)
       }
   },
   // Getters  ---------------------------------------------------

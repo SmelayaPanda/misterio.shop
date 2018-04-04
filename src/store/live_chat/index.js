@@ -95,7 +95,7 @@ export default {
             dispatch('subscribeToAllChats')
             dispatch('observeAdminConnection')
           })
-          .catch(err => console.log(err))
+          .catch(err => dispatch('LOG', err))
       },
     notifyAdminAboutNewMessage:
       ({commit, getters}, payload) => {
@@ -211,7 +211,7 @@ export default {
             dispatch('subscribeToChat', payload.uid)
             dispatch('observeUserConnection', payload.uid)
           })
-          .catch(err => console.log(err))
+          .catch(err => dispatch('LOG', err))
       },
     openChat: // for admin
       ({commit, dispatch}, payload) => {
@@ -223,10 +223,10 @@ export default {
           .then(() => {
             dispatch('subscribeToChat', payload)
           })
-          .catch(err => console.log(err))
+          .catch(err => dispatch('LOG', err))
       },
     sendChatMessage:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         let newMsg = {
           msg: payload.msg,
           creator: payload.creator,
@@ -246,10 +246,10 @@ export default {
               })
             }
           })
-          .catch(err => console.log(err))
+          .catch(err => dispatch('LOG', err))
       },
     USER_EVENT:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         let newEvent = {
           name: payload,
           date: new Date().getTime()
@@ -260,10 +260,10 @@ export default {
             userEvents[data.key] = newEvent
             commit('setUserEvents', userEvents)
           })
-          .catch(err => console.log(err))
+          .catch(err => dispatch('LOG', err))
       },
     setChatProp:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         firebase.database().ref(`liveChats/${payload.chatId}/props`)
           .update({
             [payload.props]: payload.value
@@ -274,7 +274,7 @@ export default {
               propValue: payload.value
             })
           })
-          .catch(err => console.log(err))
+          .catch(err => dispatch('LOG', err))
       }
   },
   getters: {
