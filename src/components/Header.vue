@@ -4,27 +4,37 @@
       <el-row type="flex" justify="center" class="pl-1 pr-3">
         <el-col>
           <router-link to="/" active-class="active_header_link" exact>
-            <span>ГЛАВНАЯ</span>
+            <span>
+              ГЛАВНАЯ
+            </span>
           </router-link>
         </el-col>
         <el-col>
           <router-link to="/shop" active-class="active_header_link" exact>
-            <span :class="color === 'black' ? 'primary--text' : ''">КАТАЛОГ</span>
+            <span :class="color === 'black' ? 'primary--text' : ''">
+              КАТАЛОГ
+            </span>
           </router-link>
         </el-col>
         <el-col>
           <router-link to="/about" active-class="active_header_link" exact>
-            <span :class="color === 'black' ? 'primary--text' : ''">О НАС</span>
+            <span :class="color === 'black' ? 'primary--text' : ''">
+              О НАС
+            </span>
           </router-link>
         </el-col>
         <el-col>
           <router-link to="/news" active-class="active_header_link" exact>
-            <span :class="color === 'black' ? 'primary--text' : ''">АКЦИИ</span>
+            <span :class="color === 'black' ? 'primary--text' : ''">
+              АКЦИИ
+            </span>
           </router-link>
         </el-col>
         <el-col>
           <router-link to="/contacts" active-class="active_header_link" exact>
-            <span :class="color === 'black' ? 'primary--text' : ''">КОНТАКТЫ</span>
+            <span :class="color === 'black' ? 'primary--text' : ''">
+              КОНТАКТЫ
+            </span>
           </router-link>
         </el-col>
       </el-row>

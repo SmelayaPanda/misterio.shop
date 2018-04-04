@@ -27,15 +27,15 @@ export default {
         commit('LOADING', true)
         let user = {...payload} // auth object read only, copy them!
         firebase.firestore().collection('users').doc(user.uid).get()
-          .then(snapshot => {
-            if (snapshot.data()) {
-              // add to auth user data own firestore
-              let extendUser = Object.assign(user, snapshot.data())
-              commit('setUser', extendUser)
-              commit('setAdmin', user.email === 'smelayapandagm@gmail.com')
-            }
-            dispatch('fetchOrders', {userId: user.uid})
-            return dispatch('loadCartProducts')
+          .then(snap => {
+            // add to auth user data own firestore
+            let extendUser = Object.assign(user, snap.data())
+            commit('setUser', extendUser)
+            commit('setAdmin', user.email === 'smelayapandagm@gmail.com')
+            return Promise.all([
+              dispatch('loadCartProducts'),
+              dispatch('fetchOrders', {userId: user.uid})
+            ])
           })
           .then(() => {
             commit('LOADING', false)
@@ -75,7 +75,7 @@ export default {
           .catch(err => dispatch('LOG', err))
       },
     signUserIn:
-      ({commit}, payload) => {
+      ({commit, dispatch}, payload) => {
         commit('CLEAR_ERR')
         commit('LOADING', true)
         firebase.auth().signInAndRetrieveDataWithEmailAndPassword(payload.email, payload.password)
@@ -84,11 +84,7 @@ export default {
             router.push('/account')
             commit('LOADING', false)
           })
-          .catch(
-            error => {
-              commit('ERR', error)
-              commit('LOADING', false)
-            })
+          .catch(err => dispatch('LOG', err))
       },
     signInAnonymously:
     // All users initially register as anonymous

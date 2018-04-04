@@ -30,7 +30,7 @@
 <defs>
     <style>
       .cls-1 {
-        fill: #0d0d0d;
+        fill: white;
         fill-rule: evenodd;
       }
     </style>
