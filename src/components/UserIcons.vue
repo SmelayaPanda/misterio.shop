@@ -5,7 +5,7 @@
         <el-col :xs="24" :sm="7" :md="7" :lg="7" :xl="7">
           <router-link to="/favorites" exact>
             <div>
-              <img v-if="this.$route.path === '/favorite'"
+              <img v-if="this.$route.path === '/favorites'"
                    src="@/assets/icons/user/favorite_white.svg" alt=""
                    class="favorite_icon"
                    height="40px" width="40px">
