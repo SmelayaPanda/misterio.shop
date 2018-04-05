@@ -9,7 +9,10 @@
         @change="loadCategoryProducts">
       </el-cascader>
       <el-col class="left" style="width: 100px;">
-        <add-product :group="productOption[0]" :category="productOption[1]"></add-product>
+        <add-product
+          :group="productOption[0]"
+          :category="productOption[1]">
+        </add-product>
       </el-col>
     </el-row>
     <el-table
@@ -53,7 +56,9 @@
           <el-popover trigger="hover" placement="top">
             <p>Title: {{ scope.row.title }}</p>
             <div slot="reference" class="name-wrapper">
-              <v-chip outline label color="info_a">{{ scope.row.title | snippet(30) }}</v-chip>
+              <v-chip outline label color="info_a">
+                {{ scope.row.title | snippet(30) }}
+              </v-chip>
             </div>
           </el-popover>
         </template>
@@ -76,7 +81,9 @@
         label="Price"
         width="110">
         <template slot-scope="scope">
-          <span>{{ scope.row.price }} {{ scope.row.currency }}</span>
+          <span>
+            {{ scope.row.price }} {{ scope.row.currency }}
+          </span>
         </template>
       </el-table-column>
       <!--QUANTITY-->
@@ -84,7 +91,9 @@
         label="Total Qty"
         width="90">
         <template slot-scope="scope">
-          <span>{{ scope.row.totalQty }}</span>
+          <span>
+            {{ scope.row.totalQty }}
+          </span>
         </template>
       </el-table-column>
       <!--EDIT/DELETE-->
@@ -119,7 +128,7 @@ export default {
   name: 'AdminProducts',
   data () {
     return {
-      productOption: ['Group A', 'Category A1'], // don't fordet change main js
+      productOption: ['Group A', 'Category A1'],
       options: [{
         value: 'Group A',
         label: 'Group A',
@@ -170,14 +179,7 @@ export default {
   },
   computed: {
     products () {
-      let arr = []
-      let prodObj = this.$store.getters.products
-      for (let key in prodObj) {
-        let pushObj = prodObj[key]
-        pushObj.id = key
-        arr.push(pushObj)
-      }
-      return arr
+      return this.$store.getters.products ? this.$store.getters.products : []
     }
   },
   created () {

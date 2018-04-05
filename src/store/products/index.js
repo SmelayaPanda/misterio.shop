@@ -149,13 +149,13 @@ export default {
     addNewProduct:
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
-        let productId
+        let products = getters.products
+        let updateData
         firebase.firestore().collection('products').add(payload)
-          .then(data => {
-            productId = data.id
-            let updateData = {
-              productId: productId,
-              // For quick access in admin table.
+          .then(snap => {
+            updateData = {
+              // add productId field for quick access anywhere
+              productId: snap.id,
               // Cloud function fill up it!
               img_0: {original: '', thumbnail: '', card: ''},
               img_1: {original: '', thumbnail: '', card: ''},
@@ -163,11 +163,12 @@ export default {
               img_3: {original: '', thumbnail: '', card: ''},
               img_4: {original: '', thumbnail: '', card: ''}
             }
-            return firebase.firestore().collection('products').doc(productId).update(updateData)
+            return firebase.firestore().collection('products').doc(snap.id).update(updateData)
           })
           .then(() => {
+            products.unshift(Object.assign(updateData, payload))
+            commit('setProducts', products)
             commit('LOADING', false)
-            window.location.reload() // TODO: fix it
           })
           .catch(err => dispatch('LOG', err))
       },
@@ -182,10 +183,10 @@ export default {
           .catch(err => dispatch('LOG', err))
       },
     editProductImage:
-      ({commit, getters, dispatch}, payload) => {
+      ({commit, dispatch}, payload) => {
         commit('LOADING', true)
+        dispatch('subscribeToSubImagesCreation', payload.productId)
         let images = payload.images
-        delete payload.images
         let uploadImage = function (name, image) {
           return firebase.storage().ref('products/' + payload.productId + '/' + name).put(image)
         }
@@ -193,17 +194,30 @@ export default {
         for (let img in images) {
           actions.push(uploadImage(img, images[img]))
         }
-        console.log(actions)
         return Promise.all(actions)
           .then(() => {
             commit('LOADING', false)
-            window.location.reload() // TODO: fix it
           })
           .catch(err => dispatch('LOG', err))
+      },
+    subscribeToSubImagesCreation: // realtime change images
+      ({commit, getters}, payload) => {
+        let products = getters.products
+        firebase.firestore().collection('products').doc(payload)
+          .onSnapshot(doc => {
+            products = products.map(el => {
+              if (el.productId === payload) {
+                el = doc.data()
+              }
+              return el
+            })
+            commit('setProducts', products)
+          })
       },
     deleteProduct:
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
+        let products = getters.products
         firebase.firestore().collection('products').doc(payload).delete()
           .then(() => {
             let product = getters.productById(payload)
@@ -222,9 +236,9 @@ export default {
             return Promise.all(actions)
           })
           .then(() => {
-            console.log('Product was removed')
+            products = products.filter(el => el.productId !== payload)
+            commit('setProducts', products)
             commit('LOADING', false)
-            window.location.reload() // TODO: fix it!
           })
           .catch(err => dispatch('LOG', err))
       },
