@@ -167,19 +167,26 @@
                       </p>
                     </el-col>
                     <el-col :span="12" align="right">
-                      <v-icon
-                        v-if="user.favorites[p.productId]"
-                        @click.stop="removeFromFavorites(p)"
-                        small
-                        class="favorite secondary--text">favorite
-                      </v-icon>
-                      <v-icon
-                        v-else
-                        @click.stop="addToFavorites(p)"
-                        small
-                        class="favorite">favorite_border
-                      </v-icon>
-                      <i class="el-icon-goods white--text"></i>
+                      <span>
+                        <v-icon
+                          v-if="user.favorites[p.productId]"
+                          @click.stop="removeOwnProduct(p, 'favorites')"
+                          small class="own_product_icon secondary--text">favorite</v-icon>
+                        <v-icon
+                          v-else
+                          @click.stop="addOwnProduct(p, 'favorites')"
+                          small class="own_product_icon">favorite_border</v-icon>
+                      </span>
+                      <span>
+                        <v-icon
+                          v-if="user.cart[p.productId]"
+                          @click.stop="removeOwnProduct(p, 'cart')"
+                          small class="own_product_icon secondary--text">folder</v-icon>
+                        <v-icon
+                          v-else
+                          @click.stop="addOwnProduct(p, 'cart')"
+                          small class="own_product_icon white--text">folder_open</v-icon>
+                      </span>
                     </el-col>
                   </el-row>
                 </div>
@@ -288,16 +295,16 @@ export default {
       this.$store.dispatch('USER_EVENT', `Поиск по слову: "${this.algoliaSearchText}"`)
       this.$store.dispatch('algoliaSearch', this.algoliaSearchText)
     },
-    addToFavorites (product) {
+    addOwnProduct (product, subject) {
       this.$store.dispatch('updateOwnProducts', {
-        subject: 'favorites',
+        subject: subject,
         operation: 'add',
         product: product
       })
     },
-    removeFromFavorites (product) {
+    removeOwnProduct (product, subject) {
       this.$store.dispatch('updateOwnProducts', {
-        subject: 'favorites',
+        subject: subject,
         operation: 'remove',
         product: product
       })
@@ -363,11 +370,12 @@ export default {
     background: #000 !important;
   }
 
-  .favorite {
+  .own_product_icon {
     color: white;
     padding-right: 10px;
   }
-  .favorite:hover {
+
+  .own_product_icon:hover {
     transform: scale(1.4);
   }
 </style>
