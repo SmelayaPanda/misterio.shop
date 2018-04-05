@@ -5,18 +5,34 @@
         <el-col :xs="24" :sm="7" :md="7" :lg="7" :xl="7">
           <router-link to="/favorites" exact>
             <div>
-              <img v-if="this.$route.path === '/favorites'"
-                   src="@/assets/icons/user/favorite_white.svg" alt=""
-                   class="favorite_icon"
-                   height="40px" width="40px">
-              <img v-else-if="color === 'red'"
-                   src="@/assets/icons/user/favorite.svg" alt=""
-                   class="favorite_icon"
-                   height="40px" width="40px">
-              <img v-else
-                   src="@/assets/icons/user/favorite_black.svg"
-                   alt=""
-                   height="40px">
+              <span v-if="Object.keys(this.$store.getters.user.favorites).length">
+                <img v-if="this.$route.path === '/favorites'"
+                     src="@/assets/icons/user/favorite_full_white.svg" alt=""
+                     class="favorite_icon"
+                     height="40px" width="40px">
+                <img v-else-if="color === 'red'"
+                     src="@/assets/icons/user/favorite_full.svg"
+                     alt=""
+                     height="40px">
+                <img v-else-if="color === 'black'"
+                     src="@/assets/icons/user/favorite_full_black.svg"
+                     alt=""
+                     height="40px">
+              </span>
+              <span v-else>
+                <img v-if="this.$route.path === '/favorites'"
+                     src="@/assets/icons/user/favorite_white.svg" alt=""
+                     class="favorite_icon"
+                     height="40px" width="40px">
+                <img v-else-if="color === 'red'"
+                     src="@/assets/icons/user/favorite.svg"
+                     alt=""
+                     height="40px">
+                <img v-else-if="color === 'black'"
+                     src="@/assets/icons/user/favorite_black.svg"
+                     alt=""
+                     height="40px">
+              </span>
             </div>
           </router-link>
         </el-col>

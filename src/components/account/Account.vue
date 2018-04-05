@@ -88,7 +88,7 @@
           </el-col>
         </el-row>
       </div>
-      <div v-else style="margin-top: 60px;">
+      <div v-if="!user.isAnonymous && !user.emailVerified" style="margin-top: 60px;">
         <el-row type="flex" justify="center">
           <el-col :xs="23" :sm="20" :md="15" :lg="13" :xl="12" type="flex" align="center">
             <b class="white--text">

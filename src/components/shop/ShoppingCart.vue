@@ -165,7 +165,11 @@ export default {
   },
   methods: {
     removeFromCart (product) {
-      this.$store.dispatch('updateCart', {operation: 'remove', product: product})
+      this.$store.dispatch('updateOwnProducts', {
+        subject: 'cart',
+        operation: 'remove',
+        product: product
+      })
     }
   },
   computed: {

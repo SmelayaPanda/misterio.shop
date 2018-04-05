@@ -124,11 +124,19 @@ export default {
   methods: {
     addToCart () {
       this.$store.dispatch('USER_EVENT', 'Продукт добавлен в корзину')
-      this.$store.dispatch('updateCart', {operation: 'add', product: this.product})
+      this.$store.dispatch('updateOwnProducts', {
+        subject: 'cart',
+        operation: 'add',
+        product: this.product
+      })
     },
     removeFromCart () {
       this.$store.dispatch('USER_EVENT', 'Продукт удален из корзины')
-      this.$store.dispatch('updateCart', {operation: 'remove', product: this.product})
+      this.$store.dispatch('updateOwnProducts', {
+        subject: 'cart',
+        operation: 'remove',
+        product: this.product
+      })
     },
     loadOriginal (name) {
       for (let i = 0; i < 5; i++) {

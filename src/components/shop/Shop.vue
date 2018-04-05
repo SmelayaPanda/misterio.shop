@@ -152,17 +152,37 @@
             </el-row>
           </el-collapse-item>
         </el-collapse>
+        <!--PRODUCT CART-->
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :xs="23" :sm="12" :md="8" :lg="8" :xl="8"
                   v-for="(p,key) in products" :key="key">
             <div @click="viewProduct(p.productId, p.title)" class="card_wrapper">
               <v-card class="main_card primary" height="410px">
                 <v-card-media :src="p.img_0.card" height="300px"></v-card-media>
-                <v-card-title style="height: 30px">
-                  <p class="grey--text mt-4">
-                    {{ p.price }} &#8381;
-                  </p>
-                </v-card-title>
+                <div style="height: 30px; padding: 10px;">
+                  <el-row type="flex">
+                    <el-col :span="12" align="left">
+                      <p class="grey--text pl-2">
+                        {{ p.price }} &#8381;
+                      </p>
+                    </el-col>
+                    <el-col :span="12" align="right">
+                      <v-icon
+                        v-if="user.favorites[p.productId]"
+                        @click.stop="removeFromFavorites(p)"
+                        small
+                        class="favorite secondary--text">favorite
+                      </v-icon>
+                      <v-icon
+                        v-else
+                        @click.stop="addToFavorites(p)"
+                        small
+                        class="favorite">favorite_border
+                      </v-icon>
+                      <i class="el-icon-goods white--text"></i>
+                    </el-col>
+                  </el-row>
+                </div>
                 <p class="pl-3 pr-3 pt-1 white--text">
                   {{ p.title | snippet(60) }}
                 </p>
@@ -216,10 +236,10 @@ export default {
       formLabelWidth: '120px',
       isCollapsed: true,
       activeName:
-        !filter.brand &&
-        !filter.color &&
-        !filter.minPrice &&
-        !filter.maxPrice ? '0' : '1'
+          !filter.brand &&
+          !filter.color &&
+          !filter.minPrice &&
+          !filter.maxPrice ? '0' : '1'
     }
   },
   methods: {
@@ -267,6 +287,20 @@ export default {
     algoliaSearch () {
       this.$store.dispatch('USER_EVENT', `Поиск по слову: "${this.algoliaSearchText}"`)
       this.$store.dispatch('algoliaSearch', this.algoliaSearchText)
+    },
+    addToFavorites (product) {
+      this.$store.dispatch('updateOwnProducts', {
+        subject: 'favorites',
+        operation: 'add',
+        product: product
+      })
+    },
+    removeFromFavorites (product) {
+      this.$store.dispatch('updateOwnProducts', {
+        subject: 'favorites',
+        operation: 'remove',
+        product: product
+      })
     }
   },
   computed: {
@@ -298,6 +332,9 @@ export default {
         searchGroup = 'Все'
       }
       return searchGroup + ' : '
+    },
+    user () {
+      return this.$store.getters.user
     }
   }
 }
@@ -324,5 +361,13 @@ export default {
 
   #accordion {
     background: #000 !important;
+  }
+
+  .favorite {
+    color: white;
+    padding-right: 10px;
+  }
+  .favorite:hover {
+    transform: scale(1.4);
   }
 </style>

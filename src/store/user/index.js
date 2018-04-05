@@ -181,21 +181,22 @@ export default {
             dispatch('LOG', err)
           })
       },
-    updateCart:
+    updateOwnProducts:
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         const user = getters.user
+        const subject = payload.subject // cart or favorites
         let pId = payload.product.productId
         if (payload.operation === 'add') {
-          user.cart[pId] = payload.product
+          user[subject][pId] = payload.product
         } else if (payload.operation === 'remove') {
-          delete user.cart[pId]
+          delete user[subject][pId]
         }
         let productIds = []
-        if (user.cart) {
-          productIds = Object.keys(user.cart)
+        if (user[subject]) {
+          productIds = Object.keys(user[subject])
         }
-        firebase.firestore().collection('users').doc(user.uid).update({cart: productIds})
+        firebase.firestore().collection('users').doc(user.uid).update({[subject]: productIds})
           .then(() => {
             commit('setUser', {...user})
             commit('LOADING', false)

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row type="flex" justify="center" style="flex-wrap: wrap">
-      <el-col :xs="22" :sm="22" :md="18" :lg="16" :xl="15" align="left" class="ml-1 mr-1 mb-3 mt-2">
+      <el-col :xs="22" :sm="22" :md="18" :lg="18" :xl="15" align="left" class="ml-1 mr-1 mb-3 mt-2">
         <img src="@/assets/icons/icon_favorite.svg" id="favorite_icon" alt="">
         <span id="favorite_title">
         ИЗБРАННОЕ
@@ -9,24 +9,40 @@
         <v-divider class="secondary mt-3 mb-4"></v-divider>
       </el-col>
     </el-row>
-    <el-row type="flex" justify="center" style="flex-wrap: wrap">
-      <el-col :xs="23" :sm="23" :md="18" :lg="16" :xl="15" align="left">
+    <app-heart-loader v-if="this.isLoading"></app-heart-loader>
+    <el-row
+      v-else
+      type="flex"
+      justify="center"
+      style="flex-wrap: wrap">
+      <el-col :xs="23" :sm="23" :md="18" :lg="18" :xl="15" align="left">
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <el-col
-            v-for="i in (0, 9)" :key="i"
-            :xs="24" :sm="12" :md="8" :lg="8" :xl="8"
+            v-for="product in favorites"
+            :key="product.productId"
+            :xs="24" :sm="12" :md="12" :lg="8" :xl="8"
             align="left"
             class="favorites_product">
-            <el-row type="flex" justify="center" style="flex-wrap: wrap">
-              <el-col :span="10" align="left">
-                <div class="product_thumb"></div>
+            <el-row
+              v-if="product"
+              type="flex"
+              justify="center"
+              style="flex-wrap: wrap">
+              <el-col :span="8" align="left">
+                <img :src="product.img_0.thumbnail" class="product_thumb" alt="">
               </el-col>
               <el-col :span="14" class="product_descr">
-                <p class="product_title">Продукт название {{ i }}</p>
-                <p class="product_price">{{ i * 10 }} РУБ</p>
-                <app-theme-btn width="120px" class="into_cart">
-                  В корзину
-                </app-theme-btn>
+                <span class="product_title">
+                  {{ product.title }}
+                </span> <br>
+                <span class="product_price">
+                  {{ product.price }} РУБ
+                </span>
+                <div @click="addToCart(product)">
+                  <app-theme-btn width="120px" class="into_cart">
+                    В корзину
+                  </app-theme-btn>
+                </div>
               </el-col>
             </el-row>
           </el-col>
@@ -38,7 +54,30 @@
 
 <script>
 export default {
-  name: 'Favorites'
+  name: 'Favorites',
+  methods: {
+    addToCart (product) {
+      this.$store.dispatch('USER_EVENT', 'Продукт добавлен в корзину')
+      this.$store.dispatch('updateOwnProducts', {
+        subject: 'cart',
+        operation: 'add',
+        product: product
+      })
+      this.$store.dispatch('updateOwnProducts', {
+        subject: 'favorites',
+        operation: 'remove',
+        product: product
+      })
+    }
+  },
+  computed: {
+    favorites () {
+      let favorites = this.$store.getters.user.favorites
+      if (!Array.isArray(favorites)) { // initial favorites ids array replaced by full object
+        return favorites
+      }
+    }
+  }
 }
 </script>
 
@@ -56,28 +95,34 @@ export default {
   }
 
   .favorites_product {
-    padding:  20px;
+    padding: 20px;
   }
+
   .product_descr {
     padding-left: 15px;
   }
 
   .product_thumb {
-    background: white;
-    height: 130px;
+    height: 140px;
     width: 100%;
+    object-fit: cover;
     border-radius: 2px;
   }
 
   .product_title {
+    font-size: 12px;
     color: white;
   }
 
   .product_price {
+    font-size: 12px;
+    font-weight: 500;
     color: white;
   }
 
   .into_cart {
+    position: absolute;
+    bottom: 5px;
   }
 
   .into_cart:hover {
