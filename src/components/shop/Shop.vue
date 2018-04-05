@@ -170,27 +170,27 @@
                       <span>
                         <v-icon
                           v-if="user.favorites[p.productId]"
-                          @click.stop="removeOwnProduct(p, 'favorites')"
+                          @click.stop="updateOwnProduct(p, 'favorites', 'remove')"
                           small class="own_product_icon secondary--text">favorite</v-icon>
                         <v-icon
                           v-else
-                          @click.stop="addOwnProduct(p, 'favorites')"
+                          @click.stop="updateOwnProduct(p, 'favorites', 'add')"
                           small class="own_product_icon">favorite_border</v-icon>
                       </span>
                       <span>
                         <v-icon
                           v-if="user.cart[p.productId]"
-                          @click.stop="removeOwnProduct(p, 'cart')"
+                          @click.stop="updateOwnProduct(p, 'cart', 'remove')"
                           small class="own_product_icon secondary--text">folder</v-icon>
                         <v-icon
                           v-else
-                          @click.stop="addOwnProduct(p, 'cart')"
+                          @click.stop="updateOwnProduct(p, 'cart', 'add')"
                           small class="own_product_icon white--text">folder_open</v-icon>
                       </span>
                     </el-col>
                   </el-row>
                 </div>
-                <p class="pl-3 pr-3 pt-1 white--text">
+                <p class="shop_product_title">
                   {{ p.title | snippet(60) }}
                 </p>
               </v-card>
@@ -295,17 +295,15 @@ export default {
       this.$store.dispatch('USER_EVENT', `Поиск по слову: "${this.algoliaSearchText}"`)
       this.$store.dispatch('algoliaSearch', this.algoliaSearchText)
     },
-    addOwnProduct (product, subject) {
+    updateOwnProduct (product, subject, operation) {
+      this.$store.dispatch('USER_EVENT',
+        `${subject === 'cart' ? 'Корзина' : 'Избранное'}:
+         ${operation === 'add' ? ' добавлен' : ' удален'}
+        "${product.title}"`
+      )
       this.$store.dispatch('updateOwnProducts', {
         subject: subject,
-        operation: 'add',
-        product: product
-      })
-    },
-    removeOwnProduct (product, subject) {
-      this.$store.dispatch('updateOwnProducts', {
-        subject: subject,
-        operation: 'remove',
+        operation: operation,
         product: product
       })
     }
@@ -377,5 +375,11 @@ export default {
 
   .own_product_icon:hover {
     transform: scale(1.4);
+  }
+
+  .shop_product_title {
+    color: white;
+    font-size: 14px;
+    padding: 12px;
   }
 </style>

@@ -36,14 +36,26 @@
                 <el-row class="mt-4">
                   <p style="font-size: 24px">
                     <i class="el-icon-minus"></i>
-                    Open <span class="primary--text">X</span> Game
+                    Misterio Shop
                     <i class="el-icon-minus"></i>
                   </p>
                 </el-row>
               </el-col>
               <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12"
                       v-model="product">
-                <h2 class="mt-3">{{ product.title }}</h2>
+                <p id="product_title">
+                  {{ product.title }}
+                  <span>
+                    <v-icon
+                      v-if="this.$store.getters.user.favorites[product.productId]"
+                      @click.stop="updateOwnProduct(product, 'favorites', 'remove')"
+                      class="own_product_icon secondary--text">favorite</v-icon>
+                    <v-icon
+                      v-else
+                      @click.stop="updateOwnProduct(product, 'favorites', 'add')"
+                      class="own_product_icon primary--text">favorite_border</v-icon>
+                  </span>
+                </p>
                 <v-divider class="mb-3 mt-3"></v-divider>
                 <div class="product_info">
                   <p class="info--text">Арт. : {{ product.SKU }}</p>
@@ -65,7 +77,7 @@
                            size="medium"
                            class="mt-3 secondary white--text"
                            :disabled="product.totalQty < 1"
-                           @click="addToCart">
+                           @click="updateOwnProduct(product, 'cart', 'add')">
                   <span style="font-size: 14px">
                     В корзину
                   </span>
@@ -85,7 +97,9 @@
                     </el-button>
                   </router-link>
                   <br>
-                  <el-button size="mini" @click="removeFromCart">
+                  <el-button
+                    @click="updateOwnProduct(product, 'cart', 'remove')"
+                    size="mini">
                     <v-icon>remove_shopping_cart</v-icon>
                   </el-button>
                 </div>
@@ -122,22 +136,6 @@ export default {
     }
   },
   methods: {
-    addToCart () {
-      this.$store.dispatch('USER_EVENT', 'Продукт добавлен в корзину')
-      this.$store.dispatch('updateOwnProducts', {
-        subject: 'cart',
-        operation: 'add',
-        product: this.product
-      })
-    },
-    removeFromCart () {
-      this.$store.dispatch('USER_EVENT', 'Продукт удален из корзины')
-      this.$store.dispatch('updateOwnProducts', {
-        subject: 'cart',
-        operation: 'remove',
-        product: this.product
-      })
-    },
     loadOriginal (name) {
       for (let i = 0; i < 5; i++) {
         if (this.$refs['img_' + i]) {
@@ -146,6 +144,18 @@ export default {
       }
       this.$refs[name].classList.add('active')
       this.viewImage = this.product[name].original
+    },
+    updateOwnProduct (product, subject, operation) {
+      this.$store.dispatch('USER_EVENT',
+        `${subject === 'cart' ? 'Корзина' : 'Избранное'}:
+         ${operation === 'add' ? ' добавлен' : ' удален'}
+        "${product.title}"`
+      )
+      this.$store.dispatch('updateOwnProducts', {
+        subject: subject,
+        operation: operation,
+        product: product
+      })
     }
   }
 }
@@ -181,6 +191,12 @@ export default {
     font-size: 16px;
   }
 
+  #product_title {
+    font-size: 20px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+
   .product_info {
     text-align: left;
     margin-left: 40px;
@@ -189,5 +205,16 @@ export default {
 
   #product_card {
     margin-bottom: 70px;
+  }
+
+  .own_product_icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .own_product_icon:hover {
+    transform: scale(1.3);
+    cursor: pointer;
   }
 </style>

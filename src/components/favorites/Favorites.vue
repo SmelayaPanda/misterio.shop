@@ -57,15 +57,18 @@ export default {
   name: 'Favorites',
   methods: {
     addToCart (product) {
-      this.$store.dispatch('USER_EVENT', 'Продукт добавлен в корзину')
+      this.updateOwnProduct(product, 'cart', 'add')
+      this.updateOwnProduct(product, 'favorites', 'remove')
+    },
+    updateOwnProduct (product, subject, operation) {
+      this.$store.dispatch('USER_EVENT',
+        `${subject === 'cart' ? 'Корзина' : 'Избранное'}:
+         ${operation === 'add' ? ' добавлен' : ' удален'}
+        "${product.title}"`
+      )
       this.$store.dispatch('updateOwnProducts', {
-        subject: 'cart',
-        operation: 'add',
-        product: product
-      })
-      this.$store.dispatch('updateOwnProducts', {
-        subject: 'favorites',
-        operation: 'remove',
+        subject: subject,
+        operation: operation,
         product: product
       })
     }
