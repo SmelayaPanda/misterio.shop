@@ -130,7 +130,7 @@ export default {
         description: this.product.description,
         SKU: this.product.SKU,
         brand: this.product.brand,
-        price: parseFloat(this.product.price).toFixed(2),
+        price: parseFloat(this.product.price),
         currency: this.product.currency,
         qty: 1, // for user cart
         totalQty: this.product.totalQty,

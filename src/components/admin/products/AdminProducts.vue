@@ -29,7 +29,9 @@
           <p>Description: {{ props.row.description }}</p>
           <p>Color: {{ props.row.color }}</p>
           <p>Creation date: {{ props.row.creationDate | date }}</p>
-          <p>Last edit date: {{ props.row.editDate | date }}</p>
+          <p v-if="props.row.editDate">
+            Last edit date: {{ props.row.editDate | date }}
+          </p>
         </template>
       </el-table-column>
       <!--THUMBNAIL-->
