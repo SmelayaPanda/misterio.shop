@@ -5,8 +5,7 @@ import {Message, Notification} from 'element-ui'
 export default {
   state: {
     user: {
-      cart: [], // ids only
-      cartProducts: {}, // { productId : {}, ... }
+      cart: {}, // full product obj
       orders: []
     },
     isAdmin: false
@@ -176,22 +175,21 @@ export default {
             dispatch('LOG', err)
           })
       },
-    editUserData:
-      () => {
-      },
     updateCart:
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         const user = getters.user
         let pId = payload.product.productId
         if (payload.operation === 'add') {
-          user.cart.push(pId)
-          user.cartProducts[pId] = payload.product
+          user.cart[pId] = payload.product
         } else if (payload.operation === 'remove') {
-          user.cart.splice(user.cart.indexOf(pId), 1)
-          delete user.cartProducts[pId]
+          delete user.cart[pId]
         }
-        firebase.firestore().collection('users').doc(user.uid).update({cart: user.cart})
+        let productIds = []
+        if (user.cart) {
+          productIds = Object.keys(user.cart)
+        }
+        firebase.firestore().collection('users').doc(user.uid).update({cart: productIds})
           .then(() => {
             commit('setUser', {...user})
             commit('LOADING', false)
@@ -200,23 +198,21 @@ export default {
       },
     loadCartProducts:
       ({commit, getters, dispatch}) => {
-        // TODO: if product was removed?
         let user = getters.user
         if (user.cart) {
           let actions = []
-          let cartProducts = {}
+          let products = {}
           let loadProduct = function (pId) {
+            // TODO: if product was removed?
             return firebase.firestore().collection('products').doc(pId).get()
               .then(snap => {
-                cartProducts[pId] = snap.data()
+                products[pId] = snap.data()
               })
           }
-          user.cart.forEach(pId => {
-            actions.push(loadProduct(pId))
-          })
+          user.cart.forEach(pId => actions.push(loadProduct(pId)))
           Promise.all(actions)
             .then(() => {
-              user.cartProducts = cartProducts
+              user.cart = products
               commit('setUser', {...user})
               console.log('Fetched: user cart products')
             })

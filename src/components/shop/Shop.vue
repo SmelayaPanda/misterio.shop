@@ -199,26 +199,27 @@ export default {
     BackToTop
   },
   data () {
+    let filter = this.$store.getters.productFilters
     return {
       algoliaSearchText: this.$store.getters.algoliaSearchText,
-      sortAsc: this.$store.getters.productFilters.sortAsc,
+      sortAsc: filter.sortAsc,
       sliderValues: [
-        this.$store.getters.productFilters.minPrice,
-        this.$store.getters.productFilters.maxPrice
-          ? this.$store.getters.productFilters.maxPrice
+        filter.minPrice,
+        filter.maxPrice
+          ? filter.maxPrice
           : this.$store.getters.productStatistics.maxPrice
       ],
-      selectedBrand: this.$store.getters.productFilters.brand,
-      selectedColor: this.$store.getters.productFilters.color,
-      selectedGroup: this.$store.getters.productFilters.group,
-      selectedCategory: this.$store.getters.productFilters.category,
+      selectedBrand: filter.brand,
+      selectedColor: filter.color,
+      selectedGroup: filter.group,
+      selectedCategory: filter.category,
       formLabelWidth: '120px',
       isCollapsed: true,
       activeName:
-          this.$store.getters.productFilters.brand === '' &&
-          this.$store.getters.productFilters.color === '' &&
-          this.$store.getters.productFilters.minPrice === 0 &&
-          this.$store.getters.productFilters.maxPrice === 0 ? '0' : '1'
+        !filter.brand &&
+        !filter.color &&
+        !filter.minPrice &&
+        !filter.maxPrice ? '0' : '1'
     }
   },
   methods: {

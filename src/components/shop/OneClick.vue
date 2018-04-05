@@ -59,18 +59,18 @@ export default {
   data () {
     let validateNickname = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('Please input nickname'))
+        callback(new Error('Пожалуйста, введите имя'))
       } else {
         callback()
       }
     }
     let checkEmail = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('Please input the Email'))
+        return callback(new Error('Введите Email'))
       }
       setTimeout(() => {
         if (!this.isValidEmail(value)) {
-          callback(new Error('Email is not valid'))
+          callback(new Error('Email некорректный'))
         } else {
           callback()
         }

@@ -400,10 +400,10 @@ export default {
     },
     orderProducts () {
       let checkoutObj = this.checkoutObj
-      let cartProducts = this.$store.getters.user.cartProducts
+      let cart = this.$store.getters.user.cart
       let products = []
       checkoutObj.forEach(el => {
-        let product = cartProducts[el.productId]
+        let product = cart[el.productId]
         product.qty = el.qty
         products.push(product)
       })

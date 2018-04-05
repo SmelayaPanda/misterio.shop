@@ -63,28 +63,30 @@ export default {
             payload.id = orderId
             orders.unshift(payload)
             let actions = []
-            // 1. remove items from user cart, add orderIds
-            // 2. decrease totalQty of each products
+            // 1. Decrease totalQty of each products
+            let decreaseTotalQty = function (productId, totalQty) {
+              return firebase.firestore().collection('products').doc(productId).update({totalQty: totalQty})
+            }
+            let productQty
+            for (let p of payload.products) {
+              productQty = user.cart[p.productId].totalQty
+              delete user.cart[p.productId]
+              actions.push(decreaseTotalQty(p.productId, productQty - p.qty < 0 ? 0 : productQty - p.qty))
+            }
+            // 2. Update user data
+            let orderIds = []
+            let cartProductIds = []
+            if (user.cart) {
+              cartProductIds = Object.keys(user.cart)
+            }
             let updateUserData = function (cart, ordersIds) {
               return firebase.firestore().collection('users').doc(user.uid).update({
                 cart: cart,
                 orders: ordersIds
               })
             }
-            let decreaseTotalQty = function (productId, totalQty) {
-              return firebase.firestore().collection('products').doc(productId).update({totalQty: totalQty})
-            }
-            let product
-            for (let p of payload.products) {
-              user.cart.splice(user.cart.indexOf(p.productId), 1)
-              product = user.cartProducts[p.productId]
-              delete user.cartProducts[p.productId]
-              let isEndedProducts = product.totalQty - p.qty < 0
-              actions.push(decreaseTotalQty(p.productId, isEndedProducts ? 0 : product.totalQty - p.qty))
-            }
-            let orderIds = []
             orders.forEach(order => orderIds.push(order.id))
-            actions.push(updateUserData(user.cart, orderIds))
+            actions.push(updateUserData(cartProductIds, orderIds))
             return Promise.all(actions)
           })
           .then(() => {

@@ -118,7 +118,7 @@ export default {
       return this.$store.getters.productById(this.id)
     },
     alreadyAddedProduct () {
-      return this.$store.getters.user.cart.indexOf(this.id) !== -1
+      return this.$store.getters.user.cart[this.id]
     }
   },
   methods: {

@@ -60,10 +60,10 @@
           v-if="this.$store.getters.user.cart"
           :xs="24" :sm="3" :md="3" :lg="3" :xl="3" align="left">
           <span id="cart_count"
-                v-if="this.$store.getters.user.cart.length"
+                v-if="Object.keys(this.$store.getters.user.cart).length"
                 :class="this.$route.path === '/cart' ? 'white--text' :
                         ( color === 'red' ? 'secondary--text' : 'primary--text' )">
-                +{{ this.$store.getters.user.cart.length }}
+                +{{ Object.keys(this.$store.getters.user.cart).length }}
           </span>
         </el-col>
       </el-row>
