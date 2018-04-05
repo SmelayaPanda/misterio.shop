@@ -21,30 +21,8 @@
             v-for="product in favorites"
             :key="product.productId"
             :xs="24" :sm="12" :md="12" :lg="8" :xl="8"
-            align="left"
-            class="favorites_product">
-            <el-row
-              v-if="product"
-              type="flex"
-              justify="center"
-              style="flex-wrap: wrap">
-              <el-col :span="8" align="left">
-                <img :src="product.img_0.thumbnail" class="product_thumb" alt="">
-              </el-col>
-              <el-col :span="14" class="product_descr">
-                <span class="product_title">
-                  {{ product.title }}
-                </span> <br>
-                <span class="product_price">
-                  {{ product.price }} РУБ
-                </span>
-                <div @click="addToCart(product)">
-                  <app-theme-btn width="120px" class="into_cart">
-                    В корзину
-                  </app-theme-btn>
-                </div>
-              </el-col>
-            </el-row>
+            align="left">
+            <favorite-product :id="product.productId"/>
           </el-col>
         </el-row>
       </el-col>
@@ -53,26 +31,11 @@
 </template>
 
 <script>
+import FavoriteProduct from './FavoriteProduct'
+
 export default {
   name: 'Favorites',
-  methods: {
-    addToCart (product) {
-      this.updateOwnProduct(product, 'cart', 'add')
-      this.updateOwnProduct(product, 'favorites', 'remove')
-    },
-    updateOwnProduct (product, subject, operation) {
-      this.$store.dispatch('USER_EVENT',
-        `${subject === 'cart' ? 'Корзина' : 'Избранное'}:
-         ${operation === 'add' ? ' добавлен' : ' удален'}
-        "${product.title}"`
-      )
-      this.$store.dispatch('updateOwnProducts', {
-        subject: subject,
-        operation: operation,
-        product: product
-      })
-    }
-  },
+  components: {FavoriteProduct},
   computed: {
     favorites () {
       let favorites = this.$store.getters.user.favorites
@@ -97,39 +60,4 @@ export default {
     margin-right: 3px;
   }
 
-  .favorites_product {
-    padding: 20px;
-  }
-
-  .product_descr {
-    padding-left: 15px;
-  }
-
-  .product_thumb {
-    height: 140px;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 2px;
-  }
-
-  .product_title {
-    font-size: 12px;
-    color: white;
-  }
-
-  .product_price {
-    font-size: 12px;
-    font-weight: 500;
-    color: white;
-  }
-
-  .into_cart {
-    position: absolute;
-    bottom: 5px;
-  }
-
-  .into_cart:hover {
-    transition: all 0.3s;
-    background: $color-secondary;
-  }
 </style>
