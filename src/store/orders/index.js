@@ -1,5 +1,6 @@
 import * as firebase from 'firebase'
 import router from '../../router'
+import {Notification} from 'element-ui'
 
 export default {
   state: {
@@ -78,19 +79,7 @@ export default {
               user.cart.splice(user.cart.indexOf(p.productId), 1)
               product = user.cartProducts[p.productId]
               delete user.cartProducts[p.productId]
-              // TODO: not working notification
               let isEndedProducts = product.totalQty - p.qty < 0
-              if (isEndedProducts) {
-                this.$notify({
-                  title: 'Воу...',
-                  message: 'Вероятно, пока Вы оформляли покупку товар купил другой человек.' +
-                  'Мы свяжемся с Вами в ближайшее время для уточнения деталей.',
-                  type: 'error',
-                  showClose: true,
-                  duration: 30000,
-                  offset: 50
-                })
-              }
               actions.push(decreaseTotalQty(p.productId, isEndedProducts ? 0 : product.totalQty - p.qty))
             }
             let orderIds = []
@@ -102,7 +91,16 @@ export default {
             commit('setOrders', orders)
             commit('setUser', {...user})
             commit('LOADING', false)
-            console.log('Order added')
+            Notification({
+              title: 'Поздравляем!',
+              message:
+              'Заказ совершен! ' +
+              'Мы свяжемся с Вами в ближайшее время для подтверждения покупки.',
+              type: 'success',
+              showClose: true,
+              duration: 30000,
+              offset: 50
+            })
             router.push('/cart')
           })
           .catch(err => dispatch('LOG', err))
@@ -113,13 +111,7 @@ export default {
         let orders = getters.orders
         firebase.firestore().collection('orders').doc(payload.orderId).update(payload.updateData)
           .then(() => {
-            if (payload.updateData.status === 'refused') {
-              // TODO: increase product totalQty ?
-              // return firebase.firestore().collection('products')
-              // .doc(payload.productId).update({totalQty: payload.totalQty})
-            }
-          })
-          .then(() => {
+            // total product qty not increased on refuse - operator work
             orders.splice(orders.indexOf(payload.orderId), 1)
             console.log('Order updated')
             commit('setOrders', orders)

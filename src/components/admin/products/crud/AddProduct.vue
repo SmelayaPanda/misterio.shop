@@ -4,39 +4,46 @@
       <v-icon class="white--text">add</v-icon>
     </v-btn>
 
-    <el-dialog :title="`New product in: ${group} / ${category}`" :visible.sync="dialogFormVisible" width="100%"
-               :fullscreen="true">
+    <el-dialog
+      :title="`New product in: ${group} / ${category}`"
+      :visible.sync="dialogFormVisible"
+      width="100%"
+      :fullscreen="true">
       <el-row type="flex" justify="center">
         <el-col :span="20">
           <el-form :model="product">
             <el-form-item label="Title" :label-width="formLabelWidth">
-              <el-input v-model="product.title"
-                        placeholder="(max 100 symbols)"
-                        :maxlength="100"
-              ></el-input>
+              <el-input
+                v-model="product.title"
+                placeholder="(max 100 symbols)"
+                :maxlength="100">
+              </el-input>
             </el-form-item>
             <el-form-item label="Description" :label-width="formLabelWidth">
-              <el-input v-model="product.description"
-                        type="textarea"
-                        placeholder="(max 400 symbols)"
-                        :autosize="{ minRows: 3, maxRows: 7}"
-                        :maxlength="400"
+              <el-input
+                v-model="product.description"
+                type="textarea"
+                placeholder="(max 400 symbols)"
+                :autosize="{ minRows: 3, maxRows: 7}"
+                :maxlength="400"
               ></el-input>
             </el-form-item>
             <el-form-item label="SKU" :label-width="formLabelWidth">
-              <el-input v-model="product.SKU"
-                        placeholder="(max 20 symbols)"
-                        :maxlength="20"
-              ></el-input>
+              <el-input
+                v-model="product.SKU"
+                placeholder="(max 20 symbols)"
+                :maxlength="20">
+              </el-input>
             </el-form-item>
             <!--BRAND-->
             <el-row type="flex" style="flex-wrap: wrap">
               <el-form-item label="Brand" :label-width="formLabelWidth">
-                <el-select filterable
-                           no-match-text="Brand is missing"
-                           v-model="product.brand"
-                           placeholder="Brand"
-                           v-if="brands">
+                <el-select
+                  filterable
+                  no-match-text="Brand is missing"
+                  v-model="product.brand"
+                  placeholder="Brand"
+                  v-if="brands">
                   <el-option
                     v-for="val in brands"
                     :key="val"
@@ -47,11 +54,12 @@
               </el-form-item>
               <!--COLOR-->
               <el-form-item label="Color" :label-width="formLabelWidth">
-                <el-select filterable
-                           no-match-text="Color is missing"
-                           v-model="product.color"
-                           placeholder="Color"
-                           v-if="colors">
+                <el-select
+                  filterable
+                  no-match-text="Color is missing"
+                  v-model="product.color"
+                  placeholder="Color"
+                  v-if="colors">
                   <el-option
                     v-for="val in colors"
                     :key="val"
@@ -135,8 +143,8 @@ export default {
   },
   computed: {
     isValidForm () {
-      return this.product.title !== '' && this.product.description !== '' &&
-          this.product.color !== '' && this.product.SKU !== '' && this.product.brand !== ''
+      return this.product.title && this.product.description &&
+          this.product.color && this.product.SKU && this.product.brand
     },
     brands () {
       return this.$store.getters.brands
