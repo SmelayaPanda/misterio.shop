@@ -49,6 +49,11 @@ export default {
       ({commit, getters}, payload) => {
         commit('LOADING', true)
         firebase.firestore().collection('oneclick').add(payload)
+          .then((docRef) => {
+            let oneclickIds = getters.user.oneclick
+            oneclickIds.push(docRef.id)
+            return firebase.firestore().collection('users').doc(getters.user.uid).update({oneclick: oneclickIds})
+          })
           .then(() => {
             commit('LOADING', false)
             Notification({

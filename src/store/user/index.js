@@ -5,8 +5,13 @@ import {Message, Notification} from 'element-ui'
 export default {
   state: {
     user: {
-      cart: {}, // full product obj
-      orders: []
+      // Arrays of ids in database, but
+      // Full product obj in client side
+      cart: {},
+      favorites: {},
+      // ids only
+      orders: [],
+      oneclick: []
     },
     isAdmin: false
   },
@@ -32,7 +37,7 @@ export default {
             commit('setUser', extendUser)
             commit('setAdmin', user.email === 'smelayapandagm@gmail.com')
             return Promise.all([
-              dispatch('loadCartProducts'),
+              dispatch('loadOwnProducts'),
               dispatch('fetchOrders', {userId: user.uid})
             ])
           })
@@ -96,6 +101,7 @@ export default {
                 cart: [],
                 orders: [],
                 oneclick: [],
+                favorites: [],
                 isAnonymous: data.user.isAnonymous
               })
           })
@@ -196,28 +202,37 @@ export default {
           })
           .catch(err => dispatch('LOG', err))
       },
-    loadCartProducts:
+    loadOwnProducts: // cart and favorites
       ({commit, getters, dispatch}) => {
         let user = getters.user
-        if (user.cart) {
-          let actions = []
-          let products = {}
-          let loadProduct = function (pId) {
-            // TODO: if product was removed?
-            return firebase.firestore().collection('products').doc(pId).get()
-              .then(snap => {
-                products[pId] = snap.data()
-              })
-          }
-          user.cart.forEach(pId => actions.push(loadProduct(pId)))
-          Promise.all(actions)
-            .then(() => {
-              user.cart = products
-              commit('setUser', {...user})
-              console.log('Fetched: user cart products')
+        let cart = {}
+        let favorites = {}
+        let loadProduct = function (pId, to) {
+          // TODO: if product was removed?
+          return firebase.firestore().collection('products').doc(pId).get()
+            .then(snap => {
+              if (to === 'cart') {
+                cart[pId] = snap.data()
+              } else if (to === 'favorites') {
+                favorites[pId] = snap.data()
+              }
             })
-            .catch(err => dispatch('LOG', err))
         }
+        let actions = []
+        if (user.cart) {
+          user.cart.forEach(pId => actions.push(loadProduct(pId, 'cart')))
+        }
+        if (user.favorites) {
+          user.favorites.forEach(pId => actions.push(loadProduct(pId, 'favorites')))
+        }
+        Promise.all(actions)
+          .then(() => {
+            user.cart = cart
+            user.favorites = favorites
+            commit('setUser', {...user})
+            console.log('Fetched: user cart products')
+          })
+          .catch(err => dispatch('LOG', err))
       }
   },
   getters: {
