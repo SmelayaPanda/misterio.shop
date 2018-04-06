@@ -66,6 +66,24 @@ $lg-screen: 1920px;
   }
 }
 
+#news_types {
+  .el-radio__input + .el-radio__label {
+    color: white;
+  }
+  .el-radio__input .el-radio__inner {
+    width: 20px;
+    height: 20px;
+    border-color: $color-secondary;
+    border-radius: 1px;
+    background: $color-primary;
+  }
+  .el-radio__inner::after {
+    background: $color-secondary;
+    width: 8px;
+    height: 8px;
+  }
+}
+
 #checkoutDialog {
   .el-dialog,
   .el-step__icon {

@@ -7,15 +7,18 @@
     </app-theme-page-title>
     <el-row id="filter_block" type="flex">
       <el-col align="right">
-        <el-checkbox class="white--text">Все</el-checkbox>
-        <el-checkbox>Акции</el-checkbox>
-        <el-checkbox>Новости</el-checkbox>
+        <el-radio-group id="news_types" v-model="type">
+          <el-radio label="all">Все</el-radio>
+          <el-radio label="sale">Акции</el-radio>
+          <el-radio label="article">Новости</el-radio>
+        </el-radio-group>
       </el-col>
     </el-row>
     <!--NEWS 1-->
     <div v-if="news" id="news_wrapper">
       <div v-for="(oneNews, id) in news"
            :key="id"
+           v-if="type === 'all' ? true : ( oneNews.type === type )"
            class="news_block">
         <el-row class="news_tag_row" type="flex" justify="left">
           <el-col class="news_tag" align="left">
@@ -57,6 +60,11 @@
 <script>
 export default {
   name: 'News',
+  data () {
+    return {
+      type: 'all'
+    }
+  },
   methods: {
     loadNews () {
       this.$store.dispatch('loadNews')
