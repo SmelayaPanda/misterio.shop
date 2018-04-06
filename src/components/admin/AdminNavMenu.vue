@@ -31,6 +31,10 @@
         <v-icon>record_voice_over</v-icon>
         <span slot="title">Reviews</span>
       </el-menu-item>
+      <el-menu-item index="/admin/news" route="/admin/news">
+        <v-icon>import_contacts</v-icon>
+        <span slot="title">News/Sales</span>
+      </el-menu-item>
       <el-menu-item index="/admin/company" route="/admin/company">
         <v-icon>account_balance</v-icon>
         <span slot="title">Company</span>

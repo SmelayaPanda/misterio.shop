@@ -14,6 +14,7 @@
       id="checkoutDialog"
       v-if="orderProducts"
       width="100%"
+      close-on-press-escape
       :visible.sync="dialogFormVisible"
       :fullscreen="true">
       <p id="checkout">
@@ -109,12 +110,12 @@
             <el-col :span="18">
             <div class="form_2" v-if="activeStep === 2">
               <el-form
+                v-if="activeStep === 2"
                 label-position="top"
                 label-width="100px"
                 status-icon
                 ref="form_2"
                 :rules="formRules_2"
-                v-if="activeStep === 2"
                 :model="form_2">
                 <!--COUNTRY-->
                 <el-row type="flex">

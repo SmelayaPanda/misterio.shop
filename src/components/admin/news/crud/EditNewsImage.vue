@@ -25,7 +25,7 @@
 </template>
 <script>
 export default {
-  name: 'AddProductImage',
+  name: 'EditNewsImageDialog',
   props: ['imgName', 'imgBtnName', 'curImg'],
   data () {
     return {

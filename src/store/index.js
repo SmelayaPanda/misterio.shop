@@ -8,6 +8,7 @@ import orders from './orders/index'
 import dictionaries from './dictionaries/index'
 import oneclick from './oneclick/index'
 import reviews from './reviews/index'
+import news from './news/index'
 import companyInfo from './company_info/index'
 import liveChat from './live_chat/index'
 
@@ -22,6 +23,7 @@ export const store = new Vuex.Store({
     dictionaries: dictionaries,
     oneclick: oneclick,
     reviews: reviews,
+    news: news,
     companyInfo: companyInfo,
     liveChat: liveChat
   }

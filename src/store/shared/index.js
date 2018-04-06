@@ -37,6 +37,7 @@ export default {
       },
     LOG:
       ({commit}, payload) => {
+        console.log(payload)
         commit('ERR', payload)
         commit('LOADING', false)
         if (payload.code !== 'aborted') { // offline client

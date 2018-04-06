@@ -21,6 +21,7 @@
       highlight-current-row
       empty-text="No data"
       style="width: 100vw; text-align: left">
+      <!-- TODO: pagination table!-->
       <el-table-column type="expand">
         <template slot-scope="props">
           <p><span>Database id:</span>

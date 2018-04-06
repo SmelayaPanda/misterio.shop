@@ -116,4 +116,13 @@ $lg-screen: 1920px;
   border-radius: 5px;
 }
 
+#admin_news,
+#edit_news_info_dialog {
+  .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+    background: $color-primary_a;
+    border: 1px solid $color-info_a;
+    box-shadow: none;
+  }
+}
+
 @import "mixins";

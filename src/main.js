@@ -38,6 +38,7 @@ import HeartLoader from '@/components/shared/HeartLoader'
 import BallsLoader from '@/components/shared/BallsLoader'
 import HelpTooltip from '@/components/shared/HelpTooltip'
 import MaskedInput from 'vue-masked-input'
+import { VueEditor } from 'vue2-editor'
 // THEME
 import ThemePageTitle from '@/components//shared/theme/ThemePageTitle.vue'
 import ThemeBtn from '@/components/shared/theme/ThemeBtn.vue'
@@ -57,6 +58,7 @@ Vue.filter('chatTime', ChatTimeFilter)
 Vue.filter('birthday', BirthdayFilter)
 Vue.filter('snippet', Snippet)
 Vue.component('masked-input', MaskedInput)
+Vue.component('vue-html-editor', VueEditor)
 Vue.component('app-alert', AlertComp)
 Vue.component('app-loader', Loader)
 Vue.component('app-heart-loader', HeartLoader)

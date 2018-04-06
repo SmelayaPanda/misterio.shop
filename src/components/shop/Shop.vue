@@ -167,6 +167,10 @@
                       </p>
                     </el-col>
                     <el-col :span="12" align="right">
+                      <!--
+                      @mouseover="showActionButtons = true"
+                      @mouseleave="showActionButtons = false"
+                      -->
                       <span>
                         <v-icon
                           v-if="user.favorites[p.productId]"
@@ -175,7 +179,7 @@
                         <v-icon
                           v-else
                           @click.stop="updateOwnProduct(p, 'favorites', 'add')"
-                          small class="own_product_icon">favorite_border</v-icon>
+                          small class="own_product_icon white--text">favorite_border</v-icon>
                       </span>
                       <span>
                         <v-icon
