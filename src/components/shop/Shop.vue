@@ -152,53 +152,11 @@
             </el-row>
           </el-collapse-item>
         </el-collapse>
-        <!--PRODUCT CART-->
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :xs="23" :sm="12" :md="8" :lg="8" :xl="8"
                   v-for="(p,key) in products" :key="key">
-            <div @click="viewProduct(p.productId, p.title)" class="card_wrapper">
-              <v-card class="main_card primary" height="410px">
-                <v-card-media :src="p.img_0.card" height="300px"></v-card-media>
-                <div style="height: 30px; padding: 10px;">
-                  <el-row type="flex">
-                    <el-col :span="12" align="left">
-                      <p class="grey--text pl-2">
-                        {{ p.price }} &#8381;
-                      </p>
-                    </el-col>
-                    <el-col :span="12" align="right">
-                      <!--
-                      @mouseover="showActionButtons = true"
-                      @mouseleave="showActionButtons = false"
-                      -->
-                      <span>
-                        <v-icon
-                          v-if="user.favorites[p.productId]"
-                          @click.stop="updateOwnProduct(p, 'favorites', 'remove')"
-                          small class="own_product_icon secondary--text">favorite</v-icon>
-                        <v-icon
-                          v-else
-                          @click.stop="updateOwnProduct(p, 'favorites', 'add')"
-                          small class="own_product_icon white--text">favorite_border</v-icon>
-                      </span>
-                      <span>
-                        <v-icon
-                          v-if="user.cart[p.productId]"
-                          @click.stop="updateOwnProduct(p, 'cart', 'remove')"
-                          small class="own_product_icon secondary--text">folder</v-icon>
-                        <v-icon
-                          v-else
-                          @click.stop="updateOwnProduct(p, 'cart', 'add')"
-                          small class="own_product_icon white--text">folder_open</v-icon>
-                      </span>
-                    </el-col>
-                  </el-row>
-                </div>
-                <p class="shop_product_title">
-                  {{ p.title | snippet(60) }}
-                </p>
-              </v-card>
-            </div>
+            <!--PRODUCT CART-->
+            <product-card :id="p.productId"/>
           </el-col>
         </el-row>
         <div class="mb-4 mt-3">
@@ -223,15 +181,18 @@
 
 <script>
 import BackToTop from 'vue-backtotop'
+import ProductCard from './ProductCard'
 
 export default {
-  name: 'Men',
+  name: 'Shop',
   components: {
+    ProductCard,
     BackToTop
   },
   data () {
     let filter = this.$store.getters.productFilters
     return {
+      hoverOnCard: false,
       algoliaSearchText: this.$store.getters.algoliaSearchText,
       sortAsc: filter.sortAsc,
       sliderValues: [
@@ -258,10 +219,6 @@ export default {
       this.$store.dispatch('USER_EVENT', `Сортировка по цене ${this.sortAsc}`)
       this.sortAsc = !this.sortAsc
       this.filterProducts()
-    },
-    viewProduct (id, title) {
-      this.$store.dispatch('USER_EVENT', `Просмотр: ${title}`)
-      this.$router.push('/product/' + id)
     },
     changeCategory (key) {
       this.$store.dispatch('USER_EVENT', `Категория: ${key}`)
@@ -298,18 +255,6 @@ export default {
     algoliaSearch () {
       this.$store.dispatch('USER_EVENT', `Поиск по слову: "${this.algoliaSearchText}"`)
       this.$store.dispatch('algoliaSearch', this.algoliaSearchText)
-    },
-    updateOwnProduct (product, subject, operation) {
-      this.$store.dispatch('USER_EVENT',
-        `${subject === 'cart' ? 'Корзина' : 'Избранное'}:
-         ${operation === 'add' ? ' добавлен' : ' удален'}
-        "${product.title}"`
-      )
-      this.$store.dispatch('updateOwnProducts', {
-        subject: subject,
-        operation: operation,
-        product: product
-      })
     }
   },
   computed: {
@@ -350,18 +295,6 @@ export default {
 </script>
 
 <style scoped type="scss">
-  .main_card {
-    margin: 10px;
-    padding: 0 0 10px;
-    border: 1px solid white !important;
-  }
-
-  .card_wrapper {
-  }
-
-  .card_wrapper:hover {
-    cursor: pointer;
-  }
 
   .search_input {
     margin-left: 12px;
@@ -372,18 +305,4 @@ export default {
     background: #000 !important;
   }
 
-  .own_product_icon {
-    color: white;
-    padding-right: 10px;
-  }
-
-  .own_product_icon:hover {
-    transform: scale(1.4);
-  }
-
-  .shop_product_title {
-    color: white;
-    font-size: 14px;
-    padding: 12px;
-  }
 </style>

@@ -28,7 +28,7 @@
         </el-row>
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :xs="20" :sm="9" :md="9" :lg="9" :xl="9">
-            <v-card class="white" height="320px">
+            <v-card class="white elevation-8" height="320px" >
               <v-card-media
                 v-if="oneNews.img_0"
                 :src="oneNews.img_0.original"
