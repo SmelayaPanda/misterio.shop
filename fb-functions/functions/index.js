@@ -1,6 +1,7 @@
 'use strict'
 // STORAGE
 const createProductSubImages = require('./src/storage/createProductSubImages')
+const createNewsThumbnail = require('./src/storage/createNewsThumbnail')
 // AUTH
 const onUserCreate = require('./src/auth/onUserCreate')
 // DB
@@ -69,7 +70,11 @@ exports.createProductSubImages = functions
   .onFinalize((object, context) => {
     return createProductSubImages.handler(object, context, admin)
   })
-
+exports.createNewsThumbnail = functions
+  .storage.object()
+  .onFinalize((object, context) => {
+    return createNewsThumbnail.handler(object, context, admin)
+  })
 // HTTP
 exports.processPayPal = functions
   .https

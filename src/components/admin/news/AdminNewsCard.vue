@@ -10,8 +10,8 @@
       <el-col :span="9" align="left">
         <div class="news_thumb_wrap">
           <img
-            v-if="oneNews.img"
-            :src="oneNews.img.thumbnail"
+            v-if="oneNews.img_0"
+            :src="oneNews.img_0.thumbnail"
             class="news_thumb" alt="">
         </div>
       </el-col>
@@ -22,19 +22,11 @@
         <span class="news_creation_date">
           {{ oneNews.creationDate | date }}
         </span>
-          <el-row type="flex" class="actions">
-            <el-col :span="12">
-              <edit-news-info-dialog :id="id"/>
-            </el-col>
-            <el-col>
-              <delete-news :id="id"/>
-            </el-col>
-            <el-col :span="12" class="pl-1">
-              <el-button @click="editImageDialog = true">
-                <i class="el-icon-picture-outline"></i>
-              </el-button>
-            </el-col>
-          </el-row>
+        <el-row type="flex" justify="center" class="actions">
+            <edit-news-info-dialog :id="id"/>
+            <edit-news-image :id="id"/>
+            <delete-news :id="id"/>
+        </el-row>
       </el-col>
     </el-row>
   </div>
@@ -42,11 +34,16 @@
 <script>
 import EditNewsInfoDialog from './crud/EditNewsInfo'
 import DeleteNews from './crud/DeleteNews'
+import EditNewsImage from './crud/EditNewsImage'
 
 export default {
   name: 'AdminArticle',
   props: ['id'],
-  components: {DeleteNews, EditNewsInfoDialog},
+  components: {
+    EditNewsImage,
+    DeleteNews,
+    EditNewsInfoDialog
+  },
   data () {
     return {
       showCloseBtn: false,
@@ -83,6 +80,7 @@ export default {
     height: 150px;
     background: $color-info;
   }
+
   .news_thumb {
     height: 150px;
     width: 100%;

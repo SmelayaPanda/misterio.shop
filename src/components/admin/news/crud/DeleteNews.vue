@@ -31,6 +31,7 @@ export default {
   },
   methods: {
     deleteNews () {
+      this.dialogVisible = false
       this.$store.dispatch('deleteNews', this.id)
     }
   },

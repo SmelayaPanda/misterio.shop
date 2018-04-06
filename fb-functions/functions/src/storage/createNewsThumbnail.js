@@ -8,9 +8,8 @@
  *
  * FUNCTION MAKE:
  * 1. Storage images:
- * products/{productId}/main        - main(img_0, img_1...): name from vuex storage (see: addNewProduct action)
- * products/{productId}/card_main
- * products/{productId}/thumb_main
+ * news/{newsId}/img_0        - original(img_0): name from vuex storage
+ * news/{newsId}/thumb_img_0
  *
  * 2. Firestore update product images
  */
@@ -26,10 +25,6 @@ const THUMB_MAX_HEIGHT = 200; // px
 const THUMB_MAX_WIDTH = 200;
 const THUMB_PREFIX = 'thumb_';
 
-const CARD_MAX_HEIGHT = 800; // px
-const CARD_MAX_WIDTH = 800;
-const CARD_PREFIX = 'card_';
-
 
 exports.handler = function (object, context, admin) {
   console.log(CONST.LOG_DELIMITER)
@@ -40,14 +35,12 @@ exports.handler = function (object, context, admin) {
   const originalFileName = path.basename(originalFilePath);
 
   const thumbFilePath = path.normalize(path.join(originalFileDir, `${THUMB_PREFIX}${originalFileName}`));
-  const cardFilePath = path.normalize(path.join(originalFileDir, `${CARD_PREFIX}${originalFileName}`));
   const tempLocalFile = path.join(os.tmpdir(), originalFilePath);
   const tempLocalDir = path.dirname(tempLocalFile);
   const tempLocalThumbFile = path.join(os.tmpdir(), thumbFilePath);
-  const tempLocalCardFile = path.join(os.tmpdir(), cardFilePath);
 
-  if (!originalFilePath.startsWith('products/')) {
-    console.log('This is not an product Image.');
+  if (!originalFilePath.startsWith('news/')) {
+    console.log('This is not an news image.');
     return true;
   }
   // Exit if this is triggered on a file that is not an image.
@@ -57,7 +50,7 @@ exports.handler = function (object, context, admin) {
   }
 
   // Exit if the image is already a thumbnail.
-  if (originalFileName.startsWith(THUMB_PREFIX) || originalFileName.startsWith(CARD_PREFIX)) {
+  if (originalFileName.startsWith(THUMB_PREFIX)) {
     console.log('Already a Thumbnail.');
     return true;
   }
@@ -72,7 +65,6 @@ exports.handler = function (object, context, admin) {
   const bucket = gcs.bucket(object.bucket);
   const originalFile = bucket.file(originalFilePath);
   const thumbFile = bucket.file(thumbFilePath);
-  const cardFile = bucket.file(cardFilePath);
   const metadata = {contentType: contentType};
 
   // Create the temp directory where the storage file will be downloaded.
@@ -85,22 +77,14 @@ exports.handler = function (object, context, admin) {
       // Generate a thumbnail using ImageMagick.
       return spawn('convert', [tempLocalFile, '-thumbnail', `${THUMB_MAX_WIDTH}x${THUMB_MAX_HEIGHT}>`, tempLocalThumbFile], {capture: ['stdout', 'stderr']});
     }).then(() => {
-      // Generate a card image using ImageMagick.
-      return spawn('convert', [tempLocalFile, '-thumbnail', `${CARD_MAX_WIDTH}x${CARD_MAX_HEIGHT}>`, tempLocalCardFile], {capture: ['stdout', 'stderr']});
-    }).then(() => {
       console.log('Thumbnail created at', tempLocalThumbFile);
-      console.log('Card image created at', tempLocalCardFile);
       // Uploading the Thumbnail.
       return bucket.upload(tempLocalThumbFile, {destination: thumbFilePath, metadata: metadata});
     }).then(() => {
-      return bucket.upload(tempLocalCardFile, {destination: cardFilePath, metadata: metadata});
-    }).then(() => {
       console.log('Thumbnail uploaded to Storage at', thumbFilePath);
-      console.log('Card image uploaded to Storage at', cardFilePath);
       // Once the image has been uploaded delete the local files to free up disk space.
       fs.unlinkSync(tempLocalFile);
       fs.unlinkSync(tempLocalThumbFile);
-      fs.unlinkSync(tempLocalCardFile);
       // Get the Signed URLs for the thumbnail and original image.
       const config = {
         action: 'read',
@@ -108,7 +92,6 @@ exports.handler = function (object, context, admin) {
       };
       return Promise.all([
         thumbFile.getSignedUrl(config),
-        cardFile.getSignedUrl(config),
         originalFile.getSignedUrl(config),
       ]);
     }).then((results) => {
@@ -116,23 +99,19 @@ exports.handler = function (object, context, admin) {
       const thumbResult = results[0];
       const thumbFileUrl = thumbResult[0];
 
-      const cardResult = results[1];
-      const cardFileUrl = cardResult[0];
-
-      const originalResult = results[2];
+      const originalResult = results[1];
       const originalFileUrl = originalResult[0];
-      // originalFilePath = products/OIe9aAx6sceVylH8ozrH/main
-      const productId = originalFilePath.split('/')[1]
-      console.log('$*****---> Product id = ' + productId)
+      // originalFilePath = news/OIe9aAx6sceVylH8ozrH
+      const newsId = originalFilePath.split('/')[1]
+      console.log('$*****---> News id = ' + newsId)
       // Add the URLs to the Database
       let updateData = {
-        [originalFileName]: { // img_0, ..., img_4
+        [originalFileName]: { // img_0
           original: originalFileUrl,
-          thumbnail: thumbFileUrl,
-          card: cardFileUrl
+          thumbnail: thumbFileUrl
         }
       }
-      return admin.firestore().collection('products').doc(productId).update(updateData);
+      return admin.firestore().collection('news').doc(newsId).update(updateData);
     }).then(() => {
       console.log('Thumbnail URLs saved to database.');
       return true;
