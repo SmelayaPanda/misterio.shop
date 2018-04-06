@@ -13,113 +13,36 @@
       </el-col>
     </el-row>
     <!--NEWS 1-->
-    <div id="news_wrapper">
-      <div class="news_block">
+    <div v-if="news" id="news_wrapper">
+      <div v-for="(oneNews, id) in news"
+           :key="id"
+           class="news_block">
         <el-row class="news_tag_row" type="flex" justify="left">
           <el-col class="news_tag" align="left">
-            А к ц и и
+            {{ oneNews.type === 'sale' ? 'А к ц и и' : 'Н о в о с т и' }}
             <div class="red_line"></div>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :xs="20" :sm="9" :md="9" :lg="9" :xl="9">
-            <v-card class="white" height="340px">
-              <!--<v-card-media :src="p.img_0.card" height="300px"></v-card-media>-->
-              <v-card-title style="height: 30px">
-                <p class="grey--text mt-4">image</p>
-              </v-card-title>
-              <p class="pl-3 pr-3 pt-1 white--text">{{ 'hey' | snippet(60) }}</p>
+            <v-card class="white" height="320px">
+              <v-card-media
+                v-if="oneNews.img_0"
+                :src="oneNews.img_0.original"
+                height="320px">
+              </v-card-media>
             </v-card>
           </el-col>
           <el-col class="news_text_block" :xs="20" :sm="9" :md="9" :lg="9" :xl="9" align="left">
             <p class="news_title">
-              При покупке вибратора <br>
-              Sweet Night 3, лубрикант <br> в подарок!!!
+              {{ oneNews.title }}
             </p>
             <div class="news_red_line"></div>
-            <p class="news_public_date">Опубликовано 12 марта 2018 года</p>
-            <p class="new_descr_snippet">
-              Один из самых привлекательных товаров мы решили сделать еще привлекательнее. СПЕШИТЕ ПОКА ВСЕ НЕ
-              РАСКУПИЛИ!!!
-              Готовы проконсультировать по всем предложениям и не только.
+            <p class="news_public_date">
+              Опубликовано {{ oneNews.creationDate | newsDate }}
             </p>
-            <router-link :to="'/news/' + 1">
-              <app-theme-btn>
-                Узнать больше
-              </app-theme-btn>
-            </router-link>
-          </el-col>
-        </el-row>
-      </div>
-      <!--NEWS 2-->
-      <div class="news_block">
-        <el-row class="news_tag_row" type="flex" justify="left">
-          <el-col class="news_tag" align="left">
-            Н о в о с т и
-            <div class="red_line"></div>
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="center" style="flex-wrap: wrap">
-          <el-col :xs="20" :sm="9" :md="9" :lg="9" :xl="9">
-            <v-card class="white" height="340px">
-              <!--<v-card-media :src="p.img_0.card" height="300px"></v-card-media>-->
-              <v-card-title style="height: 30px">
-                <p class="grey--text mt-4">image</p>
-              </v-card-title>
-              <p class="pl-3 pr-3 pt-1 white--text">{{ 'hey' | snippet(60) }}</p>
-            </v-card>
-          </el-col>
-          <el-col class="news_text_block" :xs="20" :sm="9" :md="9" :lg="9" :xl="9" align="left">
-            <p class="news_title">
-              Женская услада<br>
-              История вибратора. 18+
-            </p>
-            <div class="news_red_line"></div>
-            <p class="news_public_date">Опубликовано 12 марта 2018 года</p>
-            <p class="new_descr_snippet">
-              Среди всех приспособлений, используемых для любовных утех, самой большой популярностью пользуются,
-              пожалуй,
-              наручники и, конечно, вибратор. Но применяли это чудо-изобретение поначалу немного не так, как мы
-              привыкли,
-              пользовались им в том числе и мужчины.
-            </p>
-            <router-link :to="'/news/' + 2">
-              <app-theme-btn>
-                Узнать больше
-              </app-theme-btn>
-            </router-link>
-          </el-col>
-        </el-row>
-      </div>
-      <!--NEWS 3-->
-      <div class="news_block">
-        <el-row class="news_tag_row" type="flex" justify="left">
-          <el-col class="news_tag" align="left">
-            Н о в о с т и
-            <div class="red_line"></div>
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="center" style="flex-wrap: wrap">
-          <el-col :xs="20" :sm="9" :md="9" :lg="9" :xl="9">
-            <v-card class="white" height="340px">
-              <!--<v-card-media :src="p.img_0.card" height="300px"></v-card-media>-->
-              <v-card-title style="height: 30px">
-                <p class="grey--text mt-4">image</p>
-              </v-card-title>
-              <p class="pl-3 pr-3 pt-1 white--text">{{ 'hey' | snippet(60) }}</p>
-            </v-card>
-          </el-col>
-          <el-col class="news_text_block" :xs="20" :sm="9" :md="9" :lg="9" :xl="9" align="left">
-            <p class="news_title">
-              Бразильские женщины <br>остались без золотого <br>фаллоиметатора
-            </p>
-            <div class="news_red_line"></div>
-            <p class="news_public_date">Опубликовано 12 марта 2018 года</p>
-            <p class="new_descr_snippet">
-              Из бразильского секс-шопа похитили золотой декорированный
-              18-каратным золотом фаллоиметатор стоимостью в $4 000.
-            </p>
-            <router-link :to="'/news/' + 3">
+            <p v-html="oneNews.description.slice(0, 160) + '...'" class="new_descr_snippet"></p>
+            <router-link :to="'/news/' + id">
               <app-theme-btn>
                 Узнать больше
               </app-theme-btn>
@@ -133,7 +56,20 @@
 
 <script>
 export default {
-  name: 'News'
+  name: 'News',
+  methods: {
+    loadNews () {
+      this.$store.dispatch('loadNews')
+    }
+  },
+  computed: {
+    news () {
+      return this.$store.getters.news
+    }
+  },
+  created () {
+    this.loadNews()
+  }
 }
 </script>
 

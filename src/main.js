@@ -20,6 +20,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 // FILTERS
 import DateFilter from '@/filters/date'
+import NewsDateFilter from '@/filters/newsDate'
 import AdminDateFilter from '@/filters/adminDate'
 import ChatTimeFilter from '@/filters/chatTime'
 import BirthdayFilter from '@/filters/birthday'
@@ -53,6 +54,7 @@ Vue.mixin(appError)
 Vue.mixin(mailing)
 Vue.mixin(purchaseStatuses)
 Vue.filter('date', DateFilter)
+Vue.filter('newsDate', NewsDateFilter)
 Vue.filter('adminDate', AdminDateFilter)
 Vue.filter('chatTime', ChatTimeFilter)
 Vue.filter('birthday', BirthdayFilter)
