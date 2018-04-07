@@ -49,6 +49,10 @@ export default {
   @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&subset=cyrillic,cyrillic-ext');
   @import url('https://fonts.googleapis.com/css?family=Yeseva+One&subset=cyrillic,cyrillic-ext');
 
+  @font-face {
+    font-family: Snell Roundhand;
+    src: url("../static/font/SnellRoundhand-Bold.ttf");
+  }
   body, html {
     margin: 0;
     padding: 0;
