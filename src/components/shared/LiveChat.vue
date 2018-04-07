@@ -16,7 +16,7 @@
         <h2 v-if="isUserSide && unreadByUser">
           <span class="unread_by_user">+{{ unreadByUser }}</span>
         </h2>
-        <i v-else class="fa fa-heartbeat fa-2x"></i>
+        <img v-else src="@/assets/icons/heartbeat.svg" alt="">
       </div>
     </div>
     <v-card id="liveChat" v-if="!isCollapsedChat" :class="isUserSide ? 'user_live_chat' : 'admin_live_chat'">
@@ -329,10 +329,11 @@ export default {
     cursor: pointer;
   }
 
-  .heart i {
+  .heart img {
+    height: 27px;
     position: absolute;
     top: 20px;
-    left: 18px;
+    left: 16px;
     color: white;
     text-shadow: $primary-text-shadow;
   }
