@@ -100,6 +100,7 @@
       </el-col>
       <!--IMG-->
       <el-col :md="6" :lg="5" :xl="4" id="back_girl">
+        <img src="@/assets/img/home/slide_2_lady.png" alt="">
       </el-col>
     </el-row>
   </div>
@@ -120,8 +121,8 @@ export default {
     position: relative;
     font-family: $secondary-font;
     font-weight: 400;
-    font-size: 32px;
-    margin-bottom: 30px;
+    font-size: 28px;
+    margin-bottom: 20px;
     letter-spacing: 1px;
 
     background: linear-gradient(55deg, $color-info 40%, $color-secondary 60%);
@@ -193,12 +194,17 @@ export default {
     margin-top: 60px;
   }
 
+  #back_girl img {
+    height: 70vh;
+    margin-top: -50px;
+  }
+
   @media only screen and (max-width: $md-screen) {
     #slide_2_title {
       margin-top: 20vh;
     }
 
-    .adv_text, #back_girl {
+    .adv_text {
       display: none;
     }
     .advantage_title {
@@ -209,6 +215,10 @@ export default {
   @media only screen and (max-width: $sm-screen) {
     #slide_2 {
       margin-top: 20px;
+    }
+
+    #back_girl {
+      display: none;
     }
 
     #slide_2_title {
