@@ -48,6 +48,7 @@ export default {
 <style lang="scss">
   @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&subset=cyrillic,cyrillic-ext');
   @import url('https://fonts.googleapis.com/css?family=Yeseva+One&subset=cyrillic,cyrillic-ext');
+  @import url('https://fonts.googleapis.com/css?family=Poiret+One&subset=cyrillic'); /* logo font */
 
   @font-face {
     font-family: Snell Roundhand;

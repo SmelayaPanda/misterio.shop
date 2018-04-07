@@ -1,17 +1,24 @@
 <template>
   <div class="home_page">
+    <div id="app_main_logo_wrapper">
+      <img id="app_main_logo" src="@/assets/icons/main_logo.svg" alt="">
+      <span id="logo_title"
+            :class="curSlide === 2 ? 'primary--text' : 'secondary--text'">
+        Откровенные игры
+      </span>
+    </div>
     <app-header
-      :color="currentSwiperIndex === 2 ? 'black' : 'red'"
+      :color="curSlide === 2 ? 'black' : 'red'"
       class="app_header">
     </app-header>
     <social-icons
-      :color="currentSwiperIndex === 2 ? 'black' : 'red'"
+      :color="curSlide === 2 ? 'black' : 'red'"
       class="social_icons">
     </social-icons>
     <!--LIVE CHAT-->
     <div class="live_chat">
       <live-chat
-        :color="currentSwiperIndex === 2 ? 'black' : 'red'"
+        :color="curSlide === 2 ? 'black' : 'red'"
         :chatId="this.$store.getters.user.uid"
         :isUserSide="true"
         :isCollapsed="true"
@@ -19,7 +26,7 @@
       </live-chat>
     </div>
     <div
-      :class="currentSwiperIndex === 2 ? 'primary--text' : ''"
+      :class="curSlide === 2 ? 'primary--text' : ''"
       id="phone_number">
       +7 (800) <b>100 66 66</b>
     </div>
@@ -33,7 +40,7 @@
         v-for="i in 4" :key="i"
         @click="swiper.slideTo(i)"
         class="bullet_wrapper">
-        <div :class="currentSwiperIndex === i - 1 ? 'active_bullet' : 'bullet'"></div>
+        <div :class="curSlide === i - 1 ? 'active_bullet' : 'bullet'"></div>
       </div>
     </div>
     <swiper
@@ -91,7 +98,7 @@ export default {
   },
   data () {
     return {
-      currentSwiperIndex: 0,
+      curSlide: 0,
       swiperOption: {
         direction: 'vertical',
         slidesPerView: 1,
@@ -106,7 +113,7 @@ export default {
   },
   methods: {
     updateCurIndex () {
-      this.currentSwiperIndex = this.swiper.realIndex
+      this.curSlide = this.swiper.realIndex
     }
   },
   computed: {
@@ -131,8 +138,10 @@ export default {
     background-size: cover;
   }
 
+/*  background: linear-gradient(to right, $color-primary, $color-primary-light);*/
   .slide_1 {
-    background: linear-gradient(to right, $color-primary, $color-primary-light);
+    background: url("../../../static/bg/home/draft_bg.png") no-repeat center;
+    background-size: cover;
   }
 
   .slide_2 {
@@ -151,6 +160,26 @@ export default {
     position: absolute;
     z-index: 2;
     width: 100vw;
+  }
+
+  #app_main_logo_wrapper {
+    position: absolute;
+    left: 45px;
+    top: 25px;
+    z-index: 10;
+    #app_main_logo {
+      height: 80px;
+    }
+  }
+
+  #logo_title {
+    position: absolute;
+    top: 23px;
+    left: 70px;
+    font-family: 'Poiret One', cursive;
+    font-size: 18px;
+    text-align: left;
+    line-height: 15px;
   }
 
   .social_icons {
@@ -197,20 +226,6 @@ export default {
     right: 30px;
   }
 
-  @media only screen and (max-width: $sm-screen) {
-    #phone_number {
-      font-size: 13px;
-      bottom: 25px;
-      left: 20px;
-    }
-    #flip_down, .social_icons {
-      display: none;
-    }
-    .live_chat {
-      bottom: 10px;
-    }
-  }
-
   #swiper_bullets {
     position: absolute;
     right: 30px;
@@ -224,7 +239,6 @@ export default {
     justify-content: center;
     flex-direction: column;
     width: 20px;
-    margin: 2px;
   }
 
   .bullet_wrapper:hover {
@@ -238,19 +252,38 @@ export default {
     background: $color-secondary;
     width: 2px;
     height: 40px;
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     transition: all .5s;
   }
 
   .active_bullet {
     background: white;
-    width: 3px;
+    width: 2px;
     height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     transition: all .5s;
   }
 
+  @media only screen and (max-width: $sm-screen) {
+    #phone_number {
+      font-size: 13px;
+      bottom: 25px;
+      left: 20px;
+    }
+
+    #flip_down, .social_icons {
+      display: none;
+    }
+    .live_chat {
+      bottom: 10px;
+    }
+  }
+
   @media only screen and (max-width: $xs-screen) {
-    #swiper_bullets {
+    #swiper_bullets,
+    #app_main_logo_wrapper {
       display: none;
     }
   }
