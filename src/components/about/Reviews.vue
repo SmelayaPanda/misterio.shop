@@ -30,9 +30,14 @@ REVIEW STATUSES:
             </el-row>
           </div>
           <el-col :span="24">
-            <!-- TODO: center text -->
-            <p>{{ item.text | snippet(300) }}</p>
-            <p class="info--text right">{{ item.date | date }}</p>
+            <div class="review_text_wrapper">
+              <p>
+                {{ item.text | snippet(300) }}
+              </p>
+            </div>
+            <p class="info--text right">
+              {{ item.date | date }}
+            </p>
           </el-col>
         </el-card>
       </el-carousel-item>
@@ -117,5 +122,15 @@ export default {
   .el-card {
     border-radius: 20px;
     background: white;
+  }
+
+  .review_text_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+  }
+
+  .review_text {
   }
 </style>

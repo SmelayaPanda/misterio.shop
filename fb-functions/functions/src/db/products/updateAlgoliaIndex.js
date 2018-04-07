@@ -1,6 +1,5 @@
 const productHandlers = require('algoliasearch');
 // DON'T FORGET SEE WHAT PRODUCT UPDATED AFTER CREATION!
-// TODO: not update algolia index if it totalQty update
 exports.handler = function (change, context, functions) {
   console.log(CONST.LOG_DELIMITER)
   let after = change.after.data()

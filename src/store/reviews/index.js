@@ -47,7 +47,6 @@ export default {
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         // TODO: add userId to payload and change security rule!
-        // TODO: add notification
         firebase.firestore().collection('reviews').add(payload)
           .then((docRef) => {
             let reviews = getters.reviews
