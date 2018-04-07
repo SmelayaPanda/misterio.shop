@@ -249,4 +249,9 @@ export default {
     transition: all .5s;
   }
 
+  @media only screen and (max-width: $xs-screen) {
+    #swiper_bullets {
+      display: none;
+    }
+  }
 </style>

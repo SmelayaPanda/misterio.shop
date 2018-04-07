@@ -10,7 +10,7 @@
             <div class="adv_icon_wrap">
               <img src="@/assets/icons/home/quality.svg" id="quality_icon" class="adv_icon" alt="">
             </div>
-            <p class="adv_title" align="left">
+            <p class="advantage_title" align="left">
               ПОДБИРАЕМ ДЛЯ ВАС ЛУЧШИЕ ТОВАРЫ
             </p>
             <p class="adv_text" align="left">
@@ -22,7 +22,7 @@
             <div class="adv_icon_wrap">
               <img src="@/assets/icons/home/anonym.svg" id="anonym_icon" class="adv_icon" alt="">
             </div>
-            <p class="adv_title" align="left">
+            <p class="advantage_title" align="left">
               ЭТО ОСТАЕТСЯ НАШЕЙ ТАЙНОЙ
             </p>
             <p class="adv_text" align="left">
@@ -34,7 +34,7 @@
             <div class="adv_icon_wrap">
               <img src="@/assets/icons/home/present.svg" id="present_icon" class="adv_icon" alt="">
             </div>
-            <p class="adv_title" align="left">
+            <p class="advantage_title" align="left">
               ПОДАРКИ К КАЖДОМУ ЗАКАЗУ
             </p>
             <p class="adv_text" align="left">
@@ -46,7 +46,7 @@
             <div class="adv_icon_wrap">
               <img src="@/assets/icons/home/delivery.svg" id="delivery_icon" class="adv_icon" alt="">
             </div>
-            <p class="adv_title" align="left">
+            <p class="advantage_title" align="left">
               БЕСПЛАТНАЯ ДОСТАВКА ОТ 2000 тысяч рублей
             </p>
             <p class="adv_text" align="left">
@@ -57,7 +57,7 @@
             <div class="adv_icon_wrap">
               <img src="@/assets/icons/home/price.svg" id="price_icon" class="adv_icon" alt="">
             </div>
-            <p class="adv_title" align="left">
+            <p class="advantage_title" align="left">
               ПРИЯТНЫЕ ЦЕНЫ НА ТОВАРЫ И СКИДКИ
             </p>
             <p class="adv_text" align="left">
@@ -69,7 +69,7 @@
             <div class="adv_icon_wrap">
               <img src="@/assets/icons/home/see_product.svg" id="see_product_icon" class="adv_icon" alt="">
             </div>
-            <p class="adv_title" align="left">
+            <p class="advantage_title" align="left">
               ОСМОТР И ПРОВЕРКА ТОВАРА ПРИ ДОСТАВКЕ
             </p>
             <p class="adv_text" align="left">
@@ -81,7 +81,7 @@
             <div class="adv_icon_wrap">
               <img src="@/assets/icons/home/support.svg" id="support_icon" class="adv_icon" alt="">
             </div>
-            <p class="adv_title" align="left">
+            <p class="advantage_title" align="left">
               ИНДИВИДУАЛЬНЫЙ ПОДХОД К КЛИЕНТАМ
             </p>
             <p class="adv_text" align="left">
@@ -145,7 +145,8 @@ export default {
     padding-right: 10px;
   }
 
-  .adv_title {
+  .advantage_title {
+    display: block;
     font-size: 12px;
     font-weight: 600;
     color: $color-secondary;
@@ -193,6 +194,16 @@ export default {
   }
 
   @media only screen and (max-width: $md-screen) {
+    #slide_2_title {
+      margin-top: 20vh;
+    }
+
+    .adv_text, #back_girl {
+      display: none;
+    }
+    .advantage_title {
+      margin: 10px;
+    }
   }
 
   @media only screen and (max-width: $sm-screen) {
@@ -205,6 +216,16 @@ export default {
       padding: 10px;
       margin-bottom: 5px;
     }
+
+    .advantage_title {
+      font-size: 12px;
+      font-weight: 500;
+      color: $color-secondary;
+      padding-right: 10px;
+      padding-left: 10px;
+      text-align: center;
+      margin-bottom: 0;
+    }
   }
 
   @media only screen and (max-width: $xs-screen) {
@@ -214,22 +235,14 @@ export default {
     #slide_2_title {
       font-size: 24px;
       padding: 10px;
+      margin-top: 0;
       margin-bottom: 5px;
     }
-    .adv_text, #back_girl {
-      display: none;
+    .advantage_title {
+      margin: 0;
     }
     .adv_icon {
       transform: scale(.5);
-    }
-    .adv_title {
-      font-size: 10px;
-      font-weight: 500;
-      color: $color-secondary;
-      padding-right: 10px;
-      padding-left: 10px;
-      text-align: center;
-      margin-bottom: 0;
     }
     #more_btn_wrap {
     }
