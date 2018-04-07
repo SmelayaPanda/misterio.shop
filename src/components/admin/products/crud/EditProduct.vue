@@ -153,7 +153,7 @@ export default {
       return this.$store.getters.colors
     },
     product () {
-      return this.$store.getters.productById(this.id)
+      return this.$store.getters.products[this.id]
     }
   }
 }

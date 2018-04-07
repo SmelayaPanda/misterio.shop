@@ -129,7 +129,7 @@ export default {
   },
   computed: {
     product () {
-      return this.$store.getters.productById(this.id)
+      return this.$store.getters.products[this.id]
     },
     alreadyAddedProduct () {
       return this.$store.getters.user.cart[this.id]

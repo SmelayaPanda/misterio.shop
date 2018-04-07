@@ -84,7 +84,7 @@ export default {
       return this.$store.getters.user
     },
     product () {
-      return this.$store.getters.productById(this.id)
+      return this.$store.getters.products[this.id]
     }
   }
 }
@@ -95,6 +95,11 @@ export default {
     margin: 10px;
     padding: 0 0 10px;
     border: 1px solid white !important;
+    transition: all .5s;
+  }
+
+  .main_card:hover {
+    box-shadow: 0 3px 8px 0 rgba(250, 250, 250, 0.2), 3px 3px 8px 0 rgba(250, 250, 250, 0.2);
   }
 
   .card_wrapper {

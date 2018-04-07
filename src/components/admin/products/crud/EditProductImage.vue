@@ -55,7 +55,7 @@ export default {
       return true
     },
     product () {
-      return this.$store.getters.productById(this.id)
+      return this.$store.getters.products[this.id]
     }
   }
 }

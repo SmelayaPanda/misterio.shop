@@ -4,7 +4,7 @@ import algoliasearch from 'algoliasearch'
 
 export default {
   state: {
-    products: [],
+    products: {},
     productStatistics: { // auto updated from cloud function
       maxPrice: 1000000,
       avgPrice: 0,
@@ -84,29 +84,33 @@ export default {
         }
 
         query.get()
-          .then((snapshot) => {
+          .then((snap) => {
             let products
             if (getters.lastVisible && !getters.algoliaSearchText) {
-              products = getters.products
+              products = getters.products ? getters.products : {}
             } else {
-              products = []
+              products = {}
             }
-            if (snapshot.size === filter.limit) {
-              commit('setLastVisible', snapshot.docs[snapshot.docs.length - 1])
+            if (snap.size === filter.limit) {
+              commit('setLastVisible', snap.docs[snap.docs.length - 1])
             } else {
               commit('setLastVisible', null)
             }
-            snapshot.docs.forEach(doc => {
-              products.push(doc.data())
+            snap.docs.forEach(doc => {
+              products[doc.id] = doc.data()
             })
             // Algolia filter
-            if (getters.algoliaSearchText) {
-              products = products.filter(el => {
-                return getters.algoliaSearchProductIds.indexOf(el.productId) !== -1
+            if (getters.algoliaSearchText && getters.algoliaSearchProductIds) {
+              let searchProducts = {}
+              getters.algoliaSearchProductIds.forEach(id => {
+                if (products[id]) {
+                  searchProducts[id] = products[id]
+                }
               })
+              products = searchProducts
               commit('setLastVisible', null) // no limit records with algolia search
             }
-            commit('setProducts', products)
+            commit('setProducts', {...products})
             commit('LOADING', false)
           })
           .catch(err => dispatch('LOG', err))
@@ -149,7 +153,7 @@ export default {
     addNewProduct:
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
-        let products = getters.products
+        let products = getters.products ? getters.products : {}
         let updateData
         firebase.firestore().collection('products').add(payload)
           .then(snap => {
@@ -163,11 +167,11 @@ export default {
               img_3: {original: '', thumbnail: '', card: ''},
               img_4: {original: '', thumbnail: '', card: ''}
             }
+            products[snap.id] = Object.assign(updateData, payload)
             return firebase.firestore().collection('products').doc(snap.id).update(updateData)
           })
           .then(() => {
-            products.unshift(Object.assign(updateData, payload))
-            commit('setProducts', products)
+            commit('setProducts', {...products})
             commit('LOADING', false)
           })
           .catch(err => dispatch('LOG', err))
@@ -177,7 +181,6 @@ export default {
         commit('LOADING', true)
         firebase.firestore().collection('products').doc(payload.productId).update(payload)
           .then(() => {
-            console.log('Product edited')
             commit('LOADING', false)
           })
           .catch(err => dispatch('LOG', err))
@@ -205,13 +208,8 @@ export default {
         let products = getters.products
         firebase.firestore().collection('products').doc(payload)
           .onSnapshot(doc => {
-            products = products.map(el => {
-              if (el.productId === payload) {
-                el = doc.data()
-              }
-              return el
-            })
-            commit('setProducts', products)
+            products[doc.id] = doc.data()
+            commit('setProducts', {...products})
           })
       },
     deleteProduct:
@@ -220,7 +218,7 @@ export default {
         let products = getters.products
         firebase.firestore().collection('products').doc(payload).delete()
           .then(() => {
-            let product = getters.productById(payload)
+            let product = products[payload]
             let images = [] // images names
             for (let i = 0; i < 5; i++) {
               if (product['img_' + i].original !== '') {
@@ -236,8 +234,8 @@ export default {
             return Promise.all(actions)
           })
           .then(() => {
-            products = products.filter(el => el.productId !== payload)
-            commit('setProducts', products)
+            delete products[payload]
+            commit('setProducts', {...products})
             commit('LOADING', false)
           })
           .catch(err => dispatch('LOG', err))
@@ -257,12 +255,6 @@ export default {
     products:
       state => {
         return state.products
-      },
-    productById:
-      state => (productId) => {
-        return state.products.find(p => {
-          return p.productId === productId
-        })
       },
     lastVisible:
       state => {
