@@ -18,6 +18,7 @@ import Account from '@/components/account/Account'
 // import AuthGuard from '@/router/auth-guard'
 // ADMIN
 import AdminPanel from '@/components/admin/AdminPanel'
+import Developer from '@/components/admin/developer/Developer'
 import Dashboard from '@/components/admin/dashboard/Dashboard'
 import AdminProducts from '@/components/admin/products/AdminProducts'
 import AdminOrders from '@/components/admin/orders/AdminOrders'
@@ -104,6 +105,10 @@ export default new Router({
         {
           path: '',
           component: Dashboard
+        },
+        {
+          path: 'developer',
+          component: Developer
         },
         {
           path: 'products',
