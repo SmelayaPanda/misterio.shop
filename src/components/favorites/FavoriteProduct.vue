@@ -60,7 +60,7 @@ export default {
   },
   computed: {
     product () {
-      return this.$store.getters.productById(this.id)
+      return this.$store.getters.user.favorites[this.id]
     }
   }
 }

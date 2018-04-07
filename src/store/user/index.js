@@ -196,9 +196,9 @@ export default {
         if (user[subject]) {
           productIds = Object.keys(user[subject])
         }
+        commit('setUser', {...user}) // not good, but visual fast
         firebase.firestore().collection('users').doc(user.uid).update({[subject]: productIds})
           .then(() => {
-            commit('setUser', {...user})
             commit('LOADING', false)
           })
           .catch(err => dispatch('LOG', err))
