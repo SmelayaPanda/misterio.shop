@@ -23,13 +23,21 @@
       id="phone_number">
       +7 (800) <b>100 66 66</b>
     </div>
-    <div id="flip_down_wrapper" @click="nextSlide">
+    <div id="flip_down_wrapper" @click="swiper.slideNext()">
       <p id="flip_down">
         Листай вниз
       </p>
     </div>
+    <div id="swiper_bullets">
+      <div
+        v-for="i in 4" :key="i"
+        @click="swiper.slideTo(i)"
+        class="bullet_wrapper">
+        <div :class="currentSwiperIndex === i - 1 ? 'active_bullet' : 'bullet'"></div>
+      </div>
+    </div>
     <swiper
-      v-on:slideChange="nextSlide"
+      @slideChange="updateCurIndex"
       :options="swiperOption"
       ref="homeSwiper"
       class="swiper_slide">
@@ -97,9 +105,8 @@ export default {
     }
   },
   methods: {
-    nextSlide () {
+    updateCurIndex () {
       this.currentSwiperIndex = this.swiper.realIndex
-      // this.swiper.slideNext()
     }
   },
   computed: {
@@ -203,4 +210,43 @@ export default {
       bottom: 10px;
     }
   }
+
+  #swiper_bullets {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+
+  .bullet_wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 20px;
+    margin: 2px;
+  }
+
+  .bullet_wrapper:hover {
+    cursor: pointer;
+    .bullet {
+      background: white;
+    }
+  }
+
+  .bullet {
+    background: $color-secondary;
+    width: 2px;
+    height: 40px;
+    margin: 10px;
+    transition: all .5s;
+  }
+
+  .active_bullet {
+    background: white;
+    width: 3px;
+    height: 40px;
+    transition: all .5s;
+  }
+
 </style>

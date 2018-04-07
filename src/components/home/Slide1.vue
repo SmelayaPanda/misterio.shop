@@ -33,6 +33,7 @@ export default {
     position: absolute;
     left: 54%;
     top: 132px;
+    margin-right: 60px;
   }
 
   #main_title_1 {

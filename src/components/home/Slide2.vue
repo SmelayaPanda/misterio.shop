@@ -224,9 +224,12 @@ export default {
     }
     .adv_title {
       font-size: 10px;
-      padding-left: 10px;
+      font-weight: 500;
+      color: $color-secondary;
       padding-right: 10px;
+      padding-left: 10px;
       text-align: center;
+      margin-bottom: 0;
     }
     #more_btn_wrap {
     }

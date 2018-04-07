@@ -99,8 +99,6 @@ export default {
     newsById:
       state => (newsId) => {
         return state.news[newsId]
-      },
-    showedNews:
-      (state, getters) => getters.news.slice(0, 5)
+      }
   }
 }
