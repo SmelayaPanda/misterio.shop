@@ -182,7 +182,7 @@ export default {
   },
   computed: {
     products () {
-      return this.$store.getters.products ? this.$store.getters.products : []
+      return this.$store.getters.products ? Object.values(this.$store.getters.products) : []
     }
   },
   created () {
