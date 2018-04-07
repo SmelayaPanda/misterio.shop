@@ -25,14 +25,14 @@
     <v-toolbar dark class="primary_a">
       <v-toolbar-title>
         <router-link to="/admin" class="title">
-          {{ mainTitle }}
+          Admin Panel
         </router-link>
       </v-toolbar-title>
       <app-balls-loader v-if="this.isLoading"></app-balls-loader>
       <v-toolbar-side-icon
         @click="sideNav = !sideNav"
-        class="hidden-md-and-up"
-      ></v-toolbar-side-icon>
+        class="hidden-md-and-up">
+      </v-toolbar-side-icon>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <!--Go Home-->
@@ -41,11 +41,10 @@
           Home
         </v-btn>
 
-        <v-btn flat
-               v-for="item in menuItems"
+        <v-btn v-for="item in menuItems"
                :key="item.title"
                :to="item.link"
-               class="primary_a white--text">
+               flat class="primary_a white--text">
           <v-icon left>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
@@ -106,15 +105,18 @@ export default {
   },
   data: function () {
     return {
-      sideNav: false,
-      mainTitle: 'Admin Panel'
+      sideNav: false
     }
   },
   computed: {
     menuItems:
         function () {
           let menuItems = []
-          if (this.isAnonymousUser) {
+          if (this.isAdmin) {
+            menuItems = [
+              {icon: 'settings', title: 'System', link: '/admin/system'}
+            ]
+          } else {
             menuItems = [
               {icon: 'account_circle', title: 'Singup', link: '/signup'},
               {icon: 'lock_open', title: 'Singin', link: '/signin'}

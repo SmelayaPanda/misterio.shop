@@ -2,7 +2,8 @@
   <div>
     <h1>Developer board</h1>
     <el-button @click="getData" class="success_a white--text">
-      Dump data
+      <v-icon class="white--text">dns</v-icon>
+      Dump database data
     </el-button>
   </div>
 </template>
@@ -17,9 +18,15 @@ export default {
   data () {
     return {
       collections: [
-        'products',
+        'companyInfo',
+        'dictionaries',
+        'news',
+        'oneclick',
         'orders',
-        'oneclick'
+        'products',
+        'reviews',
+        'statistics',
+        'users'
       ]
     }
   },
