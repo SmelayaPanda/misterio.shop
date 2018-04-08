@@ -237,6 +237,7 @@ export default {
   .bullet_wrapper {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     width: 20px;
   }

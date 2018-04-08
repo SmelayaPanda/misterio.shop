@@ -1,9 +1,9 @@
 <template>
   <div id="slide_3">
     <el-row type="flex" justify="center" style="flex-wrap: wrap">
-      <el-col :span="20">
-        <el-row type="flex" justify="center">
-          <el-col :span="9">
+      <el-col :span="22">
+        <el-row type="flex" justify="center" style="flex-wrap: wrap">
+          <el-col :xs="24" :sm="22" :md="10" :lg="10" :xl="8">
             <div id="title_3">
               <p id="title_3_main" align="left">
                 <span class="dark_title"> ПРИ ПОКУПКЕ </span>
@@ -27,8 +27,34 @@
               </div>
             </div>
           </el-col>
-          <el-col :span="12">
-            <p></p>
+          <el-col id="sales_swiper"
+                  :md="12" :lg="11" :xl="11" align="right">
+            <swiper
+              ref="salesSwiper"
+              :options="swiperOption">
+              <swiper-slide>
+                <img src="@/assets/img/home/slide_3_three.png" alt="">
+              </swiper-slide>
+              <swiper-slide>
+                <img src="@/assets/img/home/slide_3_two.png" alt="">
+              </swiper-slide>
+              <swiper-slide>
+                <img src="@/assets/img/home/slide_3_one.png" alt="">
+              </swiper-slide>
+              <div class="swiper-pagination" slot="pagination"></div>
+            </swiper>
+            <el-row>
+              <el-col :span="12">
+                <p id="sales_swiper_forward" @click="salesSwiper.slideNext()">
+                  Вперед
+                </p>
+              </el-col>
+              <el-col :span="12">
+                <p id="sales_swiper_back" @click="salesSwiper.slidePrev()">
+                  Назад
+                </p>
+              </el-col>
+            </el-row>
           </el-col>
         </el-row>
       </el-col>
@@ -38,21 +64,42 @@
 
 <script>
 export default {
-  name: 'Slide3'
+  name: 'Slide3',
+  data () {
+    return {
+      swiperOption: {
+        effect: 'cube',
+        grabCursor: true,
+        loop: true,
+        cubeEffect: {
+          shadow: true,
+          slideShadows: true,
+          shadowOffset: 20,
+          shadowScale: 0.94
+        },
+        pagination: {
+          el: '.swiper-pagination'
+        }
+      }
+    }
+  },
+  computed: {
+    salesSwiper () {
+      if (this.$refs.salesSwiper) {
+        return this.$refs.salesSwiper.swiper
+      }
+    }
+  }
 }
 </script>
 
 <style scoped lang="scss">
   #slide_3 {
-    margin-top: 100px;
+    margin-top: 20vh;
   }
 
   #title_3 {
-    padding-left: 20px;
-  }
-
-  #title_3_main {
-    margin-top: 80px;
+    padding-left: 40px;
   }
 
   #title_3_main:after {
@@ -66,6 +113,7 @@ export default {
   #title_3_sub {
     color: white;
     font-size: 12px;
+    padding-right: 30px;
   }
 
   @mixin slide_3_title {
@@ -92,5 +140,79 @@ export default {
     width: 150px;
     border: none;
     border-radius: 2px;
+  }
+
+  /* SWIPER */
+  #sales_swiper {
+    height: 400px;
+    padding-left: 50px;
+  }
+
+  #sales_swiper img {
+    object-fit: cover;
+    height: 400px;
+    width: 100%;
+  }
+
+  /* controls */
+
+  #sales_swiper_forward, #sales_swiper_back {
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+    margin-top: 35px;
+    transition: all .5s;
+  }
+
+  #sales_swiper_forward:hover,
+  #sales_swiper_back:hover {
+    cursor: pointer;
+    text-shadow: $secondary-text-shadow
+  }
+
+  #sales_swiper_forward {
+    text-align: left;
+  }
+
+  #sales_swiper_back {
+    text-align: right;
+  }
+
+  @mixin control_line {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 20%;
+    top: 22px;
+    border-top: 2px solid $color-primary;
+  }
+
+  #sales_swiper_forward:before {
+    @include control_line;
+  }
+
+  #sales_swiper_back:before {
+    @include control_line;
+    right: 0;
+  }
+
+  /* MEDIA */
+  @media only screen and (max-width: $sm-screen) {
+    #sales_swiper {
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: $xs-screen) {
+    #slide_3 {
+      margin-top: 0;
+    }
+
+    #title_3_main {
+      margin-top: 20px;
+    }
+    .dark_title, .white_title {
+      font-size: 24px;
+    }
   }
 </style>

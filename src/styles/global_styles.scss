@@ -24,6 +24,7 @@ $secondary-font: 'Yeseva One', cursive;
 $third-font: 'Snell Roundhand', serif;
 
 $primary-text-shadow: 1px 1px 2px black, 0 0 1em red;
+$secondary-text-shadow: 1px 1px 1px white;
 
 // SCREEN
 $xs-screen: 768px;
@@ -123,7 +124,18 @@ $lg-screen: 1920px;
   }
 }
 
+#home_slide_3_swiper {
+  .swiper-pagination-bullet {
+    background: white;
+    opacity: 0.8;
+  }
+  .swiper-pagination-bullet-active {
+    background: $color-secondary !important;
+  }
+}
+// ***********
 // ADMIN PANEL
+// ***********
 #admin_nav_menu {
   .el-menu-item.is-active, .el-menu-item.is-active i {
     color: $color-primary_a;
