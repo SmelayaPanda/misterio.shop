@@ -97,25 +97,25 @@ Vue.use(Vuetify, {
 Vue.config.productionTip = false
 // FIREBASE
 let config
-// if (process.env.NODE_ENV === 'development') {
-//   config = {
-//     apiKey: 'AIzaSyDWYuL9ChkfHkLiINoz7ZdDuQntk4eWrI8',
-//     authDomain: 'e-store-dev.firebaseapp.com',
-//     databaseURL: 'https://e-store-dev.firebaseio.com',
-//     projectId: 'e-store-dev',
-//     storageBucket: 'e-store-dev.appspot.com',
-//     messagingSenderId: '252391298748'
-//   }
-// } else if (process.env.NODE_ENV === 'production') {
-config = {
-  apiKey: 'AIzaSyAGmvXm3x_xcCU9o26cHGiSmjRTBKLInH4',
-  authDomain: 'misterio-prod.firebaseapp.com',
-  databaseURL: 'https://misterio-prod.firebaseio.com',
-  projectId: 'misterio-prod',
-  storageBucket: 'misterio-prod.appspot.com',
-  messagingSenderId: '470513135830'
+if (process.env.NODE_ENV === 'development') {
+  config = {
+    apiKey: 'AIzaSyDWYuL9ChkfHkLiINoz7ZdDuQntk4eWrI8',
+    authDomain: 'e-store-dev.firebaseapp.com',
+    databaseURL: 'https://e-store-dev.firebaseio.com',
+    projectId: 'e-store-dev',
+    storageBucket: 'e-store-dev.appspot.com',
+    messagingSenderId: '252391298748'
+  }
+} else if (process.env.NODE_ENV === 'production') {
+  config = {
+    apiKey: 'AIzaSyAGmvXm3x_xcCU9o26cHGiSmjRTBKLInH4',
+    authDomain: 'misterio-prod.firebaseapp.com',
+    databaseURL: 'https://misterio-prod.firebaseio.com',
+    projectId: 'misterio-prod',
+    storageBucket: 'misterio-prod.appspot.com',
+    messagingSenderId: '470513135830'
+  }
 }
-// }
 
 /* eslint-disable no-new */
 new Vue({

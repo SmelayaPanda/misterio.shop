@@ -125,7 +125,13 @@ export default {
         const ALGOLIA_APP_ID = '2CVO44WQ94'
         const ALGOLIA_SEARCH_KEY = '68d8a98b0c136d3dbd0a799949007e8d'
         const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY)
-        const index = client.initIndex('e_store_products')
+        let index
+        console.log(process.env.NODE_ENV)
+        if (process.env.NODE_ENV === 'production') {
+          index = client.initIndex('MISTERIO-PROD-PRODUCTS')
+        } else if (process.env.NODE_ENV === 'development') {
+          index = client.initIndex('e_store_products')
+        }
         let objectIds = []
         index
           .search({

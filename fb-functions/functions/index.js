@@ -1,4 +1,7 @@
 'use strict'
+// TO SWITCH prod/dev:
+// $ firebase use prod/dev
+
 // STORAGE
 const createProductSubImages = require('./src/storage/createProductSubImages')
 const createNewsThumbnail = require('./src/storage/createNewsThumbnail')
@@ -28,7 +31,7 @@ global.CONST = require('./src/common/constants')
 // firebase functions:config:set app.production="1/0"
 // firebase functions:config:set algolia.app_id="<YOUR-ALGOLIA-APP-ID>"
 // firebase functions:config:set algolia.api_key="<YOUR-ALGOLIA-ADMIN-KEY>"
-// firebase functions:config:set algolia.product_idx="<YOUR-ALGOLIA-PRODUCT-IDX>" // 'e_store_products', "MISTERIO-PROD-PRODUCTS" /
+// firebase functions:config:set algolia.product_idx="<YOUR-ALGOLIA-PRODUCT-IDX-NAME>" // 'e_store_products', "MISTERIO-PROD-PRODUCTS" /
 // firebase functions:config:set admin.email="SmelayaPandaGM@gmail.com"
 // firebase functions:config:set admin.password="Klounwirtual123"
 // firebase functions:config:set developer.email="SmelayaPandaGM@gmail.com"
