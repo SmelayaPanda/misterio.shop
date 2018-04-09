@@ -49,12 +49,12 @@ ORDER STATUS CHAIN:
               </h3>
               <p>
                 ИД:
-                <el-tag size="mini" type="success">{{ props.row.product.id }}</el-tag>
+                <el-tag size="mini" type="success">{{ props.row.productId }}</el-tag>
                 <br>
-                Название: {{ props.row.product.title }}<br>
-                Артикул: {{ props.row.product.SKU }}<br>
-                Цена: {{ props.row.product.price }}<br>
-                <span v-if="props.row.product.totalQty">Количество: {{ props.row.product.totalQty }}</span>
+                Название: {{ props.row.title }}<br>
+                Артикул: {{ props.row.SKU }}<br>
+                Цена: {{ props.row.price }}<br>
+                <span v-if="props.row.qty">Количество: {{ props.row.qty }}</span>
               </p>
               <span v-if="props.row.comments">
                 <h3><i class="el-icon-warning"></i>
@@ -69,10 +69,12 @@ ORDER STATUS CHAIN:
                   Доставка:
                 </h3>
                 <p>
+                  Город: {{ props.row.shipping.country }}<br>
                   Город: {{ props.row.shipping.city }}<br>
                   Улица: {{ props.row.shipping.street }}<br>
                   Здание: {{ props.row.shipping.build }}<br>
                   Дом: {{ props.row.shipping.house }}<br>
+                  Почтовый код: {{ props.row.shipping.postCode }}<br>
                 </p>
               </span>
             </el-col>
@@ -157,28 +159,32 @@ ORDER STATUS CHAIN:
       </el-table-column>
       <!--Title-->
       <el-table-column
-        label="Название"
+        label="Товар"
         width="260">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
-            <p>Title: {{ scope.row.product.title }}</p>
+            <p>Title: {{ scope.row.title }}</p>
             <div slot="reference" class="name-wrapper">
               <v-chip outline label color="info_a">
-                {{ scope.row.product.title | snippet(30) }}
+                {{ scope.row.title | snippet(30) }}
               </v-chip>
             </div>
           </el-popover>
         </template>
       </el-table-column>
-      <!--NICKNAME-->
+      <!--firstname-->
       <el-table-column
-        label="Имя"
+        label="Имя Фамилия"
         width="150">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
-            <p>{{ scope.row.nickname }}</p>
+            <p>
+              {{ scope.row.firstname }}
+              <span v-if="scope.row.lastname"></span>
+            </p>
             <div slot="reference" class="name-wrapper">
-              <p>{{ scope.row.nickname | snippet(14) }}</p>
+              <span v-if="scope.row.firstname">{{ scope.row.firstname }}</span>
+              <span v-if="scope.row.lastname">{{ scope.row.lastname }}</span>
             </div>
           </el-popover>
         </template>
@@ -240,7 +246,7 @@ export default {
   },
   computed: {
     oneClick () {
-      return this.$store.getters.oneClick
+      return this.$store.getters.oneClick ? Object.values(this.$store.getters.oneClick) : []
     },
     statuses () {
       return [

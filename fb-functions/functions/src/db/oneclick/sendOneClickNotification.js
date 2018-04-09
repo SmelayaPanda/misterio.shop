@@ -21,7 +21,7 @@ let sendOneClickEmailNotifyToAdmin = function (transporter, info) {
         `
         Покупатель:
 
-        Имя ............................. ${info.nickname}
+        Имя ............................. ${info.firstname}
         Email ......................... ${info.email}
         Телефон ................... ${info.phone}
         ИД пользователя ...... ${info.userId}
@@ -52,7 +52,7 @@ let sendOneClickEmailNotifyToBuyer = function (transporter, info) {
       to: info.email,
       subject: `Покупка в один клик`,
       text:
-        `${info.nickname}, спасибо за Вашу заявку на "${info.product.title}".
+        `${info.firstname}, спасибо за Вашу заявку на "${info.product.title}".
          
          Мы свяжемся с Вами по телефону ${info.phone} в ближайшее время для уточнения деталей!
          

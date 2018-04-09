@@ -17,7 +17,7 @@
       </el-menu-item>
       <el-menu-item index="/admin/products" route="/admin/products">
         <v-icon>playlist_add</v-icon>
-        <span slot="title">Продукты</span>
+        <span slot="title">Товары</span>
       </el-menu-item>
       <el-menu-item index="/admin/orders" route="/admin/orders">
         <v-icon>description</v-icon>

@@ -1,5 +1,5 @@
 <template>
-  <el-row type="flex" justify="start">
+  <el-row v-if="oneClick" type="flex" justify="start">
     <el-button @click="dialogVisible = true"
                v-if="oneClick.status === this.SENT_PEND || oneClick.status === this.SENT">
       <v-icon small v-if="oneClick.status === this.SENT_PEND">flight_takeoff</v-icon>
@@ -11,7 +11,7 @@
     </el-button>
     <!--Main statuses dialog-->
     <el-dialog
-      :title="oneClick.status === this.SENT_PEND ? 'Продукт отправлен?' : 'Продукт доставлен?'"
+      :title="oneClick.status === this.SENT_PEND ? 'Товар отправлен?' : 'Товар доставлен?'"
       :visible.sync="dialogVisible"
       width="500px"
       center>
@@ -78,13 +78,13 @@ export default {
       }
       this.$store.dispatch('updateOneClick', {
         updateData: obj,
-        oneClickId: this.oneClickId
+        id: this.oneClickId
       })
     }
   },
   computed: {
     oneClick () {
-      return this.$store.getters.oneClickById(this.oneClickId)
+      return this.$store.getters.oneClick[this.oneClickId]
     }
   }
 }

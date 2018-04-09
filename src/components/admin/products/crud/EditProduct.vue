@@ -5,7 +5,7 @@
     </el-button>
 
     <el-dialog
-      title="Редактировать продукт"
+      title="Редактировать товар"
       :visible.sync="dialogFormVisible"
       width="100%"
       center

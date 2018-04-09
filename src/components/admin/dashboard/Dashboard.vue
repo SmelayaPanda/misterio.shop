@@ -45,7 +45,7 @@
           <div slot="header" class="clearfix">
             <h3>
               <v-icon>playlist_add</v-icon>
-              Продукты
+              Товары
             </h3>
           </div>
           <div align="left" style="padding-left: 10%">
@@ -65,7 +65,7 @@
               Отзывы
             </h3>
           </div>
-          <div align="left">
+          <div align="left" style="padding-left: 10%">
             <p><v-chip  outline label  color="danger_a">{{ reviewStatistics.newReview }}</v-chip> новые</p>
             <p><v-chip  outline label  color="success_a">{{ reviewStatistics.published }}</v-chip> опубликованные</p>
             <p><v-chip outline label color="warning_a">{{ reviewStatistics.archived }}</v-chip> архив</p>

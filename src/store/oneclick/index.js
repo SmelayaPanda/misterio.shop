@@ -3,7 +3,7 @@ import {Notification} from 'element-ui'
 
 export default {
   state: {
-    oneClick: [],
+    oneClick: {},
     oneClickStatistics: {
       created: 0,
       sentPending: 0,
@@ -33,15 +33,13 @@ export default {
         }
         query.orderBy('creationDate').get()
           .then(snapshot => {
-            let oneClick = []
+            let oneClick = {}
             snapshot.docs.forEach(doc => {
-              let item = doc.data()
-              item.id = doc.id
-              oneClick.push(item)
+              oneClick[doc.id] = doc.data()
             })
-            console.log('Fetched: one click')
             commit('setOneClick', oneClick)
             commit('LOADING', false)
+            console.log('Fetched: one click')
           })
           .catch(err => dispatch('LOG', err))
       },
@@ -52,7 +50,10 @@ export default {
           .then((docRef) => {
             let oneclickIds = getters.user.oneclick
             oneclickIds.push(docRef.id)
-            return firebase.firestore().collection('users').doc(getters.user.uid).update({oneclick: oneclickIds})
+            return Promise.all([
+              firebase.firestore().collection('users').doc(getters.user.uid).update({oneclick: oneclickIds}),
+              firebase.firestore().collection('oneclick').doc(docRef.id).update({id: docRef.id})
+            ])
           })
           .then(() => {
             commit('LOADING', false)
@@ -84,17 +85,17 @@ export default {
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         let oneClick = getters.oneClick
-        firebase.firestore().collection('oneclick').doc(payload.oneClickId).update(payload.updateData)
+        firebase.firestore().collection('oneclick').doc(payload.id).update(payload.updateData)
           .then(() => {
-            if (payload.updateData.status === 'processed') {
-              return firebase.firestore().collection('products') // operator can add if absent
+            if (payload.updateData.status === 'sentPending') { // processed oneclick
+              return firebase.firestore().collection('products')
                 .doc(payload.productId).update({totalQty: payload.totalQty > 0 ? payload.totalQty : 0})
             }
           })
           .then(() => {
-            oneClick.splice(oneClick.indexOf(payload.oneClickId), 1)
+            delete oneClick[payload.id]
             console.log('One Click updated')
-            commit('setOneClick', oneClick)
+            commit('setOneClick', {...oneClick})
             commit('LOADING', false)
           })
           .catch(err => dispatch('LOG', err))
@@ -113,12 +114,6 @@ export default {
     oneClick:
       state => {
         return state.oneClick
-      },
-    oneClickById:
-      state => (id) => {
-        return state.oneClick.find(el => {
-          return el.id === id
-        })
       },
     oneClickStatistics:
       state => {

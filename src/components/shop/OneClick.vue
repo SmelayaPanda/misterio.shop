@@ -25,8 +25,8 @@
                  ref="oneClickForm"
                  label-width="120px"
                  label-position="top">
-          <el-form-item label="Имя" prop="nickname">
-            <el-input type="text" v-model="oneClickForm.nickname" auto-complete="off"></el-input>
+          <el-form-item label="Имя" prop="firstname">
+            <el-input type="text" v-model="oneClickForm.firstname" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item label="Email" prop="email">
             <el-input type="email" v-model="oneClickForm.email" auto-complete="on"></el-input>
@@ -79,12 +79,12 @@ export default {
     return {
       dialogVisible: false,
       oneClickForm: {
-        nickname: '1',
-        email: 'test@mail.ru',
-        phone: '7 999 467 78 43'
+        firstname: '',
+        email: '',
+        phone: ''
       },
       formRules: {
-        nickname: [
+        firstname: [
           {validator: validateNickname, trigger: 'blur'}
         ],
         email: [
@@ -107,19 +107,17 @@ export default {
       this.dialogVisible = false
 
       this.$store.dispatch('addOneClick', {
-        nickname: this.oneClickForm.nickname,
+        firstname: this.oneClickForm.firstname,
         email: this.oneClickForm.email,
         phone: this.oneClickForm.phone,
         userId: this.$store.getters.user.uid,
-        creationDate: new Date(),
-        status: 'created',
+        title: this.product.title,
+        price: this.product.price,
+        SKU: this.product.SKU,
+        productId: this.product.productId,
         qty: 1,
-        product: {
-          title: this.product.title,
-          price: this.product.price,
-          SKU: this.product.SKU,
-          id: this.product.productId
-        }
+        creationDate: new Date(),
+        status: 'created'
       })
     },
     isValidEmail () {
@@ -131,7 +129,7 @@ export default {
   },
   computed: {
     isValidForm () {
-      return this.isValidPhone() && this.isValidEmail() && this.oneClickForm.nickname
+      return this.isValidPhone() && this.isValidEmail() && this.oneClickForm.firstname
     }
   }
 }
