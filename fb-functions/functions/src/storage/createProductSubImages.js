@@ -15,8 +15,7 @@
  * 2. Firestore update product images
  */
 const mkdirp = require('mkdirp-promise');
-// Include a Service Account Key to use a Signed URL
-const gcs = require('@google-cloud/storage')({keyFilename: 'service-account-credentials.json'});
+
 const spawn = require('child-process-promise').spawn;
 const path = require('path');
 const os = require('os');
@@ -33,6 +32,9 @@ const CARD_PREFIX = 'card_';
 
 exports.handler = function (object, context, admin) {
   console.log(CONST.LOG_DELIMITER)
+  // Include a Service Account Key to use a Signed URL
+  let keyFilename = IS_PRODUCTION ? 'service-account-credentials-prod.json' : 'service-account-credentials-dev.json';
+  const gcs = require('@google-cloud/storage')({keyFilename: keyFilename});
   // File and directory paths.
   const contentType = object.contentType; // This is the image Mime type
   const originalFilePath = object.name;

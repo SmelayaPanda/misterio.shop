@@ -25,19 +25,24 @@ admin.initializeApp();
 
 // GLOBAL CONST
 global.CONST = require('./src/common/constants')
+// firebase functions:config:set app.production="1/0"
 // firebase functions:config:set algolia.app_id="<YOUR-ALGOLIA-APP-ID>"
-// firebase functions:config:set algolia.api_key="<YOUR-ALGOLIA-APP-PUBLIC-KEY>"
+// firebase functions:config:set algolia.api_key="<YOUR-ALGOLIA-ADMIN-KEY>"
+// firebase functions:config:set algolia.product_idx="<YOUR-ALGOLIA-PRODUCT-IDX>" // 'e_store_products', "MISTERIO-PROD-PRODUCTS" /
 // firebase functions:config:set admin.email="SmelayaPandaGM@gmail.com"
-// firebase functions:config:set admin.password="***"
+// firebase functions:config:set admin.password="Klounwirtual123"
 // firebase functions:config:set developer.email="SmelayaPandaGM@gmail.com"
 // firebase functions:config:set developer.password="***"
+global.IS_PRODUCTION = functions.config().app.production // 1 - true (misterio-prod), 0 - false (e-store-dev)
 global.ADMIN_EMAIL = functions.config().admin.email
 global.ADMIN_PASS = functions.config().admin.password
 global.DEVELOPER_EMAIL = functions.config().developer.email
 global.DEVELOPER_PASS = functions.config().developer.password
+global.ALGOLIA_ID = functions.config().algolia.app_id;
+global.ALGOLIA_ADMIN_KEY = functions.config().algolia.api_key;
+global.ALGOLIA_INDEX_NAME = functions.config().algolia.product_idx;
 
 let nodemailer = require('nodemailer')
-
 let transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {

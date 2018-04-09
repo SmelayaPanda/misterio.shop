@@ -15,12 +15,12 @@ export default {
       ({commit, dispatch}) => {
         commit('LOADING', true)
         firebase.firestore().collection('companyInfo').get()
-          .then(snapshot => {
+          .then(snap => {
             let companyInfo = {}
-            snapshot.docs.forEach(doc => {
+            snap.docs.forEach(doc => {
               companyInfo[doc.id] = doc.data()
             })
-            commit('setCompanyInfo', companyInfo)
+            commit('setCompanyInfo', {...companyInfo})
             console.log('Fetched: company info')
             commit('LOADING', false)
           })
@@ -30,11 +30,12 @@ export default {
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         let companyInfo = getters.companyInfo
-        firebase.firestore().collection('companyInfo').doc(payload.document).update({[payload.field]: payload.value})
+        firebase.firestore().collection('companyInfo').doc(payload.document)
+          .update({[payload.field]: payload.value})
           .then(() => {
             companyInfo[payload.document][payload.field] = payload.value
             console.log('Company info updated')
-            commit('setCompanyInfo', companyInfo)
+            commit('setCompanyInfo', {...companyInfo})
             commit('LOADING', false)
           })
           .catch(err => dispatch('LOG', err))

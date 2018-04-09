@@ -120,7 +120,7 @@ export default {
         currency: 'RUB',
         price: 100,
         totalQty: 1,
-        color: 'green',
+        color: '',
         date: new Date()
       },
       formLabelWidth: '120px'

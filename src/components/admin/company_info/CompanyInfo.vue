@@ -5,7 +5,8 @@
       <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" class="pl-2 pr-2 mt-2">
         <el-card style="height: 100%">
           <div slot="header" class="clearfix">
-            <h3><v-icon>account_balance</v-icon>
+            <h3>
+              <v-icon>account_balance</v-icon>
               Компания:
             </h3>
           </div>
@@ -23,7 +24,7 @@
               <edit-company-info-field
                 document="main"
                 field="INN"
-                title="Название"
+                title="ИНН"
                 :value="companyInfo.main.INN">
               </edit-company-info-field>
               <el-tag>{{ companyInfo.main.INN }}</el-tag>
@@ -35,7 +36,8 @@
       <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" class="pl-2 pr-2 mt-2">
         <el-card style="height: 100%">
           <div slot="header" class="clearfix">
-            <h3><v-icon>location_on</v-icon>
+            <h3>
+              <v-icon>location_on</v-icon>
               Адрес
             </h3>
           </div>
@@ -108,18 +110,20 @@
           </div>
           <div>
             <p>
-              <edit-company-info-field document="contacts"
-                                       field="phone"
-                                       title="Телефон"
-                                       :value="companyInfo.contacts.phone">
+              <edit-company-info-field
+                document="contacts"
+                field="phone"
+                title="Телефон"
+                :value="companyInfo.contacts.phone">
               </edit-company-info-field>
               <el-tag>{{ companyInfo.contacts.phone }}</el-tag>
             </p>
             <p>
-              <edit-company-info-field document="contacts"
-                                       field="email"
-                                       title="Email"
-                                       :value="companyInfo.contacts.email">
+              <edit-company-info-field
+                document="contacts"
+                field="email"
+                title="Email"
+                :value="companyInfo.contacts.email">
               </edit-company-info-field>
               <el-tag>{{ companyInfo.contacts.email }}</el-tag>
             </p>

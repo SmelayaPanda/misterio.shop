@@ -1,7 +1,11 @@
 exports.handler = function (change, context, admin) {
   let after = change.after.data()
   let before = change.before.data()
-  if (after.price === before.price && after.totalQty === before.totalQty) {
+  if (
+    after.price === before.price &&
+    after.totalQty === before.totalQty &&
+    after.productId === before.productId // permanent product update after creation
+  ) {
     console.log('No data to update product statistics!')
     return true
   } else {

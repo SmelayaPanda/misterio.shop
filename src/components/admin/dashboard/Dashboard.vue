@@ -10,7 +10,7 @@
               Покупки
             </h3>
           </div>
-          <div align="left" style="padding-left: 10%">
+          <div v-if="orderStatistics" align="left" style="padding-left: 10%">
             <p><v-chip outline label color="danger_a">{{ orderStatistics.payPending }}</v-chip> ожидают оплаты</p>
             <p><v-chip outline label color="danger_a">{{ orderStatistics.sentPending }}</v-chip> ожидают отправки</p>
             <p><v-chip outline label color="info_a">{{ orderStatistics.sent }}</v-chip> отправлено</p>
@@ -29,7 +29,7 @@
               Один клик
             </h3>
           </div>
-          <div align="left" style="padding-left: 10%">
+          <div v-if="oneClickStatistics" align="left" style="padding-left: 10%">
             <p><v-chip outline label color="danger_a">{{ oneClickStatistics.created }}</v-chip> новые</p>
             <p><v-chip outline label color="danger_a">{{ oneClickStatistics.sentPending }}</v-chip> ожидают отправки</p>
             <p><v-chip outline label color="info_a">{{ oneClickStatistics.sent }}</v-chip> отправлено</p>
@@ -48,7 +48,7 @@
               Товары
             </h3>
           </div>
-          <div align="left" style="padding-left: 10%">
+          <div v-if="productStatistics" align="left" style="padding-left: 10%">
             <p><v-chip>{{ productStatistics.avgPrice }} &#8381;</v-chip> средняя цена</p>
             <p><v-chip>{{ productStatistics.maxPrice }} &#8381;</v-chip> максимальная цена</p>
             <p><v-chip>{{ productStatistics.uniqueProductQty }}</v-chip> уникальных продуктов</p>
@@ -65,7 +65,7 @@
               Отзывы
             </h3>
           </div>
-          <div align="left" style="padding-left: 10%">
+          <div v-if="reviewStatistics" align="left" style="padding-left: 10%">
             <p><v-chip  outline label  color="danger_a">{{ reviewStatistics.newReview }}</v-chip> новые</p>
             <p><v-chip  outline label  color="success_a">{{ reviewStatistics.published }}</v-chip> опубликованные</p>
             <p><v-chip outline label color="warning_a">{{ reviewStatistics.archived }}</v-chip> архив</p>

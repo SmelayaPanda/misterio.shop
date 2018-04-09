@@ -14,14 +14,12 @@ exports.handler = function (change, context, functions) {
       after.category === before.category &&
       after.brand === before.brand &&
       after.color === before.color &&
-      after.SKU === before.SKU
+      after.SKU === before.SKU &&
+      after.productId === before.productId // permanent product update after creation
     ) {
       console.log('No fields to update Algolia index!')
       return true
     } else {
-      const ALGOLIA_INDEX_NAME = 'e_store_products';
-      const ALGOLIA_ID = functions.config().algolia.app_id;
-      const ALGOLIA_ADMIN_KEY = functions.config().algolia.api_key;
       const client = productHandlers(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);
       const index = client.initIndex(ALGOLIA_INDEX_NAME);
 

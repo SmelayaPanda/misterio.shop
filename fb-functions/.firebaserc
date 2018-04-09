@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "e-store-dev"
+    "default": "e-store-dev",
+    "prod": "misterio-prod",
+    "dev": "e-store-dev"
   }
 }
