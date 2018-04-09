@@ -44,7 +44,7 @@ export default {
           .catch(err => dispatch('LOG', err))
       },
     addOneClick:
-      ({commit, getters}, payload) => {
+      ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         firebase.firestore().collection('oneclick').add(payload)
           .then((docRef) => {
@@ -66,20 +66,7 @@ export default {
               offset: 50
             })
           })
-          .catch(() => {
-            commit('LOADING', false)
-            Notification({
-              title: 'Ахх...',
-              message:
-              'Что-то пошло не так. ' +
-              'Если проблема повторяется, пожалуйста, ' +
-              'сообщите в отдел технической поддержки по почте SmelayaPandaGM@gmail.com',
-              type: 'error',
-              showClose: true,
-              duration: 100000,
-              offset: 50
-            })
-          })
+          .catch(err => dispatch('LOG', err))
       },
     updateOneClick:
       ({commit, getters, dispatch}, payload) => {
