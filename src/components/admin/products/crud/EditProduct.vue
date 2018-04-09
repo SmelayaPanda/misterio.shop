@@ -92,7 +92,7 @@
           <el-row type="flex" justify="center">
             <el-button
               @click="edit"
-              type="primary"
+              class="success_a white--text"
               :disabled="!isValidForm">
               Сохранить
             </el-button>

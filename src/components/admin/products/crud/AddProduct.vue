@@ -91,7 +91,7 @@
           </el-form>
           <el-button
             @click="addNewProduct"
-            type="primary"
+            class="success_a white--text"
             :disabled="!isValidForm">
             Создать
           </el-button>

@@ -17,8 +17,9 @@
       <el-row type="flex" justify="center">
         <el-button
           @click="edit"
-          type="primary"
-          :disabled="!isValidForm">Сохранить
+          class="success_a white--text"
+          :disabled="!isValidForm">
+          Сохранить
         </el-button>
         <el-button @click="dialogFormVisible = false">Отмена</el-button>
       </el-row>

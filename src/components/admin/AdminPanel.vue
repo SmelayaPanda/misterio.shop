@@ -3,9 +3,10 @@
     <!--Navigation drawer-->
     <v-navigation-drawer temporary absolute v-model="sideNav">
       <v-list>
-        <v-list-tile v-for="item in menuItems"
-                     :key="item.title"
-                     :to="item.link">
+        <v-list-tile
+          v-for="item in menuItems"
+          :key="item.title"
+          :to="item.link">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -16,7 +17,7 @@
           <v-list-tile-action>
             <v-icon>exit_to_app</v-icon>
           </v-list-tile-action>
-          <v-list-tile-content>Logout</v-list-tile-content>
+          <v-list-tile-content>Выйти</v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -25,7 +26,7 @@
     <v-toolbar dark class="primary_a">
       <v-toolbar-title>
         <router-link to="/admin" class="title">
-          Misterio Admin
+          Misterio Shop
         </router-link>
       </v-toolbar-title>
       <app-balls-loader v-if="this.isLoading"></app-balls-loader>
@@ -38,7 +39,7 @@
         <!--Go Home-->
         <v-btn flat @click="goHome" class="primary_a white--text">
           <v-icon left dark>important_devices</v-icon>
-          Home
+          На сайт
         </v-btn>
 
         <v-btn v-for="item in menuItems"
@@ -55,7 +56,7 @@
                @click="onLogout"
                class="primary_a white--text">
           <v-icon left dark>exit_to_app</v-icon>
-          Logout
+          Выйти
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -67,13 +68,14 @@
           <v-flex xs12>
             <app-alert
               :dismissed="onDismissed"
-              :text="error.message"
-            ></app-alert>
+              :text="error.message">
+            </app-alert>
           </v-flex>
         </v-layout>
 
-        <v-card-title>For admin access:</v-card-title>
+        <p align="center" class="pt-2">Для доступа к функционалу необходимо зайти как администратор</p>
         <v-card-text>
+          <p>Developer info</p>
           <p>Alexey Azarov</p>
           <p>8 (999) 467 78 57</p>
           <p>smelayapandagm@gmail.com</p>
@@ -82,7 +84,7 @@
     </v-container>
 
     <el-row type="flex" justify="start" v-if="this.isAdmin">
-      <el-col style="width: 180px" >
+      <el-col style="width: 180px">
         <div>
           <admin-nav-menu></admin-nav-menu>
         </div>
@@ -108,41 +110,37 @@ export default {
       sideNav: false
     }
   },
+  methods: {
+    onLogout () {
+      this.$store.dispatch('logout')
+    },
+    goHome () {
+      this.$router.push('/')
+      window.location.reload() // TODO: fix it
+    },
+    onDismissed () {
+      this.$store.dispatch('CLEAR_ERR') // action
+    }
+  },
   computed: {
     menuItems:
         function () {
           let menuItems = []
           if (this.isAdmin) {
             menuItems = [
-              {icon: 'settings', title: 'System', link: '/admin/system'}
+              {icon: 'settings', title: 'Система', link: '/admin/system'}
             ]
           } else {
             menuItems = [
-              {icon: 'account_circle', title: 'Singup', link: '/signup'},
-              {icon: 'lock_open', title: 'Singin', link: '/signin'}
+              {icon: 'account_circle', title: 'Регистрация', link: '/signup'},
+              {icon: 'lock_open', title: 'Вход', link: '/signin'}
             ]
           }
           return menuItems
         },
-    error:
-        function () {
-          return this.$store.getters.error
-        }
-  },
-  methods: {
-    onLogout:
-        function () {
-          this.$store.dispatch('logout')
-        },
-    goHome:
-        function () {
-          this.$router.push('/')
-          window.location.reload() // TODO: fix it
-        },
-    onDismissed:
-        function () {
-          this.$store.dispatch('CLEAR_ERR') // action
-        }
+    error () {
+      return this.$store.getters.error
+    }
   }
 }
 </script>

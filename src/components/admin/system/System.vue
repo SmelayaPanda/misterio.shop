@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1>Developer board</h1>
+    <h1>Системные функции</h1>
     <el-button @click="getData" class="success_a white--text">
       <v-icon class="white--text">dns</v-icon>
-      Dump database data
+      Снять копию базы данных
     </el-button>
   </div>
 </template>

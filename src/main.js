@@ -39,7 +39,7 @@ import HeartLoader from '@/components/shared/HeartLoader'
 import BallsLoader from '@/components/shared/BallsLoader'
 import HelpTooltip from '@/components/shared/HelpTooltip'
 import MaskedInput from 'vue-masked-input'
-import { VueEditor } from 'vue2-editor'
+import {VueEditor} from 'vue2-editor'
 // THEME
 import ThemePageTitle from '@/components//shared/theme/ThemePageTitle.vue'
 import ThemeBtn from '@/components/shared/theme/ThemeBtn.vue'
@@ -98,23 +98,23 @@ Vue.config.productionTip = false
 // FIREBASE
 let config
 // if (process.env.NODE_ENV === 'development') {
-config = {
-  apiKey: 'AIzaSyDWYuL9ChkfHkLiINoz7ZdDuQntk4eWrI8',
-  authDomain: 'e-store-dev.firebaseapp.com',
-  databaseURL: 'https://e-store-dev.firebaseio.com',
-  projectId: 'e-store-dev',
-  storageBucket: 'e-store-dev.appspot.com',
-  messagingSenderId: '252391298748'
-}
-// } else if (process.env.NODE_ENV === 'production') {
 //   config = {
-//     apiKey: 'AIzaSyA_xtUXZm6kZAKDJ4j1phpAlkqukVg_7Uo',
-//     authDomain: 'e-store-prod.firebaseapp.com',
-//     databaseURL: 'https://e-store-prod.firebaseio.com',
-//     projectId: 'e-store-prod',
-//     storageBucket: 'e-store-prod.appspot.com',
-//     messagingSenderId: '117902843738'
+//     apiKey: 'AIzaSyDWYuL9ChkfHkLiINoz7ZdDuQntk4eWrI8',
+//     authDomain: 'e-store-dev.firebaseapp.com',
+//     databaseURL: 'https://e-store-dev.firebaseio.com',
+//     projectId: 'e-store-dev',
+//     storageBucket: 'e-store-dev.appspot.com',
+//     messagingSenderId: '252391298748'
 //   }
+// } else if (process.env.NODE_ENV === 'production') {
+config = {
+  apiKey: 'AIzaSyAGmvXm3x_xcCU9o26cHGiSmjRTBKLInH4',
+  authDomain: 'misterio-prod.firebaseapp.com',
+  databaseURL: 'https://misterio-prod.firebaseio.com',
+  projectId: 'misterio-prod',
+  storageBucket: 'misterio-prod.appspot.com',
+  messagingSenderId: '470513135830'
+}
 // }
 
 /* eslint-disable no-new */

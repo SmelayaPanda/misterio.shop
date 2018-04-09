@@ -16,7 +16,7 @@
           Отмена
         </el-button>
         <el-button @click="addDictionaryItem"
-                   type="primary_a">
+                   class="primary_a white--text">
           Добавить
         </el-button>
       </span>
