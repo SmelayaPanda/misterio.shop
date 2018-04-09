@@ -12,9 +12,13 @@
       width="30%">
       <el-input v-model="item"></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="addDialogVisible = false">Отмена</el-button>
-        <el-button type="primary_a"
-                   @click="addDictionaryItem">Добавить</el-button>
+        <el-button @click="addDialogVisible = false">
+          Отмена
+        </el-button>
+        <el-button @click="addDictionaryItem"
+                   type="primary_a">
+          Добавить
+        </el-button>
       </span>
     </el-dialog>
     <!--EDIT-->
