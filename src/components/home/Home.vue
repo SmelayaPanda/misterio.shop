@@ -1,7 +1,7 @@
 <template>
   <div class="home_page">
     <div id="app_main_logo_wrapper">
-      <img id="app_main_logo" src="@/assets/icons/main_logo.svg" alt="">
+      <img id="app_main_logo" src="@/assets/icons/logo_site.svg" alt="">
       <span id="logo_title"
             :class="curSlide === 2 ? 'primary--text' : 'secondary--text'">
         Откровенные игры
