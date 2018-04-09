@@ -27,17 +27,17 @@
           <p><span>Database id:</span>
             <el-tag size="mini" type="success">{{ props.row.productId }}</el-tag>
           </p>
-          <p>Description: {{ props.row.description }}</p>
-          <p>Color: {{ props.row.color }}</p>
-          <p>Creation date: {{ props.row.creationDate | date }}</p>
+          <p>Описание: {{ props.row.description }}</p>
+          <p>Цвет: {{ props.row.color }}</p>
+          <p>Дата создания: {{ props.row.creationDate | date }}</p>
           <p v-if="props.row.editDate">
-            Last edit date: {{ props.row.editDate | date }}
+            Последнее редактирование: {{ props.row.editDate | date }}
           </p>
         </template>
       </el-table-column>
       <!--THUMBNAIL-->
       <el-table-column
-        label="Image"
+        label="Фото"
         width="68">
         <template slot-scope="scope">
           <img :src="scope.row.img_0.thumbnail" height="40px" width="auto">
@@ -45,7 +45,7 @@
       </el-table-column>
       <!--SKU-->
       <el-table-column
-        label="SKU"
+        label="Артикул"
         width="120">
         <template slot-scope="scope">
           <span><el-tag type="success">{{ scope.row.SKU }}</el-tag></span>
@@ -53,7 +53,7 @@
       </el-table-column>
       <!--Title-->
       <el-table-column
-        label="Title"
+        label="Название"
         width="260">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
@@ -68,7 +68,7 @@
       </el-table-column>
       <!--BRAND-->
       <el-table-column
-        label="Brand"
+        label="Бренд"
         width="124">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
@@ -81,7 +81,7 @@
       </el-table-column>
       <!--PRICE-->
       <el-table-column
-        label="Price"
+        label="Цена"
         width="110">
         <template slot-scope="scope">
           <span>
@@ -91,7 +91,7 @@
       </el-table-column>
       <!--QUANTITY-->
       <el-table-column
-        label="Total Qty"
+        label="Кол-во"
         width="90">
         <template slot-scope="scope">
           <span>
@@ -102,7 +102,7 @@
       <!--EDIT/DELETE-->
       <el-table-column
         width="180"
-        label="Operations">
+        label="Операции">
         <template slot-scope="scope">
           <el-row type="flex" justify="center">
             <edit-product-image :id="scope.row.productId"></edit-product-image>

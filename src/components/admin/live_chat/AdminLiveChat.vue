@@ -7,7 +7,7 @@
         <v-card>
           <v-card-title class="event_header primary_a white--text">
             <h3 class="pl-3 white--text">
-              Live chat users
+              Пользователи
             </h3>
             <el-switch
               v-model="showOnlineUsers"
@@ -15,8 +15,8 @@
               active-color="#13ce66">
             </el-switch>
             <span class="pl-2">
-              <span v-if="showOnlineUsers">online</span>
-              <span v-else>offline</span>
+              <span v-if="showOnlineUsers">онлайн</span>
+              <span v-else>оффлайн</span>
             </span>
           </v-card-title>
           <v-card>
@@ -31,7 +31,7 @@
                 <el-button type="text"
                            :class="chatId === id ? 'white--text' : ''"
                            @click="openChat(id)">
-                  {{ chat.props.userEmail ? ( chat.props.userEmail ) : `Anonymous ( ${id.substring(0, 5)} )` }}
+                  {{ chat.props.userEmail ? ( chat.props.userEmail ) : `Анонимный ( ${id.substring(0, 5)} )` }}
                   <el-tag size="mini"
                           :type="chatId === id ? '' : 'success'">
                     {{ chat.props.unreadByAdmin }}
@@ -55,7 +55,7 @@
         <v-card>
           <v-card-title class="event_header primary_a white--text">
             <h3 class="pl-3 white--text">
-              User Events
+              Действия пользователя
             </h3>
           </v-card-title>
           <div ref="userEvents" id="event_messages">

@@ -7,24 +7,24 @@
     </v-btn>
     <!--ADD-->
     <el-dialog
-      :title="`Add new ${this.title}`"
+      :title="`Добавить: ${this.title}`"
       :visible.sync="addDialogVisible"
       width="30%">
       <el-input v-model="item"></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="addDialogVisible = false">Cancel</el-button>
+        <el-button @click="addDialogVisible = false">Отмена</el-button>
         <el-button type="primary_a"
-                   @click="addDictionaryItem">Add</el-button>
+                   @click="addDictionaryItem">Добавить</el-button>
       </span>
     </el-dialog>
     <!--EDIT-->
     <el-dialog
-      :title="`Delete ${this.name} ${item} ?`"
+      :title="`Удалить ${item} ?`"
       :visible.sync="deleteDialogVisible"
       width="30%">
       <span slot="footer" class="dialog-footer">
-        <el-button @click="deleteDialogVisible = false">Cancel</el-button>
-        <el-button type="danger" @click="deleteDictionaryItem">Delete</el-button>
+        <el-button @click="deleteDialogVisible = false">Отмена</el-button>
+        <el-button type="danger" @click="deleteDictionaryItem">Удалить</el-button>
       </span>
     </el-dialog>
 
@@ -76,7 +76,7 @@ export default {
   },
   computed: {
     dictionary () {
-      return this.$store.getters[this.name]
+      return this.$store.getters.dictionaries[this.name]
     }
   }
 }

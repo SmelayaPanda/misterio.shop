@@ -6,15 +6,15 @@
     </el-button>
 
     <el-dialog
-      title="Remove product!"
+      title="Удалить продукт!"
       :visible.sync="dialogVisible"
       width="30%"
       center>
-      <p>You want to remove this product:</p>
+      <p>Вы действительно хотите удалить данный продукт?</p>
       <p><b>{{ this.title }}</b></p>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">Cancel</el-button>
-        <el-button type="danger" @click="deleteProduct">Confirm</el-button>
+        <el-button @click="dialogVisible = false">Отмена</el-button>
+        <el-button type="danger" @click="deleteProduct">Удалить</el-button>
       </span>
     </el-dialog>
   </div>

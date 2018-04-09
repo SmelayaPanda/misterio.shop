@@ -5,19 +5,19 @@
       <v-icon size="medium">edit</v-icon>
     </el-button>
     <el-dialog
-      title="Correct review text"
+      title="Редактировать текст отзыва"
       :visible.sync="dialogVisible"
       width="500px"
       center>
       <el-input v-model="review.text"
                 type="textarea"
-                placeholder="(max 400 symbols)"
+                placeholder="( < 400 символов )"
                 :autosize="{ minRows: 3, maxRows: 7}"
                 :maxlength="400"
       ></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">Cancel</el-button>
-        <el-button type="danger" @click="correctReviewText">Confirm</el-button>
+        <el-button @click="dialogVisible = false">Отмена</el-button>
+        <el-button type="danger" @click="correctReviewText">Подтвердить</el-button>
       </span>
     </el-dialog>
   </div>

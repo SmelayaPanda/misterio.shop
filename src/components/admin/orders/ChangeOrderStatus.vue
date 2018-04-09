@@ -1,50 +1,48 @@
 <template>
   <el-row type="flex" justify="start">
     <el-button @click="dialogVisible = true"
-               v-if="order.status === this.SENT_PEND || order.status === this.SENT"
-    >
+               v-if="order.status === this.SENT_PEND || order.status === this.SENT">
       <v-icon small v-if="order.status === this.SENT_PEND">flight_takeoff</v-icon>
       <v-icon small v-if="order.status === this.SENT">flight_land</v-icon>
     </el-button>
     <el-button @click="refuseDialogVisible = true"
-               v-if="order.status !== this.REFUSED"
-    >
+               v-if="order.status !== this.REFUSED">
       <v-icon small>close</v-icon>
     </el-button>
     <!--Main statuses dialog-->
     <el-dialog
-      :title="order.status === this.SENT_PEND ? 'Product is sent?' : 'Product is delivered?'"
+      :title="order.status === this.SENT_PEND ? 'Товар отправлен?' : 'Товар доставлен?'"
       :visible.sync="dialogVisible"
       width="500px"
       center>
-      <b>Comments:</b><br>
+      <b>Коментарий:</b><br>
       <el-input v-model="order.comments"
                 type="textarea"
-                placeholder="(max 400 symbols)"
+                placeholder="( < 400 символов )"
                 :autosize="{ minRows: 3, maxRows: 7}"
                 :maxlength="400"
       ></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">Cancel</el-button>
-        <el-button type="danger" @click="changeStatus(false)">Confirm</el-button>
+        <el-button @click="dialogVisible = false">Отмена</el-button>
+        <el-button type="danger" @click="changeStatus(false)">Подтвердить</el-button>
       </span>
     </el-dialog>
     <!--Refuse Dialog-->
     <el-dialog
-      title="Refuse order?"
+      title="Покупка отклонена?"
       :visible.sync="refuseDialogVisible"
       width="500px"
       center>
-      <b>Add refuse reason into comment please:</b><br>
+      <b>Добавьте причину возврата товара:</b><br>
       <el-input v-model="order.comments"
                 type="textarea"
-                placeholder="(max 400 symbols)"
+                placeholder="( < 400 символов )"
                 :autosize="{ minRows: 3, maxRows: 7}"
                 :maxlength="400"
       ></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="refuseDialogVisible = false">Cancel</el-button>
-        <el-button type="danger" @click="changeStatus(true)">Confirm</el-button>
+        <el-button @click="refuseDialogVisible = false">Отмена</el-button>
+        <el-button type="danger" @click="changeStatus(true)">Подтвердить</el-button>
       </span>
     </el-dialog>
   </el-row>

@@ -4,19 +4,23 @@
       <i class="el-icon-picture-outline"></i>
     </el-button>
     <!--Image-->
-    <el-dialog title="Product images" :visible.sync="dialogFormVisible" width="100%" :fullscreen="true" center>
+    <el-dialog title="Фото продукта" :visible.sync="dialogFormVisible" width="100%" :fullscreen="true" center>
       <el-row type="flex" justify="center" class="mb-3" style="flex-wrap: wrap">
         <!--Image-->
         <!-- fileUploaded custom event from UploadProductImage.vue-->
-        <upload-product-image img-name="img_0" @fileUploaded="loadFileData" img-btn-name="Main Image" :cur-img="product.img_0.thumbnail"/>
-        <upload-product-image img-name="img_1" @fileUploaded="loadFileData" img-btn-name="Add Image 1" :cur-img="product.img_1.thumbnail"/>
-        <upload-product-image img-name="img_2" @fileUploaded="loadFileData" img-btn-name="Add Image 2" :cur-img="product.img_2.thumbnail"/>
-        <upload-product-image img-name="img_3" @fileUploaded="loadFileData" img-btn-name="Add Image 3" :cur-img="product.img_3.thumbnail"/>
-        <upload-product-image img-name="img_4" @fileUploaded="loadFileData" img-btn-name="Add Image 4" :cur-img="product.img_4.thumbnail"/>
+        <upload-product-image img-name="img_0" @fileUploaded="loadFileData" img-btn-name="Главное" :cur-img="product.img_0.thumbnail"/>
+        <upload-product-image img-name="img_1" @fileUploaded="loadFileData" img-btn-name="Доп. 1" :cur-img="product.img_1.thumbnail"/>
+        <upload-product-image img-name="img_2" @fileUploaded="loadFileData" img-btn-name="Доп. 2" :cur-img="product.img_2.thumbnail"/>
+        <upload-product-image img-name="img_3" @fileUploaded="loadFileData" img-btn-name="Доп. 3" :cur-img="product.img_3.thumbnail"/>
+        <upload-product-image img-name="img_4" @fileUploaded="loadFileData" img-btn-name="Доп. 4" :cur-img="product.img_4.thumbnail"/>
       </el-row>
       <el-row type="flex" justify="center">
-        <el-button type="primary" @click="edit" :disabled="!isValidForm">Ok</el-button>
-        <el-button @click="dialogFormVisible = false">Cancel</el-button>
+        <el-button
+          @click="edit"
+          type="primary"
+          :disabled="!isValidForm">Сохранить
+        </el-button>
+        <el-button @click="dialogFormVisible = false">Отмена</el-button>
       </el-row>
     </el-dialog>
   </div>

@@ -11,38 +11,38 @@
     </el-button>
     <!--Main statuses dialog-->
     <el-dialog
-      :title="oneClick.status === this.SENT_PEND ? 'Product is sent?' : 'Product is delivered?'"
+      :title="oneClick.status === this.SENT_PEND ? 'Продукт отправлен?' : 'Продукт доставлен?'"
       :visible.sync="dialogVisible"
       width="500px"
       center>
-      <b>Comments:</b><br>
+      <b>Коментарий:</b><br>
       <el-input v-model="oneClick.comments"
                 type="textarea"
-                placeholder="(max 400 symbols)"
+                placeholder="( < 400 символов )"
                 :autosize="{ minRows: 3, maxRows: 7}"
                 :maxlength="400"
       ></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">Cancel</el-button>
-        <el-button type="danger" @click="changeStatus(false)">Confirm</el-button>
+        <el-button @click="dialogVisible = false">Отмена</el-button>
+        <el-button type="danger" @click="changeStatus(false)">Подтвердить</el-button>
       </span>
     </el-dialog>
     <!--Refuse Dialog-->
     <el-dialog
-      title="Refuse oneClick?"
+      title="Отклонить заявку?"
       :visible.sync="refuseDialogVisible"
       width="500px"
       center>
-      <b>Add refuse reason into comment please:</b><br>
+      <b>Добавьте причину:</b><br>
       <el-input v-model="oneClick.comments"
                 type="textarea"
-                placeholder="(max 400 symbols)"
+                placeholder="( < 400 символов )"
                 :autosize="{ minRows: 3, maxRows: 7}"
                 :maxlength="400"
       ></el-input>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="refuseDialogVisible = false">Cancel</el-button>
-        <el-button type="danger" @click="changeStatus(true)">Confirm</el-button>
+        <el-button @click="refuseDialogVisible = false">Отмена</el-button>
+        <el-button type="danger" @click="changeStatus(true)">Подтвердить</el-button>
       </span>
     </el-dialog>
   </el-row>

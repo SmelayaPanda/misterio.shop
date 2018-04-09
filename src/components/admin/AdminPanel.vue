@@ -25,7 +25,7 @@
     <v-toolbar dark class="primary_a">
       <v-toolbar-title>
         <router-link to="/admin" class="title">
-          Admin Panel
+          Misterio Admin
         </router-link>
       </v-toolbar-title>
       <app-balls-loader v-if="this.isLoading"></app-balls-loader>
@@ -82,7 +82,7 @@
     </v-container>
 
     <el-row type="flex" justify="start" v-if="this.isAdmin">
-      <el-col style="width: 160px" >
+      <el-col style="width: 180px" >
         <div>
           <admin-nav-menu></admin-nav-menu>
         </div>

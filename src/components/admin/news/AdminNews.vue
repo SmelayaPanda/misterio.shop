@@ -5,7 +5,9 @@
       justify="center"
       id="admin_news_title_wrap">
       <el-col align="left">
-        <span id="admin_news_title">News</span>
+        <span id="admin_news_title">
+          Новости
+        </span>
         <el-radio-group v-model="type" id="news_types">
           <el-radio-button label="article"></el-radio-button>
           <el-radio-button label="sale"></el-radio-button>

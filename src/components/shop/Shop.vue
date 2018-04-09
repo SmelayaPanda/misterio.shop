@@ -271,10 +271,10 @@ export default {
       return max
     },
     brands () {
-      return this.$store.getters.brands
+      return this.$store.getters.dictionaries.brands
     },
     colors () {
-      return this.$store.getters.colors
+      return this.$store.getters.dictionaries.colors
     },
     searchGroup () {
       let searchGroup

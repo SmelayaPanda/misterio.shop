@@ -13,40 +13,40 @@
       :router="true">
       <el-menu-item index="/admin" route="/admin">
         <v-icon>insert_chart</v-icon>
-        <span slot="title">Dashboard</span>
+        <span slot="title">Информация</span>
       </el-menu-item>
       <el-menu-item index="/admin/products" route="/admin/products">
         <v-icon>playlist_add</v-icon>
-        <span slot="title">Products</span>
+        <span slot="title">Продукты</span>
       </el-menu-item>
       <el-menu-item index="/admin/orders" route="/admin/orders">
         <v-icon>description</v-icon>
-        <span slot="title">Orders</span>
+        <span slot="title">Покупки</span>
       </el-menu-item>
       <el-menu-item index="/admin/oneClick" route="/admin/oneClick">
         <v-icon>touch_app</v-icon>
-        <span slot="title">One Click</span>
+        <span slot="title">Один клик</span>
       </el-menu-item>
       <el-menu-item index="/admin/reviews" route="/admin/reviews">
         <v-icon>record_voice_over</v-icon>
-        <span slot="title">Reviews</span>
+        <span slot="title">Отзывы</span>
       </el-menu-item>
       <el-menu-item index="/admin/news" route="/admin/news">
         <v-icon>import_contacts</v-icon>
-        <span slot="title">News/Sales</span>
+        <span slot="title">Новости/Акции</span>
       </el-menu-item>
       <el-menu-item index="/admin/company" route="/admin/company">
         <v-icon>account_balance</v-icon>
-        <span slot="title">Company</span>
+        <span slot="title">Компания</span>
       </el-menu-item>
       <el-menu-item index="/admin/dictionaries" route="/admin/dictionaries">
         <v-icon>text_format</v-icon>
-        <span slot="title">Dictionaries</span>
+        <span slot="title">Словари</span>
       </el-menu-item>
       <el-menu-item index="/admin/liveChat" route="/admin/liveChat">
         <v-icon>chat</v-icon>
         <span slot="title">
-          <span class="mr-1">Live Chat</span>
+          <span class="mr-1">Онлайн чат</span>
           <v-chip small outline label color="primary_a">
             {{ onlineUsers }}
           </v-chip>

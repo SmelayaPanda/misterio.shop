@@ -6,13 +6,13 @@
       <v-icon size="medium" v-if="toStatus === 'archived'">archive</v-icon>
     </el-button>
     <el-dialog
-      :title="toStatus === 'published' ? 'Publish review?' : 'Archive review?'"
+      :title="toStatus === 'published' ? 'Опубликовать отзыв?' : 'Отправить в архив?'"
       :visible.sync="dialogVisible"
       width="500px"
       center>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">Cancel</el-button>
-        <el-button type="danger" @click="changeReviewStatus">Confirm</el-button>
+        <el-button @click="dialogVisible = false">Отмена</el-button>
+        <el-button type="danger" @click="changeReviewStatus">Подтвердить</el-button>
       </span>
     </el-dialog>
   </div>

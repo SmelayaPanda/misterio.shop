@@ -9,7 +9,9 @@ ORDER STATUS CHAIN:
   -->
   <div v-if="orders">
     <el-row type="flex" justify="start" align="middle" class="mb-4">
-      <h2 class="ml-3 mr-2">Status</h2>
+      <h2 class="ml-3 mr-2">
+        Статус
+      </h2>
       <el-select
         filterable
         no-match-text="Status is missing"
@@ -41,46 +43,48 @@ ORDER STATUS CHAIN:
                 <el-tag size="mini" type="success">{{ props.row.userId }}</el-tag>
               </p>
               <h3><i class="el-icon-info"></i>
-                Product info:
+                Информация о продуктах:
               </h3>
-              <p>
-                <!--TODO: loop through all products!-->
-                Product Id:
-                <el-tag size="mini" type="success">{{ props.row.products[0].productId }}</el-tag>
+              <p v-for="p in props.row.products" :key="p.productId">
+                ИД:
+                <el-tag size="mini" type="success">{{ p.productId }}</el-tag>
                 <br>
-                Title: {{ props.row.products[0].title }}<br>
-                SKU: {{ props.row.products[0].SKU }}<br>
-                Price: {{ props.row.products[0].price }}<br>
-                <span v-if="props.row.products[0].qty">Total Qty: {{ props.row.products[0].qty }}</span>
+                Название: {{ p.title }}<br>
+                Артикул: {{ p.SKU }}<br>
+                Цена: {{ p.price }}<br>
+                <span v-if="p.qty">Total Qty: {{ p.qty }}</span>
               </p>
               <span v-if="props.row.comments">
                 <h3><i class="el-icon-warning"></i>
-                  Comments:
+                  Коментарий:
                 </h3>
                 {{ props.row.comments }}<br>
               </span>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="12" class="pl-2">
               <span v-if="props.row.shipping">
-                <h3><i class="el-icon-location pl-2"></i>
-                  Shipping info:
+                <h3><i class="el-icon-location"></i>
+                  Доставка:
                 </h3>
                 <p>
-                  Country: {{ props.row.shipping.country }}<br>
-                  City: {{ props.row.shipping.city }}<br>
-                  Street: {{ props.row.shipping.street }}<br>
-                  Build: {{ props.row.shipping.build }}<br>
-                  House: {{ props.row.shipping.house }}<br>
-                  Post Code: {{ props.row.shipping.postCode }}<br>
+                  Страна: {{ props.row.shipping.country }}<br>
+                  Город: {{ props.row.shipping.city }}<br>
+                  Улица: {{ props.row.shipping.street }}<br>
+                  Здание: {{ props.row.shipping.build }}<br>
+                  Дом: {{ props.row.shipping.house }}<br>
+                  Почтовый код: {{ props.row.shipping.postCode }}<br>
                 </p>
               </span>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="24">
-              <h3 class="mt-3">Status history:</h3>
+              <h3 class="mt-3">
+                <i class="el-icon-date"></i>
+                История:
+              </h3>
               <span>
-                  <el-tag>Checkout
+                  <el-tag>Покупка
                     <p>
                       {{ props.row.checkoutDate | date }}<br>
                       <span v-if="props.row.checkoutDate">
@@ -92,7 +96,7 @@ ORDER STATUS CHAIN:
               <!--SENT-->
               <span v-if="props.row.sentDate">
                   <i class="el-icon-caret-right"></i>
-                    <el-tag>Sent
+                    <el-tag>Отправлено
                       <p>
                         {{ props.row.sentDate | date }}<br>
                         {{(Math.abs(props.row.sentDate - props.row.checkoutDate) / 36e5).toFixed(1) }} hours
@@ -102,7 +106,7 @@ ORDER STATUS CHAIN:
               <!--DELIVERED-->
               <span v-if="props.row.deliveryDate">
                   <i class="el-icon-caret-right"></i>
-                    <el-tag>Delivered
+                    <el-tag>Доставлено
                       <p>
                         {{ props.row.deliveryDate | date }}<br>
                         {{(Math.abs(props.row.deliveryDate - props.row.sentDate) / 36e5).toFixed(1) }} hours
@@ -112,7 +116,7 @@ ORDER STATUS CHAIN:
               <!--REFUSE-->
               <span v-if="props.row.refuseDate">
                   <i class="el-icon-caret-right"></i>
-                    <el-tag>Refused
+                    <el-tag>Отклонено
                       <p>
                         {{ props.row.refuseDate | date }}<br>
                         {{(Math.abs(props.row.refuseDate - props.row.checkoutDate) / 36e5).toFixed(1) }} hours (from checkout)
@@ -131,7 +135,7 @@ ORDER STATUS CHAIN:
                     :key="prop.txn_id"
                     v-if="showPayPalIPN">
                 <span class="primary--text">{{key}}:</span>
-                {{prop}} /
+                {{ prop }} /
               </span>
             </el-col>
           </el-row>
@@ -139,7 +143,7 @@ ORDER STATUS CHAIN:
       </el-table-column>
       <!--CREATION DATE-->
       <el-table-column
-        label="Date"
+        label="Дата"
         width="200">
         <template slot-scope="scope">
           <span><el-tag type="success">{{ scope.row.checkoutDate | date }}</el-tag></span>
@@ -147,20 +151,15 @@ ORDER STATUS CHAIN:
       </el-table-column>
       <!--Title-->
       <el-table-column
-        label="Title"
-        width="280">
+        label="Сумма (РУБ)"
+        width="130">
         <template slot-scope="scope">
-          <el-popover trigger="hover" placement="top">
-            <p>Title: {{ scope.row.products[0].title }}</p>
-            <div slot="reference" class="name-wrapper">
-              <v-chip outline label color="info_a">{{ scope.row.products[0].title | snippet(32) }}</v-chip>
-            </div>
-          </el-popover>
+          <p>{{ scope.row.totalPrice }} </p>
         </template>
       </el-table-column>
       <!--NAME-->
       <el-table-column
-        label="Name"
+        label="Имя Фамилия"
         width="140">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
@@ -173,11 +172,11 @@ ORDER STATUS CHAIN:
       </el-table-column>
       <!--PHONE/EMAIL-->
       <el-table-column
-        label="Phone/Email"
+        label="Контакты"
         width="200">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
-            <p>Phone: {{ scope.row.buyer.phone }}</p>
+            <p>Тел: {{ scope.row.buyer.phone }}</p>
             <p>Email: {{ scope.row.buyer.email }}</p>
             <div slot="reference" class="name-wrapper">
               <p>
@@ -191,7 +190,7 @@ ORDER STATUS CHAIN:
       <!--Process-->
       <el-table-column
         width="150"
-        label="Action">
+        label="Действия">
         <template slot-scope="scope">
           <!--CHANGE STATUS-->
           <change-order-status :orderId="scope.row.id"></change-order-status>

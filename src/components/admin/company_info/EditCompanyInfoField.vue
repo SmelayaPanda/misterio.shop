@@ -2,21 +2,21 @@
 <span>
     <el-button @click="dialogVisible=true" type="text">
       <i class="el-icon-edit"></i>
-      {{ this.title }}
+      <span class="primary_a--text">{{ this.title }}</span>
     </el-button>
     <el-dialog
-      :title="'Edit'"
+      title="Редактировать"
       :visible.sync="dialogVisible"
       width="500px"
       center>
     <b>{{ this.title }}</b><br>
     <el-input v-model="editedValue"
               placeholder="Add info..."
-              :maxlength="400"
-    ></el-input>
+              :maxlength="400">
+    </el-input>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="dialogVisible = false">Cancel</el-button>
-      <el-button type="danger" @click="changeField">Confirm</el-button>
+      <el-button @click="dialogVisible = false">Отмена</el-button>
+      <el-button type="danger" @click="changeField">Подтвердить</el-button>
     </span>
     </el-dialog>
 </span>

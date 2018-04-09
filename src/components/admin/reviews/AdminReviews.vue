@@ -1,12 +1,14 @@
 <template>
   <div v-if="reviews">
     <el-row type="flex" justify="start" align="middle" class="mb-4">
-      <h2 class="ml-3 mr-2">Status</h2>
+      <h2 class="ml-3 mr-2">
+        Статус
+      </h2>
       <el-select
         filterable
-        no-match-text="Status is missing"
+        no-match-text="Статус отсутствует"
         v-model="status"
-        placeholder="Brand"
+        placeholder="Бренд"
         @change="loadStatusReviews">
         <el-option
           v-for="val in statuses"
@@ -26,23 +28,22 @@
         <template slot-scope="props">
           <el-row>
             <el-col :span="22" class="pl-1">
-              <p><span>Database review id:</span>
+              <p><span>ИД:</span>
                 <el-tag size="mini" type="success">{{ props.row.id }}</el-tag>
               </p>
               <h3><i class="el-icon-info"></i>
-                Review text:
+                Отзыв:
               </h3>
               <p>
                 {{ props.row.text }}<br>
               </p>
-              <p>Review Date: {{ props.row.date | date }}</p>
             </el-col>
           </el-row>
         </template>
       </el-table-column>
       <!--CREATION DATE-->
       <el-table-column
-        label="Review Date"
+        label="Дата"
         width="200">
         <template slot-scope="scope">
           <span><el-tag type="success">{{ scope.row.date | date }}</el-tag></span>
@@ -50,7 +51,7 @@
       </el-table-column>
       <!--NAME-->
       <el-table-column
-        label="Name"
+        label="Имя"
         width="200">
         <template slot-scope="scope">
           <span><el-tag type="success">{{ scope.row.name }}</el-tag></span>
@@ -58,7 +59,7 @@
       </el-table-column>
       <!--CORRECTED-->
       <el-table-column
-        label="Is Corrected"
+        label="Редактировано"
         width="140">
         <template slot-scope="scope">
           <span>
@@ -70,7 +71,7 @@
       <!--ACTIONS-->
       <el-table-column
         width="200"
-        label="Action">
+        label="Действия">
         <template slot-scope="scope">
           <el-row type="flex" justify="start">
             <process-review

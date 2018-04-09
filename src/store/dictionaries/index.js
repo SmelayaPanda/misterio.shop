@@ -2,17 +2,15 @@ import * as firebase from 'firebase'
 
 export default {
   state: {
-    brands: [],
-    colors: []
+    dictionaries: {
+      brands: [],
+      colors: []
+    }
   },
   mutations: {
-    setBrands:
+    setDictionary:
       (state, payload) => {
-        state.brands = payload
-      },
-    setColors:
-      (state, payload) => {
-        state.colors = payload
+        state.dictionaries[payload.name] = payload.data
       }
   },
   actions: {
@@ -23,12 +21,7 @@ export default {
           .then(snapshot => {
             let docs = snapshot.docs
             docs.forEach(doc => {
-              if (doc.id === 'brands') {
-                commit('setBrands', doc.data().all)
-              }
-              if (doc.id === 'colors') {
-                commit('setColors', doc.data().all)
-              }
+              commit('setDictionary', {name: doc.id, data: doc.data().all})
             })
             console.log('Fetched: dictionaries')
             commit('LOADING', false)
@@ -42,21 +35,17 @@ export default {
         commit('LOADING', true)
         firebase.firestore().collection('dictionaries').doc(name).set({all: payload.data})
           .then(() => {
-            console.log('Dictionary updated')
-            commit('setBrands', payload.data)
+            commit('setDictionary', {name: payload.name, data: payload.data})
             commit('LOADING', false)
+            console.log('Dictionary updated')
           })
           .catch(err => dispatch('LOG', err))
       }
   },
   getters: {
-    brands:
+    dictionaries:
       state => {
-        return state.brands
-      },
-    colors:
-      state => {
-        return state.colors
+        return state.dictionaries
       }
   }
 }
