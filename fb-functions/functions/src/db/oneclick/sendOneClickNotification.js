@@ -15,7 +15,7 @@ let sendOneClickEmailNotifyToAdmin = function (transporter, info) {
 
     let mailOptions = {
       from: ADMIN_EMAIL,
-      to: ADMIN_EMAIL,
+      to: ADMIN_EMAIL, DEVELOPER_EMAIL,
       subject: `Новая покупка в один клик!`,
       text:
         `

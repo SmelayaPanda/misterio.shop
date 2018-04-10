@@ -2,9 +2,9 @@
   <div id="slide_4">
     <p id="title_slide_4">КОНТАКТЫ</p>
     <el-row type="flex" justify="center">
-      <el-col :xs="18" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle" class="pl-2">
+      <el-col id="contact_links" :xs="23" :sm="18" :md="10" :lg="10" :xl="9" align="middle">
         <el-row type="flex" justify="start" style="flex-wrap: wrap">
-          <el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="9" align="left">
+          <el-col :xs="11" :sm="10" :md="10" :lg="10" :xl="9" align="left">
             <span class="line ver_line hor_line"></span>
             <p id="header_1" class="header">УСЛУГИ</p>
             <p class="sub_header">Каталог</p>
@@ -12,7 +12,7 @@
             <p class="sub_header">Акции и новости</p>
             <p class="sub_header">Отзывы о нас</p>
           </el-col>
-          <el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" align="left">
+          <el-col :xs="13" :sm="10" :md="10" :lg="10" :xl="10" align="left">
             <p id="header_2" class="header">ВАЖНО ЗНАТЬ О...</p>
             <p class="sub_header">Подарочные карты</p>
             <p class="sub_header">Гид размеров</p>
@@ -20,7 +20,7 @@
             <p class="sub_header">Подарки для Вас</p>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="start" style="flex-wrap: wrap; margin-top: 40px;">
+        <el-row type="flex" justify="start" style="flex-wrap: wrap; margin-top: 20px;">
           <el-col :span="22" align="left">
             <p class="contacts">
               <img src="@/assets/icons/footer/phone.svg" height="22px" class="contact_icon" alt="">
@@ -80,12 +80,12 @@ export default {
 
 <style scoped lang="scss">
   #slide_4 {
-    margin-top: 100px;
+    margin-top: 12vh;
   }
 
   #title_slide_4 {
     padding-top: 30px;
-    margin-bottom: 10vh;
+    margin-bottom: 8vh;
     font-family: $secondary-font;
     font-size: 32px;
     margin-top: -25px;
@@ -103,10 +103,15 @@ export default {
     border-bottom: 1px solid $color-secondary;
   }
 
+  #contact_links{
+    padding-left: 20px;
+    padding-top: 10px;
+  }
+
   .line {
     position: absolute;
-    left: -35px;
-    top: -35px;
+    left: -30px;
+    top: -30px;
   }
 
   .hor_line {
@@ -116,7 +121,7 @@ export default {
 
   .ver_line {
     border-left: 1px solid $color-secondary;
-    height: 456px;
+    height: 420px;
   }
 
   .hor_line:after {
@@ -187,7 +192,7 @@ export default {
   }
 
   .inst_card {
-    height: 180px;
+    height: 170px;
     width: 100%;
   }
 
@@ -215,8 +220,34 @@ export default {
     padding-left: 20px;
   }
 
+  @media only screen and (max-width: $md-screen) {
+    #title_slide_4 {
+      font-size: 24px;
+    }
+    #title_slide_4:after {
+      width: 130px;
+    }
+  }
+
   @media only screen and (max-width: $sm-screen) {
+    #title_slide_4 {
+      font-size: 20px;
+    }
+
     #slide_4_instagram {
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: $xs-screen) {
+    #slide_4 {
+      margin-top: 6vh;
+    }
+    #title_slide_4 {
+      margin-bottom: 6vh;
+    }
+    .ver_line,
+    .hor_line:after {
       display: none;
     }
   }

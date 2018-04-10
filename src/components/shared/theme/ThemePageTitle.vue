@@ -54,4 +54,25 @@ export default {
     font-size: 12px;
     color: white;
   }
+  @media only screen and (max-width: $sm-screen) {
+    #middle_title {
+      font-size: 32px;
+    }
+  }
+  @media only screen and (max-width: $xs-screen) {
+    #page_title {
+      padding-top: 5vh;
+      padding-bottom: 5vh;
+    }
+    #top_title {
+      font-size: 18px;
+    }
+    #middle_title {
+      font-size: 28px;
+    }
+    #bottom_title {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+  }
 </style>

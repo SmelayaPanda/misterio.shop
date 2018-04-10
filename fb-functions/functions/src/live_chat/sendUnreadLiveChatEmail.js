@@ -16,7 +16,7 @@ let sendEmailNotificationToAdmin = function (transporter, info) {
   return new Promise(((resolve, reject) => {
     let mailOptions = {
       from: ADMIN_EMAIL,
-      to: ADMIN_EMAIL,
+      to: ADMIN_EMAIL, DEVELOPER_EMAIL,
       subject: 'LiveChat',
       text:
         `Новое сообщение от ${info.from}:

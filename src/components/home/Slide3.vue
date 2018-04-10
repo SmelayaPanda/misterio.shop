@@ -205,7 +205,7 @@ export default {
 
   @media only screen and (max-width: $xs-screen) {
     #slide_3 {
-      margin-top: 0;
+      margin-top: 8vh;
     }
 
     #title_3_main {

@@ -12,7 +12,7 @@ let sendReviewNotificationToAdmin = function (transporter, info) {
 
     let mailOptions = {
       from: ADMIN_EMAIL,
-      to: ADMIN_EMAIL,
+      to: ADMIN_EMAIL, DEVELOPER_EMAIL,
       subject: `Новый отзыв!`,
       text:
         `${info.name} оставил новый отзыв:

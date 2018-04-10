@@ -35,7 +35,9 @@ export default {
             // add to auth user data own firestore
             let extendUser = Object.assign(user, snap.data())
             commit('setUser', extendUser)
-            commit('setAdmin', user.email === 'smelayapandagm@gmail.com')
+            commit('setAdmin',
+              user.email === 'smelayapandagm@gmail.com' ||
+              user.email === 'OtkrovennieIgri@mail.ru')
             return Promise.all([
               dispatch('loadOwnProducts'),
               dispatch('fetchOrders', {userId: user.uid})

@@ -294,18 +294,18 @@ export default {
       dialogFormVisible: false,
       activeStep: 1,
       form_1: {
-        firstname: 'Alexey',
-        lastname: 'Azarov',
-        email: 'smelayapanda@mail.ru',
-        phone: '999 232 32 3233'
+        firstname: '',
+        lastname: '',
+        email: '',
+        phone: ''
       },
       form_2: {
-        country: 'Russia',
-        city: 'Novosibirsk',
-        street: 'Sirenevaya',
-        build: '31',
-        house: '65',
-        postCode: '630090'
+        country: '',
+        city: '',
+        street: '',
+        build: '',
+        house: '',
+        postCode: ''
       },
       formRules_1: {
         firstname: [

@@ -12,7 +12,7 @@ let notifyDeveloperAboutError = function (transporter, info) {
 
     let mailOptions = {
       from: ADMIN_EMAIL,
-      to: ADMIN_EMAIL,
+      to: ADMIN_EMAIL, DEVELOPER_EMAIL,
       subject: `ERROR NOTIFIER`,
       text: info
     };
