@@ -5,7 +5,7 @@ export const appConstants = {
       PRODUCT_CLASSIFICATION: [{
         value: 'sexToy',
         label: 'Секс-игрушки',
-        icon: '/static/icon/shop/bigIcons/penis.svg',
+        icon: '/static/icon/shop/big/penis.svg',
         children: [
           {value: 'vibrator', label: 'вибраторы'},
           {value: 'dildo', label: 'фаллоимитаторы'},
@@ -20,7 +20,7 @@ export const appConstants = {
       }, {
         value: 'bdsm',
         label: 'BDSM, фетиш',
-        icon: '/static/icon/shop/bigIcons/cuffs.svg',
+        icon: '/static/icon/shop/big/cuffs.svg',
         children: [
           {value: 'fixation', label: 'фиксация и бондаж'},
           {value: 'mask', label: 'маски'},
@@ -35,7 +35,7 @@ export const appConstants = {
       }, {
         value: 'cosmetic',
         label: 'Интим-косметика',
-        icon: '/static/icon/shop/bigIcons/cream.svg',
+        icon: '/static/icon/shop/big/cream.svg',
         children: [
           {value: 'lubricant', label: 'спреи, крема, лубриканты'},
           {value: 'oil', label: 'массажные масла'},
@@ -44,7 +44,7 @@ export const appConstants = {
       }, {
         value: 'eroticLingerie',
         label: 'Эротическое белье',
-        icon: '/static/icon/shop/bigIcons/underwear.svg',
+        icon: '/static/icon/shop/big/underwear.svg',
         children: [
           {value: 'womenEroticLingerie', label: 'женское'},
           {value: 'menEroticLingerie', label: 'мужское'}
@@ -52,11 +52,11 @@ export const appConstants = {
       }, {
         value: 'condom',
         label: 'Презервативы',
-        icon: '/static/icon/shop/bigIcons/condom.svg'
+        icon: '/static/icon/shop/big/condom.svg'
       }, {
         value: 'baa',
         label: 'БАДЫ',
-        icon: '/static/icon/shop/bigIcons/pills.svg',
+        icon: '/static/icon/shop/big/pills.svg',
         children: [
           {value: 'womenBaa', label: 'для женщин'},
           {value: 'menBaa', label: 'для мужчин'},
