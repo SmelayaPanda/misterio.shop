@@ -2,7 +2,7 @@
   <div v-if="products" id="admin_products">
     <el-row type="flex" justify="start" align="middle" class="mb-4">
       <el-cascader
-        :options="options"
+        :options="PRODUCT_CLASSIFICATION"
         filterable
         placeholder="Выберите категорию"
         v-model="productOption"
@@ -131,63 +131,7 @@ export default {
   name: 'AdminProducts',
   data () {
     return {
-      productOption: ['sexToy', 'vibrator'],
-      options: [{
-        value: 'sexToy',
-        label: 'Секс-игрушки',
-        children: [
-          {value: 'vibrator', label: 'вибраторы'},
-          {value: 'dildo', label: 'фаллоимитаторы'},
-          {value: 'vaginalBall', label: 'вагинальные шарики'},
-          {value: 'analToy', label: 'анальные игрушки'},
-          {value: 'strap', label: 'страпоны'},
-          {value: 'ring', label: 'кольца и насадки'},
-          {value: 'masturbator', label: 'мастурбаторы'},
-          {value: 'pump', label: 'помпы'},
-          {value: 'prostate', label: 'массажеры простаты'}
-        ]
-      }, {
-        value: 'bdsm',
-        label: 'BDSM, фетиш',
-        children: [
-          {value: 'fixation', label: 'фиксация и бондаж'},
-          {value: 'mask', label: 'маски'},
-          {value: 'collar', label: 'ошейники'},
-          {value: 'gag', label: 'кляпы'},
-          {value: 'sets', label: 'наборы'},
-          {value: 'bdsmClothes', label: 'BDSM-одежда'},
-          {value: 'nipple', label: 'зажимы для сосков'},
-          {value: 'medical', label: 'медицинский фетиш'},
-          {value: 'percussion', label: 'ударные девайсы'}
-        ]
-      }, {
-        value: 'cosmetic',
-        label: 'Интим-косметика',
-        children: [
-          {value: 'lubricant', label: 'спреи, крема, лубриканты'},
-          {value: 'oil', label: 'массажные масла'},
-          {value: 'perfume', label: 'духи с феромонами'}
-        ]
-      }, {
-        value: 'eroticLingerie',
-        label: 'Эротическое белье',
-        children: [
-          {value: 'womenEroticLingerie', label: 'женское эротическое белье'},
-          {value: 'menEroticLingerie', label: 'мужское эротическое белье'}
-        ]
-      }, {
-        value: 'condom',
-        label: 'Презервативы'
-      }, {
-        value: 'baa',
-        label: 'БАДЫ',
-        children: [
-          {value: 'womenBaa', label: 'для женщин'},
-          {value: 'menBaa', label: 'для мужчин'},
-          {value: 'unisexBaa', label: 'унисекс'}
-        ]
-      }
-      ]
+      productOption: ['sexToy', 'vibrator']
     }
   },
   methods: {

@@ -1,6 +1,6 @@
 exports.handler = function (change, context, admin) {
   console.log(CONST.LOG_DELIMITER)
-  let newReview = 0
+  let created = 0
   let published = 0
   let archived = 0
   let totalReviews = 0
@@ -8,7 +8,7 @@ exports.handler = function (change, context, admin) {
     .then(snapshot => {
       snapshot.docs.forEach(doc => {
         if (doc.data().status === 'new') {
-          newReview += 1
+          created += 1
         } else if (doc.data().status === 'published') {
           published += 1
         } else if (doc.data().status === 'archived') {
@@ -17,7 +17,7 @@ exports.handler = function (change, context, admin) {
         totalReviews++
       })
       return admin.firestore().collection('statistics').doc('reviews').update({
-        newReview: newReview,
+        created: created,
         published: published,
         archived: archived,
         totalReviews: totalReviews

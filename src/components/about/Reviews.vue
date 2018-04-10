@@ -1,6 +1,6 @@
 <!--
 REVIEW STATUSES:
-1. new
+1. created
 2. published
 3. archived
 -->
@@ -81,7 +81,7 @@ export default {
       review: {
         name: '',
         text: '',
-        status: 'new',
+        status: 'created',
         date: new Date(),
         image: null
       }

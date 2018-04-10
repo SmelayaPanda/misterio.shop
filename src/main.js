@@ -27,6 +27,7 @@ import BirthdayFilter from '@/filters/birthday'
 import Snippet from '@/filters/snippet'
 // MIXINS
 import {authMixin} from '@/mixins/autentication'
+import {appConstants} from '@/mixins/constants'
 import {image} from '@/mixins/image'
 import {isLoading} from '@/mixins/loading'
 import {appError} from '@/mixins/error'
@@ -47,6 +48,7 @@ import ThemeBtn from '@/components/shared/theme/ThemeBtn.vue'
 const unsync = sync(store, router)
 unsync()
 // USE
+Vue.mixin(appConstants)
 Vue.mixin(authMixin)
 Vue.mixin(image)
 Vue.mixin(isLoading)

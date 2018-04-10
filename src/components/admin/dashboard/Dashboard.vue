@@ -66,7 +66,7 @@
             </h3>
           </div>
           <div v-if="reviewStatistics" align="left" style="padding-left: 10%">
-            <p><v-chip  outline label  color="danger_a">{{ reviewStatistics.newReview }}</v-chip> новые</p>
+            <p><v-chip  outline label  color="danger_a">{{ reviewStatistics.created }}</v-chip> новые</p>
             <p><v-chip  outline label  color="success_a">{{ reviewStatistics.published }}</v-chip> опубликованные</p>
             <p><v-chip outline label color="warning_a">{{ reviewStatistics.archived }}</v-chip> архив</p>
             <p><v-chip label color="primary_a" text-color="white">{{ reviewStatistics.totalReviews }}</v-chip> общее количество</p>

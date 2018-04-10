@@ -9,7 +9,7 @@
       <v-card-media :src="product.img_0.card" height="300px"></v-card-media>
       <div style="height: 30px; padding: 10px;">
         <el-row type="flex" justify="space-evenly">
-          <el-col :span="3" align="left">
+          <el-col :span="8" align="right">
             <transition name="fade">
               <v-icon
                 v-if="user.favorites[id]"
@@ -23,12 +23,12 @@
               </v-icon>
             </transition>
           </el-col>
-          <el-col :span="18">
+          <el-col :span="8">
             <p class="grey--text pl-2">
               {{ product.price }} &#8381;
             </p>
           </el-col>
-          <el-col :span="3" align="right">
+          <el-col :span="8" align="left">
             <transition name="fade">
               <v-icon
                 v-if="user.cart[id]"

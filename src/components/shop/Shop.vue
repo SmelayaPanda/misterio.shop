@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row type="flex" justify="left" style="flex-wrap: wrap">
-      <el-col :xs="24" :sm="6" :md="5" :lg="4" :xl="4" align="left">
+      <div style="flex: 0 0 280px;" align="left">
         <el-button type="text" @click="isCollapsed = !isCollapsed" class="mt-2 ml-3 pl-1">
           <v-icon v-if="isCollapsed" class="info--text">hdr_strong</v-icon>
           <v-icon v-else class="info--text">hdr_weak</v-icon>
@@ -18,39 +18,33 @@
             <v-icon class="pr-2 info--text">select_all</v-icon>
             <span slot="title">Все товары</span>
           </el-menu-item>
-          <el-submenu index="Category A">
+
+          <el-submenu
+            v-for="option in PRODUCT_CLASSIFICATION"
+            :key="option.value"
+            :index="option.value">
             <template slot="title">
-              <v-icon class="pr-2 white--text">looks_one</v-icon>
-              <span slot="title">Группа А</span>
+              <img v-if="option.icon"
+                   :src="option.icon"
+                   id="groupIcon"
+                   alt="">
+              <span slot="title">{{ option.label }}</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="Group A" @click="filterProducts">Все в группе А</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group>
-              <span slot="title">Группа 1</span>
-              <el-menu-item index="Category A1" @click="filterProducts">Категория 1</el-menu-item>
-              <el-menu-item index="Category A2" @click="filterProducts">Категория 2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Группа 2">
-              <el-menu-item index="Category A3" @click="filterProducts">Категория 3</el-menu-item>
+              <el-menu-item :index="option.label" @click="filterProducts">Все</el-menu-item>
+              <el-menu-item
+                v-for="child in option.children"
+                :key="child.value"
+                :index="child.label" @click="filterProducts">
+                {{ child.label }}
+              </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item index="Category B" @click="filterProducts">
-            <v-icon class="pr-2 white--text">looks_two</v-icon>
-            <span slot="title">Категория Б</span>
-          </el-menu-item>
-          <el-menu-item index="Category C" @click="filterProducts">
-            <v-icon class="pr-2 white--text">looks_3</v-icon>
-            <span slot="title">Категория В</span>
-          </el-menu-item>
-          <el-menu-item index="Category D" @click="filterProducts">
-            <v-icon class="pr-2 white--text">looks_4</v-icon>
-            <span slot="title">Категория Г</span>
-          </el-menu-item>
+
         </el-menu>
-      </el-col>
+      </div>
       <!--ALGOLIA SEARCH-->
-      <el-col :xs="24" :sm="18" :md="18" :lg="16" :xl="14" type="flex" align="middle">
+      <el-col :xs="24" :sm="24" :md="17" :lg="16" :xl="14" type="flex" align="middle">
         <el-row type="flex" justify="start">
           <el-col :span="14">
             <v-text-field
@@ -206,7 +200,7 @@ export default {
       selectedGroup: filter.group,
       selectedCategory: filter.category,
       formLabelWidth: '120px',
-      isCollapsed: true,
+      isCollapsed: false,
       activeName:
           !filter.brand &&
           !filter.color &&
@@ -305,4 +299,9 @@ export default {
     background: #000 !important;
   }
 
+  #groupIcon {
+    width: 45px;
+    margin-right: 10px;
+    z-index: 11;
+  }
 </style>

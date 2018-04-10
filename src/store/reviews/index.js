@@ -5,7 +5,7 @@ export default {
   state: {
     reviews: [],
     reviewStatistics: {
-      newReview: 0,
+      created: 0,
       published: 0,
       archived: 0,
       totalReviews: 0
