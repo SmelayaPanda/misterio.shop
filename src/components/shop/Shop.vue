@@ -33,11 +33,13 @@
               <span slot="title">{{ option.label }}</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item :index="option.label" @click="filterProducts">Все</el-menu-item>
+              <el-menu-item :index="option.value" @click="filterProducts">
+                Все
+              </el-menu-item>
               <el-menu-item
                 v-for="child in option.children"
                 :key="child.value"
-                :index="child.label" @click="filterProducts">
+                :index="child.value" @click="filterProducts">
                 {{ child.label }}
               </el-menu-item>
             </el-menu-item-group>
@@ -218,7 +220,7 @@ export default {
     },
     changeCategory (key) {
       this.$store.dispatch('USER_EVENT', `Категория: ${key}`)
-      let groupList = ['Group A', 'Group B', '...']
+      let groupList = ['sexToy', 'bdsm', 'baa', 'condom', 'eroticLingerie', 'cosmetic']
       if (groupList.indexOf(key) !== -1) {
         this.selectedGroup = key
         this.selectedCategory = null
@@ -272,12 +274,24 @@ export default {
     colors () {
       return this.$store.getters.dictionaries.colors
     },
-    searchGroup () {
-      let searchGroup
+    searchGroup () { // TODO: may be improve it?)
+      let searchGroup = ''
       if (this.selectedCategory) {
-        searchGroup = this.selectedCategory
+        for (let group of this.PRODUCT_CLASSIFICATION) {
+          let categories = group.children
+          for (let category in categories) {
+            if (categories.hasOwnProperty(category) &&
+                categories[category].value === this.selectedCategory) {
+              searchGroup = categories[category].label
+            }
+          }
+        }
       } else if (this.selectedGroup) {
-        searchGroup = this.selectedGroup
+        for (let group of this.PRODUCT_CLASSIFICATION) {
+          if (group.value === this.selectedGroup) {
+            searchGroup = group.label
+          }
+        }
       } else {
         searchGroup = 'Все'
       }

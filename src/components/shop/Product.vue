@@ -200,7 +200,7 @@ export default {
   .product_info {
     text-align: left;
     margin-left: 40px;
-    height: 300px;
+    height: 330px;
   }
 
   #product_card {

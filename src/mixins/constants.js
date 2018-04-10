@@ -55,7 +55,7 @@ export const appConstants = {
         icon: '/static/icon/shop/big/condom.svg'
       }, {
         value: 'baa',
-        label: 'БАДЫ',
+        label: 'БАДы',
         icon: '/static/icon/shop/big/pills.svg',
         children: [
           {value: 'womenBaa', label: 'для женщин'},

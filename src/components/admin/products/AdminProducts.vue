@@ -54,7 +54,7 @@
       <!--Title-->
       <el-table-column
         label="Название"
-        width="260">
+        width="270">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <p>Title: {{ scope.row.title }}</p>
