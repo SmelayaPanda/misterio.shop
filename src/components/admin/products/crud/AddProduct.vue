@@ -111,8 +111,8 @@ export default {
     return {
       dialogFormVisible: false,
       product: {
-        group: 'Group A',
-        category: 'Category A1',
+        group: '',
+        category: '',
         title: '',
         description: '',
         SKU: '',
@@ -120,8 +120,7 @@ export default {
         currency: 'RUB',
         price: 100,
         totalQty: 1,
-        color: '',
-        date: new Date()
+        color: ''
       },
       formLabelWidth: '120px'
     }
@@ -130,7 +129,7 @@ export default {
     addNewProduct () {
       let newProduct = {
         group: this.group,
-        category: this.category,
+        category: this.category ? this.category : '',
         title: this.product.title,
         description: this.product.description,
         SKU: this.product.SKU,
@@ -144,6 +143,15 @@ export default {
       }
       this.dialogFormVisible = false
       this.$store.dispatch('addNewProduct', newProduct)
+        .then(() => { // clear form
+          this.product.title = ''
+          this.product.description = ''
+          this.product.SKU = ''
+          this.product.brand = ''
+          this.product.price = 100
+          this.product.totalQty = 1
+          this.product.color = ''
+        })
     }
   },
   computed: {

@@ -132,13 +132,16 @@ new Vue({
       user => {
         if (user) {
           this.$store.dispatch('fetchUserData', user)
-          if (this.$route.path.includes('admin')) {
-            this.$store.dispatch('fetchAllChats')
-          } else {
-            this.$store.dispatch('initializeChat', user)
-            this.$store.dispatch('fetchProducts')
-            this.$store.dispatch('updateEmailVerification', user) // always check - because there is no another way
-          }
+            .then(() => {
+              if (this.$route.path.includes('admin') && ( // TODO: isAdmin copypast fix
+                user.email === 'smelayapandagm@gmail.com' || user.email === 'OtkrovennieIgri@mail.ru')) {
+                this.$store.dispatch('fetchAllChats')
+              } else {
+                this.$store.dispatch('initializeChat', user)
+                this.$store.dispatch('fetchProducts')
+                this.$store.dispatch('updateEmailVerification', user) // always check - because there is no another way
+              }
+            })
         } else {
           this.$store.dispatch('signInAnonymously')
         }

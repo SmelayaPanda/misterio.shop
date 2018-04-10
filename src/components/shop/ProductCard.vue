@@ -46,7 +46,7 @@
       </div>
       <el-row id="product_title_wrapper" type="flex" justify="center">
         <p class="shop_product_title">
-          {{ product.title | snippet(60) }}
+          {{ product.title | snippet(50) }}
         </p>
       </el-row>
     </v-card>
@@ -129,7 +129,7 @@ export default {
 
   .shop_product_title {
     color: white;
-    font-size: 14px;
+    font-size: 12px;
     padding: 12px;
     margin: 0;
   }

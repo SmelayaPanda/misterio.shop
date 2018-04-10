@@ -88,7 +88,8 @@ export default {
       let liveChats = this.$store.getters.liveChats
       let i = 0
       for (let chat in liveChats) {
-        if (liveChats[chat].props.onlineFrom) {
+        if (liveChats.hasOwnProperty(chat) &&
+          liveChats[chat].props && liveChats[chat].props.onlineFrom) {
           i++
         }
       }
