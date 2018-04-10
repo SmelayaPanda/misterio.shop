@@ -52,7 +52,8 @@
             <v-divider class="secondary mb-3"></v-divider>
             <div
               v-for="product in userCart"
-              :key="product.productId">
+              :key="product.productId"
+              v-if="product">
               <el-row
                 type="flex"
                 justify="center"

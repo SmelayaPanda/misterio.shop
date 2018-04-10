@@ -53,6 +53,10 @@ export default {
       }
       this.dialogFormVisible = false
       this.$store.dispatch('editProductImage', editObj)
+        .then(() => { // clear
+          this.images = {}
+          this.imageUrl = ''
+        })
     }
   },
   computed: {

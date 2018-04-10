@@ -54,13 +54,13 @@
       <!--Title-->
       <el-table-column
         label="Название"
-        width="280">
+        width="290">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <p>Title: {{ scope.row.title }}</p>
             <div slot="reference" class="name-wrapper">
               <v-chip outline label color="info_a">
-                {{ scope.row.title | snippet(28) }}
+                {{ scope.row.title | snippet(27) }}
               </v-chip>
             </div>
           </el-popover>
