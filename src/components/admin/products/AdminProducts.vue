@@ -1,10 +1,10 @@
 <template>
-  <div v-if="products">
+  <div v-if="products" id="admin_products">
     <el-row type="flex" justify="start" align="middle" class="mb-4">
       <el-cascader
         :options="options"
         filterable
-        placeholder="Select category"
+        placeholder="Выберите категорию"
         v-model="productOption"
         @change="loadCategoryProducts">
       </el-cascader>
@@ -131,43 +131,63 @@ export default {
   name: 'AdminProducts',
   data () {
     return {
-      productOption: ['Group A', 'Category A1'],
+      productOption: ['sexToy', 'vibrator'],
       options: [{
-        value: 'Group A',
-        label: 'Group A',
-        children: [{
-          value: 'Category A1',
-          label: 'Category A1'
-        }, {
-          value: 'Category A2',
-          label: 'Category A2'
-        }, {
-          value: 'Category A3',
-          label: 'Category A3'
-        }]
-      },
-      {
-        value: 'Group B',
-        label: 'Group B',
-        children: [{
-          value: 'Category B',
-          label: 'Category B'
-        }]
+        value: 'sexToy',
+        label: 'Секс-игрушки',
+        children: [
+          {value: 'vibrator', label: 'вибраторы'},
+          {value: 'dildo', label: 'фаллоимитаторы'},
+          {value: 'vaginalBall', label: 'вагинальные шарики'},
+          {value: 'analToy', label: 'анальные игрушки'},
+          {value: 'strap', label: 'страпоны'},
+          {value: 'ring', label: 'кольца и насадки'},
+          {value: 'masturbator', label: 'мастурбаторы'},
+          {value: 'pump', label: 'помпы'},
+          {value: 'prostate', label: 'массажеры простаты'}
+        ]
       }, {
-        value: 'Group C',
-        label: 'Group C',
-        children: [{
-          value: 'Category C',
-          label: 'Category C'
-        }]
+        value: 'bdsm',
+        label: 'BDSM, фетиш',
+        children: [
+          {value: 'fixation', label: 'фиксация и бондаж'},
+          {value: 'mask', label: 'маски'},
+          {value: 'collar', label: 'ошейники'},
+          {value: 'gag', label: 'кляпы'},
+          {value: 'sets', label: 'наборы'},
+          {value: 'bdsmClothes', label: 'BDSM-одежда'},
+          {value: 'nipple', label: 'зажимы для сосков'},
+          {value: 'medical', label: 'медицинский фетиш'},
+          {value: 'percussion', label: 'ударные девайсы'}
+        ]
       }, {
-        value: 'Group D',
-        label: 'Group D',
-        children: [{
-          value: 'Category D',
-          label: 'Category D'
-        }]
-      }]
+        value: 'cosmetic',
+        label: 'Интим-косметика',
+        children: [
+          {value: 'lubricant', label: 'спреи, крема, лубриканты'},
+          {value: 'oil', label: 'массажные масла'},
+          {value: 'perfume', label: 'духи с феромонами'}
+        ]
+      }, {
+        value: 'eroticLingerie',
+        label: 'Эротическое белье',
+        children: [
+          {value: 'womenEroticLingerie', label: 'женское эротическое белье'},
+          {value: 'menEroticLingerie', label: 'мужское эротическое белье'}
+        ]
+      }, {
+        value: 'condom',
+        label: 'Презервативы'
+      }, {
+        value: 'baa',
+        label: 'БАДЫ',
+        children: [
+          {value: 'womenBaa', label: 'для женщин'},
+          {value: 'menBaa', label: 'для мужчин'},
+          {value: 'unisexBaa', label: 'унисекс'}
+        ]
+      }
+      ]
     }
   },
   methods: {
@@ -175,7 +195,8 @@ export default {
       this.$store.dispatch('setLastVisible', null)
       this.$store.dispatch('productFilters', {
         limit: null, // all
-        category: this.productOption[1]
+        category: this.productOption[1],
+        group: this.productOption[1] ? null : this.productOption[0]
       })
       this.$store.dispatch('fetchProducts')
     }

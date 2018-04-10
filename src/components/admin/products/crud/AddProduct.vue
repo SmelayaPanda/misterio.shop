@@ -5,7 +5,7 @@
     </v-btn>
 
     <el-dialog
-      :title="`Новый товар в: ${group} / ${category}`"
+      :title="`Новый товар в выбраной категории`"
       :visible.sync="dialogFormVisible"
       width="100%"
       :fullscreen="true">

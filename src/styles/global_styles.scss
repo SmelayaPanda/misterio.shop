@@ -133,17 +133,23 @@ $lg-screen: 1920px;
     background: $color-secondary !important;
   }
 }
+
 // ***********
 // ADMIN PANEL
 // ***********
+.chip--label, .chip--label .chip__content {
+  border-radius: 5px;
+}
+
+.el-cascader-menu {
+  height: 340px !important;
+  width: 240px !important;
+}
+
 #admin_nav_menu {
   .el-menu-item.is-active, .el-menu-item.is-active i {
     color: $color-primary_a;
   }
-}
-
-.chip--label, .chip--label .chip__content {
-  border-radius: 5px;
 }
 
 #admin_news,
