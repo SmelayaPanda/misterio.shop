@@ -295,6 +295,10 @@ export default {
     padding-right: 24px;
   }
 
+  .el-menu--collapse {
+    width: 82px !important;
+  }
+
   #accordion {
     background: #000 !important;
   }
