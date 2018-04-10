@@ -132,10 +132,10 @@ export default {
   }
 
   .swiper_slide {
-    background: url("../../../static/bg/home/draft_bg.png") no-repeat;
+    /*background: url("../../../static/bg/home/draft_bg.png") no-repeat;*/
+    /*background-size: cover;*/
     width: 100vw;
     height: 100vh;
-    background-size: cover;
   }
 
 /*  background: linear-gradient(to right, $color-primary, $color-primary-light);*/

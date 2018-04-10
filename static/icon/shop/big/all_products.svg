@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
+<style type="text/css">
+	.st0{opacity:9.000000e-02;fill:none;stroke:#000000;stroke-miterlimit:10;}
+	.st1{fill:#AF1912;}
+	.st2{fill:#7A0E0E;}
+	.st3{font-family:'Montserrat-Black';}
+	.st4{font-size:50.8171px;}
+	.st5{fill:#FFFFFF;}
+	.st6{font-size:21.5973px;}
+	.st7{fill:none;stroke:#7A0E0E;stroke-width:5;stroke-linecap:round;stroke-miterlimit:10;}
+	.st8{fill:none;stroke:#FFFFFF;stroke-width:5;stroke-linecap:round;stroke-miterlimit:10;}
+</style>
+<g id="_x33__1_">
+	<g>
+		<rect x="0.8" y="0.5" class="st0" width="149.1" height="149.1"/>
+		<line class="st0" x1="0.8" y1="75.1" x2="149.8" y2="75.1"/>
+		<line class="st0" x1="75.3" y1="0.5" x2="75.3" y2="149.6"/>
+		<line class="st0" x1="0.8" y1="0.5" x2="149.6" y2="149.4"/>
+		<line class="st0" x1="0.6" y1="149.7" x2="149.7" y2="0.7"/>
+		<circle class="st0" cx="75.2" cy="75" r="74.5"/>
+		<circle class="st0" cx="75.3" cy="75.4" r="55.1"/>
+		<rect x="36.5" y="37.1" class="st0" width="76.5" height="76.5"/>
+		<line class="st0" x1="104.1" y1="5.9" x2="47.2" y2="143.7"/>
+		<polygon class="st0" points="104,6.8 47.3,6.8 7.2,46.8 7.2,103.5 47.3,143.6 104,143.6 144.1,103.5 144.1,46.8 		"/>
+		<line class="st0" x1="46.5" y1="5.9" x2="104.1" y2="143.7"/>
+	</g>
+	<g id="_x33_">
+		<path class="st1" d="M149.2,75.4c0,40.9-33.1,74-74,74c-40.9,0-74-33.1-74-74c0-40.9,33.1-74,74-74
+			C116.1,1.4,149.2,34.5,149.2,75.4z"/>
+		<text transform="matrix(1 0 0 1 17.1802 88.3691)" class="st2 st3 st4">ВСЕ</text>
+		<text transform="matrix(1 0 0 1 21.7534 79.4766)" class="st5 st3 st4">ВСЕ</text>
+		<text transform="matrix(1 0 0 1 19.1372 111.0449)" class="st2 st3 st6">ТОВАРЫ</text>
+		<text transform="matrix(1 0 0 1 22.9741 105.5547)" class="st5 st3 st6">ТОВАРЫ</text>
+		<path class="st7" d="M25.6,38.9c11.7-14.5,29.7-23.7,49.8-23.7c19.5,0,36.9,8.7,48.7,22.4"/>
+		<path class="st7" d="M125.6,119.1c-11.7,14.8-29.8,24.2-50.1,24.2c-19.3,0-36.6-8.5-48.3-22"/>
+		<path class="st8" d="M125,115.2c-11.7,14.8-29.8,24.2-50.1,24.2c-19.3,0-36.6-8.5-48.3-22"/>
+		<path class="st8" d="M25.1,35.1c11.7-14.5,29.7-23.7,49.8-23.7c19.5,0,36.9,8.7,48.7,22.4"/>
+	</g>
+</g>
+</svg>

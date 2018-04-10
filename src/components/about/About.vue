@@ -156,4 +156,14 @@ export default {
     padding: 10px;
     transform: scale(0.8);
   }
+
+  @media only screen and (max-width: $xs-screen) {
+    .about_text {
+      padding: 20px 20px 20px 30px;
+      font-size: 13px;
+    }
+    #hor_line_2:after {
+      width: 15%;
+    }
+  }
 </style>

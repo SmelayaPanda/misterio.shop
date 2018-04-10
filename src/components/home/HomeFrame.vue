@@ -9,12 +9,7 @@
 
 export default {
   name: 'HomeFrame',
-  components: {},
-  methods: {
-    nextSlide () {
-      console.log('Next')
-    }
-  }
+  components: {}
 }
 </script>
 

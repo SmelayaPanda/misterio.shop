@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="shop_wrapper">
     <el-row type="flex" justify="left" style="flex-wrap: wrap">
       <div style="flex: 0 0 280px;" align="left">
         <el-button type="text" @click="isCollapsed = !isCollapsed" class="mt-2 ml-3 pl-1">
@@ -15,7 +15,9 @@
           :collapse="isCollapsed">
           <!--Nav Menu-->
           <el-menu-item index="" @click="filterProducts">
-            <v-icon class="pr-2 info--text">select_all</v-icon>
+            <img src="/static/icon/shop/big/all_products.svg"
+                 class="groupIcon"
+                 alt="">
             <span slot="title">Все товары</span>
           </el-menu-item>
 
@@ -26,7 +28,7 @@
             <template slot="title">
               <img v-if="option.icon"
                    :src="option.icon"
-                   id="groupIcon"
+                   class="groupIcon"
                    alt="">
               <span slot="title">{{ option.label }}</span>
             </template>
@@ -200,7 +202,7 @@ export default {
       selectedGroup: filter.group,
       selectedCategory: filter.category,
       formLabelWidth: '120px',
-      isCollapsed: false,
+      isCollapsed: true,
       activeName:
           !filter.brand &&
           !filter.color &&
@@ -303,7 +305,7 @@ export default {
     background: #000 !important;
   }
 
-  #groupIcon {
+  .groupIcon {
     width: 45px;
     margin-right: 10px;
     z-index: 11;
