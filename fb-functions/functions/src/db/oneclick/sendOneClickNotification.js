@@ -1,5 +1,6 @@
 exports.handler = function (snap, context, transporter) {
   console.log(CONST.LOG_DELIMITER)
+  // TODO: not sent!
   let info = snap.data()
   console.log(info)
   return Promise.all([

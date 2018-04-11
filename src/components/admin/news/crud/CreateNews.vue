@@ -54,7 +54,7 @@ export default {
         title: this.title,
         type: this.type,
         creationDate: new Date()
-      })
+      }).then(() => { this.title = '' })
     }
   }
 }

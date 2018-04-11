@@ -37,7 +37,7 @@ export default {
             commit('setUser', extendUser)
             commit('setAdmin',
               user.email === 'smelayapandagm@gmail.com' ||
-              user.email === 'OtkrovennieIgri@mail.ru')
+              user.email === 'otkrovennieigri@mail.ru')
             return Promise.all([
               dispatch('loadOwnProducts'),
               dispatch('fetchOrders', {userId: user.uid})

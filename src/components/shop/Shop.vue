@@ -32,6 +32,7 @@
                    alt="">
               <span slot="title">{{ option.label }}</span>
             </template>
+            <!--TODO: red on hover if collapsed-->
             <el-menu-item-group>
               <el-menu-item :index="option.value" @click="filterProducts">
                 Все
@@ -48,6 +49,7 @@
         </el-menu>
       </div>
       <!--ALGOLIA SEARCH-->
+      <!-- TODO: add Algolia icon-->
       <el-col :xs="24" :sm="24" :md="17" :lg="16" :xl="14" type="flex" align="middle">
         <el-row type="flex" justify="start">
           <el-col :span="14">

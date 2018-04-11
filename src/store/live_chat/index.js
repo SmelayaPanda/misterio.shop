@@ -69,6 +69,7 @@ export default {
       },
     observeAdminConnection:
       () => {
+        // TODO: every new admin sign in detected as new device
         // since admin connect from multiple devices or browser tabs,
         // we store each connection instance separately
         // any time that connectionsRef's value is null (i.e. has no children) - admin offline

@@ -29,6 +29,7 @@
           </p>
           <p>Описание: {{ props.row.description }}</p>
           <p>Цвет: {{ props.row.color }}</p>
+          <p>Бренд: {{ props.row.brand }}</p>
           <p>Дата создания: {{ props.row.creationDate | date }}</p>
           <p v-if="props.row.editDate">
             Последнее редактирование: {{ props.row.editDate | date }}
@@ -60,21 +61,8 @@
             <p>Title: {{ scope.row.title }}</p>
             <div slot="reference" class="name-wrapper">
               <v-chip outline label color="info_a">
-                {{ scope.row.title | snippet(27) }}
+                {{ scope.row.title | snippet(25) }}
               </v-chip>
-            </div>
-          </el-popover>
-        </template>
-      </el-table-column>
-      <!--BRAND-->
-      <el-table-column
-        label="Бренд"
-        width="124">
-        <template slot-scope="scope">
-          <el-popover trigger="hover" placement="top">
-            <p>Brand: {{ scope.row.brand }}</p>
-            <div slot="reference" class="name-wrapper">
-              {{ scope.row.brand | snippet(12) }}
             </div>
           </el-popover>
         </template>

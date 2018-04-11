@@ -88,7 +88,7 @@ export default {
   }
 
   .product_title {
-    font-size: 12px;
+    font-size: 11px;
     color: white;
   }
 

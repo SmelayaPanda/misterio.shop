@@ -134,7 +134,7 @@ new Vue({
           this.$store.dispatch('fetchUserData', user)
             .then(() => {
               if (this.$route.path.includes('admin') && ( // TODO: isAdmin copypast fix
-                user.email === 'smelayapandagm@gmail.com' || user.email === 'OtkrovennieIgri@mail.ru')) {
+                user.email === 'smelayapandagm@gmail.com' || user.email === 'otkrovennieigri@mail.ru')) {
                 this.$store.dispatch('fetchAllChats')
               } else {
                 this.$store.dispatch('initializeChat', user)

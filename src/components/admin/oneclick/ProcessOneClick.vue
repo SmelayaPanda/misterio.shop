@@ -123,7 +123,7 @@
             </el-form-item>
           </el-form>
           <el-row type="flex" justify="center">
-            <el-button type="primary"
+            <el-button class="primary_a"
                        @click="processOneClick"
                        :disabled="!isValidForm">
               Подтвердить

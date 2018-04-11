@@ -160,13 +160,13 @@ ORDER STATUS CHAIN:
       <!--Title-->
       <el-table-column
         label="Товар"
-        width="260">
+        width="300">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
             <p>Title: {{ scope.row.title }}</p>
             <div slot="reference" class="name-wrapper">
               <v-chip outline label color="info_a">
-                {{ scope.row.title | snippet(30) }}
+                {{ scope.row.title | snippet(25) }}
               </v-chip>
             </div>
           </el-popover>
