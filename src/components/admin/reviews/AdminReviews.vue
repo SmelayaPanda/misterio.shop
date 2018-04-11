@@ -106,8 +106,8 @@ export default {
   },
   data () {
     return {
-      status: 'new',
-      statuses: ['new', 'published', 'archived']
+      status: 'created',
+      statuses: ['created', 'published', 'archived']
     }
   },
   methods: {

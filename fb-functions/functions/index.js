@@ -135,10 +135,7 @@ exports.onUpdateProduct = functions.firestore
 exports.onDeleteProduct = functions.firestore
   .document('products/{productId}')
   .onDelete((change, context) => {
-    return Promise.all([
-      updateProductStatistics.handler(change, context, admin),
-      deleteAlgoliaIndex.handler(change, context, functions)
-    ])
+    return deleteAlgoliaIndex.handler(change, context, functions)
   })
 // live chat
 exports.onCreateUnreadLiveChatMsg = functions

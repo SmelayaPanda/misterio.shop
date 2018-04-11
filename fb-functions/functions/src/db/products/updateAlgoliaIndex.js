@@ -18,7 +18,7 @@ exports.handler = function (change, context, functions) {
       after.productId === before.productId // permanent product update after creation
     ) {
       console.log('No fields to update Algolia index!')
-      return true
+      return resolve()
     } else {
       const client = productHandlers(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);
       const index = client.initIndex(ALGOLIA_INDEX_NAME);

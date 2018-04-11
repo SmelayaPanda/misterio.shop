@@ -60,7 +60,7 @@
                 <div class="product_info">
                   <p class="info--text">Арт. : {{ product.SKU }}</p>
                   <div id="product_descr_wrapper">
-                    <p>Описание: {{ product.description }} </p>
+                    <p>{{ product.description }} </p>
                   </div>
                   <p>Бренд: {{ product.brand }} </p>
                   <p>Цвет: {{ product.color }} </p>
