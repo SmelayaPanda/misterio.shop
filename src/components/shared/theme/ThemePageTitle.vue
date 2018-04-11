@@ -1,8 +1,8 @@
 <template>
   <div id="page_title">
-    <p id="top_title">
-      <slot name="topTitle"></slot>
-    </p>
+    <div id="top_title_wrap">
+      <img id="top_title" src="@/assets/icons/for_you.svg" height="20px" alt="">
+    </div>
     <p id="middle_title">
       <slot name="middleTitle"></slot>
     </p>
@@ -25,10 +25,7 @@ export default {
   }
 
   #top_title {
-    font-family: $third-font;
-    font-size: 24px;
-    color: white;
-    margin-bottom: 0;
+    margin-bottom: 18px;
   }
 
   #middle_title {
@@ -54,18 +51,17 @@ export default {
     font-size: 12px;
     color: white;
   }
+
   @media only screen and (max-width: $sm-screen) {
     #middle_title {
       font-size: 32px;
     }
   }
+
   @media only screen and (max-width: $xs-screen) {
     #page_title {
       padding-top: 5vh;
       padding-bottom: 5vh;
-    }
-    #top_title {
-      font-size: 18px;
     }
     #middle_title {
       font-size: 28px;

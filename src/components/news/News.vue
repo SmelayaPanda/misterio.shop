@@ -2,7 +2,6 @@
   <div>
     <!-- TODO: pagination, sort by date desc -->
     <app-theme-page-title>
-      <p slot="topTitle">только для Вас</p>
       <p slot="middleTitle">АКЦИИ И НОВОСТИ</p>
       <p slot="bottomTitle">Самые привлекательные предложения и жгучие новости</p>
     </app-theme-page-title>

@@ -3,7 +3,6 @@
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
       <app-theme-page-title>
-        <p slot="topTitle">только для Вас</p>
         <p slot="middleTitle">О НАС И НАШИХ ПАРТНЕРАХ</p>
         <p slot="bottomTitle">Мы предлагаем не просто товары, а море удовольствия и наслаждения</p>
       </app-theme-page-title>

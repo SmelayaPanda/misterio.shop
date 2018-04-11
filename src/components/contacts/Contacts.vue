@@ -1,7 +1,6 @@
 <template>
   <div id="main">
     <app-theme-page-title>
-      <p slot="topTitle">только для Вас</p>
       <p slot="middleTitle">КОНТАКТЫ</p>
       <p slot="bottomTitle">Мы всегда на связи, чтобы подобрать для Вас самое подходящее</p>
     </app-theme-page-title>

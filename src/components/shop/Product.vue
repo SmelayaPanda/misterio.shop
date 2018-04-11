@@ -13,7 +13,7 @@
             </el-button>
           </router-link>
         </el-col>
-        <el-col :xs="24" :sm="20" :md="18" :lg="16" :xl="14" type="flex" align="middle">
+        <el-col :xs="24" :sm="20" :md="20" :lg="17" :xl="16" type="flex" align="middle">
           <el-card id="product_card">
             <el-row type="flex" style="flex-wrap: wrap">
               <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
@@ -59,14 +59,17 @@
                 <v-divider class="mb-2 mt-2"></v-divider>
                 <div class="product_info">
                   <p class="info--text">Арт. : {{ product.SKU }}</p>
-                  <div id="product_descr_wrapper">
-                    <p>{{ product.description }} </p>
-                  </div>
                   <el-row type="flex">
                     <el-col :span="12" align="left">
-                      <p>Бренд: {{ product.brand }} </p>
-                      <p>Цвет: {{ product.color }} </p>
-                      <p>Количество:
+                      <p>
+                        <img class="property_icon" src="@/assets/icons/product/brand.svg" width="21px" alt="">
+                        {{ product.brand }}
+                      </p>
+                      <p>
+                        <img class="property_icon" src="@/assets/icons/product/color.svg" width="20px" alt="">
+                        {{ product.color }} </p>
+                      <p>
+                        <img class="property_icon" src="@/assets/icons/product/qty.svg" width="20px" alt="">
                         <span v-if="product.totalQty < 1" class="error--text">
                           Нет в наличии
                         </span>
@@ -75,12 +78,21 @@
                         </span>
                       </p>
                     </el-col>
-                    <el-col :span="12" align="right">
-                      <p v-if="product.originCountry">Страна: {{ product.originCountry }}</p>
-                      <p v-if="product.material">Материал: {{ product.material }}</p>
-                      <p v-if="product.size">Размер: {{ product.size }}</p>
+                    <el-col :span="12" align="left" class="pl-3">
+                      <p v-if="product.originCountry">
+                        <img class="property_icon" src="@/assets/icons/product/country.svg" width="20px" alt="">
+                        {{ product.originCountry }}</p>
+                      <p v-if="product.material">
+                        <img class="property_icon" src="@/assets/icons/product/material.svg" width="20px" alt="">
+                        {{ product.material }}</p>
+                      <p v-if="product.size">
+                        <img class="property_icon" src="@/assets/icons/product/size.svg" width="16px" alt="">
+                        {{ product.size }}</p>
                     </el-col>
                   </el-row>
+                  <div id="product_descr_wrapper">
+                    <p>{{ product.description }} </p>
+                  </div>
                 </div>
                 <v-divider class="mb-3 mt-4"></v-divider>
                 <p>Цена: {{ product.price }} &#8381;</p>
@@ -211,7 +223,7 @@ export default {
 
   #product_descr_wrapper {
     width: 100%;
-    height: 200px;
+    height: 170px;
     overflow: scroll;
     margin-bottom: 10px;
   }
@@ -219,7 +231,6 @@ export default {
   .product_info {
     text-align: left;
     margin-left: 40px;
-    height: 330px;
   }
 
   #product_card {
@@ -235,5 +246,10 @@ export default {
   .own_product_icon:hover {
     transform: scale(1.3);
     cursor: pointer;
+  }
+
+  .property_icon {
+    margin-bottom: -5px;
+    margin-right: 2px;
   }
 </style>

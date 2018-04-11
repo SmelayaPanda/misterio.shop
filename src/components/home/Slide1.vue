@@ -1,13 +1,15 @@
 <template>
   <div id="slide_1">
     <div id="title" class="hidden-sm-and-down">
-      <p id="main_title_1" align="left">Не зная Вас</p>
+      <div id="main_title_1">
+        <img src="@/assets/icons/home/slide_1/text_one.svg" height="50px"  alt="">
+      </div>
       <p id="main_title_2" align="left">
         МЫ ЗНАЕМ ВСЁ<br>
         О ВАШИХ ЖЕЛАНИЯХ
       </p>
       <p id="main_title_3" align="right">
-        и даже больше...<br>
+        <img src="@/assets/icons/home/slide_1/text_two.svg" height="36px"  alt=""><br>
         <router-link to="/shop">
           <app-theme-btn
             class="mt-4"
@@ -37,13 +39,8 @@ export default {
   }
 
   #main_title_1 {
-    position: relative;
-    color: white;
-    font-family: $third-font;
-    font-weight: bold;
-    font-size: 32px;
-    margin-bottom: 0;
-    padding-left: 10px;
+    display: flex;
+    justify-content: start;
   }
 
   #main_title_2 {
@@ -61,7 +58,6 @@ export default {
   #main_title_3 {
     position: relative;
     color: white;
-    font-family: $third-font;
     font-weight: bold;
     font-size: 32px;
     margin-top: -8px;

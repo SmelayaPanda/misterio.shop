@@ -138,7 +138,7 @@ export default {
     height: 100vh;
   }
 
-/*  background: linear-gradient(to right, $color-primary, $color-primary-light);*/
+  /*  background: linear-gradient(to right, $color-primary, $color-primary-light);*/
   .slide_1 {
     background: url("../../../static/bg/home/draft_bg.png") no-repeat center;
     background-size: cover;
