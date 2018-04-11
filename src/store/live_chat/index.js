@@ -183,6 +183,7 @@ export default {
       },
     initializeChat:
       ({commit, getters, dispatch}, payload) => {
+        if (!payload.uid) return
         let chatRef = firebase.database().ref(`liveChats/${payload.uid}`)
         chatRef.once('value')
           .then(data => {
@@ -228,6 +229,7 @@ export default {
       },
     sendChatMessage:
       ({commit, getters, dispatch}, payload) => {
+        if (!payload.chatId) return
         let newMsg = {
           msg: payload.msg,
           creator: payload.creator,
@@ -251,6 +253,7 @@ export default {
       },
     USER_EVENT:
       ({commit, getters, dispatch}, payload) => {
+        if (!getters.user.uid) return
         let newEvent = {
           name: payload,
           date: new Date().getTime()
@@ -265,6 +268,7 @@ export default {
       },
     setChatProp:
       ({commit, getters, dispatch}, payload) => {
+        if (!payload.chatId) return
         firebase.database().ref(`liveChats/${payload.chatId}/props`)
           .update({
             [payload.props]: payload.value

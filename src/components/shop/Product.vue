@@ -56,22 +56,31 @@
                       class="own_product_icon primary--text">favorite_border</v-icon>
                   </span>
                 </p>
-                <v-divider class="mb-3 mt-3"></v-divider>
+                <v-divider class="mb-2 mt-2"></v-divider>
                 <div class="product_info">
                   <p class="info--text">Арт. : {{ product.SKU }}</p>
                   <div id="product_descr_wrapper">
                     <p>{{ product.description }} </p>
                   </div>
-                  <p>Бренд: {{ product.brand }} </p>
-                  <p>Цвет: {{ product.color }} </p>
-                  <p>Количество:
-                    <span v-if="product.totalQty < 1" class="error--text">
-                      Нет в наличии
-                    </span>
-                    <span v-else>
-                      {{ product.totalQty }}
-                    </span>
-                  </p>
+                  <el-row type="flex">
+                    <el-col :span="12" align="left">
+                      <p>Бренд: {{ product.brand }} </p>
+                      <p>Цвет: {{ product.color }} </p>
+                      <p>Количество:
+                        <span v-if="product.totalQty < 1" class="error--text">
+                          Нет в наличии
+                        </span>
+                        <span v-else>
+                          {{ product.totalQty }}
+                        </span>
+                      </p>
+                    </el-col>
+                    <el-col :span="12" align="right">
+                      <p v-if="product.originCountry">Страна: {{ product.originCountry }}</p>
+                      <p v-if="product.material">Материал: {{ product.material }}</p>
+                      <p v-if="product.size">Размер: {{ product.size }}</p>
+                    </el-col>
+                  </el-row>
                 </div>
                 <v-divider class="mb-3 mt-4"></v-divider>
                 <p>Цена: {{ product.price }} &#8381;</p>
@@ -195,8 +204,9 @@ export default {
 
   #product_title {
     font-size: 20px;
-    padding: 10px;
+    padding: 10px 10px 5px;
     margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   #product_descr_wrapper {

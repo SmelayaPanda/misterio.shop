@@ -25,11 +25,22 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <p><span>Database id:</span>
-            <el-tag size="mini" type="success">{{ props.row.productId }}</el-tag>
+            <el-tag v-if="props.row.productId" size="mini" type="success">
+              {{ props.row.productId }}
+            </el-tag>
           </p>
           <p>Описание: {{ props.row.description }}</p>
           <p>Цвет: {{ props.row.color }}</p>
           <p>Бренд: {{ props.row.brand }}</p>
+          <p v-if="props.row.size">
+            Размер: {{ props.row.size }}
+          </p>
+          <p v-if="props.row.material">
+            Материал: {{ props.row.material }}
+          </p>
+          <p v-if="props.row.originCountry">
+            Страна: {{ props.row.originCountry }}
+          </p>
           <p>Дата создания: {{ props.row.creationDate | date }}</p>
           <p v-if="props.row.editDate">
             Последнее редактирование: {{ props.row.editDate | date }}

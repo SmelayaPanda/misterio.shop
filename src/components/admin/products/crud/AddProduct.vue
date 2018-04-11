@@ -25,16 +25,31 @@
                 type="textarea"
                 placeholder="( < 500 символов)"
                 :autosize="{ minRows: 3, maxRows: 7}"
-                :maxlength="500"
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="Артикул" :label-width="formLabelWidth">
-              <el-input
-                v-model="product.SKU"
-                placeholder="( < 20 символов )"
-                :maxlength="20">
+                :maxlength="500">
               </el-input>
             </el-form-item>
+            <!--SKU-->
+            <el-row type="flex">
+              <el-col :span="12">
+                <el-form-item label="Артикул" :label-width="formLabelWidth">
+                  <el-input
+                    v-model="product.SKU"
+                    placeholder="( < 20 символов )"
+                    :maxlength="20">
+                  </el-input>
+                </el-form-item>
+              </el-col>
+              <!--Size-->
+              <el-col :span="12">
+                <el-form-item label="Размер" :label-width="formLabelWidth">
+                  <el-input
+                    v-model="product.size"
+                    placeholder="( < 30 символов, не обязательное )"
+                    :maxlength="30">
+                  </el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
             <!--BRAND-->
             <el-row type="flex" style="flex-wrap: wrap">
               <el-form-item label="Бренд" :label-width="formLabelWidth">
@@ -43,9 +58,9 @@
                   no-match-text="Бренд отсутствует"
                   v-model="product.brand"
                   placeholder="Бренд"
-                  v-if="brands">
+                  v-if="dictionaries.brands">
                   <el-option
-                    v-for="val in brands"
+                    v-for="val in dictionaries.brands"
                     :key="val"
                     :label="val"
                     :value="val">
@@ -59,9 +74,44 @@
                   no-match-text="Цвет отсутствует"
                   v-model="product.color"
                   placeholder="Цвет"
-                  v-if="colors">
+                  v-if="dictionaries.colors">
                   <el-option
-                    v-for="val in colors"
+                    v-for="val in dictionaries.colors"
+                    :key="val"
+                    :label="val"
+                    :value="val">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-row>
+            <!--Origin Country-->
+            <el-row type="flex" style="flex-wrap: wrap">
+              <el-form-item label="Страна" :label-width="formLabelWidth">
+                <el-select
+                  filterable
+                  no-match-text="Страна отсутствует"
+                  v-model="product.originCountry"
+                  placeholder="Страна"
+                  v-if="dictionaries.countries">
+                  <el-option
+                    v-for="val in dictionaries.countries"
+                    :key="val"
+                    :label="val"
+                    :value="val">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <!--Matrial-->
+              <el-form-item label="Материал" :label-width="formLabelWidth">
+                <el-select
+                  filterable
+                  clearable
+                  no-match-text="Материал отсутствует"
+                  v-model="product.material"
+                  placeholder="( не обязательное )"
+                  v-if="dictionaries.materials">
+                  <el-option
+                    v-for="val in dictionaries.materials"
                     :key="val"
                     :label="val"
                     :value="val">
@@ -116,6 +166,9 @@ export default {
         title: '',
         description: '',
         SKU: '',
+        originCountry: '',
+        material: '',
+        size: '',
         brand: '',
         currency: 'RUB',
         price: 100,
@@ -133,6 +186,9 @@ export default {
         title: this.product.title,
         description: this.product.description,
         SKU: this.product.SKU,
+        originCountry: this.product.originCountry,
+        material: this.product.material ? this.product.material : '',
+        size: this.product.size ? this.product.size : '',
         brand: this.product.brand,
         price: parseFloat(this.product.price),
         currency: this.product.currency,
@@ -157,13 +213,11 @@ export default {
   computed: {
     isValidForm () {
       return this.product.title && this.product.description &&
-          this.product.color && this.product.SKU && this.product.brand
+          this.product.color && this.product.SKU && this.product.brand &&
+          this.product.originCountry
     },
-    brands () {
-      return this.$store.getters.dictionaries.brands
-    },
-    colors () {
-      return this.$store.getters.dictionaries.colors
+    dictionaries () {
+      return this.$store.getters.dictionaries
     }
   }
 }

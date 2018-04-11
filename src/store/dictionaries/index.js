@@ -4,7 +4,9 @@ export default {
   state: {
     dictionaries: {
       brands: [],
-      colors: []
+      colors: [],
+      countries: [],
+      materials: []
     }
   },
   mutations: {
