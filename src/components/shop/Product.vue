@@ -59,7 +59,9 @@
                 <v-divider class="mb-3 mt-3"></v-divider>
                 <div class="product_info">
                   <p class="info--text">Арт. : {{ product.SKU }}</p>
-                  <p>Описание: {{ product.description }} </p>
+                  <div id="product_descr_wrapper">
+                    <p>Описание: {{ product.description }} </p>
+                  </div>
                   <p>Бренд: {{ product.brand }} </p>
                   <p>Цвет: {{ product.color }} </p>
                   <p>Количество:
@@ -195,6 +197,13 @@ export default {
     font-size: 20px;
     padding: 10px;
     margin-top: 10px;
+  }
+
+  #product_descr_wrapper {
+    width: 100%;
+    height: 200px;
+    overflow: scroll;
+    margin-bottom: 10px;
   }
 
   .product_info {

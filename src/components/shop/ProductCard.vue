@@ -98,15 +98,13 @@ export default {
     transition: all .5s;
   }
 
-  .main_card:hover {
-    box-shadow: 0 3px 8px 0 rgba(250, 250, 250, 0.2), 3px 3px 8px 0 rgba(250, 250, 250, 0.2);
-  }
-
   .card_wrapper {
+    transition: all .5s;
   }
 
   .card_wrapper:hover {
     cursor: pointer;
+    transform: scale(1.03);
   }
 
   .own_product_icon {
@@ -132,5 +130,24 @@ export default {
     font-size: 12px;
     padding: 12px;
     margin: 0;
+  }
+
+  .card__media {
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+    transition: all .5s;
+  }
+
+  .main_card:hover {
+    box-shadow: 0 3px 8px 0 rgba(250, 250, 250, 0.2), 3px 3px 8px 0 rgba(250, 250, 250, 0.2);
+    .card__media {
+      -webkit-filter: none;
+      filter: none;
+    }
+    div.card__media__background {
+      transform: scale(1.1) !important;
+      width: 110%;
+      height: 110%;
+    }
   }
 </style>

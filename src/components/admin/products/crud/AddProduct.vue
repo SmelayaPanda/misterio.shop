@@ -23,9 +23,9 @@
               <el-input
                 v-model="product.description"
                 type="textarea"
-                placeholder="( < 400 символов)"
+                placeholder="( < 500 символов)"
                 :autosize="{ minRows: 3, maxRows: 7}"
-                :maxlength="400"
+                :maxlength="500"
               ></el-input>
             </el-form-item>
             <el-form-item label="Артикул" :label-width="formLabelWidth">

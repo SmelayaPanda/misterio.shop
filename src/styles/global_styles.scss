@@ -44,11 +44,10 @@ $lg-screen: 1920px;
 .el-select-dropdown__item {
   font-family: $primary-font;
 }
-#shop_wrapper {
-  .el-menu-item:hover {
-    background-color: $color-secondary !important;
-    color: white !important;
-  }
+
+.el-menu-item:hover {
+  background-color: $color-secondary !important;
+  color: white !important;
 }
 
 #products_filter {
@@ -155,6 +154,13 @@ $lg-screen: 1920px;
 #admin_nav_menu {
   .el-menu-item.is-active, .el-menu-item.is-active i {
     color: $color-primary_a;
+  }
+  .el-menu-item:hover {
+    background-color: $color-primary_a !important;
+    color: white !important;
+    i {
+      color: white;
+    }
   }
 }
 
