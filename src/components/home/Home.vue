@@ -31,7 +31,7 @@
           id="phone_number">
           +7 (800) <b>100 66 66</b>
         </div>
-        <div id="flip_down_wrapper" @click="swiper.slideNext()">
+        <div v-if="curSlide !== 3" id="flip_down_wrapper" @click="swiper.slideNext()">
           <p id="flip_down">
             Листай вниз
           </p>
