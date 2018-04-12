@@ -1,13 +1,14 @@
 export const appConstants = {
   data: function () {
     return {
-      appMail: 'montessoriberdsk@gmail.com',
+      appMail: 'otkrovennieigri@mail.ru',
       PRODUCT_CLASSIFICATION: [{
         value: 'sexToy',
         label: 'Секс-игрушки',
         icon: '/static/icon/shop/big/penis.svg',
         children: [
           {value: 'vibrator', label: 'вибраторы'},
+          {value: 'pulsator', label: 'пульсаторы'},
           {value: 'dildo', label: 'фаллоимитаторы'},
           {value: 'vaginalBall', label: 'вагинальные шарики'},
           {value: 'analToy', label: 'анальные игрушки'},

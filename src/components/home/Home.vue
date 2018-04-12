@@ -7,6 +7,7 @@
         <loading-misterio></loading-misterio>
       </div>
       <div v-else key="2">
+        <mobile-menu></mobile-menu>
         <app-header
           :color="curSlide === 2 ? 'black' : 'red'"
           class="app_header">
@@ -85,10 +86,12 @@ import Slide2 from '@/components/home/Slide2'
 import Slide3 from '@/components/home/Slide3'
 import Slide4 from '@/components/home/Slide4'
 import LoadingMisterio from './LoadingMisterio'
+import MobileMenu from '../MobileMenu'
 
 export default {
   name: 'Home',
   components: {
+    MobileMenu,
     LoadingMisterio,
     HomeFrame,
     AppHeader,
@@ -177,6 +180,7 @@ export default {
     width: 100vw;
     height: 100vh;
   }
+
   .app_header {
     position: absolute;
     z-index: 2;

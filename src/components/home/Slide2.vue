@@ -90,12 +90,14 @@
             </p>
           </el-col>
           <el-col :xs="12" :sm="8" :md="6" :lg="6" :xl="6">
-            <div id="more_btn_wrap">
-              <app-theme-btn width="142px" id="more_btn">
-                Подробнее
-                <i class="el-icon-d-arrow-right"></i>
-              </app-theme-btn>
-            </div>
+            <router-link to="/about" exact>
+              <div id="more_btn_wrap">
+                <app-theme-btn width="142px" id="more_btn">
+                  Подробнее
+                  <i class="el-icon-d-arrow-right"></i>
+                </app-theme-btn>
+              </div>
+            </router-link>
           </el-col>
         </el-row>
       </el-col>

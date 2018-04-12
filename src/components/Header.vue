@@ -50,11 +50,12 @@
 
 <script>
 import UserIcons from './UserIcons'
+import MobileMenu from './MobileMenu'
 
 export default {
   name: 'Header',
   props: ['color'],
-  components: {UserIcons}
+  components: {MobileMenu, UserIcons}
 }
 </script>
 
