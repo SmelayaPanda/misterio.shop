@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--TODO: remove from all user cards-->
     <el-button type="info"
                @click="dialogVisible = true">
       <i class="el-icon-delete"></i>

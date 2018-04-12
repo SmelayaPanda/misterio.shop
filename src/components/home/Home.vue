@@ -1,7 +1,8 @@
 <template>
   <div class="home_page">
     <transition-group name="slide-fade">
-      <div v-if="!this.isLoadedHome && !this.isLoading" key="1"
+      <div v-if="this.isLoadingHome"
+           key="1"
            id="misterio_shop_wrap">
         <loading-misterio></loading-misterio>
       </div>
@@ -101,7 +102,7 @@ export default {
   },
   data () {
     return {
-      isLoadedHome: false,
+      isLoadingHome: true,
       curSlide: 0,
       swiperOption: {
         direction: 'vertical',
@@ -129,10 +130,10 @@ export default {
   mounted () {
     let t = setInterval(() => {
       if (document.readyState === 'complete') {
-        this.isLoadedHome = true
+        this.isLoadingHome = false
         clearInterval(t)
       }
-    }, 500)
+    }, 1000)
   }
 }
 </script>

@@ -211,10 +211,9 @@ export default {
         let cart = {}
         let favorites = {}
         let loadProduct = function (pId, to) {
-          // TODO: if product was removed?
           return firebase.firestore().collection('products').doc(pId).get()
             .then(snap => {
-              if (to === 'cart' && snap.data()) {
+              if (to === 'cart' && snap.data()) { // !snap.data() === product removed
                 cart[pId] = snap.data()
               } else if (to === 'favorites' && snap.data()) {
                 favorites[pId] = snap.data()

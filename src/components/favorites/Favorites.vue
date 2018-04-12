@@ -27,7 +27,7 @@
         </el-row>
         <el-row v-else type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :span="24">
-          <p id="favorite_list" align="center">Список Ваших желаний пуст</p> <br>
+            <p id="favorite_list" align="center">Список Ваших желаний пуст</p>
           </el-col>
           <router-link to="/shop">
             <p id="into_catalog">
@@ -76,8 +76,9 @@ export default {
     font-size: 16px;
     font-weight: 600;
   }
+
   #favorite_list {
     color: white;
-    margin-bottom: 0;
+    margin-bottom: 10px;
   }
 </style>
