@@ -76,10 +76,10 @@
           v-if="this.$store.getters.user.cart"
           :xs="24" :sm="3" :md="3" :lg="3" :xl="3" align="left">
           <span id="cart_count"
-                v-if="Object.keys(this.$store.getters.user.cart).length"
+                v-if="!Array.isArray(cart) && Object.keys(cart).length"
                 :class="this.$route.path === '/cart' ? 'white--text' :
                         ( color === 'red' ? 'secondary--text' : 'primary--text' )">
-                +{{ Object.keys(this.$store.getters.user.cart).length }}
+                +{{ Object.keys(cart).length }}
           </span>
         </el-col>
       </el-row>
@@ -91,7 +91,12 @@
 <script>
 export default {
   name: 'UserIcons',
-  props: ['color']
+  props: ['color'],
+  computed: {
+    cart () {
+      return this.$store.getters.user.cart
+    }
+  }
 }
 </script>
 

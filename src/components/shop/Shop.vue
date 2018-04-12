@@ -1,7 +1,7 @@
 <template>
   <div id="shop_wrapper">
     <el-row type="flex" justify="left" style="flex-wrap: wrap">
-      <div style="flex: 0 0 280px;" align="left">
+      <div id="shop_nav_menu"  align="left">
         <el-button type="text" @click="isCollapsed = !isCollapsed" class="mt-2 ml-3 pl-1">
           <v-icon v-if="isCollapsed" class="info--text">hdr_strong</v-icon>
           <v-icon v-else class="info--text">hdr_weak</v-icon>
@@ -241,7 +241,7 @@ export default {
     },
     filter () {
       this.$store.dispatch('productFilters', {
-        limit: this.algoliaSearchText ? null : 6, // all with algolia search
+        limit: this.algoliaSearchText ? null : 15, // all with algolia search
         sortAsc: this.sortAsc,
         minPrice: this.sliderValues[0],
         maxPrice: this.sliderValues[1],
@@ -308,6 +308,10 @@ export default {
 
 <style scoped type="scss">
 
+  #shop_nav_menu {
+    margin-top: 76px;
+    flex: 0 0 280px;
+  }
   .search_input {
     margin-left: 12px;
     padding-right: 24px;

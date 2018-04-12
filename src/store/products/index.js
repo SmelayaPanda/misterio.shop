@@ -21,7 +21,7 @@ export default {
       brand: '',
       color: '',
       sortAsc: true,
-      limit: 6
+      limit: 15
     },
     algoliaSearchText: '',
     algoliaSearchProductIds: []

@@ -214,9 +214,9 @@ export default {
           // TODO: if product was removed?
           return firebase.firestore().collection('products').doc(pId).get()
             .then(snap => {
-              if (to === 'cart') {
+              if (to === 'cart' && snap.data()) {
                 cart[pId] = snap.data()
-              } else if (to === 'favorites') {
+              } else if (to === 'favorites' && snap.data()) {
                 favorites[pId] = snap.data()
               }
             })

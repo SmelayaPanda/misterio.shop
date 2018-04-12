@@ -186,7 +186,7 @@ export default {
       let cart = this.userCart
       if (cart) {
         for (let pId in cart) {
-          if (cart.hasOwnProperty(pId)) {
+          if (cart.hasOwnProperty(pId) && cart[pId]) {
             let item = {}
             item.productId = cart[pId].productId
             item.qty = cart[pId].qty

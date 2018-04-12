@@ -2,10 +2,8 @@
   <el-row type="flex" justify="center" class="main_header">
     <div id="app_main_logo_wrapper">
       <img id="app_main_logo" src="@/assets/icons/logo_site.svg" alt="">
-      <span id="logo_title"
-            :class="color === 'black' ? 'primary--text' : 'secondary--text'">
-        Откровенные игры
-      </span>
+      <img v-if="color === 'black'" class="text_logo" src="@/assets/icons/logo_text_black.svg" alt="">
+      <img v-else class="text_logo" src="@/assets/icons/logo_text_red.svg" alt="">
     </div>
     <el-col :xs="14" :sm="12" :md="11" :lg="10" :xl="9">
       <el-row type="flex" justify="center" class="pl-1 pr-3">
@@ -81,15 +79,11 @@ export default {
     }
   }
 
-  #logo_title {
+  .text_logo {
     position: absolute;
-    top: 23px;
+    top: 20px;
     left: 70px;
-    font-family: 'Poiret One', cursive;
-    font-size: 18px;
-    font-weight: 600;
-    text-align: left;
-    line-height: 15px;
+    height: 32px;
   }
 
   .main_header {
