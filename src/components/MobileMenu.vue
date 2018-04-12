@@ -1,7 +1,8 @@
 <template>
   <div id="mobile_menu">
     <!--Mobile toolbar-->
-    <v-toolbar class="primary mobile_toolbar">
+    <v-toolbar class="primary mobile_toolbar"
+               :style="this.$route.path === '/' ? 'position: absolute' : ''">
       <v-toolbar-side-icon
         @click="sideNav = !sideNav"
         class="white--text ml-3 pl-3 side_icon">
@@ -11,13 +12,12 @@
     <!--Navigation drawer-->
     <v-navigation-drawer style="z-index: 100" temporary absolute v-model="sideNav">
       <v-list>
-        <!--:key="item.title for dynamic assigning-->
         <v-list-tile
           v-for="item in menuItems"
           :key="item.title"
           :to="item.link">
           <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <img class="mobile_menu_icon" :src="'/static/icon/mobile/' + item.icon + '.svg'" alt="">
           </v-list-tile-action>
           <v-list-tile-content>{{ item.title }}</v-list-tile-content>
         </v-list-tile>
@@ -33,14 +33,14 @@ export default {
     return {
       sideNav: false,
       menuItems: [
-        {title: 'Главная', link: '/', icon: 'computer'},
-        {title: 'Каталог', link: '/shop', icon: 'storage'},
-        {title: 'О нас', link: '/about', icon: 'account_balance'},
-        {title: 'Акции', link: '/news', icon: 'new_releases'},
+        {title: 'Главная', link: '/', icon: 'home'},
+        {title: 'Каталог', link: '/shop', icon: 'shop'},
+        {title: 'О нас', link: '/about', icon: 'about'},
+        {title: 'Акции', link: '/news', icon: 'news'},
         {title: 'Контакты', link: '/contacts', icon: 'contacts'},
-        {title: 'Избранное', link: '/favorites', icon: 'favorite'},
-        {title: 'Корзина', link: '/cart', icon: 'shopping_cart'},
-        {title: 'Аккаунт', link: '/account', icon: 'perm_identity'}
+        {title: 'Избранное', link: '/favorites', icon: 'favorites'},
+        {title: 'Корзина', link: '/cart', icon: 'cart'},
+        {title: 'Аккаунт', link: '/account', icon: 'account'}
       ]
     }
   }
@@ -49,6 +49,7 @@ export default {
 
 <style scoped lang="scss">
   .mobile_toolbar {
+    z-index: 11;
     background-image: linear-gradient(90deg, $color-secondary 23%, $color-secondary-dark 100%);
   }
 
@@ -58,6 +59,10 @@ export default {
 
   #mobile_menu {
     display: none;
+  }
+
+  .mobile_menu_icon {
+    height: 20px;
   }
 
   @media only screen and (max-width: $xs-screen) {

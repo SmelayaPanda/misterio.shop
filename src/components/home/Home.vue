@@ -7,7 +7,9 @@
         <loading-misterio></loading-misterio>
       </div>
       <div v-else key="2">
+        <!-- MOBILE -->
         <mobile-menu></mobile-menu>
+        <!-- DESCTOP -->
         <app-header
           :color="curSlide === 2 ? 'black' : 'red'"
           class="app_header">

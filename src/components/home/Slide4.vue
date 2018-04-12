@@ -244,7 +244,7 @@ export default {
 
   @media only screen and (max-width: $xs-screen) {
     #slide_4 {
-      margin-top: 6vh;
+      margin-top: 10vh;
     }
     #title_slide_4 {
       margin-bottom: 6vh;

@@ -13,6 +13,7 @@
            class="router_header"
            key="about"
            src="@/assets/img/about/about_header.jpg" alt="">
+      <mobile-menu key="mobile" v-if="!this.$route.path.includes('admin') && this.$route.path !== '/'"></mobile-menu>
       <app-header key="head" v-if="!this.$route.path.includes('admin') && this.$route.path !== '/'"></app-header>
       <div
         key="liveChat"
@@ -37,9 +38,11 @@ import AppHeader from '@/components/Header'
 import AdminPanel from '@/components/admin/AdminPanel'
 import UserIcons from '@/components/UserIcons'
 import LiveChat from '@/components/shared/LiveChat'
+import MobileMenu from './components/MobileMenu'
 
 export default {
   components: {
+    MobileMenu,
     AppHeader,
     AdminPanel,
     UserIcons,
@@ -113,11 +116,14 @@ export default {
   .slide-fade-enter-active {
     transition: all 2.7s ease-in;
   }
+
   .slide-fade-leave-active {
     transition: all 1.5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
+
   .slide-fade-enter, .slide-fade-leave-to
-    /* .slide-fade-leave-active до версии 2.1.8 */ {
+    /* .slide-fade-leave-active до версии 2.1.8 */
+  {
     transform: translateY(7px);
     opacity: 0;
   }
