@@ -62,7 +62,7 @@ export default {
   }
 
   .mobile_menu_icon {
-    height: 20px;
+    height: 25px;
   }
 
   @media only screen and (max-width: $xs-screen) {

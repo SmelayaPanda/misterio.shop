@@ -158,7 +158,7 @@ export default {
     margin-top: 14px;
   }
 
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: $xs-screen) {
     .news_text_block {
       padding-left: 0;
     }

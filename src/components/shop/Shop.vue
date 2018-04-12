@@ -1,7 +1,7 @@
 <template>
   <div id="shop_wrapper">
     <el-row type="flex" justify="left" style="flex-wrap: wrap">
-      <div id="shop_nav_menu"  align="left">
+      <div id="shop_nav_menu" align="left">
         <el-button type="text" @click="isCollapsed = !isCollapsed" class="mt-2 ml-3 pl-1">
           <v-icon v-if="isCollapsed" class="info--text">hdr_strong</v-icon>
           <v-icon v-else class="info--text">hdr_weak</v-icon>
@@ -206,7 +206,7 @@ export default {
       selectedGroup: filter.group,
       selectedCategory: filter.category,
       formLabelWidth: '120px',
-      isCollapsed: true,
+      isCollapsed: false,
       activeName:
           !filter.brand &&
           !filter.color &&
@@ -306,12 +306,12 @@ export default {
 }
 </script>
 
-<style scoped type="scss">
-
+<style scoped lang="scss">
   #shop_nav_menu {
     margin-top: 76px;
     flex: 0 0 280px;
   }
+
   .search_input {
     margin-left: 12px;
     padding-right: 24px;
@@ -329,5 +329,12 @@ export default {
     width: 45px;
     margin-right: 10px;
     z-index: 11;
+  }
+
+  @media only screen and (max-width: $sm-screen) {
+    #shop_nav_menu {
+      margin-top: 0;
+      flex: 0 0 100%;
+    }
   }
 </style>
