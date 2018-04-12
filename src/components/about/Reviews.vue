@@ -20,7 +20,7 @@ REVIEW STATUSES:
           <div slot="header" class="clearfix">
             <el-row>
               <el-col :span="24">
-                <img src="@/assets/icons/anonymous-logo.png" height="40px">
+                <img src="@/assets/icons/common/anonymous-logo.png" height="40px">
               </el-col>
             </el-row>
             <el-row>

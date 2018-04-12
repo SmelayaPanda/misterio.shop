@@ -2,7 +2,7 @@
   <el-row el-row type="flex" justify="center" class="mt-3" v-if="userOrders.length !== 0">
     <el-col :xs="24" :sm="20" :md="18" :lg="16" :xl="12" type="flex" align="middle">
       <p id="order_title" align="left">
-        <img src="@/assets/icons/list.svg" id="order_bag" alt="">
+        <img src="@/assets/icons/routers/list.svg" id="order_bag" alt="">
         ИСТОРИЯ ПОКУПОК
       </p>
       <div v-if="userOrders">

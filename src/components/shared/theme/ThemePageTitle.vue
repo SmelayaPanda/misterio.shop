@@ -1,7 +1,7 @@
 <template>
   <div id="page_title">
     <div id="top_title_wrap">
-      <img id="top_title" src="@/assets/icons/for_you.svg" height="20px" alt="">
+      <img id="top_title" src="@/assets/icons/text/for_you.svg" height="20px" alt="">
     </div>
     <p id="middle_title">
       <slot name="middleTitle"></slot>

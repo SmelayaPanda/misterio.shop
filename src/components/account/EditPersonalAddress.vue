@@ -4,7 +4,7 @@
                type="text"
                class="button">
       <span>Адрес</span>
-      <img src="@/assets/icons/red_pencil.svg" id="red_pencil" height="12px" alt="">
+      <img src="@/assets/icons/common/red_pencil.svg" id="red_pencil" height="12px" alt="">
     </el-button>
   <el-dialog title="Редактировать"
              width="380px"

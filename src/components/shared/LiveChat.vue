@@ -16,7 +16,7 @@
         <h2 v-if="isUserSide && unreadByUser">
           <span class="unread_by_user">+{{ unreadByUser }}</span>
         </h2>
-        <img v-else src="@/assets/icons/heartbeat.svg" alt="">
+        <img v-else src="@/assets/icons/common/heartbeat.svg" alt="">
       </div>
     </div>
     <v-card id="liveChat" v-if="!isCollapsedChat" :class="isUserSide ? 'user_live_chat' : 'admin_live_chat'">

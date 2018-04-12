@@ -8,7 +8,7 @@
         justify="center">
         <el-col :xs="24" :sm="20" :md="18" :lg="16" :xl="12" type="flex" align="middle">
           <p id="cart_title" align="left">
-            <img src="@/assets/icons/cart_bag.svg" id="cart_bag" alt="">
+            <img src="@/assets/icons/routers/cart_bag.svg" id="cart_bag" alt="">
             КОРЗИНА
           </p>
           <div v-if="!Object.keys(userCart).length">

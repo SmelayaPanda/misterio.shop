@@ -3,7 +3,7 @@
     <el-button @click="dialogVisible = true"
                type="text"
                class="button mt-2">
-      <img src="@/assets/icons/grey_pencil.svg" id="edit_info_icon" height="12px" alt="">
+      <img src="@/assets/icons/common/grey_pencil.svg" id="edit_info_icon" height="12px" alt="">
       <span id="edit_personal_info">Редактировать</span>
     </el-button>
   <el-dialog

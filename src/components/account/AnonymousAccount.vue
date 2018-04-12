@@ -7,7 +7,7 @@
             Приветствуем!
           </p>
           <b>Вы зашли как анонимный пользователь!</b><br>
-          <img src="@/assets/icons/anonymous.png"
+          <img src="@/assets/icons/common/anonymous.png"
                id="anonymous_icon"><br>
           <b>
             Вы не сможете управлять своими данными на на других устройствах

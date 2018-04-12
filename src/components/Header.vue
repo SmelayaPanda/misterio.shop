@@ -1,9 +1,9 @@
 <template>
   <el-row type="flex" justify="center" class="main_header">
     <div id="app_main_logo_wrapper">
-      <img id="app_main_logo" src="@/assets/icons/logo_site.svg" alt="">
-      <img v-if="color === 'black'" class="text_logo" src="@/assets/icons/logo_text_black.svg" alt="">
-      <img v-else class="text_logo" src="@/assets/icons/logo_text_red.svg" alt="">
+      <img id="app_main_logo" src="@/assets/icons/logo/logo_site.svg" alt="">
+      <img v-if="color === 'black'" class="text_logo" src="@/assets/icons/logo/logo_text_black.svg" alt="">
+      <img v-else class="text_logo" src="@/assets/icons/logo/logo_text_red.svg" alt="">
     </div>
     <el-col :xs="14" :sm="12" :md="11" :lg="10" :xl="9">
       <el-row type="flex" justify="center" class="pl-1 pr-3">

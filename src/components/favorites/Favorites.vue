@@ -2,7 +2,7 @@
   <div>
     <el-row type="flex" justify="center" style="flex-wrap: wrap">
       <el-col :xs="22" :sm="22" :md="18" :lg="18" :xl="15" align="left" class="ml-1 mr-1 mb-3 mt-2">
-        <img src="@/assets/icons/icon_favorite.svg" id="favorite_icon" alt="">
+        <img src="@/assets/icons/routers/icon_favorite.svg" id="favorite_icon" alt="">
         <span id="favorite_title">
         ИЗБРАННОЕ
       </span>

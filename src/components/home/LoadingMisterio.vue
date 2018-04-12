@@ -39,7 +39,7 @@ export default {
 
   .loading {
     position: fixed;
-    top: 0;
+    top: -10vh;
     left: 0;
     width: 100%;
     height: 100%;
