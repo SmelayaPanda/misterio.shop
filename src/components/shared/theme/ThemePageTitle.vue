@@ -20,7 +20,8 @@ export default {
 
 <style scoped lang="scss">
   #page_title {
-    padding-top: 60px;
+    position: relative;
+    padding-top: 50px;
     padding-bottom: 130px;
   }
 

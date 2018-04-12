@@ -1,74 +1,75 @@
 <template>
   <div class="home_page">
-    <div id="app_main_logo_wrapper">
-      <img id="app_main_logo" src="@/assets/icons/logo_site.svg" alt="">
-      <span id="logo_title"
-            :class="curSlide === 2 ? 'primary--text' : 'secondary--text'">
-        Откровенные игры
-      </span>
-    </div>
-    <app-header
-      :color="curSlide === 2 ? 'black' : 'red'"
-      class="app_header">
-    </app-header>
-    <social-icons
-      :color="curSlide === 2 ? 'black' : 'red'"
-      class="social_icons">
-    </social-icons>
-    <!--LIVE CHAT-->
-    <div class="live_chat">
-      <live-chat
-        :color="curSlide === 2 ? 'black' : 'red'"
-        :chatId="this.$store.getters.user.uid"
-        :isUserSide="true"
-        :isCollapsed="true"
-        class="live_chat">
-      </live-chat>
-    </div>
-    <div
-      :class="curSlide === 2 ? 'primary--text' : ''"
-      id="phone_number">
-      +7 (800) <b>100 66 66</b>
-    </div>
-    <div id="flip_down_wrapper" @click="swiper.slideNext()">
-      <p id="flip_down">
-        Листай вниз
-      </p>
-    </div>
-    <div id="swiper_bullets">
-      <div
-        v-for="i in 4" :key="i"
-        @click="swiper.slideTo(i)"
-        class="bullet_wrapper">
-        <div :class="curSlide === i - 1 ? 'active_bullet' : 'bullet'"></div>
+    <transition-group name="slide-fade">
+      <div v-if="!this.isLoadedHome && !this.isLoading" key="1"
+           id="misterio_shop_wrap">
+        <loading-misterio></loading-misterio>
       </div>
-    </div>
-    <swiper
-      @slideChange="updateCurIndex"
-      :options="swiperOption"
-      ref="homeSwiper"
-      class="swiper_slide">
-      <swiper-slide class="slide_1">
-        <home-frame>
-          <slide1 slot="content"></slide1>
-        </home-frame>
-      </swiper-slide>
-      <swiper-slide class="slide_2">
-        <home-frame>
-          <slide2 slot="content"></slide2>
-        </home-frame>
-      </swiper-slide>
-      <swiper-slide class="slide_3">
-        <home-frame>
-          <slide3 slot="content"></slide3>
-        </home-frame>
-      </swiper-slide>
-      <swiper-slide class="slide_4">
-        <home-frame>
-          <slide4 slot="content"></slide4>
-        </home-frame>
-      </swiper-slide>
-    </swiper>
+      <div v-else key="2">
+        <app-header
+          :color="curSlide === 2 ? 'black' : 'red'"
+          class="app_header">
+        </app-header>
+        <social-icons
+          :color="curSlide === 2 ? 'black' : 'red'"
+          class="social_icons">
+        </social-icons>
+        <!--LIVE CHAT-->
+        <div class="live_chat">
+          <live-chat
+            :color="curSlide === 2 ? 'black' : 'red'"
+            :chatId="this.$store.getters.user.uid"
+            :isUserSide="true"
+            :isCollapsed="true"
+            class="live_chat">
+          </live-chat>
+        </div>
+        <div
+          :class="curSlide === 2 ? 'primary--text' : ''"
+          id="phone_number">
+          +7 (800) <b>100 66 66</b>
+        </div>
+        <div id="flip_down_wrapper" @click="swiper.slideNext()">
+          <p id="flip_down">
+            Листай вниз
+          </p>
+        </div>
+        <div id="swiper_bullets">
+          <div
+            v-for="i in 4" :key="i"
+            @click="swiper.slideTo(i)"
+            class="bullet_wrapper">
+            <div :class="curSlide === i - 1 ? 'active_bullet' : 'bullet'"></div>
+          </div>
+        </div>
+        <swiper
+          @slideChange="updateCurIndex"
+          :options="swiperOption"
+          ref="homeSwiper"
+          class="swiper_slide">
+          <swiper-slide class="slide_1">
+            <home-frame>
+              <slide1 slot="content"></slide1>
+            </home-frame>
+          </swiper-slide>
+          <swiper-slide class="slide_2">
+            <home-frame>
+              <slide2 slot="content"></slide2>
+            </home-frame>
+          </swiper-slide>
+          <swiper-slide class="slide_3">
+            <home-frame>
+              <slide3 slot="content"></slide3>
+            </home-frame>
+          </swiper-slide>
+          <swiper-slide class="slide_4">
+            <home-frame>
+              <slide4 slot="content"></slide4>
+            </home-frame>
+          </swiper-slide>
+        </swiper>
+      </div>
+    </transition-group>
   </div>
 </template>
 
@@ -82,10 +83,12 @@ import Slide1 from '@/components/home/Slide1'
 import Slide2 from '@/components/home/Slide2'
 import Slide3 from '@/components/home/Slide3'
 import Slide4 from '@/components/home/Slide4'
+import LoadingMisterio from './LoadingMisterio'
 
 export default {
   name: 'Home',
   components: {
+    LoadingMisterio,
     HomeFrame,
     AppHeader,
     UserIcons,
@@ -98,6 +101,7 @@ export default {
   },
   data () {
     return {
+      isLoadedHome: false,
       curSlide: 0,
       swiperOption: {
         direction: 'vertical',
@@ -122,6 +126,14 @@ export default {
         return this.$refs.homeSwiper.swiper
       }
     }
+  },
+  mounted () {
+    let t = setInterval(() => {
+      if (document.readyState === 'complete') {
+        this.isLoadedHome = true
+        clearInterval(t)
+      }
+    }, 500)
   }
 }
 </script>
@@ -156,30 +168,17 @@ export default {
     background: linear-gradient(to right, $color-primary-light, $color-primary);
   }
 
+  #misterio_shop_wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+  }
   .app_header {
     position: absolute;
     z-index: 2;
     width: 100vw;
-  }
-
-  #app_main_logo_wrapper {
-    position: absolute;
-    left: 45px;
-    top: 25px;
-    z-index: 10;
-    #app_main_logo {
-      height: 80px;
-    }
-  }
-
-  #logo_title {
-    position: absolute;
-    top: 23px;
-    left: 70px;
-    font-family: 'Poiret One', cursive;
-    font-size: 18px;
-    text-align: left;
-    line-height: 15px;
   }
 
   .social_icons {
@@ -283,8 +282,7 @@ export default {
   }
 
   @media only screen and (max-width: $xs-screen) {
-    #swiper_bullets,
-    #app_main_logo_wrapper {
+    #swiper_bullets {
       display: none;
     }
   }

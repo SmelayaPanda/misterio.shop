@@ -9,7 +9,7 @@
         О ВАШИХ ЖЕЛАНИЯХ
       </p>
       <p id="main_title_3" align="right">
-        <img src="@/assets/icons/home/slide_1/text_two.svg" height="36px"  alt=""><br>
+        <img src="@/assets/icons/home/slide_1/text_two.svg" height="34px"  alt=""><br>
         <router-link to="/shop">
           <app-theme-btn
             class="mt-4"

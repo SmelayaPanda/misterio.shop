@@ -1,5 +1,5 @@
 <template>
-  <el-row type="flex" justify="center" style="flex-wrap: wrap">
+  <el-row type="flex" justify="center" style="flex-wrap: wrap" class="mt-5">
     <el-col :xs="18" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle" class="pl-2">
       <el-row type="flex" justify="start" style="flex-wrap: wrap">
         <el-col :xs="20" :sm="10" :md="10" :lg="10" :xl="9" align="left">

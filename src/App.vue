@@ -1,6 +1,18 @@
 <template>
   <v-app id="app">
     <transition-group name="fade">
+      <img v-if="this.$route.path === '/contacts'"
+           class="router_header"
+           key="contacts"
+           src="@/assets/img/contacts/header.png" alt="">
+      <img v-if="this.$route.path === '/news'"
+           class="router_header"
+           key="news"
+           src="@/assets/img/news/news_header.png" alt="">
+      <img v-if="this.$route.path === '/about'"
+           class="router_header"
+           key="about"
+           src="@/assets/img/about/about_header.jpg" alt="">
       <app-header key="head" v-if="!this.$route.path.includes('admin') && this.$route.path !== '/'"></app-header>
       <div
         key="liveChat"
@@ -39,7 +51,7 @@ export default {
       let showIn = ['/account', '/shop', '/cart', '/favorite']
       return this.$store.getters.user &&
           (showIn.includes(this.$route.path) || this.$route.path.indexOf('/product') !== -1) &&
-        this.$route.path.indexOf('admin') === -1
+          this.$route.path.indexOf('admin') === -1
     }
   }
 }
@@ -76,16 +88,37 @@ export default {
     z-index: 10;
   }
 
+  .router_header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+  }
+
+  /* fade */
   .fade-enter-active, .fade-leave-active {
     transition-property: opacity;
-    transition-duration: .25s
+    transition-duration: .5s
   }
 
   .fade-enter-active {
-    transition-delay: .25s
+    transition-delay: .5s
   }
 
   .fade-enter, .fade-leave-active {
     opacity: 0
+  }
+
+  /* slide-fade */
+  .slide-fade-enter-active {
+    transition: all 2.7s ease-in;
+  }
+  .slide-fade-leave-active {
+    transition: all 1.5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active до версии 2.1.8 */ {
+    transform: translateY(7px);
+    opacity: 0;
   }
 </style>

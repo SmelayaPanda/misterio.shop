@@ -1,5 +1,12 @@
 <template>
   <el-row type="flex" justify="center" class="main_header">
+    <div id="app_main_logo_wrapper">
+      <img id="app_main_logo" src="@/assets/icons/logo_site.svg" alt="">
+      <span id="logo_title"
+            :class="color === 'black' ? 'primary--text' : 'secondary--text'">
+        Откровенные игры
+      </span>
+    </div>
     <el-col :xs="14" :sm="12" :md="11" :lg="10" :xl="9">
       <el-row type="flex" justify="center" class="pl-1 pr-3">
         <el-col>
@@ -45,6 +52,7 @@
 
 <script>
 import UserIcons from './UserIcons'
+
 export default {
   name: 'Header',
   props: ['color'],
@@ -56,9 +64,32 @@ export default {
   a {
     color: $color-secondary;
     text-decoration: none;
+    transition: all .5s;
   }
+
   a:hover {
-    text-shadow: 2px 2px 20px #141414, 0 0 15px darkred;
+    color: white;
+  }
+
+  #app_main_logo_wrapper {
+    position: absolute;
+    left: 40px;
+    top: 25px;
+    z-index: 10;
+    #app_main_logo {
+      height: 80px;
+    }
+  }
+
+  #logo_title {
+    position: absolute;
+    top: 23px;
+    left: 70px;
+    font-family: 'Poiret One', cursive;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: left;
+    line-height: 15px;
   }
 
   .main_header {
@@ -81,6 +112,12 @@ export default {
 
   @media only screen and (max-width: $sm-screen) {
     .main_header {
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: $xs-screen) {
+    #app_main_logo_wrapper {
       display: none;
     }
   }
