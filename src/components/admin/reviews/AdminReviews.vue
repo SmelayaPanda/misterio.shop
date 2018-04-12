@@ -75,17 +75,18 @@
         <template slot-scope="scope">
           <el-row type="flex" justify="start">
             <process-review
-              :reviewId="scope.row.id"
-              v-if="status === 'new'">
+              v-if="status === 'created'"
+              :reviewId="scope.row.id">
             </process-review>
             <change-review-status
+              v-if="status !== 'published'"
               :reviewId="scope.row.id"
               toStatus="published">
             </change-review-status>
             <change-review-status
+              v-if="status !== 'archived'"
               :reviewId="scope.row.id"
-              toStatus="archived"
-              v-if="status !== 'archived'">
+              toStatus="archived">
             </change-review-status>
           </el-row>
         </template>
@@ -117,7 +118,7 @@ export default {
   },
   computed: {
     reviews () {
-      return this.$store.getters.reviews
+      return Object.values(this.$store.getters.reviews)
     }
   },
   created () {

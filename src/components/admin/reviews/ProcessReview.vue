@@ -1,7 +1,6 @@
 <template>
   <div v-if="review">
-    <el-button @click="dialogVisible = true"
-    >
+    <el-button @click="dialogVisible = true">
       <v-icon size="medium">edit</v-icon>
     </el-button>
     <el-dialog
@@ -47,7 +46,7 @@ export default {
   },
   computed: {
     review () {
-      return this.$store.getters.reviewById(this.reviewId)
+      return this.$store.getters.reviews[this.reviewId]
     }
   }
 }

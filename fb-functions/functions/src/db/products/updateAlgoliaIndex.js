@@ -12,7 +12,7 @@ exports.handler = function (change, context, functions) {
       after.description === before.description &&
       after.group === before.group &&
       after.category === before.category &&
-      after.country === before.country &&
+      after.originCountry === before.originCountry &&
       after.material === before.material &&
       after.brand === before.brand &&
       after.color === before.color &&
@@ -31,7 +31,7 @@ exports.handler = function (change, context, functions) {
       product.description = after.description
       product.group = after.group
       product.category = after.category
-      product.country = after.country
+      product.originCountry = after.originCountry
       product.material = after.material
       product.brand = after.brand
       product.color = after.color

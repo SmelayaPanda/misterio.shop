@@ -3,7 +3,7 @@ import {Notification} from 'element-ui'
 
 export default {
   state: {
-    reviews: [],
+    reviews: {},
     reviewStatistics: {
       created: 0,
       published: 0,
@@ -31,13 +31,12 @@ export default {
         }
         query.get()
           .then(snapshot => {
-            let reviews = []
+            let reviews = {}
             snapshot.docs.forEach(doc => {
-              let item = doc.data()
-              item.id = doc.id
-              reviews.push(item)
+              reviews[doc.id] = doc.data()
+              reviews[doc.id].id = doc.id
             })
-            commit('setReviews', reviews)
+            commit('setReviews', {...reviews})
             commit('LOADING', false)
             console.log('Fetched: reviews')
           })
@@ -48,10 +47,7 @@ export default {
         commit('LOADING', true)
         // TODO: add userId to payload and change security rule!
         firebase.firestore().collection('reviews').add(payload)
-          .then((docRef) => {
-            let reviews = getters.reviews
-            reviews[docRef.id] = payload
-            commit('setReviews', reviews)
+          .then(() => {
             commit('LOADING', false)
             console.log('Review added')
             Notification({
@@ -93,12 +89,6 @@ export default {
     reviews:
       state => {
         return state.reviews
-      },
-    reviewById:
-      state => (id) => {
-        return state.reviews.find(el => {
-          return el.id === id
-        })
       },
     reviewStatistics:
       state => {

@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     review () {
-      return this.$store.getters.reviewById(this.reviewId)
+      return this.$store.getters.reviews[this.reviewId]
     }
   }
 }
