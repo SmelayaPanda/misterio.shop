@@ -1,5 +1,6 @@
 <template>
   <div id="slide_1">
+    <white-pattern color="white"></white-pattern>
     <div id="title" class="hidden-sm-and-down">
       <div id="main_title_1">
         <img src="@/assets/icons/home/slide_1/text_one.svg" height="50px"  alt="">
@@ -25,8 +26,10 @@
 </template>
 
 <script>
+import WhitePattern from './WhitePattern'
 export default {
-  name: 'Slide1'
+  name: 'Slide1',
+  components: {WhitePattern}
 }
 </script>
 
@@ -49,7 +52,6 @@ export default {
     font-size: 45px;
     margin-bottom: 0;
     padding-right: 30px;
-
     background: linear-gradient(55deg, $color-secondary 32%, $color-info 55%, $color-secondary 63%);
     color: transparent;
     -webkit-background-clip: text;

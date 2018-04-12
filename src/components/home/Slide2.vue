@@ -1,5 +1,6 @@
 <template>
   <div id="slide_2">
+    <white-pattern color="white"></white-pattern>
     <h1 id="slide_2_title">
       НАШИ СИЛЬНЫЕ СТОРОНЫ
     </h1>
@@ -107,8 +108,11 @@
 </template>
 
 <script>
+import WhitePattern from './WhitePattern'
+
 export default {
-  name: 'Slide2'
+  name: 'Slide2',
+  components: {WhitePattern}
 }
 </script>
 

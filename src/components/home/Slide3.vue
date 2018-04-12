@@ -1,5 +1,6 @@
 <template>
   <div id="slide_3">
+    <white-pattern color="black"></white-pattern>
     <el-row type="flex" justify="center" style="flex-wrap: wrap">
       <el-col :span="22">
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
@@ -63,8 +64,10 @@
 </template>
 
 <script>
+import WhitePattern from './WhitePattern'
 export default {
   name: 'Slide3',
+  components: {WhitePattern},
   data () {
     return {
       swiperOption: {

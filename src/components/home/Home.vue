@@ -37,7 +37,7 @@
         <div id="swiper_bullets">
           <div
             v-for="i in 4" :key="i"
-            @click="swiper.slideTo(i)"
+            @click="swiper.slideTo(i - 1)"
             class="bullet_wrapper">
             <div :class="curSlide === i - 1 ? 'active_bullet' : 'bullet'"></div>
           </div>
@@ -107,7 +107,6 @@ export default {
         direction: 'vertical',
         slidesPerView: 1,
         initialSlide: 0,
-        loop: true,
         effect: 'fade',
         speed: 1000,
         spaceBetween: 0,
@@ -146,13 +145,15 @@ export default {
   .swiper_slide {
     /*background: url("../../../static/bg/home/draft_bg.png") no-repeat;*/
     /*background-size: cover;*/
+    /*background: url("../../../static/bg/home/wthite_pattern.svg") no-repeat center;*/
+    /*background-size: cover;*/
     width: 100vw;
     height: 100vh;
   }
 
   /*  background: linear-gradient(to right, $color-primary, $color-primary-light);*/
   .slide_1 {
-    background: url("../../../static/bg/home/draft_bg.png") no-repeat center;
+    /*background: url("../../../static/bg/home/draft_bg.png") no-repeat center;*/
     background-size: cover;
   }
 

@@ -1,5 +1,6 @@
 <template>
   <div id="slide_4">
+    <white-pattern color="white"></white-pattern>
     <p id="title_slide_4">КОНТАКТЫ</p>
     <el-row type="flex" justify="center">
       <el-col id="contact_links" :xs="23" :sm="18" :md="10" :lg="10" :xl="9" align="middle">
@@ -73,8 +74,10 @@
 
 <script>
 
+import WhitePattern from './WhitePattern'
 export default {
-  name: 'Slide4'
+  name: 'Slide4',
+  components: {WhitePattern}
 }
 </script>
 
