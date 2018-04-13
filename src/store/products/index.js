@@ -18,8 +18,10 @@ export default {
       maxPrice: 0,
       group: '',
       category: '',
+      country: '',
       brand: '',
       color: '',
+      material: '',
       sortAsc: true,
       limit: 15
     },
@@ -69,11 +71,17 @@ export default {
         if (filter.category) {
           query = query.where('category', '==', filter.category)
         }
+        if (filter.country) {
+          query = query.where('originCountry', '==', filter.country)
+        }
         if (filter.brand) {
           query = query.where('brand', '==', filter.brand)
         }
         if (filter.color) {
           query = query.where('color', '==', filter.color)
+        }
+        if (filter.material) {
+          query = query.where('material', '==', filter.material)
         }
         query = query.orderBy('price', filter.sortAsc ? 'asc' : 'desc')
         if (getters.lastVisible) {

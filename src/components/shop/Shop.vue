@@ -112,9 +112,27 @@
                 :max="this.$store.getters.productStatistics.maxPrice">
               </el-slider>
             </div>
-            <!--BRAND-->
             <el-row type="flex" justify="center" style="flex-wrap: wrap" class="pt-2">
-              <el-col :span="12" align="right" class="pr-1">
+              <!--COUNTRY-->
+              <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" class="selected_filter">
+                <el-select
+                  filterable
+                  clearable
+                  no-match-text="Страна отсутствует"
+                  v-model="selectedCountry"
+                  placeholder="Страна"
+                  @change="filterProducts"
+                  v-if="dictionaries.countries">
+                  <el-option
+                    v-for="val in dictionaries.countries"
+                    :key="val"
+                    :label="val"
+                    :value="val">
+                  </el-option>
+                </el-select>
+              </el-col>
+              <!--BRAND-->
+              <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" class="selected_filter">
                 <el-select
                   filterable
                   clearable
@@ -122,9 +140,9 @@
                   v-model="selectedBrand"
                   placeholder="Бренд"
                   @change="filterProducts"
-                  v-if="brands">
+                  v-if="dictionaries.brands">
                   <el-option
-                    v-for="val in brands"
+                    v-for="val in dictionaries.brands"
                     :key="val"
                     :label="val"
                     :value="val">
@@ -132,7 +150,7 @@
                 </el-select>
               </el-col>
               <!--COLOR-->
-              <el-col :span="12" align="left" class="pl-1">
+              <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" class="selected_filter">
                 <el-select
                   filterable
                   clearable
@@ -140,9 +158,27 @@
                   v-model="selectedColor"
                   placeholder="Цвет"
                   @change="filterProducts"
-                  v-if="colors">
+                  v-if="dictionaries.colors">
                   <el-option
-                    v-for="val in colors"
+                    v-for="val in dictionaries.colors"
+                    :key="val"
+                    :label="val"
+                    :value="val">
+                  </el-option>
+                </el-select>
+              </el-col>
+              <!--Material-->
+              <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" class="selected_filter">
+                <el-select
+                  filterable
+                  clearable
+                  no-match-text="Материал отсутствует"
+                  v-model="selectedMaterial"
+                  placeholder="Материал"
+                  @change="filterProducts"
+                  v-if="dictionaries.materials">
+                  <el-option
+                    v-for="val in dictionaries.materials"
                     :key="val"
                     :label="val"
                     :value="val">
@@ -201,8 +237,10 @@ export default {
           ? filter.maxPrice
           : this.$store.getters.productStatistics.maxPrice
       ],
+      selectedCountry: filter.country,
       selectedBrand: filter.brand,
       selectedColor: filter.color,
+      selectedMaterial: filter.material,
       selectedGroup: filter.group,
       selectedCategory: filter.category,
       formLabelWidth: '120px',
@@ -247,8 +285,10 @@ export default {
         maxPrice: this.sliderValues[1],
         category: this.selectedCategory,
         group: this.selectedGroup,
+        country: this.selectedCountry,
+        brand: this.selectedBrand,
         color: this.selectedColor,
-        brand: this.selectedBrand
+        material: this.selectedMaterial
       })
       return this.$store.dispatch('fetchProducts')
     },
@@ -270,11 +310,8 @@ export default {
       }
       return max
     },
-    brands () {
-      return this.$store.getters.dictionaries.brands
-    },
-    colors () {
-      return this.$store.getters.dictionaries.colors
+    dictionaries () {
+      return this.$store.getters.dictionaries
     },
     searchGroup () { // TODO: may be improve it?)
       let searchGroup = ''
@@ -317,6 +354,9 @@ export default {
     padding-right: 24px;
   }
 
+  .selected_filter {
+    padding: 10px;
+  }
   .el-menu--collapse {
     width: 82px !important;
   }

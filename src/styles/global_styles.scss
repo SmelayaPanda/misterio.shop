@@ -64,6 +64,17 @@ $lg-screen: 1920px;
   }
 }
 
+.selected_filter {
+  .el-input__inner {
+    background-color: $color-primary;
+    color: $color-secondary;
+    font-weight: 500;
+  }
+  .el-select .el-input__inner:focus {
+    border-color: $color-info;
+  }
+}
+
 #reviews_carousel {
   .el-carousel__mask {
     border-radius: 20px;
