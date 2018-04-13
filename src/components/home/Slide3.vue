@@ -215,7 +215,7 @@ export default {
       margin-top: 20px;
     }
     .dark_title, .white_title {
-      font-size: 24px;
+      font-size: 20px;
     }
   }
 </style>

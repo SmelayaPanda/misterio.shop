@@ -227,10 +227,10 @@ export default {
   }
 
   .live_chat {
-    position: absolute;
+    position: fixed;
     z-index: 3;
-    bottom: 20px;
-    right: 30px;
+    bottom: 40px;
+    right: 60px;
   }
 
   #swiper_bullets {

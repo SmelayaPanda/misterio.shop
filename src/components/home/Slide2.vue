@@ -5,7 +5,7 @@
       НАШИ СИЛЬНЫЕ СТОРОНЫ
     </h1>
     <el-row type="flex" justify="center" style="flex-wrap: wrap">
-      <el-col :xs="20" :sm="20" :md="20" :lg="14" :xl="12">
+      <el-col :xs="24" :sm="20" :md="20" :lg="14" :xl="12">
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :xs="12" :sm="8" :md="6" :lg="6" :xl="6">
             <div class="adv_icon_wrap">
@@ -246,15 +246,15 @@ export default {
 
   @media only screen and (max-width: $xs-screen) {
     #slide_2 {
-      margin-top: 20px;
+      margin-top: 60px;
     }
     #slide_2_title {
-      font-size: 24px;
+      font-size: 20px;
       padding: 10px;
-      margin-top: 0;
-      margin-bottom: 5px;
+      margin: 0;
     }
     .advantage_title {
+      font-size: 11px;
       margin: 0;
     }
     .adv_icon {

@@ -114,11 +114,11 @@ export default {
 
   /* slide-fade */
   .slide-fade-enter-active {
-    transition: all 2.7s ease-in;
+    transition: all 2.5s ease-in;
   }
 
   .slide-fade-leave-active {
-    transition: all 1.5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all 2.5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
   }
 
   .slide-fade-enter, .slide-fade-leave-to
@@ -126,6 +126,27 @@ export default {
   {
     transform: translateY(7px);
     opacity: 0;
+  }
+
+  /* bounce */
+  .bounce-enter-active {
+    animation: bounce-in 0.75s;
+  }
+
+  .bounce-leave-active {
+    animation: bounce-in 0.5s reverse;
+  }
+
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 
   @media only screen and (max-width: $xs-screen) {

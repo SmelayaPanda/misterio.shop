@@ -28,11 +28,8 @@ export default {
 <style scoped lang="scss">
 
   @mixin position-center($text-align: center) {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: fixed;
+    top: 37%;
     margin: auto;
     text-align: $text-align;
   }
