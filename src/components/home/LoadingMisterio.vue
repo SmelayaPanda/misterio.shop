@@ -29,7 +29,7 @@ export default {
 
   @mixin position-center($text-align: center) {
     position: fixed;
-    top: 37%;
+    top: 36%;
     margin: auto;
     text-align: $text-align;
   }

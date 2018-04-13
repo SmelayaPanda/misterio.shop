@@ -65,7 +65,7 @@ export default {
     height: 25px;
   }
 
-  @media only screen and (max-width: $xs-screen) {
+  @media only screen and (max-width: $sm-screen) {
     #mobile_menu {
       display: block;
     }

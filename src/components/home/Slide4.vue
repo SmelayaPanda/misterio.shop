@@ -7,35 +7,15 @@
         <el-row type="flex" justify="start" style="flex-wrap: wrap">
           <el-col :xs="11" :sm="10" :md="10" :lg="10" :xl="9" align="left">
             <span class="line ver_line hor_line"></span>
-            <p id="header_1" class="header">УСЛУГИ</p>
-            <p class="sub_header">Каталог</p>
-            <p class="sub_header">Оплата и доставка</p>
-            <p class="sub_header">Акции и новости</p>
-            <p class="sub_header">Отзывы о нас</p>
+            <contacts-services></contacts-services>
           </el-col>
           <el-col :xs="13" :sm="10" :md="10" :lg="10" :xl="10" align="left">
-            <p id="header_2" class="header">ВАЖНО ЗНАТЬ О...</p>
-            <p class="sub_header">Подарочные карты</p>
-            <p class="sub_header">Гид размеров</p>
-            <p class="sub_header">Вакансии</p>
-            <p class="sub_header">Подарки для Вас</p>
+            <contacts-important></contacts-important>
           </el-col>
         </el-row>
         <el-row type="flex" justify="start" style="flex-wrap: wrap; margin-top: 20px;">
           <el-col :span="22" align="left">
-            <p class="contacts">
-              <img src="@/assets/icons/footer/phone.svg" height="22px" class="contact_icon" alt="">
-              +7 (800) 100 66 66
-            </p>
-            <p class="contacts">
-              <img src="@/assets/icons/footer/mail.svg" height="17px" class="contact_icon" alt="">
-              otkrovennieigri@mail.ru
-            </p>
-            <p class="contacts">
-              <img src="@/assets/icons/footer/chat.svg" height="27px" class="contact_icon" alt="">
-              Нужна консультация? <br>
-              <span class="we_answer">Мы ответим на любой Ваш вопрос</span>
-            </p>
+            <contacts-phone></contacts-phone>
             <app-theme-btn>
               Задать вопрос
             </app-theme-btn>
@@ -59,12 +39,12 @@
         </el-row>
         <el-row id="watch_news_wrap" type="flex" justify="start" style="flex-wrap: wrap">
           <el-col :span="10" align="left">
-            <p id="watch_news" align="left">СЛЕДИ ЗА НОВОСТЯМИ</p>
+            <p id="watch_news" align="left">
+              СЛЕДИ ЗА НОВОСТЯМИ
+            </p>
           </el-col>
           <el-col id="soc_icons_wrap" :span="14" align="right">
-            <img class="soc_icon" src="@/assets/icons/footer/vk.svg" alt="">
-            <img class="soc_icon" src="@/assets/icons/footer/inst.svg" alt="">
-            <img class="soc_icon" src="@/assets/icons/footer/facebook.svg" alt="">
+            <contacts-social></contacts-social>
           </el-col>
         </el-row>
       </el-col>
@@ -75,9 +55,20 @@
 <script>
 
 import WhitePattern from './WhitePattern'
+import ContactsServices from '../contacts/ContactsServices'
+import ContactsImportant from '../contacts/ContactsImportant'
+import ContactsPhone from '../contacts/ContactsPhone'
+import ContactsSocial from '../contacts/ContactsSocial'
+
 export default {
   name: 'Slide4',
-  components: {WhitePattern}
+  components: {
+    ContactsSocial,
+    ContactsPhone,
+    ContactsImportant,
+    ContactsServices,
+    WhitePattern
+  }
 }
 </script>
 
@@ -106,7 +97,7 @@ export default {
     border-bottom: 1px solid $color-secondary;
   }
 
-  #contact_links{
+  #contact_links {
     padding-left: 20px;
     padding-top: 10px;
   }
@@ -124,7 +115,7 @@ export default {
 
   .ver_line {
     border-left: 1px solid $color-secondary;
-    height: 420px;
+    height: 410px;
   }
 
   .hor_line:after {
@@ -149,14 +140,6 @@ export default {
     border-bottom: 1px solid $color-secondary;
   }
 
-  #header_1:after {
-    width: 65px;
-  }
-
-  #header_2:after {
-    width: 120px;
-  }
-
   #header_4 {
     margin-top: -30px;
     margin-bottom: 0;
@@ -174,24 +157,6 @@ export default {
     color: $color-info;
     font-size: 12px;
     line-height: 22px;
-  }
-
-  .contacts {
-    font-family: $primary-font;
-    font-weight: 600;
-    color: $color-info;
-    font-size: 14px;
-  }
-
-  .contact_icon {
-    margin-bottom: -5px;
-    margin-right: 10px;
-  }
-
-  .we_answer {
-    font-family: $primary-font;
-    font-weight: 600;
-    font-size: 10px;
   }
 
   .inst_card {
@@ -213,14 +178,6 @@ export default {
     font-size: 14px;
     color: $color-info;
     padding-left: 10px;
-  }
-
-  #soc_icons_wrap {
-    padding-right: 10px;
-  }
-
-  .soc_icon {
-    padding-left: 20px;
   }
 
   @media only screen and (max-width: $md-screen) {

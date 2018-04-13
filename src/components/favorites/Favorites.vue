@@ -16,7 +16,7 @@
       justify="center"
       style="flex-wrap: wrap">
       <el-col :xs="23" :sm="23" :md="18" :lg="18" :xl="15" align="left">
-        <el-row v-if="Object.keys(favorites).length" type="flex" justify="center" style="flex-wrap: wrap">
+        <el-row v-if="favorites && Object.keys(favorites).length" type="flex" justify="center" style="flex-wrap: wrap">
           <el-col
             v-for="product in favorites"
             :key="product.productId"

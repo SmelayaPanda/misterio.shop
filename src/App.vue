@@ -13,12 +13,12 @@
            class="router_header"
            key="about"
            src="@/assets/img/about/about_header.jpg" alt="">
-      <mobile-menu key="mobile" v-if="!this.$route.path.includes('admin') && this.$route.path !== '/'"></mobile-menu>
-      <app-header key="head" v-if="!this.$route.path.includes('admin') && this.$route.path !== '/'"></app-header>
+      <mobile-menu v-if="isSecondaryRouters" key="mobile" ></mobile-menu>
+      <app-header v-if="isSecondaryRouters" key="head" ></app-header>
       <div
+        v-if="showLiveChat"
         key="liveChat"
-        id="live_chat"
-        v-if="showLiveChat">
+        id="live_chat">
         <live-chat
           :chatId="this.$store.getters.user.uid"
           :isUserSide="true"
@@ -29,21 +29,24 @@
       </div>
       <!--Content-->
       <router-view key="routers"></router-view>
+      <app-footer v-if="isSecondaryRouters && this.$route.path !== '/contacts'" key="footer" ></app-footer>
     </transition-group>
   </v-app>
 </template>
 
 <script>
 import AppHeader from '@/components/Header'
+import AppFooter from '@/components/Footer'
 import AdminPanel from '@/components/admin/AdminPanel'
 import UserIcons from '@/components/UserIcons'
 import LiveChat from '@/components/shared/LiveChat'
-import MobileMenu from './components/MobileMenu'
+import MobileMenu from '@/components/MobileMenu'
 
 export default {
   components: {
     MobileMenu,
     AppHeader,
+    AppFooter,
     AdminPanel,
     UserIcons,
     LiveChat
@@ -55,6 +58,9 @@ export default {
       return this.$store.getters.user &&
           (showIn.includes(this.$route.path) || this.$route.path.indexOf('/product') !== -1) &&
           this.$route.path.indexOf('admin') === -1
+    },
+    isSecondaryRouters () {
+      return !this.$route.path.includes('admin') && this.$route.path !== '/'
     }
   }
 }
@@ -152,6 +158,10 @@ export default {
   @media only screen and (max-width: $xs-screen) {
     .router_header {
       top: 50px;
+    }
+    #live_chat {
+      bottom: 15px;
+      right: 20px;
     }
   }
 </style>

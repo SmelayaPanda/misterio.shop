@@ -209,7 +209,6 @@ export default {
     #slide_2_title {
       margin-top: 20vh;
     }
-
     .adv_text {
       display: none;
     }

@@ -293,5 +293,9 @@ export default {
     #swiper_bullets {
       display: none;
     }
+    .live_chat {
+      bottom: 15px;
+      right: 20px;
+    }
   }
 </style>

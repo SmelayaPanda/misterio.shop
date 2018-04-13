@@ -207,7 +207,10 @@
         </div>
       </el-col>
     </el-row>
-    <back-to-top visibleOffset="500" :right="130" :bottom="37" style="opacity: 0.9; z-index: 9">
+    <back-to-top visibleOffset="500"
+                 :right="this.$vuetify.breakpoint.name === 'xs' ? 85 : 130"
+                 :bottom="this.$vuetify.breakpoint.name === 'xs' ? 13 : 37"
+                 style="opacity: 0.9; z-index: 9">
       <v-btn fab class="secondary">
         <v-icon>keyboard_arrow_up</v-icon>
       </v-btn>
