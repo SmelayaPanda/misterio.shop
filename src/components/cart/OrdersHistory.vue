@@ -1,5 +1,5 @@
 <template>
-  <el-row el-row type="flex" justify="center" class="mt-3" v-if="userOrders.length !== 0">
+  <el-row el-row type="flex" justify="center" class="mt-5" v-if="userOrders.length !== 0">
     <el-col :xs="22" :sm="20" :md="18" :lg="16" :xl="12" type="flex" align="middle">
       <p id="order_title" align="left">
         <img src="@/assets/icons/routers/list.svg" id="order_bag" alt="">
@@ -196,6 +196,7 @@ export default {
   .order {
     color: white;
   }
+
   .order:before {
     content: "";
     display: block;
@@ -203,7 +204,7 @@ export default {
     z-index: 0;
     width: 100%;
     height: 100%;
-    background:white;
+    background: white;
     opacity: .05;
   }
 

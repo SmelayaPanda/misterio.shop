@@ -3,7 +3,7 @@ import Router from 'vue-router'
 // MAIN
 import Home from '@/components/home/Home'
 import About from '@/components/about/About'
-import ShoppingCart from '@/components/shop/ShoppingCart'
+import Cart from '@/components/cart/Cart'
 import News from '@/components/news/News'
 import Article from '@/components/news/Article'
 import Contacts from '@/components/contacts/Contacts'
@@ -57,7 +57,7 @@ export default new Router({
     {
       path: '/cart',
       name: 'cart',
-      component: ShoppingCart
+      component: Cart
     },
     {
       path: '/favorites',
