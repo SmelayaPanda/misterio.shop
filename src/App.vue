@@ -127,4 +127,10 @@ export default {
     transform: translateY(7px);
     opacity: 0;
   }
+
+  @media only screen and (max-width: $xs-screen) {
+    .router_header {
+      top: 50px;
+    }
+  }
 </style>

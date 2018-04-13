@@ -184,7 +184,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .main_img {
     width: 100%;
     height: 480px;
@@ -252,4 +252,11 @@ export default {
     margin-bottom: -5px;
     margin-right: 2px;
   }
+
+  @media only screen and (max-width: $xs-screen) {
+    .product_info {
+      margin-left: 10px;
+    }
+  }
+
 </style>
