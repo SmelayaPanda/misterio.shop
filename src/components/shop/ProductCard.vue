@@ -11,16 +11,24 @@
         <el-row type="flex" justify="space-evenly">
           <el-col :span="8" align="right">
             <transition name="fade">
-              <v-icon
-                v-if="user.favorites[id]"
-                @click.stop="updateOwnProduct(product, 'favorites', 'remove')"
-                class="own_product_icon secondary--text">favorite
-              </v-icon>
-              <v-icon
-                v-else-if="hoveredCard"
-                @click.stop="updateOwnProduct(product, 'favorites', 'add')"
-                class="own_product_icon white--text">favorite_border
-              </v-icon>
+              <el-tooltip v-if="user.favorites[id]"
+                          class="item" effect="dark"
+                          content="Убрать из избранных"
+                          placement="top-start">
+                <v-icon
+                  @click.stop="updateOwnProduct(product, 'favorites', 'remove')"
+                  class="own_product_icon secondary--text">favorite
+                </v-icon>
+              </el-tooltip>
+              <el-tooltip v-else-if="hoveredCard"
+                          class="item" effect="dark"
+                          content="В избранное"
+                          placement="top-start">
+                <v-icon
+                  @click.stop="updateOwnProduct(product, 'favorites', 'add')"
+                  class="own_product_icon white--text">favorite_border
+                </v-icon>
+              </el-tooltip>
             </transition>
           </el-col>
           <el-col :span="8">
@@ -30,16 +38,30 @@
           </el-col>
           <el-col :span="8" align="left">
             <transition name="fade">
-              <v-icon
-                v-if="user.cart[id]"
-                @click.stop="updateOwnProduct(product, 'cart', 'remove')"
-                class="own_product_icon secondary--text">el-icon-goods
-              </v-icon>
-              <v-icon
-                v-else-if="hoveredCard"
-                @click.stop="updateOwnProduct(product, 'cart', 'add')"
-                class="own_product_icon white--text">el-icon-goods
-              </v-icon>
+              <el-tooltip v-if="product.totalQty < 1 && hoveredCard"
+                          class="item" effect="dark"
+                          content="Нет в наличии"
+                          placement="top-start">
+                <v-icon class="own_product_icon white--text">info_outline</v-icon>
+              </el-tooltip>
+              <el-tooltip v-else-if="user.cart[id]"
+                          class="item" effect="dark"
+                          content="Убрать из корзины"
+                          placement="top-start">
+                <v-icon
+                  @click.stop="updateOwnProduct(product, 'cart', 'remove')"
+                  class="own_product_icon secondary--text">el-icon-goods
+                </v-icon>
+              </el-tooltip>
+              <el-tooltip v-else-if="hoveredCard"
+                          class="item" effect="dark"
+                          content="В корзину"
+                          placement="top-start">
+                <v-icon
+                  @click.stop="updateOwnProduct(product, 'cart', 'add')"
+                  class="own_product_icon white--text">el-icon-goods
+                </v-icon>
+              </el-tooltip>
             </transition>
           </el-col>
         </el-row>
@@ -114,7 +136,7 @@ export default {
   }
 
   .own_product_icon:hover {
-    transform: scale(1.4);
+    transform: scale(1.3);
   }
 
   #product_title_wrapper {
@@ -133,8 +155,7 @@ export default {
   }
 
   .card__media {
-    -webkit-filter: grayscale(1);
-    filter: grayscale(1);
+    filter: grayscale(.5);
     transition: all .5s;
   }
 

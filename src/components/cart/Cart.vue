@@ -22,4 +22,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  #cart {
+    margin-bottom: 60px;
+  }
 </style>
