@@ -17,7 +17,7 @@
     <p>
       <img src="@/assets/icons/footer/mail.svg" height="17px" class="contact_icon" alt="">
       <a class="contacts"
-         :href="'mailto:' + companyInfo.contacts.email + '?Subject=Misterio Shop!&body=Misterio Shop!'"
+         :href="'mailto:' + companyInfo.contacts.email + '?Subject=Misterio Shop&body=Misterio Shop'"
          target="_blank">
        {{ companyInfo.contacts.email }}
       </a>
