@@ -4,7 +4,7 @@
       <img v-if="this.$route.path === '/contacts'"
            class="router_header"
            key="contacts"
-           src="@/assets/img/contacts/header.png" alt="">
+           src="@/assets/img/contacts/header_bg.png" alt="">
       <img v-if="this.$route.path === '/news'"
            class="router_header"
            key="news"
@@ -12,7 +12,7 @@
       <img v-if="this.$route.path === '/about'"
            class="router_header"
            key="about"
-           src="@/assets/img/about/about_header.jpg" alt="">
+           src="@/assets/img/about/header_bg.png" alt="">
       <mobile-menu v-if="isSecondaryRouters" key="mobile" ></mobile-menu>
       <app-header v-if="isSecondaryRouters" key="head" ></app-header>
       <div
