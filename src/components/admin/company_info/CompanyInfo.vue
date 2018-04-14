@@ -1,6 +1,26 @@
 <template>
   <div v-if="companyInfo">
     <el-row type="flex" justify="left" style="flex-wrap: wrap">
+      <!--PHOTO-->
+      <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" class="pl-2 pr-2 mt-2">
+        <el-card style="height: 100%">
+          <div slot="header" class="clearfix">
+            <h3>
+              <edit-company-photos></edit-company-photos>
+              Избранные фото
+            </h3>
+            <span>( публикуются в раздел инстаграм )</span>
+          </div>
+          <div>
+            <el-row type="flex" style="flex-wrap: wrap;">
+              <el-col v-for="(photo, idx) in companyInfo.photos"
+                      :key="idx" :span="8">
+                <img class="company_photo" :src="photo" alt="">
+              </el-col>
+            </el-row>
+          </div>
+        </el-card>
+      </el-col>
       <!--MAIN INFO-->
       <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" class="pl-2 pr-2 mt-2">
         <el-card style="height: 100%">
@@ -136,25 +156,6 @@
               </edit-company-info-field>
               <el-tag>{{ companyInfo.contacts.email }}</el-tag>
             </p>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" class="pl-2 pr-2 mt-2">
-        <el-card style="height: 100%">
-          <div slot="header" class="clearfix">
-            <h3>
-              <edit-company-photos></edit-company-photos>
-              Избранные фото
-            </h3>
-            <span>( публикуются в раздел инстаграм )</span>
-          </div>
-          <div>
-            <el-row type="flex" style="flex-wrap: wrap;">
-              <el-col v-for="(photo, idx) in companyInfo.photos"
-                      :key="idx" :span="8">
-                <img class="company_photo" :src="photo" alt="">
-              </el-col>
-            </el-row>
           </div>
         </el-card>
       </el-col>

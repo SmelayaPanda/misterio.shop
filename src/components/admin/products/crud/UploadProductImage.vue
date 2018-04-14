@@ -10,7 +10,7 @@
     </el-row>
     <el-row style="text-align: center">
       <img :src="curImg" height="40px" width="auto" style="border-radius: 20px">
-      <p v-if="!curImg"><i class="el-icon-download"></i></p>
+      <p v-if="curImg"><i class="el-icon-download"></i></p>
     </el-row>
     <input
       type="file"
