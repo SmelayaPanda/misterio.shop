@@ -121,6 +121,15 @@
             <p>
               <edit-company-info-field
                 document="contacts"
+                field="mobilePhone"
+                title="Мобильный"
+                :value="companyInfo.contacts.mobilePhone">
+              </edit-company-info-field>
+              <el-tag>{{ companyInfo.contacts.mobilePhone }}</el-tag>
+            </p>
+            <p>
+              <edit-company-info-field
+                document="contacts"
                 field="email"
                 title="Email"
                 :value="companyInfo.contacts.email">
@@ -142,18 +151,10 @@ export default {
   components: {
     EditCompanyInfoField
   },
-  methods: {
-    fetchCompanyInfo () {
-      this.$store.dispatch('fetchCompanyInfo')
-    }
-  },
   computed: {
     companyInfo () {
       return this.$store.getters.companyInfo
     }
-  },
-  created () {
-    this.fetchCompanyInfo()
   }
 }
 </script>

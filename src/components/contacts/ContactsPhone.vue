@@ -1,12 +1,26 @@
 <template>
   <div>
-    <p class="contacts">
+    <p>
       <img src="@/assets/icons/footer/phone.svg" height="22px" class="contact_icon" alt="">
-      +7 (800) 100 66 66
+      <a class="contacts"
+         :href="'tel://' + companyInfo.contacts.phone.replace(/[ -]/g,'')">
+        {{ companyInfo.contacts.phone }}
+      </a>
     </p>
-    <p class="contacts">
+    <p>
+      <v-icon class="info--text mr-2" >phonelink_ring</v-icon>
+      <a class="contacts"
+         :href="'tel://' + companyInfo.contacts.mobilePhone.replace(/[ -]/g,'')">
+        {{ companyInfo.contacts.mobilePhone }}
+      </a>
+    </p>
+    <p>
       <img src="@/assets/icons/footer/mail.svg" height="17px" class="contact_icon" alt="">
-      otkrovennieigri@mail.ru
+      <a class="contacts"
+         :href="'mailto:' + companyInfo.contacts.email + '?Subject=Misterio Shop!&body=Misterio Shop!'"
+         target="_blank">
+       {{ companyInfo.contacts.email }}
+      </a>
     </p>
     <p class="contacts">
       <img id="consulting" src="@/assets/icons/footer/chat.svg" height="27px" class="contact_icon" alt="">
@@ -17,7 +31,12 @@
 </template>
 <script>
 export default {
-  name: 'contacts-phone'
+  name: 'contacts-phone',
+  computed: {
+    companyInfo () {
+      return this.$store.getters.companyInfo
+    }
+  }
 }
 </script>
 <style scoped lang="scss">

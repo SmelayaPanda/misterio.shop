@@ -2,7 +2,25 @@ import * as firebase from 'firebase'
 
 export default {
   state: {
-    companyInfo: null
+    companyInfo: {
+      contacts: {
+        phone: '',
+        mobilePhone: '',
+        email: ''
+      },
+      address: {
+        country: '',
+        city: '',
+        street: '',
+        build: '',
+        house: '',
+        postCode: ''
+      },
+      main: {
+        INN: '',
+        name: ''
+      }
+    }
   },
   mutations: {
     setCompanyInfo:

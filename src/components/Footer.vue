@@ -1,18 +1,18 @@
 <template>
   <footer>
     <el-row class="app_footer" type="flex">
-      <el-col :offset="2" :xs="18" :sm="18" :md="22" :lg="22" :xl="21">
-        <el-row type="flex" style="flex-wrap: wrap">
-          <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" class="footer_block" align="left">
+      <el-col :offset="2" :xs="22" :sm="18" :md="22" :lg="22" :xl="21">
+        <el-row type="flex" justify="center" style="flex-wrap: wrap">
+          <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" class="footer_block" align="left">
             <contacts-services></contacts-services>
           </el-col>
-          <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" class="footer_block" align="left">
+          <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" class="footer_block" align="left">
             <contacts-important></contacts-important>
           </el-col>
           <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" class="footer_block" align="left">
-            <contacts-phone></contacts-phone>
+            <contacts-phone id="contacts_phone"></contacts-phone>
           </el-col>
-          <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" class="footer_block" align="left">
+          <el-col :xs="16" :sm="12" :md="6" :lg="6" :xl="6" class="footer_block" align="left">
             <p id="watch_news" align="left">СЛЕДИ ЗА НОВОСТЯМИ</p>
             <contacts-social class="ml-3 mb-4"></contacts-social>
           </el-col>
@@ -52,7 +52,7 @@ export default {
   }
 
   .footer_block {
-    padding: 22px 10px 5px 20px;
+    padding: 25px 10px 5px 20px;
   }
 
   #watch_news {
@@ -63,8 +63,11 @@ export default {
   }
 
   @media only screen and (max-width: $xs-screen) {
-    .app_footer {
-      align-items: center;
+    .footer_block {
+      padding: 20px 0 0;
+    }
+    .footer_container {
+      margin: 0;
     }
   }
 </style>

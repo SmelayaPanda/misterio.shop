@@ -1,10 +1,16 @@
 <template>
   <div>
     <p id="header_1">УСЛУГИ</p>
-    <p class="sub_header">Каталог</p>
+    <router-link to="/shop" exact>
+      <p class="sub_header">Каталог</p>
+    </router-link>
     <p class="sub_header">Оплата и доставка</p>
-    <p class="sub_header">Акции и новости</p>
-    <p class="sub_header">Отзывы о нас</p>
+    <router-link to="/news">
+      <p class="sub_header">Акции и новости</p>
+    </router-link>
+    <router-link to="/about">
+      <p class="sub_header">Отзывы о нас</p>
+    </router-link>
   </div>
 </template>
 <script>

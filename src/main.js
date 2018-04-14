@@ -147,6 +147,7 @@ new Vue({
         }
         // ALWAYS
         this.$store.dispatch('fetchDictionaries') // product dropdowns
+        this.$store.dispatch('fetchCompanyInfo') // for footer
         this.$store.dispatch('fetchProductStatistics') // MaxPrice for shop
       })
     // In admin panel all data fetched by router click

@@ -74,7 +74,7 @@ export default {
       filter: blur(0px);
     }
     100% {
-      filter: blur(4px);
+      filter: blur(3px);
     }
   }
 </style>

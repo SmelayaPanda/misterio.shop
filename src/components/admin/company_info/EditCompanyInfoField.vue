@@ -11,7 +11,7 @@
       center>
     <b>{{ this.title }}</b><br>
     <el-input v-model="editedValue"
-              placeholder="Add info..."
+              :placeholder="this.title"
               :maxlength="400">
     </el-input>
     <span slot="footer" class="dialog-footer">
