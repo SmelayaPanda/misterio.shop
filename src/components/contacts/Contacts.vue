@@ -28,13 +28,11 @@
         <p id="header_3" class="header">
           ИНСТАГРАМ
         </p>
-        <el-row type="flex" justify="center" style="flex-wrap: wrap">
-          <el-col v-for="i in (0,6)" v-bind:key="i"
+        <el-row v-if="instPhotos" type="flex" justify="center" style="flex-wrap: wrap">
+          <el-col v-for="(photo, idx) in instPhotos" :key="idx"
                   :xs="23" :sm="8" :md="12" :lg="8" :xl="8" align="center"
                   class="inst_card_wrap">
-            <el-card class="inst_card">
-              {{ i }}
-            </el-card>
+            <img :src="photo" class="inst_photo" alt="">
           </el-col>
         </el-row>
         <el-row id="watch_news_wrap" type="flex" justify="start" style="flex-wrap: wrap">
@@ -58,7 +56,12 @@ import ContactsSocial from './ContactsSocial'
 
 export default {
   name: 'Contacts',
-  components: {ContactsSocial, ContactsPhone, ContactsImportant, ContactsServices}
+  components: {ContactsSocial, ContactsPhone, ContactsImportant, ContactsServices},
+  computed: {
+    instPhotos () {
+      return this.$store.getters.companyInfo.photos
+    }
+  }
 }
 </script>
 
@@ -116,9 +119,10 @@ export default {
     width: 100px;
   }
 
-  .inst_card {
+  .inst_photo {
     height: 180px;
     width: 100%;
+    object-fit: cover;
   }
 
   .inst_card_wrap {
