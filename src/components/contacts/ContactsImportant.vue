@@ -1,10 +1,9 @@
 <template>
   <div>
     <p id="header_2">ВАЖНО ЗНАТЬ О...</p>
-    <p class="sub_header">Подарочные карты</p>
+    <p class="sub_header">Гарантии и возврат</p>
     <p class="sub_header">Гид размеров</p>
-    <p class="sub_header">Вакансии</p>
-    <p class="sub_header">Подарки для Вас</p>
+    <p class="sub_header">Уход за игрушками</p>
   </div>
 </template>
 <script>
