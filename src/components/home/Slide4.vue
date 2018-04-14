@@ -74,12 +74,12 @@ export default {
 
 <style scoped lang="scss">
   #slide_4 {
-    margin-top: 12vh;
+    margin-top: 11vh;
   }
 
   #title_slide_4 {
-    padding-top: 30px;
-    margin-bottom: 8vh;
+    padding-top: 25px;
+    margin-bottom: 6vh;
     font-family: $secondary-font;
     font-size: 32px;
     margin-top: -25px;

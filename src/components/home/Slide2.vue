@@ -5,7 +5,7 @@
       НАШИ СИЛЬНЫЕ СТОРОНЫ
     </h1>
     <el-row type="flex" justify="center" style="flex-wrap: wrap">
-      <el-col :xs="24" :sm="20" :md="20" :lg="14" :xl="12">
+      <el-col :xs="24" :sm="20" :md="20" :lg="15" :xl="12">
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :xs="12" :sm="8" :md="6" :lg="6" :xl="6">
             <div class="adv_icon_wrap">
@@ -148,8 +148,8 @@ export default {
   }
 
   .adv_icon {
-    transform: scale(0.8);
-    padding-right: 10px;
+    transform: scale(0.7);
+    padding-right: 15px;
   }
 
   .advantage_title {
@@ -163,7 +163,7 @@ export default {
   }
 
   .adv_text {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     color: white;
     padding-right: 25px;

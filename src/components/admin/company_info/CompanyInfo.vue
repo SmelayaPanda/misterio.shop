@@ -139,16 +139,37 @@
           </div>
         </el-card>
       </el-col>
+      <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" class="pl-2 pr-2 mt-2">
+        <el-card style="height: 100%">
+          <div slot="header" class="clearfix">
+            <h3>
+              <edit-company-photos></edit-company-photos>
+              Избранные фото
+            </h3>
+            <span>( публикуются в раздел инстаграм )</span>
+          </div>
+          <div>
+            <el-row type="flex" style="flex-wrap: wrap;">
+              <el-col v-for="(photo, idx) in companyInfo.photos"
+                      :key="idx" :span="8">
+                <img class="company_photo" :src="photo" alt="">
+              </el-col>
+            </el-row>
+          </div>
+        </el-card>
+      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import EditCompanyInfoField from './EditCompanyInfoField'
+import EditCompanyInfoField from './crud/EditCompanyInfoField'
+import EditCompanyPhotos from './crud/EditCompanyPhotos'
 
 export default {
   name: 'CompanyContacts',
   components: {
+    EditCompanyPhotos,
     EditCompanyInfoField
   },
   computed: {
@@ -160,5 +181,10 @@ export default {
 </script>
 
 <style scoped>
-
+  .company_photo {
+    height: 120px;
+    width: 100%;
+    object-fit: cover;
+    border: 1px solid grey;
+  }
 </style>

@@ -98,7 +98,7 @@ export default {
 
 <style scoped lang="scss">
   #slide_3 {
-    margin-top: 20vh;
+    margin-top: 17vh;
   }
 
   #title_3 {

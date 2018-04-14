@@ -74,6 +74,7 @@ export default {
   body, html {
     margin: 0;
     padding: 0;
+    font-family: $primary-font;
   }
 
   a {
