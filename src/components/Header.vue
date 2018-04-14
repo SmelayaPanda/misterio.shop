@@ -1,9 +1,10 @@
 <template>
   <el-row type="flex" justify="center" class="main_header">
+    <span id="attention_dev">Сайт в разработке!</span>
     <div id="app_main_logo_wrapper">
       <img id="app_main_logo" src="@/assets/icons/logo/logo_site.svg" alt="">
-      <img v-if="color === 'black'" class="text_logo" src="@/assets/icons/logo/logo_text_black.svg" alt="">
-      <img v-else class="text_logo" src="@/assets/icons/logo/logo_text_red.svg" alt="">
+      <img v-if="color === 'black'" class="text_logo" src="@/assets/icons/logo/text_black.svg" alt="">
+      <img v-else class="text_logo" src="@/assets/icons/logo/text_red.svg" alt="">
     </div>
     <el-col :xs="14" :sm="12" :md="11" :lg="10" :xl="9">
       <el-row type="flex" justify="center" class="pl-1 pr-3">
@@ -60,6 +61,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  #attention_dev {
+    top: 0;
+    left: 24px;
+    position: absolute;
+    color: white;
+  }
   a {
     color: $color-secondary;
     text-decoration: none;
@@ -82,9 +89,9 @@ export default {
 
   .text_logo {
     position: absolute;
-    top: 20px;
+    top: 17px;
     left: 70px;
-    height: 32px;
+    height: 40px;
   }
 
   .main_header {
