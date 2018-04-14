@@ -1,11 +1,14 @@
 <template>
   <div>
     <img class="soc_icon"
+         onclick="window.open('https://vk.com/otkrovennie.igri', '_blank')"
          src="@/assets/icons/footer/vk.svg" alt="">
     <img class="soc_icon"
+         onclick="window.open('https://www.instagram.com/otkrovennie.igri/', '_blank')"
          src="@/assets/icons/footer/inst.svg"
          alt="">
     <img class="soc_icon"
+         onclick="window.open('https://www.facebook.com/Otkrovennie_igri-2021140284801029/', '_blank')"
          src="@/assets/icons/footer/facebook.svg"
          alt="">
   </div>
@@ -22,6 +25,9 @@ export default {
     width: 30px;
   }
 
+  .soc_icon:hover {
+    cursor: pointer;
+  }
   @media only screen and (max-width: $sm-screen) {
   }
 
