@@ -65,11 +65,11 @@
 </template>
 
 <script>
-import LiveChat from '@/components/shared/LiveChat'
+import LiveChat from '@/components/live_chat/LiveChat'
 import UserEvents from './UserEvents'
 
 export default {
-  name: 'AdminLiveChat',
+  name: 'AdminLiveChatBoard',
   components: {
     UserEvents,
     LiveChat

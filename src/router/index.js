@@ -27,7 +27,7 @@ import AdminReviews from '@/components/admin/reviews/AdminReviews'
 import AdminNews from '@/components/admin/news/AdminNews'
 import CompanyInfo from '@/components/admin/company_info/CompanyInfo'
 import Dictionaries from '@/components/admin/dictionaries/Dictionaries'
-import AdminLiveChat from '@/components/admin/live_chat/AdminLiveChat'
+import AdminLiveChatBoard from '@/components/admin/live_chat/AdminLiveChatBoard'
 
 Vue.use(Router)
 
@@ -140,7 +140,7 @@ export default new Router({
         },
         {
           path: 'liveChat',
-          component: AdminLiveChat
+          component: AdminLiveChatBoard
         }
       ]
     },

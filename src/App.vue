@@ -39,7 +39,7 @@ import AppHeader from '@/components/Header'
 import AppFooter from '@/components/Footer'
 import AdminPanel from '@/components/admin/AdminPanel'
 import UserIcons from '@/components/UserIcons'
-import LiveChat from '@/components/shared/LiveChat'
+import LiveChat from '@/components/live_chat/LiveChat'
 import MobileMenu from '@/components/MobileMenu'
 
 export default {
