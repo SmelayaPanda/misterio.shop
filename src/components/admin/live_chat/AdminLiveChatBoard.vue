@@ -53,26 +53,25 @@
       <!--LIVE CHAT-->
       <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8"
               class="pl-2 pr-2 mt-2">
-        <live-chat
+        <admin-live-chat
           v-if="chatId"
           :chatId="chatId"
-          :isUserSide="false"
           :isCollapsed="false">
-        </live-chat>
+        </admin-live-chat>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import LiveChat from '@/components/live_chat/LiveChat'
+import AdminLiveChat from '@/components/live_chat/AdminLiveChat'
 import UserEvents from './UserEvents'
 
 export default {
   name: 'AdminLiveChatBoard',
   components: {
     UserEvents,
-    LiveChat
+    AdminLiveChat
   },
   data () {
     return {

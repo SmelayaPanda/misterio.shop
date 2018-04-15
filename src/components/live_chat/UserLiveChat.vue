@@ -24,8 +24,7 @@
         </h3>
         <transition name="fade">
             <span v-if="isTypingAdmin" class="pl-4 white--text">
-                <span v-if="isUserSide">
-                  Admin</span>
+                <span>Admin</span>
                 ...<v-icon size="medium" class="white--text">edit</v-icon>
             </span>
           <span v-if="!isTypingAdmin && isOnlineAdmin" class="pl-4 white--text">
@@ -83,8 +82,7 @@
 <script>
 export default {
   name: 'UserLiveChat',
-  // isUserSide === false -> admin
-  props: ['chatId', 'isUserSide', 'isCollapsed'],
+  props: ['chatId', 'isCollapsed'],
   data () {
     return {
       msg: '',
