@@ -49,31 +49,10 @@
         </v-card>
       </el-col>
       <!--USER EVENTS-->
-      <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8"
-              class="pl-2 pr-2 mt-2"
-              v-if="userEvents">
-        <v-card>
-          <v-card-title class="event_header primary_a white--text">
-            <h3 class="pl-3 white--text">
-              Действия пользователя
-            </h3>
-          </v-card-title>
-          <div ref="userEvents" id="event_messages">
-            <el-row v-for="(event, idx) in userEvents"
-                    :key="idx"
-                    justify="left">
-              <el-col :span="6" class="info--text left pr-1 chat_time">
-                {{ new Date(event.date) | chatTime }}
-              </el-col>
-              <el-col :span="18" align="left" class="pb-2">{{ event.name }}</el-col>
-            </el-row>
-          </div>
-        </v-card>
-      </el-col>
+      <user-events/>
       <!--LIVE CHAT-->
       <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8"
-              class="pl-2 pr-2 mt-2"
-              v-if="userEvents">
+              class="pl-2 pr-2 mt-2">
         <live-chat
           v-if="chatId"
           :chatId="chatId"
@@ -87,10 +66,12 @@
 
 <script>
 import LiveChat from '@/components/shared/LiveChat'
+import UserEvents from './UserEvents'
 
 export default {
   name: 'AdminLiveChat',
   components: {
+    UserEvents,
     LiveChat
   },
   data () {
@@ -123,27 +104,11 @@ export default {
       })
       this.$store.dispatch('openChat', chatId)
       this.chatId = chatId
-    },
-    scrollEventsToBottom () {
-      if (this.$refs.userEvents) {
-        let events = this.$refs.userEvents
-        events.scrollTop = events.scrollHeight
-      }
     }
   },
   computed: {
     liveChats () {
       return this.$store.getters.liveChats
-    },
-    userEvents () {
-      return this.$store.getters.userEvents
-    }
-  },
-  watch: {
-    userEvents () {
-      this.$nextTick(function () {
-        this.scrollEventsToBottom()
-      })
     }
   }
 }
@@ -155,21 +120,9 @@ export default {
     padding-bottom: 12px;
   }
 
-  #event_messages {
-    width: 100%;
-    height: 420px;
-    overflow: scroll;
-    padding-right: 8px;
-  }
-
   #chat_users {
     width: 100%;
     height: 420px;
     overflow: scroll;
-  }
-
-  .chat_time {
-    font-size: 10px;
-    padding-top: 4px;
   }
 </style>
