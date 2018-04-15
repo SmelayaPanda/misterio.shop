@@ -12,7 +12,6 @@ import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/element-variables.scss'
-import 'vue2-animate/dist/vue2-animate.min.css'
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'

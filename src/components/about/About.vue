@@ -2,7 +2,7 @@
   <div>
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
-      <transition name="title-fade">
+      <transition name="title-fade-left">
         <app-theme-page-title v-if="isLoadedData">
           <p slot="middleTitle">О НАС И НАШИХ ПАРТНЕРАХ</p>
           <p slot="bottomTitle">Мы предлагаем не просто товары, а море удовольствия и наслаждения</p>
@@ -19,7 +19,7 @@
         <el-col :xs="22" :sm="22" :md="22" :lg="22" :xl="22" type="flex" align="middle">
           <el-row type="flex" justify="center" style="flex-wrap: wrap">
             <el-col :xs="24" :sm="22" :md="11" :lg="11" :xl="11" align="left">
-              <transition name="title-fade">
+              <transition name="title-fade-left">
                 <p v-if="isLoadedData" class="about_text">
                   Разнообразный и богатый опыт укрепление и развитие структуры позволяет выполнять важные задания по
                   разработке системы обучения кадров, соответствует насущным потребностям. Разнообразный и богатый опыт

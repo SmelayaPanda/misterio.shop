@@ -3,7 +3,7 @@
     <!-- TODO: pagination, sort by date desc -->
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
-      <transition name="title-fade">
+      <transition name="title-fade-left">
         <app-theme-page-title v-if="isLoadedData">
           <p slot="middleTitle">АКЦИИ И НОВОСТИ</p>
           <p slot="bottomTitle">Самые привлекательные предложения и жгучие новости</p>
@@ -26,7 +26,7 @@
              :key="id"
              v-if="type === 'all' ? true : ( oneNews.type === type )"
              class="news_block">
-          <transition name="title-fade">
+          <transition name="title-fade-left">
             <el-row v-if="isLoadedData" class="news_tag_row" type="flex" justify="left">
               <el-col class="news_tag" align="left">
                 {{ oneNews.type === 'sale' ? 'А к ц и и' : 'Н о в о с т и' }}
@@ -35,7 +35,7 @@
             </el-row>
           </transition>
           <el-row type="flex" justify="center" style="flex-wrap: wrap">
-            <transition name="title-fade">
+            <transition name="title-fade-left">
               <el-col v-if="isLoadedData" :xs="20" :sm="9" :md="9" :lg="9" :xl="9">
                 <v-card class="white elevation-8" height="320px">
                   <v-card-media

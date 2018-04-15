@@ -2,14 +2,14 @@
   <div id="main">
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div>
-      <transition name="title-fade">
+      <transition name="title-fade-left">
         <app-theme-page-title v-if="!isLoadingContacts">
           <p slot="middleTitle">КОНТАКТЫ</p>
           <p slot="bottomTitle">Мы всегда на связи, чтобы подобрать для Вас самое подходящее</p>
         </app-theme-page-title>
       </transition>
       <el-row type="flex" justify="center" style="flex-wrap: wrap" class="mt-5">
-        <transition name="title-fade">
+        <transition name="title-fade-left">
           <el-col v-if="!isLoadingContacts" :xs="23" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle"
                   class="pl-2">
             <el-row type="flex" justify="start" style="flex-wrap: wrap">
@@ -78,7 +78,9 @@ export default {
     }
   },
   mounted () {
-    this.isLoadingContacts = false
+    setInterval(() => {
+      this.isLoadingContacts = false
+    }, 500)
   }
 }
 </script>
