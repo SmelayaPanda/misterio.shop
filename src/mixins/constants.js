@@ -10,6 +10,7 @@ export const appConstants = {
           {value: 'vibrator', label: 'вибраторы'},
           {value: 'pulsator', label: 'пульсаторы'},
           {value: 'dildo', label: 'фаллоимитаторы'},
+          {value: 'clitorisStimulator', label: 'стимуляторы клитора'},
           {value: 'vaginalBall', label: 'вагинальные шарики'},
           {value: 'analToy', label: 'анальные игрушки'},
           {value: 'strap', label: 'страпоны'},
