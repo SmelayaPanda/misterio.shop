@@ -20,13 +20,12 @@
         </social-icons>
         <!--LIVE CHAT-->
         <div class="live_chat">
-          <live-chat
+          <user-live-chat
             :color="curSlide === 2 ? 'black' : 'red'"
             :chatId="this.$store.getters.user.uid"
-            :isUserSide="true"
             :isCollapsed="true"
             class="live_chat">
-          </live-chat>
+          </user-live-chat>
         </div>
         <div
           :class="curSlide === 2 ? 'primary--text' : ''"
@@ -82,7 +81,7 @@ import HomeFrame from '@/components/home/HomeFrame'
 import AppHeader from '@/components/Header'
 import UserIcons from '@/components/UserIcons'
 import SocialIcons from '@/components/home/SocialIcons'
-import LiveChat from '@/components/live_chat/LiveChat'
+import UserLiveChat from '@/components/live_chat/UserLiveChat'
 import Slide1 from '@/components/home/Slide1'
 import Slide2 from '@/components/home/Slide2'
 import Slide3 from '@/components/home/Slide3'
@@ -99,7 +98,7 @@ export default {
     AppHeader,
     UserIcons,
     SocialIcons,
-    LiveChat,
+    UserLiveChat,
     Slide1,
     Slide2,
     Slide3,

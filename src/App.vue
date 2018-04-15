@@ -19,13 +19,12 @@
         v-if="showLiveChat"
         key="liveChat"
         id="live_chat">
-        <live-chat
+        <user-live-chat
           :chatId="this.$store.getters.user.uid"
-          :isUserSide="true"
           :isCollapsed="true"
-          key="liveChatIn"
+          key="userLiveChat"
           class="live_chat">
-        </live-chat>
+        </user-live-chat>
       </div>
       <!--Content-->
       <router-view key="routers"></router-view>
@@ -39,7 +38,7 @@ import AppHeader from '@/components/Header'
 import AppFooter from '@/components/Footer'
 import AdminPanel from '@/components/admin/AdminPanel'
 import UserIcons from '@/components/UserIcons'
-import LiveChat from '@/components/live_chat/LiveChat'
+import UserLiveChat from '@/components/live_chat/UserLiveChat'
 import MobileMenu from '@/components/MobileMenu'
 
 export default {
@@ -49,7 +48,7 @@ export default {
     AppFooter,
     AdminPanel,
     UserIcons,
-    LiveChat
+    UserLiveChat
   },
   name: 'App',
   computed: {
