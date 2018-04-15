@@ -77,9 +77,9 @@
           :xs="24" :sm="3" :md="3" :lg="3" :xl="3" align="left">
           <transition name="bounce">
             <div id="cart_count"
-               v-if="!Array.isArray(cart) && Object.keys(cart).length"
-               :key="Object.keys(cart).length"
-               :class="this.$route.path === '/cart' ? 'white--text' :
+                 v-if="!Array.isArray(cart) && Object.keys(cart).length"
+                 :key="Object.keys(cart).length"
+                 :class="this.$route.path === '/cart' ? 'white--text' :
                         ( color === 'red' ? 'secondary--text' : 'primary--text' )">
               +{{ Object.keys(cart).length }}
             </div>

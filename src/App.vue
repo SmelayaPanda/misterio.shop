@@ -13,8 +13,8 @@
            class="router_header"
            key="about"
            src="@/assets/img/about/header_bg.png" alt="">
-      <mobile-menu v-if="isSecondaryRouters" key="mobile" ></mobile-menu>
-      <app-header v-if="isSecondaryRouters" key="head" ></app-header>
+      <mobile-menu v-if="isSecondaryRouters" key="mobile"></mobile-menu>
+      <app-header v-if="isSecondaryRouters" key="head"></app-header>
       <div
         v-if="showLiveChat"
         key="liveChat"
@@ -29,7 +29,7 @@
       </div>
       <!--Content-->
       <router-view key="routers"></router-view>
-      <app-footer v-if="isSecondaryRouters && this.$route.path !== '/contacts'" key="footer" ></app-footer>
+      <app-footer v-if="isSecondaryRouters && this.$route.path !== '/contacts'" key="footer"></app-footer>
     </transition-group>
   </v-app>
 </template>
@@ -104,7 +104,7 @@ export default {
     top: 0;
     width: 100vw;
   }
-
+  /* TRANSITIONS */
   /* fade */
   .fade-enter-active, .fade-leave-active {
     transition-property: opacity;
@@ -121,20 +121,19 @@ export default {
 
   /* slide-fade */
   .slide-fade-enter-active {
-    transition: all 2.5s ease-in;
+    transition: all 3s ease;
   }
 
   .slide-fade-leave-active {
-    transition: all 2.5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
+    transition: all 1.5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
   }
-
-  .slide-fade-enter, .slide-fade-leave-to
-    /* .slide-fade-leave-active до версии 2.1.8 */
-  {
-    transform: translateY(7px);
+  .slide-fade-leave-to {
+    transform: translateY(10px);
     opacity: 0;
   }
-
+  .slide-fade-enter {
+    transform: translateY(100px);
+  }
   /* bounce */
   .bounce-enter-active {
     animation: bounce-in 0.75s;
@@ -155,6 +154,59 @@ export default {
       transform: scale(1);
     }
   }
+  /* title-fade */
+  .title-fade-enter-active {
+    transition: all .5s ease;
+    animation: title-text-animation 1s ease;
+  }
+
+  .title-fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
+  }
+
+  @keyframes title-text-animation {
+    0% {
+      opacity: 0;
+      filter: blur(4px);
+      transform: translateX(-3px);
+    }
+    20% {
+      filter: blur(5px);
+      transform: translateX(-5px);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateX(0);
+    }
+  }
+
+  .title-fade-right-enter-active {
+    transition: all .5s ease;
+    animation: right-title-text-animation  1s ease;
+  }
+
+  .title-fade-right-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
+  }
+
+  @keyframes right-title-text-animation {
+    0% {
+      opacity: 0;
+      filter: blur(4px);
+      transform: translateX(3px);
+    }
+    20% {
+      filter: blur(5px);
+      transform: translateX(5px);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateX(0);
+    }
+  }
+  /* END TRANSITIONS */
 
   @media only screen and (max-width: $xs-screen) {
     .router_header {

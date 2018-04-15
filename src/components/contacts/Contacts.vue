@@ -1,50 +1,60 @@
 <template>
   <div id="main">
-    <app-theme-page-title>
-      <p slot="middleTitle">КОНТАКТЫ</p>
-      <p slot="bottomTitle">Мы всегда на связи, чтобы подобрать для Вас самое подходящее</p>
-    </app-theme-page-title>
-    <el-row type="flex" justify="center" style="flex-wrap: wrap" class="mt-5">
-      <el-col :xs="23" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle" class="pl-2">
-        <el-row type="flex" justify="start" style="flex-wrap: wrap">
-          <el-col :xs="12" :sm="10" :md="10" :lg="10" :xl="9" align="left">
-            <span class="line ver_line hor_line"></span>
-            <contacts-services/>
+    <app-heart-loader v-if="this.isLoading"></app-heart-loader>
+    <div>
+      <transition name="title-fade">
+        <app-theme-page-title v-if="!isLoadingContacts">
+          <p slot="middleTitle">КОНТАКТЫ</p>
+          <p slot="bottomTitle">Мы всегда на связи, чтобы подобрать для Вас самое подходящее</p>
+        </app-theme-page-title>
+      </transition>
+      <el-row type="flex" justify="center" style="flex-wrap: wrap" class="mt-5">
+        <transition name="title-fade">
+          <el-col v-if="!isLoadingContacts" :xs="23" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle"
+                  class="pl-2">
+            <el-row type="flex" justify="start" style="flex-wrap: wrap">
+              <el-col :xs="12" :sm="10" :md="10" :lg="10" :xl="9" align="left">
+                <span class="line ver_line hor_line"></span>
+                <contacts-services/>
+              </el-col>
+              <el-col :xs="12" :sm="10" :md="10" :lg="10" :xl="10" align="left">
+                <contacts-important/>
+              </el-col>
+            </el-row>
+            <el-row type="flex" justify="start" style="flex-wrap: wrap; margin-top: 40px;">
+              <el-col :span="22" align="left">
+                <contacts-phone/>
+                <app-theme-btn>
+                  Задать вопрос
+                </app-theme-btn>
+              </el-col>
+            </el-row>
           </el-col>
-          <el-col :xs="12" :sm="10" :md="10" :lg="10" :xl="10" align="left">
-            <contacts-important/>
+        </transition>
+        <transition name="title-fade-right">
+          <el-col v-if="!isLoadingContacts" :xs="24" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle">
+            <p id="header_3" class="header">
+              ИНСТАГРАМ
+            </p>
+            <el-row v-if="instPhotos" type="flex" justify="center" style="flex-wrap: wrap">
+              <el-col v-for="(photo, idx) in instPhotos" :key="idx"
+                      :xs="23" :sm="8" :md="12" :lg="8" :xl="8" align="center"
+                      class="inst_card_wrap">
+                <img :src="photo" class="inst_photo" alt="">
+              </el-col>
+            </el-row>
+            <el-row id="watch_news_wrap" type="flex" justify="start" style="flex-wrap: wrap">
+              <el-col :span="10" align="left">
+                <p id="watch_news" align="left">СЛЕДИ ЗА НОВОСТЯМИ</p>
+              </el-col>
+              <el-col id="soc_icons_wrap" :span="14" align="right">
+                <contacts-social/>
+              </el-col>
+            </el-row>
           </el-col>
-        </el-row>
-        <el-row type="flex" justify="start" style="flex-wrap: wrap; margin-top: 40px;">
-          <el-col :span="22" align="left">
-            <contacts-phone/>
-            <app-theme-btn>
-              Задать вопрос
-            </app-theme-btn>
-          </el-col>
-        </el-row>
-      </el-col>
-      <el-col :xs="24" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle">
-        <p id="header_3" class="header">
-          ИНСТАГРАМ
-        </p>
-        <el-row v-if="instPhotos" type="flex" justify="center" style="flex-wrap: wrap">
-          <el-col v-for="(photo, idx) in instPhotos" :key="idx"
-                  :xs="23" :sm="8" :md="12" :lg="8" :xl="8" align="center"
-                  class="inst_card_wrap">
-            <img :src="photo" class="inst_photo" alt="">
-          </el-col>
-        </el-row>
-        <el-row id="watch_news_wrap" type="flex" justify="start" style="flex-wrap: wrap">
-          <el-col :span="10" align="left">
-            <p id="watch_news" align="left">СЛЕДИ ЗА НОВОСТЯМИ</p>
-          </el-col>
-          <el-col id="soc_icons_wrap" :span="14" align="right">
-            <contacts-social/>
-          </el-col>
-        </el-row>
-      </el-col>
-    </el-row>
+        </transition>
+      </el-row>
+    </div>
   </div>
 </template>
 
@@ -57,10 +67,18 @@ import ContactsSocial from './ContactsSocial'
 export default {
   name: 'Contacts',
   components: {ContactsSocial, ContactsPhone, ContactsImportant, ContactsServices},
+  data () {
+    return {
+      isLoadingContacts: true
+    }
+  },
   computed: {
     instPhotos () {
       return this.$store.getters.companyInfo.photos
     }
+  },
+  mounted () {
+    this.isLoadingContacts = false
   }
 }
 </script>

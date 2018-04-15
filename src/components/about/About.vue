@@ -2,10 +2,12 @@
   <div>
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
-      <app-theme-page-title>
-        <p slot="middleTitle">О НАС И НАШИХ ПАРТНЕРАХ</p>
-        <p slot="bottomTitle">Мы предлагаем не просто товары, а море удовольствия и наслаждения</p>
-      </app-theme-page-title>
+      <transition name="title-fade">
+        <app-theme-page-title v-if="isLoadedData">
+          <p slot="middleTitle">О НАС И НАШИХ ПАРТНЕРАХ</p>
+          <p slot="bottomTitle">Мы предлагаем не просто товары, а море удовольствия и наслаждения</p>
+        </app-theme-page-title>
+      </transition>
       <el-row type="flex" justify="center">
         <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex" align="left">
           <h2 class="about_corner">О нас</h2>
@@ -17,19 +19,23 @@
         <el-col :xs="22" :sm="22" :md="22" :lg="22" :xl="22" type="flex" align="middle">
           <el-row type="flex" justify="center" style="flex-wrap: wrap">
             <el-col :xs="24" :sm="22" :md="11" :lg="11" :xl="11" align="left">
-              <p class="about_text">
-                Разнообразный и богатый опыт укрепление и развитие структуры позволяет выполнять важные задания по
-                разработке системы обучения кадров, соответствует насущным потребностям. Разнообразный и богатый опыт
-                укрепление и развитие структуры способствует подготовки и реализации модели развития.
-              </p>
+              <transition name="title-fade">
+                <p v-if="isLoadedData" class="about_text">
+                  Разнообразный и богатый опыт укрепление и развитие структуры позволяет выполнять важные задания по
+                  разработке системы обучения кадров, соответствует насущным потребностям. Разнообразный и богатый опыт
+                  укрепление и развитие структуры способствует подготовки и реализации модели развития.
+                </p>
+              </transition>
             </el-col>
             <el-col :xs="24" :sm="22" :md="11" :lg="11" :xl="11" align="left">
-              <p class="about_text">
-                Не следует, однако забывать, что постоянное информационно-пропагандистское обеспечение нашей
-                деятельности представляет собой интересный эксперимент проверки модели развития. Идейные соображения
-                высшего порядка, а также консультация с широким активом обеспечивает широкому кругу (специалистов)
-                участие в формировании направлений прогрессивного развития.
-              </p>
+              <transition name="title-fade-right">
+                <p v-if="isLoadedData" class="about_text">
+                  Не следует, однако забывать, что постоянное информационно-пропагандистское обеспечение нашей
+                  деятельности представляет собой интересный эксперимент проверки модели развития. Идейные соображения
+                  высшего порядка, а также консультация с широким активом обеспечивает широкому кругу (специалистов)
+                  участие в формировании направлений прогрессивного развития.
+                </p>
+              </transition>
             </el-col>
           </el-row>
         </el-col>
@@ -67,6 +73,11 @@ import Reviews from '@/components/about/Reviews'
 export default {
   name: 'info',
   components: {Reviews},
+  data () {
+    return {
+      isLoadedData: true
+    }
+  },
   methods: {
     fetchAboutData () {
       this.$store.dispatch('fetchReviews', {status: 'published'})
@@ -75,6 +86,13 @@ export default {
   },
   created () {
     this.fetchAboutData()
+  },
+  watch: {
+    isLoading () {
+      this.$nextTick(function () {
+        this.isLoadedData = !this.isLoadedData
+      })
+    }
   }
 }
 </script>
