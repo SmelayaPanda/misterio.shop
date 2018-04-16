@@ -257,12 +257,11 @@ export default {
   },
   methods: {
     sortByPrice () {
-      this.$store.dispatch('USER_EVENT', `Сортировка по цене ${this.sortAsc}`)
+      this.$store.dispatch('USER_EVENT', `Сортировка по цене: ${this.sortAsc ? 'возрастание' : 'убывание'}`)
       this.sortAsc = !this.sortAsc
       this.filterProducts()
     },
     changeCategory (key) {
-      this.$store.dispatch('USER_EVENT', `Категория: ${key}`)
       let groupList = ['sexToy', 'bdsm', 'baa', 'condom', 'eroticLingerie', 'cosmetic']
       if (groupList.indexOf(key) !== -1) {
         this.selectedGroup = key
@@ -271,6 +270,7 @@ export default {
         this.selectedCategory = key
         this.selectedGroup = null
       }
+      this.$store.dispatch('USER_EVENT', `Категория: ${this.searchGroup.split(':')[0]}`)
     },
     filterProducts () {
       this.$store.dispatch('setLastVisible', null)
@@ -281,6 +281,7 @@ export default {
       this.filter()
     },
     filter () {
+      this.logFilterEvents()
       this.$store.dispatch('productFilters', {
         limit: this.algoliaSearchText ? null : 15, // all with algolia search
         sortAsc: this.sortAsc,
@@ -294,6 +295,24 @@ export default {
         material: this.selectedMaterial
       })
       return this.$store.dispatch('fetchProducts')
+    },
+    logFilterEvents () {
+      let lastFilter = this.$store.getters.productFilters
+      if (lastFilter.brand !== this.selectedBrand) {
+        this.$store.dispatch('USER_EVENT', `Фильтр - бренд: ${this.selectedBrand}`)
+      }
+      if (lastFilter.country !== this.selectedCountry) {
+        this.$store.dispatch('USER_EVENT', `Фильтр - страна: ${this.selectedCountry}`)
+      }
+      if (lastFilter.color !== this.selectedColor) {
+        this.$store.dispatch('USER_EVENT', `Фильтр - цвет: ${this.selectedColor}`)
+      }
+      if (lastFilter.material !== this.selectedMaterial) {
+        this.$store.dispatch('USER_EVENT', `Фильтр - материал: ${this.selectedMaterial}`)
+      }
+      if (lastFilter.minPrice !== this.sliderValues[0] || lastFilter.maxPrice !== this.sliderValues[1]) {
+        this.$store.dispatch('USER_EVENT', `Фильтр - цена: [${this.sliderValues[0]}, ${this.sliderValues[1]}]`)
+      }
     },
     algoliaSearch () {
       this.$store.dispatch('USER_EVENT', `Поиск по слову: "${this.algoliaSearchText}"`)
