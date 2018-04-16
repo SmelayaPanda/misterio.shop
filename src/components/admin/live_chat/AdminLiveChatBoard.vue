@@ -106,6 +106,7 @@ export default {
   },
   beforeDestroy () {
     this.$store.dispatch('setChatProp', {chatId: this.chatId, props: 'isCollapsedAdmin', value: 1})
+    this.$store.dispatch('unsubscribeFromChat', this.chatId)
   }
 }
 </script>

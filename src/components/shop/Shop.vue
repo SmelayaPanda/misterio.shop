@@ -100,8 +100,7 @@
               </div>
               <el-tag size="mini">
                 <i v-if="this.sortByPrice === 'asc'" class="el-icon-sort-up white--text"></i>
-                <i v-else-if="this.sortByPrice === 'desc'" class="el-icon-sort-down white--text"></i>
-                <i v-else class="el-icon-sort white--text"></i>
+                <i v-else-if="!this.sortByPrice || this.sortByPrice === 'desc'" class="el-icon-sort-down white--text"></i>
               </el-tag>
             </el-button>
             <div class="pl-3 pr-3">
@@ -262,9 +261,6 @@ export default {
       if (this.sortByPrice === 'asc') {
         this.sortByPrice = 'desc'
         this.$store.dispatch('USER_EVENT', `Сортировка по цене: убывание`)
-      } else if (this.sortByPrice === 'desc') {
-        this.sortByPrice = ''
-        this.$store.dispatch('USER_EVENT', `Сортировка по цене: -`)
       } else {
         this.sortByPrice = 'asc'
         this.$store.dispatch('USER_EVENT', `Сортировка по цене: возрастание`)

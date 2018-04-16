@@ -68,7 +68,7 @@
       </div>
       <el-row id="product_title_wrapper" type="flex" justify="center">
         <p class="shop_product_title">
-          {{ product.title | snippet(50) }}
+          {{ product.title | snippet(56) }}
         </p>
       </el-row>
     </v-card>
