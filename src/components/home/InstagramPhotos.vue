@@ -33,7 +33,8 @@ export default {
   components: {ContactsSocial},
   computed: {
     instPhotos () {
-      return Object.values(this.$store.getters.companyInfo.photos).slice(0, 4)
+      return this.$store.getters.companyInfo.photos
+        ? Object.values(this.$store.getters.companyInfo.photos).slice(0, 4) : {}
     }
   }
 }

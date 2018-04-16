@@ -133,31 +133,29 @@ export default {
             commit('setLiveChats', liveChats)
           })
       },
-    subscribeToChat:
-      ({commit, getters, dispatch}, payload) => {
-        let chatRef = firebase.database().ref(`liveChats/${payload}`)
+    async subscribeToChat ({commit, getters, dispatch}, payload) {
+      let chatRef = firebase.database().ref(`liveChats/${payload}`)
+      await Promise.all([
         chatRef.child('messages').on('child_added', data => {
-          if (data.val()) {
+          if (data.exists()) {
             let chatMessages = {...getters.chatMessages}
             chatMessages[data.key] = data.val()
             commit('setChatMessages', chatMessages)
           }
-        })
+        }),
         chatRef.child('events').on('child_added', data => {
-          if (data.val()) {
+          if (data.exists()) {
             let userEvents = {...getters.userEvents}
             userEvents[data.key] = data.val()
             commit('setUserEvents', userEvents)
           }
-        })
+        }),
         chatRef.child('props').on('child_changed', data => {
-          commit('setChatProp', {
-            propName: data.key,
-            propValue: data.val()
-          })
-        })
+          commit('setChatProp', {propName: data.key, propValue: data.val()})
+        }),
         dispatch('subscribeToAdminConnectionDevices')
-      },
+      ])
+    },
     subscribeToAdminConnectionDevices:
     // TODO: set for all chats isCollapsedAdmin when admin go away from chat or offline
     // for users to detect online admin
@@ -174,13 +172,14 @@ export default {
           })
         })
       },
-    unsubscribeFromChat:
-      ({commit, getters}, payload) => {
-        let chatRef = firebase.database().ref(`liveChats/${payload}`)
-        chatRef.child('messages').off()
-        chatRef.child('events').off()
+    async unsubscribeFromChat ({commit, getters}, payload) {
+      let chatRef = firebase.database().ref(`liveChats/${payload}`)
+      await Promise.all([ // await make promise if it is not a promise
+        chatRef.child('messages').off(),
+        chatRef.child('events').off(),
         chatRef.child('props').off()
-      },
+      ])
+    },
     initializeChat:
       ({commit, getters, dispatch}, payload) => {
         if (!payload.uid) return
@@ -215,18 +214,15 @@ export default {
           })
           .catch(err => dispatch('LOG', err))
       },
-    openChat: // for admin
-      ({commit, dispatch}, payload) => {
-        firebase.database().ref(`liveChats/${payload}`).once('value')
-          .then(data => {
-            commit('setChatMessages', data.val().messages ? data.val().messages : [])
-            commit('setUserEvents', data.val().events ? data.val().events : [])
-          })
-          .then(() => {
-            dispatch('subscribeToChat', payload)
-          })
-          .catch(err => dispatch('LOG', err))
-      },
+    async openChat ({commit, dispatch}, payload) { // for admin
+      await firebase.database().ref(`liveChats/${payload}`).once('value')
+        .then(data => {
+          commit('setChatMessages', data.val().messages ? data.val().messages : [])
+          commit('setUserEvents', data.val().events ? data.val().events : [])
+          dispatch('subscribeToChat', payload)
+        })
+        .catch(err => dispatch('LOG', err))
+    },
     sendChatMessage:
       ({commit, getters, dispatch}, payload) => {
         if (!payload.chatId) return
@@ -266,21 +262,21 @@ export default {
           })
           .catch(err => dispatch('LOG', err))
       },
-    setChatProp:
-      ({commit, getters, dispatch}, payload) => {
-        if (!payload.chatId) return
-        firebase.database().ref(`liveChats/${payload.chatId}/props`)
-          .update({
-            [payload.props]: payload.value
+    async setChatProp
+    ({commit, getters, dispatch}, payload) {
+      if (!payload.chatId) return
+      await firebase.database().ref(`liveChats/${payload.chatId}/props`)
+        .update({
+          [payload.props]: payload.value
+        })
+        .then(() => {
+          commit('setChatProp', {
+            propName: payload.props,
+            propValue: payload.value
           })
-          .then(() => {
-            commit('setChatProp', {
-              propName: payload.props,
-              propValue: payload.value
-            })
-          })
-          .catch(err => dispatch('LOG', err))
-      }
+        })
+        .catch(err => dispatch('LOG', err))
+    }
   },
   getters: {
     chatMessages:

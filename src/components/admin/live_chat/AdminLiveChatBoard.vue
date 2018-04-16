@@ -80,35 +80,32 @@ export default {
     }
   },
   methods: {
-    openChat (chatId) {
+    async openChat (chatId) {
       // CLOSE OLD CHAT
+      this.$store.dispatch('LOADING', true)
       if (this.chatId && this.chatId !== chatId) {
-        this.$store.dispatch('setChatProp', {
-          chatId: this.chatId,
-          props: 'isCollapsedAdmin',
-          value: 1
-        })
-        this.$store.dispatch('unsubscribeFromChat', this.chatId)
+        await Promise.all([
+          this.$store.dispatch('setChatProp', {chatId: this.chatId, props: 'isCollapsedAdmin', value: 1}),
+          this.$store.dispatch('unsubscribeFromChat', this.chatId)
+        ])
       }
       // OPEN NEW CHAT
-      this.$store.dispatch('setChatProp', {
-        chatId: chatId,
-        props: 'isCollapsedAdmin',
-        value: 0
-      })
-      this.$store.dispatch('setChatProp', {
-        chatId: chatId,
-        props: 'unreadByAdmin',
-        value: 0
-      })
-      this.$store.dispatch('openChat', chatId)
+      await Promise.all([
+        this.$store.dispatch('setChatProp', {chatId: chatId, props: 'isCollapsedAdmin', value: 0}),
+        this.$store.dispatch('setChatProp', {chatId: chatId, props: 'unreadByAdmin', value: 0}),
+        this.$store.dispatch('openChat', chatId)
+      ])
       this.chatId = chatId
+      this.$store.dispatch('LOADING', false)
     }
   },
   computed: {
     liveChats () {
       return this.$store.getters.liveChats
     }
+  },
+  beforeDestroy () {
+    this.$store.dispatch('setChatProp', {chatId: this.chatId, props: 'isCollapsedAdmin', value: 1})
   }
 }
 </script>
