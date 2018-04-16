@@ -138,6 +138,7 @@ export default {
       this.$store.dispatch('setLastVisible', null)
       this.$store.dispatch('productFilters', {
         limit: null, // all
+        sortByPrice: 'asc',
         category: this.productOption[1],
         group: this.productOption[1] ? null : this.productOption[0]
       })

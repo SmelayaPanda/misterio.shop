@@ -93,13 +93,15 @@
           class="primary">
           <!--PRICE FILTER-->
           <el-collapse-item title="Фильтр" name="1" class="primary">
-            <el-button type="text" class="pr-4 pb-0 white--text" @click="sortByPrice">
-              <span class="pl-4 white--text">
+            <el-button type="text" class="pr-4 pb-0 white--text" @click="changeSortByPrice">
+              <div class="tooltip pl-4 white--text">
                 Цена
-              </span>
+                <span class="tooltip_text">Нажми для сортировки</span>
+              </div>
               <el-tag size="mini">
-                <i class="el-icon-caret-top white--text" v-if="!this.sortAsc"></i>
-                <i class="el-icon-caret-bottom white--text" v-else></i>
+                <i v-if="this.sortByPrice === 'asc'" class="el-icon-sort-up white--text"></i>
+                <i v-else-if="this.sortByPrice === 'desc'" class="el-icon-sort-down white--text"></i>
+                <i v-else class="el-icon-sort white--text"></i>
               </el-tag>
             </el-button>
             <div class="pl-3 pr-3">
@@ -233,7 +235,7 @@ export default {
     return {
       hoverOnCard: false,
       algoliaSearchText: this.$store.getters.algoliaSearchText,
-      sortAsc: filter.sortAsc,
+      sortByPrice: filter.sortByPrice,
       sliderValues: [
         filter.minPrice,
         filter.maxPrice
@@ -256,9 +258,17 @@ export default {
     }
   },
   methods: {
-    sortByPrice () {
-      this.$store.dispatch('USER_EVENT', `Сортировка по цене: ${this.sortAsc ? 'возрастание' : 'убывание'}`)
-      this.sortAsc = !this.sortAsc
+    changeSortByPrice () {
+      if (this.sortByPrice === 'asc') {
+        this.sortByPrice = 'desc'
+        this.$store.dispatch('USER_EVENT', `Сортировка по цене: убывание`)
+      } else if (this.sortByPrice === 'desc') {
+        this.sortByPrice = ''
+        this.$store.dispatch('USER_EVENT', `Сортировка по цене: -`)
+      } else {
+        this.sortByPrice = 'asc'
+        this.$store.dispatch('USER_EVENT', `Сортировка по цене: возрастание`)
+      }
       this.filterProducts()
     },
     changeCategory (key) {
@@ -284,7 +294,7 @@ export default {
       this.logFilterEvents()
       this.$store.dispatch('productFilters', {
         limit: this.algoliaSearchText ? null : 15, // all with algolia search
-        sortAsc: this.sortAsc,
+        sortByPrice: this.sortByPrice,
         minPrice: this.sliderValues[0],
         maxPrice: this.sliderValues[1],
         category: this.selectedCategory,
@@ -379,6 +389,7 @@ export default {
   .selected_filter {
     padding: 10px;
   }
+
   .el-menu--collapse {
     width: 82px !important;
   }
@@ -391,6 +402,31 @@ export default {
     width: 45px;
     margin-right: 10px;
     z-index: 11;
+  }
+
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+
+  .tooltip .tooltip_text {
+    font-size: 10px;
+    opacity: 0;
+    color: white;
+    text-align: center;
+    padding: 4px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    top: 0;
+    left: 100px;
+    z-index: 1;
+    transition: all 1s;
+  }
+
+  .tooltip:hover .tooltip_text {
+    opacity: 1;
   }
 
   @media only screen and (max-width: $sm-screen) {

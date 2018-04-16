@@ -22,7 +22,7 @@ export default {
       brand: '',
       color: '',
       material: '',
-      sortAsc: true,
+      sortByPrice: '',
       limit: 15
     },
     algoliaSearchText: '',
@@ -83,7 +83,9 @@ export default {
         if (filter.material) {
           query = query.where('material', '==', filter.material)
         }
-        query = query.orderBy('price', filter.sortAsc ? 'asc' : 'desc')
+        if (filter.sortByPrice) {
+          query = query.orderBy('price', filter.sortByPrice)
+        }
         if (getters.lastVisible) {
           query = query.startAfter(getters.lastVisible)
         }
