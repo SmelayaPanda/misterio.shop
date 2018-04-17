@@ -252,7 +252,8 @@ export default {
   }
 
   .chat_msg_meta {
-    font-size: 10px
+    font-size: 10px;
+    color: $color-info-dark
   }
 
   .chat_msg {

@@ -12,41 +12,53 @@
       </div>
     </div>
     <v-card v-if="!isCollapsedChat"
-            id="liveChat"
-            class="user_live_chat">
-      <v-card-title class="chat_header_user">
-        <el-button @click="closeChat" type="text" class="closeChat">
-          <v-icon class="white--text">close</v-icon>
-        </el-button>
-        <h3 class="pl-3 white--text">
-          Live Chat
-          <span class="pl-3">|</span>
-        </h3>
-        <transition name="fade">
-            <span v-if="isTypingAdmin" class="pl-4 white--text">
-                <span>Admin</span>
+            id="live_chat_card">
+      <el-row type="flex" id="chat_header_wrap">
+        <div id="chat_header_icon_wrap">
+          <img id="chat_header_icon" src="@/assets/icons/common/chat_common.svg" alt="">
+        </div>
+        <el-col :span="3">
+          <el-button @click="closeChat" type="text" id="close_chat_wrap">
+            <i id="close_chat" class="el-icon-close"></i>
+          </el-button>
+        </el-col>
+        <el-col :span="9" align="left">
+          <div class="chat_header">
+            Онлайн чат
+          </div>
+        </el-col>
+        <el-col :span="7" align="right">
+          <span id="consultant">
+            Консультант
+          </span>
+        </el-col>
+        <el-col :span="4" align="left" class="mr-2 ml-1">
+          <span v-if="isTypingAdmin" key="1" class="consultant_status">
                 ...<v-icon size="medium" class="white--text">edit</v-icon>
+          </span>
+          <span v-else-if="!isTypingAdmin && isOnlineAdmin" class="consultant_status" key="2">
+                онлайн
             </span>
-          <span v-if="!isTypingAdmin && isOnlineAdmin" class="pl-4 white--text">
-              Admin online
+          <span v-else-if="!isOnlineAdmin" class="consultant_status" key="3">
+                оффлайн
             </span>
-          <span v-if="!isOnlineAdmin" class="pl-4 white--text">
-              Admin offline
-            </span>
-        </transition>
-      </v-card-title>
+        </el-col>
+      </el-row>
       <v-card-text v-if="chatMessages"
                    ref="chatMessages"
-                   class="user_chat_messages">
-          <span v-if="Object.keys(chatMessages).length === 0">
-            <h2 class="pt-5 info--text">Have question?</h2>
-          </span>
+                   id="chat_msg_wrap">
+          <p v-if="Object.keys(chatMessages).length === 0" style="margin-top: 60px;">
+            <span id="need_consulting">
+              Нужна консультация? <br>
+              Мы рады ответить на любой Ваш вопрос :)
+            </span>
+          </p>
         <div v-for="(chat, key) in chatMessages"
              :key="key">
           <el-row>
-            <el-col :span="24" class="info--text chat_msg_meta">
+            <el-col :span="24" class="chat_msg_meta">
                 <span :class="chat.creator ? 'left' : 'right'">
-                <span>{{ chat.creator ? 'You' : 'ReHigh' }}:</span>
+                <span>{{ chat.creator ? 'Вы' : 'Консультант' }}:</span>
                 {{ new Date(chat.date) | chatTime }}
                 </span>
             </el-col>
@@ -60,12 +72,12 @@
         </div>
       </v-card-text>
       <v-divider></v-divider>
-      <v-card-actions>
+      <div>
       <textarea v-model="msg"
                 ref="msgInput"
-                cols="100" rows="3"
-                placeholder="Type..."
-                class="chat_input"
+                cols="46" rows="3"
+                placeholder="Введите текст..."
+                id="chat_input"
                 @input="detectTyping"
                 @keydup.shift.enter="msg+='\n'"
                 @keydup.ctrl.enter="msg+='\n'"
@@ -74,7 +86,12 @@
                 @keydup.down="msg+='\n'"
                 @keyup.enter.exact="sendChatMessage">
       </textarea>
-      </v-card-actions>
+        <el-row>
+          <el-button @click="sendChatMessage" id="send_msg_btn">
+            Отправить
+          </el-button>
+        </el-row>
+      </div>
     </v-card>
   </transition>
 </template>
@@ -192,54 +209,99 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  #liveChat {
-    z-index: 10;
+  #live_chat_card {
+    position: fixed;
+    bottom: 30px;
+    right: 50px;
+    width: 320px;
+    height: 400px;
+    border-radius: 8px;
+    z-index: 10000;
   }
 
-  .chat_header_user {
-    margin-bottom: 1px;
-    padding-bottom: 12px;
+  #chat_header_icon_wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    top: -24px;
+    width: 54px;
+    height: 44px;
     background: $color-secondary;
+    border-radius: 6px;
   }
 
-  .chat_input {
+  #chat_header_icon {
+    margin-top: 8px;
+    height: 16px;
+  }
+
+  #chat_header_wrap {
+    height: 45px;
+    background: $color-secondary;
+    align-items: center;
+  }
+
+  .chat_header {
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  #close_chat_wrap {
+    padding: 10px;
+    color: white;
+  }
+
+  #close_chat {
+    transition: all 0.5s;
+  }
+
+  #close_chat:hover {
+    transform: rotate(180deg) scale(1.4);
+  }
+
+  #consultant {
+    color: white;
+    font-size: 10px;
+  }
+
+  .consultant_status {
+    color: white;
+    font-size: 10px;
+  }
+  #need_consulting {
+    color: $color-info-dark;
+    font-weight: 500;
+  }
+
+  #send_msg_btn {
+    color: white;
+    font-size: 11px;
+    background: $color-secondary;
+    width: 96%;
+    border-radius: 7px;
+    padding: 7px;
+    margin-bottom: 6px;
+  }
+
+  #chat_input {
     padding: 5px;
   }
 
-  .user_chat_messages {
+  #chat_msg_wrap {
+    font-size: 12px;
     width: 100%;
     height: 280px;
     overflow: scroll;
   }
 
-  .user_live_chat {
-    position: fixed;
-    bottom: 30px;
-    right: 40px;
-    width: 320px;
-    height: 400px;
-    z-index: 10000;
-  }
-
-  .collapsed_chat {
-    position: fixed;
-    bottom: 30px;
-    right: 40px;
-    z-index: 10000;
-  }
-
   textarea {
+    font-size: 12px;
+    margin-top: 5px;
     border: 1px solid lightgrey;
     border-radius: 3px;
-  }
-
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .3s;
-  }
-
-  .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */
-  {
-    opacity: 0;
   }
 
   .bounce-enter-active {
@@ -262,13 +324,9 @@ export default {
     }
   }
 
-  .closeChat {
-    margin: 0;
-    padding: 0;
-  }
-
   .chat_msg_meta {
-    font-size: 10px
+    font-size: 10px;
+    color: $color-info-dark
   }
 
   .chat_msg {
