@@ -2,7 +2,7 @@
   <transition name="bounce">
     <!--Admin-->
     <v-btn v-if="isCollapsedChat"
-           fab class="primary collapsed_chat"
+           fab class="primary_a white--text collapsed_chat"
            @click="openChat">
       <v-icon v-if="!unreadByAdmin">chat</v-icon>
       <h2 v-if="unreadByAdmin">
