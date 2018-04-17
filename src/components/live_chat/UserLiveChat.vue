@@ -75,7 +75,7 @@
       <div>
       <textarea v-model="msg"
                 ref="msgInput"
-                cols="46" rows="3"
+                rows="3"
                 placeholder="Введите текст..."
                 id="chat_input"
                 @input="detectTyping"
@@ -310,6 +310,7 @@ export default {
     margin-top: 5px;
     border: 1px solid lightgrey;
     border-radius: 3px;
+    width: 96%;
   }
 
   .chat-bounce-enter-active {

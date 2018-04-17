@@ -7,10 +7,6 @@ fade
   transition-duration: .4s
 }
 
-.fade-enter-active {
-  transition-delay: .4s
-}
-
 .fade-enter, .fade-leave-active {
   opacity: 0
 }
@@ -19,10 +15,12 @@ fade
 slide-fade
 */
 .slide-fade-enter-active {
+  transition-delay: 2s;
   transition: all 2.75s ease-out;
 }
 
 .slide-fade-leave-active {
+  transition-delay: 2s;
   transition: all 2s cubic-bezier(1.0, 0.5, 0.5, 1.0);
 }
 

@@ -26,24 +26,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-  @mixin position-center($text-align: center) {
-    position: fixed;
-    top: 36%;
-    margin: auto;
-    text-align: $text-align;
-  }
-
   .loading {
     position: fixed;
-    top: -10vh;
     left: 0;
+    top: 36%;
     width: 100%;
     height: 100%;
+    z-index: 10000;
   }
 
   .loading-text {
-    @include position-center;
+    text-align: center;
+    position: absolute;
     width: 100%;
     font-size: 32px;
     height: 100px;
