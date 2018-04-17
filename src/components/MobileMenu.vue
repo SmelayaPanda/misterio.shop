@@ -7,6 +7,12 @@
         @click="sideNav = !sideNav"
         class="white--text ml-3 pl-3 side_icon">
       </v-toolbar-side-icon>
+      <img id="app_main_logo_mobile" src="@/assets/icons/logo/logo_site.svg" alt="">
+      <img id="app_main_logo_mobile_text" src="@/assets/icons/logo/text_white.svg" alt="">
+      <router-link to="/cart" exact>
+        <i id="mobile_cart" class="el-icon-goods"></i>
+      </router-link>
+      <cart-product-count id="cart_product_count_mobile" color="white"></cart-product-count>
     </v-toolbar>
 
     <!--Navigation drawer-->
@@ -27,8 +33,11 @@
 </template>
 
 <script>
+import CartProductCount from './CartProductCount'
+
 export default {
   name: 'MobileMenu',
+  components: {CartProductCount},
   data () {
     return {
       sideNav: false,
@@ -63,6 +72,36 @@ export default {
 
   .mobile_menu_icon {
     height: 25px;
+  }
+
+  #app_main_logo_mobile {
+    height: 50px;
+    margin-left: 50%;
+    margin-top: 5px;
+    transform: translateX(-110px);
+  }
+
+  #app_main_logo_mobile_text {
+    height: 30px;
+    transform: translateX(-110px);
+  }
+
+  #mobile_cart {
+    color: white;
+    position: fixed;
+    top: 22px;
+    right: 45px;
+    transform: scale(2);
+  }
+
+  #mobile_cart:hover {
+    cursor: pointer;
+  }
+
+  #cart_product_count_mobile {
+    position: fixed;
+    top: 20px;
+    right: 0;
   }
 
   @media only screen and (max-width: $sm-screen) {
