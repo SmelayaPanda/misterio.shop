@@ -53,7 +53,7 @@ export default {
   name: 'App',
   computed: {
     showLiveChat () {
-      let showIn = ['/account', '/shop', '/cart', '/favorite']
+      let showIn = ['/account', '/shop', '/cart', '/favorite', '/contacts']
       return this.$store.getters.user &&
           (showIn.includes(this.$route.path) || this.$route.path.indexOf('/product') !== -1) &&
           this.$route.path.indexOf('admin') === -1

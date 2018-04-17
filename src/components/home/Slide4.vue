@@ -4,18 +4,20 @@
     <p id="title_slide_4">КОНТАКТЫ</p>
     <el-row type="flex" justify="center">
       <el-col id="contact_links" :xs="23" :sm="8" :md="8" :lg="7" :xl="9" align="left">
+        <span class="line ver_line hor_line"></span>
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :span="20" align="left">
-            <span class="line ver_line hor_line"></span>
             <contacts-services></contacts-services>
           </el-col>
         </el-row>
         <el-row type="flex" justify="center" style="flex-wrap: wrap; margin-top: 20px;">
           <el-col :span="20" align="left">
             <contacts-phone></contacts-phone>
-            <app-theme-btn @click="$emit('openLiveChat')">
-              Задать вопрос
-            </app-theme-btn>
+            <div @click="$bus.$emit('openLiveChat')">
+              <app-theme-btn>
+                Задать вопрос
+              </app-theme-btn>
+            </div>
           </el-col>
         </el-row>
       </el-col>
@@ -72,17 +74,18 @@ export default {
   #contact_links {
     padding-left: 20px;
     padding-top: 10px;
+    z-index: 2;
   }
 
   .line {
     position: absolute;
-    left: -30px;
-    top: -30px;
+    top: -20px;
+    left: 8vw;
   }
 
   .hor_line {
     border-top: 1px solid;
-    width: 36%;
+    width: 140px;
   }
 
   .ver_line {

@@ -1,7 +1,6 @@
 <template>
   <transition name="bounce">
     <div v-if="isCollapsedChat"
-         @openLiveChat="openChat"
          @click="openChat">
       <div class="heart">
         <h2 v-if="unreadByUser">
@@ -205,6 +204,14 @@ export default {
         this.scrollToBottom()
       })
     }
+  },
+  created () {
+    this.$bus.$on('openLiveChat', () => {
+      this.openChat()
+    })
+  },
+  beforeDestroy () {
+    this.$bus.$off('openLiveChat')
   }
 }
 </script>

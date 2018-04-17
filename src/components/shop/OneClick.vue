@@ -14,8 +14,10 @@
     <i class="el-icon-check ml-2" style="transform: scale(1.5)"></i>
   </el-button>
   <el-dialog
+    id="buy_one_click"
     :title="`Купить в один клик  ${product.title}`"
     width="100%"
+    close-on-press-escape
     :visible.sync="dialogVisible">
     <el-row type="flex" justify="center">
       <el-col :xs="23" :sm="14" :md="10" :lg="8" :xl="6">
@@ -36,7 +38,7 @@
                           class="el-input__inner"
                           required
                           mask="\+\7 (111) 111-11-11"
-                          placeholder="Phone number"/>
+                          placeholder="Номер телефона"/>
           </el-form-item>
           <el-button type="danger"
                      @click="addOneClick"

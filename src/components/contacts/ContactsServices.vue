@@ -5,10 +5,10 @@
       <p class="sub_header">Каталог</p>
     </router-link>
     <p class="sub_header">Оплата и доставка</p>
-    <router-link to="/news">
+    <router-link to="/news" exact>
       <p class="sub_header">Акции и новости</p>
     </router-link>
-    <router-link to="/about">
+    <router-link to="/about" exact>
       <p class="sub_header">Отзывы о нас</p>
     </router-link>
   </div>

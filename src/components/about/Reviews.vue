@@ -49,6 +49,7 @@ REVIEW STATUSES:
       </app-theme-btn>
     </div>
     <el-dialog
+      id="your_review"
       title="Ваш отзыв!"
       :visible.sync="addReviewDialog"
       width="500px"

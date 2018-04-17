@@ -119,6 +119,7 @@ if (process.env.NODE_ENV === 'development') {
   }
 }
 
+Vue.prototype.$bus = new Vue()
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

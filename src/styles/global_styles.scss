@@ -98,7 +98,12 @@ $lg-screen: 1920px;
     height: 94%;
   }
 }
-
+#your_review,
+#buy_one_click {
+  .el-icon-close:hover {
+    color: $color-secondary;
+  }
+}
 #news_types {
   .el-radio__input + .el-radio__label {
     color: white;

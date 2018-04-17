@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div id="contacts_wrap">
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div>
       <transition name="title-fade-left">
@@ -24,9 +24,11 @@
             <el-row type="flex" justify="start" style="flex-wrap: wrap; margin-top: 40px;">
               <el-col :span="22" align="left">
                 <contacts-phone/>
-                <app-theme-btn>
-                  Задать вопрос
-                </app-theme-btn>
+                <div @click="$bus.$emit('openLiveChat')">
+                  <app-theme-btn>
+                    Задать вопрос
+                  </app-theme-btn>
+                </div>
               </el-col>
             </el-row>
           </el-col>
@@ -86,8 +88,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  #main {
-    margin-bottom: 80px;
+  #contacts_wrap {
+    margin-bottom: 100px;
   }
 
   .header {
