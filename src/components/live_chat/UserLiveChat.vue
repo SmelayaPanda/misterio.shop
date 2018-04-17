@@ -582,4 +582,12 @@ export default {
       opacity: 0;
     }
   }
+
+  @media only screen and (max-width: $xs-screen) {
+    #live_chat_card {
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+  }
 </style>
