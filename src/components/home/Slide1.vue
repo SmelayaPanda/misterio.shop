@@ -45,8 +45,9 @@ export default {
   mounted () {
     setInterval(() => {
       this.showMainTitle = true
-    }, 1500)
+    }, 2250)
   }
+
 }
 </script>
 

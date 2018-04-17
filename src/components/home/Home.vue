@@ -1,11 +1,10 @@
 <template>
   <div class="home_page">
-    <transition-group name="slide-fade">
-      <div v-if="this.isLoadingHome"
-           key="1"
-           id="misterio_shop_wrap">
-        <loading-misterio></loading-misterio>
-      </div>
+    <transition-group name="welcome">
+      <loading-misterio v-if="this.isLoadingHome"
+                        key="1"
+                        id="misterio_shop_wrap">
+      </loading-misterio>
       <div v-else key="2">
         <!-- MOBILE -->
         <mobile-menu></mobile-menu>
@@ -149,6 +148,46 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  /*
+  home slide-fade
+  -----------
+  -enter
+  -enter-active
+  -enter-to
+  -----------
+  -leave
+  -leave-active
+  -leave-to
+  -----------
+  */
+  .welcome-enter {
+    /*transition: 2s ease-out;*/
+    /*transform: translateY(200px);*/
+  }
+
+  .welcome-enter-active {
+    transition: 2.5s;
+    opacity: 0;
+  }
+
+  .welcome-enter-to {
+  }
+  /* --------------- */
+  .welcome-leave {
+  }
+
+  .welcome-leave-active {
+    transition: 2.5s cubic-bezier(1, 0.8, 0.8, 1);
+    opacity: 1;
+  }
+
+  .welcome-leave-to {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  /* END transitions */
+
   .home_page {
     overflow: hidden
   }

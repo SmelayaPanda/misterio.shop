@@ -28,11 +28,8 @@ export default {
 <style scoped lang="scss">
   .loading {
     position: fixed;
-    left: 0;
-    top: 36%;
-    width: 100%;
-    height: 100%;
-    z-index: 10000;
+    top: -100px;
+    z-index: 1000;
   }
 
   .loading-text {

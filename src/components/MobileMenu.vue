@@ -91,7 +91,7 @@ export default {
     position: fixed;
     top: 22px;
     right: 25px;
-    transform: scale(2);
+    transform: scale(1.8);
   }
 
   #mobile_cart:hover {
