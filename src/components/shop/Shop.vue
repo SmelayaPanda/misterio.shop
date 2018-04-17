@@ -10,6 +10,7 @@
           :default-active="selectedCategory"
           @select="changeCategory"
           background-color="#0d0d0d"
+          unique-opened
           text-color="#fff"
           active-text-color="#810101"
           :collapse="isCollapsed">

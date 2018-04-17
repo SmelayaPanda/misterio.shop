@@ -28,9 +28,4 @@ export default {
   .soc_icon:hover {
     cursor: pointer;
   }
-  @media only screen and (max-width: $sm-screen) {
-  }
-
-  @media only screen and (max-width: $xs-screen) {
-  }
 </style>

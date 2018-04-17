@@ -27,10 +27,13 @@
             class="live_chat">
           </user-live-chat>
         </div>
-        <div
-          :class="curSlide === 2 ? 'primary--text' : ''"
-          id="phone_number">
-          +7 (800) <b>100 66 66</b>
+        <div>
+          <a id="phone_number"
+             :class="curSlide === 2 ? 'primary--text' : ''"
+             :href="'tel://' + companyInfo.contacts.phone.replace(/[ -]/g,'')">
+            {{ companyInfo.contacts.phone.slice(0, 5) }}
+            <b>{{ companyInfo.contacts.phone.slice(5, 15) }}</b>
+          </a>
         </div>
         <div v-if="curSlide !== 3" id="flip_down_wrapper" @click="swiper.slideNext()">
           <p id="flip_down">
@@ -129,6 +132,9 @@ export default {
       if (this.$refs.homeSwiper) {
         return this.$refs.homeSwiper.swiper
       }
+    },
+    companyInfo () {
+      return this.$store.getters.companyInfo
     }
   },
   mounted () {

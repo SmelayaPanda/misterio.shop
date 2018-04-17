@@ -49,7 +49,7 @@ export default {
 
   .soc_icon:hover {
     cursor: pointer;
-    transform: translateX(7px);
+    transform: translateX(5px);
   }
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <transition name="bounce">
+  <transition name="chat-bounce">
     <div v-if="isCollapsedChat"
          @click="openChat">
       <div class="heart">
@@ -312,11 +312,11 @@ export default {
     border-radius: 3px;
   }
 
-  .bounce-enter-active {
+  .chat-bounce-enter-active {
     animation: bounce-in .5s;
   }
 
-  .bounce-leave-active {
+  .chat-bounce-leave-active {
     animation: bounce-in .5s reverse;
   }
 
