@@ -9,7 +9,8 @@ $color-secondary-dark: #710101;
 $color-secondary-ultra-dark: #650000;
 $color-secondary-light: #b90000;
 $color-info: #d0d0d0;
-$color-info-dark: #ababab;
+$color-info-dark: #767676;
+
 $color-danger: #8B0000;
 $color-success: #67c23a;
 $color-warning: #e6a23c;
@@ -41,6 +42,19 @@ $lg-screen: 1920px;
 
 .el-checkbox__input.is-checked + .el-checkbox__label {
   color: white;
+}
+
+// ELEMENTS DIALOGS CLOSE
+.el-icon-close {
+  transition: all .5s;
+  transform: scale(1.5);
+}
+.el-icon-close:hover {
+  transform: rotate(180deg) scale(2.5);
+}
+.el-dialog__headerbtn {
+  right: 35px;
+  top: 35px;
 }
 
 .el-select-dropdown__item {
@@ -103,7 +117,30 @@ $lg-screen: 1920px;
   }
 }
 
-#checkoutDialog {
+// INFO DIALOGS
+#guarantee_dialog {
+  .el-dialog {
+    background: $color-secondary-dark;
+  }
+  .el-dialog__headerbtn {
+    z-index: 2005;
+  }
+}
+
+#guide_dialog,
+#toy_care_dialog{
+  .el-dialog {
+    background: $color-primary;
+  }
+  .el-dialog__headerbtn {
+    z-index: 2005;
+  }
+  .el-icon-close:hover {
+    color: $color-secondary;
+  }
+}
+// CHECKOUT
+#checkout_dialog {
   .el-dialog,
   .el-step__icon {
     background: $color-primary;
@@ -125,11 +162,8 @@ $lg-screen: 1920px;
     border-color: $color-secondary
   }
 
-  .el-dialog__close {
+  .el-dialog__close:hover {
     color: $color-secondary;
-    transform: scale(2);
-    padding-top: 10px;
-    padding-right: 10px;
   }
 }
 

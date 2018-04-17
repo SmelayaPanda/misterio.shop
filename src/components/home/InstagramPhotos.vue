@@ -1,6 +1,6 @@
 <template>
   <el-col id="slide_4_instagram"
-          :xs="20" :sm="18" :md="10" :lg="10" :xl="9"
+          :xs="20" :sm="13" :md="12" :lg="13" :xl="9"
           type="flex" align="middle">
     <p id="header_4" class="header">
       ИНСТАГРАМ
@@ -8,7 +8,7 @@
     <el-row v-if="instPhotos"
             type="flex" justify="center" style="flex-wrap: wrap">
       <el-col v-for="(photo, idx) in instPhotos" :key="idx"
-              :span="12" align="center"
+              :span="8" align="center"
               class="inst_card_wrap">
         <img :src="photo" class="inst_photo" alt="">
       </el-col>
@@ -34,7 +34,6 @@ export default {
   computed: {
     instPhotos () {
       return this.$store.getters.companyInfo.photos
-        ? Object.values(this.$store.getters.companyInfo.photos).slice(0, 4) : {}
     }
   }
 }
@@ -86,7 +85,7 @@ export default {
     padding-left: 10px;
   }
 
-  @media only screen and (max-width: $sm-screen) {
+  @media only screen and (max-width: $xs-screen) {
     #slide_4_instagram {
       display: none;
     }

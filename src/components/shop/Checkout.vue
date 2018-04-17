@@ -11,7 +11,7 @@
       </app-theme-btn>
     </span>
     <el-dialog
-      id="checkoutDialog"
+      id="checkout_dialog"
       v-if="orderProducts"
       width="100%"
       close-on-press-escape

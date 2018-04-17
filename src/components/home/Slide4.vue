@@ -3,20 +3,17 @@
     <white-pattern color="white"></white-pattern>
     <p id="title_slide_4">КОНТАКТЫ</p>
     <el-row type="flex" justify="center">
-      <el-col id="contact_links" :xs="23" :sm="18" :md="10" :lg="10" :xl="9" align="middle">
-        <el-row type="flex" justify="start" style="flex-wrap: wrap">
-          <el-col :xs="11" :sm="10" :md="10" :lg="10" :xl="9" align="left">
+      <el-col id="contact_links" :xs="23" :sm="8" :md="8" :lg="7" :xl="9" align="left">
+        <el-row type="flex" justify="center" style="flex-wrap: wrap">
+          <el-col :span="20" align="left">
             <span class="line ver_line hor_line"></span>
             <contacts-services></contacts-services>
           </el-col>
-          <el-col :xs="13" :sm="10" :md="10" :lg="10" :xl="10" align="left">
-            <contacts-important></contacts-important>
-          </el-col>
         </el-row>
-        <el-row type="flex" justify="start" style="flex-wrap: wrap; margin-top: 20px;">
-          <el-col :span="22" align="left">
+        <el-row type="flex" justify="center" style="flex-wrap: wrap; margin-top: 20px;">
+          <el-col :span="20" align="left">
             <contacts-phone></contacts-phone>
-            <app-theme-btn>
+            <app-theme-btn @click="$emit('openLiveChat')">
               Задать вопрос
             </app-theme-btn>
           </el-col>

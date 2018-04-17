@@ -1,14 +1,19 @@
 <template>
   <div>
     <p id="header_2">ВАЖНО ЗНАТЬ О...</p>
-    <p class="sub_header">Гарантии и возврат</p>
-    <p class="sub_header">Гид размеров</p>
-    <p class="sub_header">Уход за игрушками</p>
+    <guarantee></guarantee>
+    <guide></guide>
+    <toy-care></toy-care>
   </div>
 </template>
 <script>
+import Guarantee from '../info/Guarantee'
+import Guide from '../info/Guide'
+import ToyCare from '../info/ToyCare'
+
 export default {
-  name: 'contacts-important'
+  name: 'contacts-important',
+  components: {ToyCare, Guarantee, Guide}
 }
 </script>
 <style scoped lang="scss">
