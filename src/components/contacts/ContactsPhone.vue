@@ -64,9 +64,9 @@ export default {
     margin-bottom: -10px;
   }
 
-  @media only screen and (max-width: $sm-screen) {
-  }
-
   @media only screen and (max-width: $xs-screen) {
+    .contacts {
+      line-height: 18px;
+    }
   }
 </style>

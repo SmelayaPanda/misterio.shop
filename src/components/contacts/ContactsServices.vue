@@ -41,9 +41,9 @@ export default {
     line-height: 22px;
   }
 
-  @media only screen and (max-width: $sm-screen) {
-  }
-
   @media only screen and (max-width: $xs-screen) {
+    .sub_header {
+      line-height: 16px;
+    }
   }
 </style>

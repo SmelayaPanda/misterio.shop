@@ -249,15 +249,20 @@ export default {
     }
     #slide_2_title {
       font-size: 20px;
-      padding: 10px;
+      padding: 5px;
       margin: 0;
     }
     .advantage_title {
       font-size: 11px;
       margin: 0;
     }
+    .adv_icon_wrap {
+      height: 50px;
+    }
     .adv_icon {
       transform: scale(.5);
+      padding: 0;
+      margin: 0;
     }
     #more_btn_wrap {
     }

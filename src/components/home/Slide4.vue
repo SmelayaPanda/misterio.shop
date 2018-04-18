@@ -10,7 +10,7 @@
             <contacts-services></contacts-services>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="center" style="flex-wrap: wrap; margin-top: 20px;">
+        <el-row type="flex" id="contact_block">
           <el-col :span="20" align="left">
             <contacts-phone></contacts-phone>
             <div @click="$bus.$emit('openLiveChat')">
@@ -53,9 +53,9 @@ export default {
 
   #title_slide_4 {
     padding-top: 25px;
-    margin-bottom: 6vh;
     font-family: $secondary-font;
     font-size: 32px;
+    margin-bottom: 6vh;
     margin-top: -25px;
     background: linear-gradient(to right, white 43%, $color-secondary 51%);
     color: transparent;
@@ -70,7 +70,11 @@ export default {
     margin: -5px auto;
     border-bottom: 1px solid $color-secondary;
   }
-
+  #contact_block {
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
   #contact_links {
     padding-left: 20px;
     padding-top: 10px;
@@ -130,11 +134,14 @@ export default {
       margin-top: 10vh;
     }
     #title_slide_4 {
-      margin-bottom: 6vh;
+      margin-bottom: 10px;
     }
     .ver_line,
     .hor_line:after {
       display: none;
+    }
+    #contact_block {
+      margin-top: 5px;
     }
   }
 </style>

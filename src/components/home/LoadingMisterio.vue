@@ -28,7 +28,7 @@ export default {
 <style scoped lang="scss">
   .loading {
     position: fixed;
-    top: -100px;
+    top: -10vh;
     z-index: 1000;
   }
 
@@ -66,6 +66,12 @@ export default {
     }
     100% {
       filter: blur(3px);
+    }
+  }
+
+  @media only screen and (max-width: $xs-screen){
+    .loading-text {
+      font-size: 26px;
     }
   }
 </style>
