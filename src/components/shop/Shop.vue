@@ -201,7 +201,7 @@
             </el-collapse-item>
           </el-collapse>
         </transition>
-        <transition name="title-fade-right">
+        <transition>
           <el-row v-if="isMountedShop" type="flex" justify="center" style="flex-wrap: wrap">
             <el-col :xs="23" :sm="12" :md="8" :lg="8" :xl="8"
                     v-for="(p,key) in products" :key="key">

@@ -30,7 +30,8 @@
       <router-view key="routers"></router-view>
       <app-footer v-if="isSecondaryRouters && this.$route.path !== '/contacts'" key="footer"></app-footer>
     </transition-group>
-    <back-to-top visibleOffset="500"
+    <back-to-top v-if="this.$route.path !== '/'"
+                 visibleOffset="500"
                  id="back_to_bottom"
                  :style="this.$vuetify.breakpoint.name === 'sm' || this.$vuetify.breakpoint.name === 'xs' ?
                   'right: ;left: 20px; bottom: 12px' :

@@ -92,4 +92,28 @@ title-fade-right
   }
 }
 
+/*
+homeflow-left
+*/
+.homeflow-left-enter-active {
+  transition: all .5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
+  animation: homeflow-text-animation 0.5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
+}
+
+.homeflow-left-leave-active {
+  transition: all .5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
+}
+
+@keyframes homeflow-text-animation {
+  0% {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateX(0);
+  }
+}
 /* END TRANSITIONS */

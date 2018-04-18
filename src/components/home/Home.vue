@@ -114,8 +114,8 @@ export default {
         direction: 'vertical',
         slidesPerView: 1,
         initialSlide: 0,
-        effect: 'fade',
-        speed: 1000,
+        effect: 'coverflow',
+        speed: 1200,
         spaceBetween: 0,
         mousewheel: true
       }
@@ -124,6 +124,8 @@ export default {
   methods: {
     updateCurIndex () {
       this.curSlide = this.swiper.realIndex
+      let slideNo = this.curSlide + 1
+      this.$bus.$emit('isHomeSlide' + slideNo)
     }
   },
   computed: {

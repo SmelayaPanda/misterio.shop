@@ -1,27 +1,35 @@
 <template>
   <div id="slide_4">
     <white-pattern color="white"></white-pattern>
-    <p id="title_slide_4">КОНТАКТЫ</p>
+    <transition name="title-fade-left">
+      <p v-if="isLoadedSlide4" id="title_slide_4">КОНТАКТЫ</p>
+    </transition>
     <el-row type="flex" justify="center">
       <el-col id="contact_links" :xs="23" :sm="8" :md="8" :lg="7" :xl="9" align="left">
-        <span class="line ver_line hor_line"></span>
-        <el-row type="flex" justify="center" style="flex-wrap: wrap">
-          <el-col :span="20" align="left">
-            <contacts-services></contacts-services>
-          </el-col>
-        </el-row>
-        <el-row type="flex" id="contact_block">
-          <el-col :span="20" align="left">
-            <contacts-phone></contacts-phone>
-            <div @click="$bus.$emit('openLiveChat')">
-              <app-theme-btn>
-                Задать вопрос
-              </app-theme-btn>
-            </div>
-          </el-col>
-        </el-row>
+        <span v-if="isLoadedSlide4" class="line ver_line hor_line"></span>
+        <transition name="title-fade-left">
+          <el-row v-if="isLoadedSlide4" type="flex" justify="center" style="flex-wrap: wrap">
+            <el-col :span="20" align="left">
+              <contacts-services></contacts-services>
+            </el-col>
+          </el-row>
+        </transition>
+        <transition name="title-fade-left">
+          <el-row  v-if="isLoadedSlide4" type="flex" id="contact_block">
+            <el-col :span="20" align="left">
+              <contacts-phone></contacts-phone>
+              <div @click="$bus.$emit('openLiveChat')">
+                <app-theme-btn>
+                  Задать вопрос
+                </app-theme-btn>
+              </div>
+            </el-col>
+          </el-row>
+        </transition>
       </el-col>
-      <instagram-photos/>
+      <transition name="title-fade-right">
+        <instagram-photos v-if="isLoadedSlide4"/>
+      </transition>
     </el-row>
   </div>
 </template>
@@ -42,6 +50,25 @@ export default {
     ContactsImportant,
     ContactsServices,
     WhitePattern
+  },
+  data () {
+    return {
+      isLoadedSlide4: false
+    }
+  },
+  created () {
+    this.$bus.$on('isHomeSlide1', () => {
+      this.isLoadedSlide4 = false
+    })
+    this.$bus.$on('isHomeSlide2', () => {
+      this.isLoadedSlide4 = false
+    })
+    this.$bus.$on('isHomeSlide3', () => {
+      this.isLoadedSlide4 = false
+    })
+    this.$bus.$on('isHomeSlide4', () => {
+      this.isLoadedSlide4 = true
+    })
   }
 }
 </script>
@@ -70,11 +97,13 @@ export default {
     margin: -5px auto;
     border-bottom: 1px solid $color-secondary;
   }
+
   #contact_block {
     justify-content: center;
     flex-wrap: wrap;
     margin-top: 20px;
   }
+
   #contact_links {
     padding-left: 20px;
     padding-top: 10px;

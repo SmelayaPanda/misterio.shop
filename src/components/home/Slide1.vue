@@ -3,18 +3,18 @@
     <white-pattern color="white"></white-pattern>
     <div id="title" class="hidden-sm-and-down">
       <transition name="svg-fade">
-        <div v-if="showMainTitle" id="main_title_1">
+        <div v-if="isLoadedSlide1" id="main_title_1">
           <img src="@/assets/icons/home/slide_1/text_one.svg" height="50px" alt="">
         </div>
       </transition>
       <transition name="home-fade">
-        <p v-if="showMainTitle" id="main_title_2" align="left">
+        <p v-if="isLoadedSlide1" id="main_title_2" align="left">
           МЫ ЗНАЕМ ВСЁ<br>
           О ВАШИХ ЖЕЛАНИЯХ
         </p>
       </transition>
       <transition name="svg-fade">
-        <p v-if="showMainTitle" id="main_title_3" align="right">
+        <p v-if="isLoadedSlide1" id="main_title_3" align="right">
           <img src="@/assets/icons/home/slide_1/text_two.svg" height="34px" alt=""><br>
           <router-link to="/shop">
             <app-theme-btn
@@ -39,15 +39,28 @@ export default {
   components: {WhitePattern},
   data () {
     return {
-      showMainTitle: false
+      isLoadedSlide1: false
     }
   },
   mounted () {
     setInterval(() => {
-      this.showMainTitle = true
+      this.isLoadedSlide1 = true
     }, 2250)
+  },
+  created () {
+    this.$bus.$on('isHomeSlide1', () => {
+      this.isLoadedSlide1 = true
+    })
+    this.$bus.$on('isHomeSlide2', () => {
+      this.isLoadedSlide1 = false
+    })
+    this.$bus.$on('isHomeSlide3', () => {
+      this.isLoadedSlide1 = false
+    })
+    this.$bus.$on('isHomeSlide4', () => {
+      this.isLoadedSlide1 = false
+    })
   }
-
 }
 </script>
 

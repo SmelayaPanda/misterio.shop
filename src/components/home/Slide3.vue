@@ -1,62 +1,67 @@
 <template>
-  <div id="slide_3">
+  <div>
     <white-pattern color="black"></white-pattern>
     <el-row type="flex" justify="center" style="flex-wrap: wrap">
       <el-col :span="22">
-        <el-row type="flex" justify="center" style="flex-wrap: wrap">
-          <el-col :xs="24" :sm="22" :md="10" :lg="10" :xl="8">
-            <div id="title_3">
-              <p id="title_3_main" align="left">
-                <span class="dark_title"> ПРИ ПОКУПКЕ </span>
-                <span class="white_title"> 2Х </span> <br>
-                <span class="dark_title"> ВТУЛОК </span>
-                <span class="white_title"> 3УЮ </span> <br>
-                <span class="dark_title"> ЗАБТРАЕТЕ </span> <br>
-                <span class="white_title"> В ПОДАРОК! </span>
-              </p>
-              <p id="title_3_sub" align="left">
-                Драм-машина представляет собой тетрахорд. Показательный пример – струна представляет собой
-                микрохроматический интервал. Техника полифигурно начинает рефрен. Плотностная компонентная форма,
-                как бы это ни казалось парадоксальным, сонорна.
-              </p>
-              <div align="left">
-                <router-link to="/news" exact>
-                  <el-button id="all_sales_btn">
-                    ВСЕ АКЦИИ
-                  </el-button>
-                </router-link>
+        <el-row id="slide_3" type="flex" justify="center" style="flex-wrap: wrap">
+          <transition name="title-fade-left">
+            <el-col v-if="isLoadedSlide3" :xs="24" :sm="22" :md="10" :lg="10" :xl="8">
+              <div>
+                <p id="title_3_main" align="left">
+                  <span class="dark_title"> ПРИ ПОКУПКЕ </span>
+                  <span class="white_title"> 2Х </span> <br>
+                  <span class="dark_title"> ВТУЛОК </span>
+                  <span class="white_title"> 3УЮ </span> <br>
+                  <span class="dark_title"> ЗАБТРАЕТЕ </span> <br>
+                  <span class="white_title"> В ПОДАРОК! </span>
+                </p>
+                <p id="title_3_sub" align="left">
+                  Драм-машина представляет собой тетрахорд. Показательный пример – струна представляет собой
+                  микрохроматический интервал. Техника полифигурно начинает рефрен. Плотностная компонентная форма,
+                  как бы это ни казалось парадоксальным, сонорна.
+                </p>
+                <div align="left">
+                  <router-link to="/news" exact>
+                    <el-button id="all_sales_btn">
+                      ВСЕ АКЦИИ
+                    </el-button>
+                  </router-link>
+                </div>
               </div>
-            </div>
-          </el-col>
-          <el-col id="sales_swiper"
-                  :md="12" :lg="11" :xl="11" align="right">
-            <swiper
-              ref="salesSwiper"
-              :options="swiperOption">
-              <swiper-slide>
-                <img src="@/assets/img/home/slide_3_three.png" alt="">
-              </swiper-slide>
-              <swiper-slide>
-                <img src="@/assets/img/home/slide_3_two.png" alt="">
-              </swiper-slide>
-              <swiper-slide>
-                <img src="@/assets/img/home/slide_3_one.png" alt="">
-              </swiper-slide>
-              <div class="swiper-pagination" slot="pagination"></div>
-            </swiper>
-            <el-row>
-              <el-col :span="12">
-                <p id="sales_swiper_forward" @click="salesSwiper.slideNext()">
-                  Вперед
-                </p>
-              </el-col>
-              <el-col :span="12">
-                <p id="sales_swiper_back" @click="salesSwiper.slidePrev()">
-                  Назад
-                </p>
-              </el-col>
-            </el-row>
-          </el-col>
+            </el-col>
+          </transition>
+          <transition name="title-fade-right">
+            <el-col v-if="isLoadedSlide3"
+                    id="sales_swiper"
+                    :md="12" :lg="11" :xl="11" align="right">
+              <swiper
+                ref="salesSwiper"
+                :options="swiperOption">
+                <swiper-slide>
+                  <img src="@/assets/img/home/slide_3_three.png" alt="">
+                </swiper-slide>
+                <swiper-slide>
+                  <img src="@/assets/img/home/slide_3_two.png" alt="">
+                </swiper-slide>
+                <swiper-slide>
+                  <img src="@/assets/img/home/slide_3_one.png" alt="">
+                </swiper-slide>
+                <div class="swiper-pagination" slot="pagination"></div>
+              </swiper>
+              <el-row>
+                <el-col :span="12">
+                  <p id="sales_swiper_forward" @click="salesSwiper.slideNext()">
+                    Вперед
+                  </p>
+                </el-col>
+                <el-col :span="12">
+                  <p id="sales_swiper_back" @click="salesSwiper.slidePrev()">
+                    Назад
+                  </p>
+                </el-col>
+              </el-row>
+            </el-col>
+          </transition>
         </el-row>
       </el-col>
     </el-row>
@@ -65,11 +70,13 @@
 
 <script>
 import WhitePattern from './WhitePattern'
+
 export default {
   name: 'Slide3',
   components: {WhitePattern},
   data () {
     return {
+      isLoadedSlide3: false,
       swiperOption: {
         effect: 'cube',
         grabCursor: true,
@@ -92,17 +99,28 @@ export default {
         return this.$refs.salesSwiper.swiper
       }
     }
+  },
+  created () {
+    this.$bus.$on('isHomeSlide1', () => {
+      this.isLoadedSlide3 = false
+    })
+    this.$bus.$on('isHomeSlide2', () => {
+      this.isLoadedSlide3 = false
+    })
+    this.$bus.$on('isHomeSlide3', () => {
+      this.isLoadedSlide3 = true
+    })
+    this.$bus.$on('isHomeSlide4', () => {
+      this.isLoadedSlide3 = false
+    })
   }
 }
 </script>
 
 <style scoped lang="scss">
   #slide_3 {
-    margin-top: 17vh;
-  }
-
-  #title_3 {
     padding-left: 40px;
+    margin-top: 17vh;
   }
 
   #title_3_main:after {
