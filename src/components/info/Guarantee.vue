@@ -104,6 +104,11 @@ export default {
     padding-right: 20px;
   }
 
+  @media only screen and (max-width: $sm-screen) {
+    .sub_header {
+      line-height: 18px;
+    }
+  }
   @media only screen and (max-width: $xs-screen) {
     #guarantee_img_wrap {
       text-align: center;

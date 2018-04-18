@@ -4,7 +4,6 @@
     <router-link to="/shop" exact>
       <p class="sub_header">Каталог</p>
     </router-link>
-    <p class="sub_header">Оплата и доставка</p>
     <router-link to="/news" exact>
       <p class="sub_header">Акции и новости</p>
     </router-link>

@@ -95,7 +95,7 @@
             <el-col :xs="12" :sm="8" :md="6" :lg="6" :xl="6">
               <router-link to="/about" exact>
                 <div id="more_btn_wrap">
-                  <app-theme-btn width="142px" id="more_btn">
+                  <app-theme-btn width="140px" id="more_btn">
                     Подробнее
                     <i class="el-icon-d-arrow-right"></i>
                   </app-theme-btn>
@@ -271,6 +271,8 @@ export default {
     .advantage_title {
       font-size: 11px;
       margin: 0;
+      padding-right: 5px;
+      padding-left: 5px;
     }
     .adv_icon_wrap {
       height: 50px;
@@ -279,8 +281,6 @@ export default {
       transform: scale(.5);
       padding: 0;
       margin: 0;
-    }
-    #more_btn_wrap {
     }
   }
 </style>

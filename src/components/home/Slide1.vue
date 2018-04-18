@@ -20,9 +20,8 @@
             <app-theme-btn
               class="mt-4"
               type="primary"
-              width="178px"
-              fontSize="12px">
-              ВЫБРАТЬ ТОВАР
+              width="178px">
+              Выбрать товар
             </app-theme-btn>
           </router-link>
         </p>

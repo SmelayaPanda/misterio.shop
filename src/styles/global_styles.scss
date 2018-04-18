@@ -49,9 +49,11 @@ $lg-screen: 1920px;
   transition: all .5s;
   transform: scale(1.5);
 }
+
 .el-icon-close:hover {
   transform: rotate(180deg) scale(2.5);
 }
+
 .el-dialog__headerbtn {
   right: 35px;
   top: 35px;
@@ -98,12 +100,14 @@ $lg-screen: 1920px;
     height: 94%;
   }
 }
+
 #your_review,
 #buy_one_click {
   .el-icon-close:hover {
     color: $color-secondary;
   }
 }
+
 #news_types {
   .el-radio__input + .el-radio__label {
     color: white;
@@ -123,6 +127,7 @@ $lg-screen: 1920px;
 }
 
 // INFO DIALOGS
+#delivery_info_dialog,
 #guarantee_dialog {
   .el-dialog {
     background: $color-secondary-dark;
@@ -144,6 +149,7 @@ $lg-screen: 1920px;
     color: $color-secondary;
   }
 }
+
 // CHECKOUT
 #checkout_dialog {
   .el-dialog,

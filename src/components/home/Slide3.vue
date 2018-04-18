@@ -23,7 +23,7 @@
                 <div align="left">
                   <router-link to="/news" exact>
                     <el-button id="all_sales_btn">
-                      ВСЕ АКЦИИ
+                      Все акции
                     </el-button>
                   </router-link>
                 </div>

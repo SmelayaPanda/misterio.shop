@@ -1,19 +1,21 @@
 <template>
   <div>
     <p id="header_2">ВАЖНО ЗНАТЬ О...</p>
-    <guarantee></guarantee>
-    <guide></guide>
-    <toy-care></toy-care>
+    <guarantee/>
+    <delivery-info/>
+    <guide/>
+    <toy-care/>
   </div>
 </template>
 <script>
 import Guarantee from '../info/Guarantee'
 import Guide from '../info/Guide'
 import ToyCare from '../info/ToyCare'
+import DeliveryInfo from '../info/DeliveryInfo'
 
 export default {
   name: 'contacts-important',
-  components: {ToyCare, Guarantee, Guide}
+  components: {DeliveryInfo, ToyCare, Guarantee, Guide}
 }
 </script>
 <style scoped lang="scss">
@@ -39,11 +41,5 @@ export default {
     color: $color-info;
     font-size: 12px;
     line-height: 22px;
-  }
-
-  @media only screen and (max-width: $sm-screen) {
-  }
-
-  @media only screen and (max-width: $xs-screen) {
   }
 </style>

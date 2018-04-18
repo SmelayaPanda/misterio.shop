@@ -162,6 +162,9 @@ export default {
     #title_slide_4 {
       margin-bottom: 10px;
     }
+    #contact_links {
+      padding-left: 0;
+    }
     .ver_line,
     .hor_line:after {
       display: none;

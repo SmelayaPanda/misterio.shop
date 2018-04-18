@@ -174,6 +174,9 @@ export default {
   }
 
   @media only screen and (max-width: $sm-screen) {
+    .sub_header {
+      line-height: 18px;
+    }
     #toy_care_img_wrap {
       text-align: left;
     }
