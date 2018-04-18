@@ -1,222 +1,229 @@
 <template>
   <div id="shop_wrapper">
     <el-row type="flex" justify="left" style="flex-wrap: wrap">
-      <div id="shop_nav_menu" align="left">
-        <el-button type="text" @click="isCollapsed = !isCollapsed" class="mt-2 ml-3 pl-1">
-          <v-icon v-if="isCollapsed" class="info--text">hdr_strong</v-icon>
-          <v-icon v-else class="info--text">hdr_weak</v-icon>
-        </el-button>
-        <el-menu
-          :default-active="selectedCategory"
-          @select="changeCategory"
-          background-color="#0d0d0d"
-          unique-opened
-          text-color="#fff"
-          active-text-color="#810101"
-          :collapse="isCollapsed">
-          <!--Nav Menu-->
-          <el-menu-item index="" @click="filterProducts">
-            <img src="/static/icon/shop/big/all_products.svg"
-                 class="groupIcon"
-                 alt="">
-            <span slot="title">Все товары</span>
-          </el-menu-item>
-
-          <el-submenu
-            v-for="option in PRODUCT_CLASSIFICATION"
-            :key="option.value"
-            :index="option.value">
-            <template slot="title">
-              <img v-if="option.icon"
-                   :src="option.icon"
+      <div align="left">
+        <transition name="title-fade-right">
+          <el-button v-if="isMountedShop" type="text" @click="isCollapsed = !isCollapsed" id="collapse_btn">
+            <v-icon v-if="isCollapsed" class="info--text">hdr_strong</v-icon>
+            <v-icon v-else class="info--text">hdr_weak</v-icon>
+          </el-button>
+        </transition>
+        <transition name="title-fade-left">
+          <el-menu
+            v-if="isMountedShop"
+            id="shop_nav_menu"
+            :default-active="selectedCategory"
+            @select="changeCategory"
+            background-color="#0d0d0d"
+            unique-opened
+            text-color="#fff"
+            active-text-color="#810101"
+            :collapse="isCollapsed">
+            <!--Nav Menu-->
+            <el-menu-item index="" @click="filterProducts">
+              <img src="/static/icon/shop/big/all_products.svg"
                    class="groupIcon"
                    alt="">
-              <span slot="title">{{ option.label }}</span>
-            </template>
-            <!--TODO: red on hover if collapsed-->
-            <el-menu-item-group>
-              <el-menu-item :index="option.value" @click="filterProducts">
-                Все
-              </el-menu-item>
-              <el-menu-item
-                v-for="child in option.children"
-                :key="child.value"
-                :index="child.value" @click="filterProducts">
-                {{ child.label }}
-              </el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
+              <span slot="title">Все товары</span>
+            </el-menu-item>
 
-        </el-menu>
+            <el-submenu
+              v-for="option in PRODUCT_CLASSIFICATION"
+              :key="option.value"
+              :index="option.value">
+              <template slot="title">
+                <img v-if="option.icon"
+                     :src="option.icon"
+                     class="groupIcon"
+                     alt="">
+                <span slot="title">{{ option.label }}</span>
+              </template>
+              <!--TODO: red on hover if collapsed-->
+              <el-menu-item-group>
+                <el-menu-item :index="option.value" @click="filterProducts">
+                  Все
+                </el-menu-item>
+                <el-menu-item
+                  v-for="child in option.children"
+                  :key="child.value"
+                  :index="child.value" @click="filterProducts">
+                  {{ child.label }}
+                </el-menu-item>
+              </el-menu-item-group>
+            </el-submenu>
+          </el-menu>
+        </transition>
       </div>
       <!--ALGOLIA SEARCH-->
       <!-- TODO: add Algolia icon-->
       <el-col :xs="24" :sm="24" :md="17" :lg="16" :xl="14" type="flex" align="middle">
-        <el-row type="flex" justify="start">
-          <el-col :span="14">
-            <v-text-field
-              name="Algolia search"
-              single-line
-              dark
-              v-model="algoliaSearchText"
-              @change="algoliaSearch"
-              @keyup.enter.exact="algoliaSearch"
-              color="white"
-              :prefix="searchGroup"
-              prepend-icon="search">
-            </v-text-field>
-          </el-col>
-          <el-col :span="6" align="start">
-            <transition name="fade">
-              <div style="margin-top: 25px; margin-left: -20px;">
-                <i v-if="this.isLoading"
-                   class="el-icon-loading white--text">
-                </i>
-                <el-tag
-                  v-if="!this.isLoading && algoliaSearchText"
-                  type="danger"
-                  size="mini"
-                  class="white--text">
+        <transition name="title-fade-left">
+          <el-row v-if="isMountedShop" type="flex" justify="start">
+            <el-col :span="14">
+              <v-text-field
+                name="Algolia search"
+                single-line
+                dark
+                v-model="algoliaSearchText"
+                @change="algoliaSearch"
+                @keyup.enter.exact="algoliaSearch"
+                color="white"
+                :prefix="searchGroup"
+                prepend-icon="search">
+              </v-text-field>
+            </el-col>
+            <el-col :span="6" align="start">
+              <transition name="fade">
+                <div style="margin-top: 25px; margin-left: -20px;">
+                  <i v-if="this.isLoading"
+                     class="el-icon-loading white--text">
+                  </i>
+                  <el-tag
+                    v-if="!this.isLoading && algoliaSearchText"
+                    type="danger"
+                    size="mini"
+                    class="white--text">
                   <span v-if="products">
                     {{ Object.keys(products).length }}
                   </span>
-                </el-tag>
-              </div>
-            </transition>
-          </el-col>
-        </el-row>
+                  </el-tag>
+                </div>
+              </transition>
+            </el-col>
+          </el-row>
+        </transition>
         <!--FILTER-->
-        <el-collapse
-          id="products_filter"
-          v-model="activeName"
-          accordion
-          style="margin-left: 16px; margin-right: 16px"
-          class="primary">
-          <!--PRICE FILTER-->
-          <el-collapse-item title="Фильтр" name="1" class="primary">
-            <el-button type="text" class="pr-4 pb-0 white--text" @click="changeSortByPrice">
-              <div class="tooltip pl-4 white--text">
-                Цена
-                <span class="tooltip_text">Нажми для сортировки</span>
+        <transition name="title-fade-left">
+          <el-collapse
+            v-if="isMountedShop"
+            id="products_filter"
+            v-model="activeName"
+            accordion
+            style="margin-left: 16px; margin-right: 16px"
+            class="primary">
+            <!--PRICE FILTER-->
+            <el-collapse-item title="Фильтр" name="1" class="primary">
+              <el-button type="text" class="pr-4 pb-0 white--text" @click="changeSortByPrice">
+                <div class="tooltip pl-4 white--text">
+                  Цена
+                  <span class="tooltip_text">Нажми для сортировки</span>
+                </div>
+                <el-tag size="mini">
+                  <i v-if="this.sortByPrice === 'asc'" class="el-icon-sort-up white--text"></i>
+                  <i v-else-if="!this.sortByPrice || this.sortByPrice === 'desc'"
+                     class="el-icon-sort-down white--text"></i>
+                </el-tag>
+              </el-button>
+              <div class="pl-3 pr-3">
+                <el-slider
+                  v-model="sliderValues"
+                  @change="filterProducts"
+                  range
+                  :step="100"
+                  :min="0"
+                  :max="this.$store.getters.productStatistics.maxPrice">
+                </el-slider>
               </div>
-              <el-tag size="mini">
-                <i v-if="this.sortByPrice === 'asc'" class="el-icon-sort-up white--text"></i>
-                <i v-else-if="!this.sortByPrice || this.sortByPrice === 'desc'" class="el-icon-sort-down white--text"></i>
-              </el-tag>
+              <el-row type="flex" justify="center" style="flex-wrap: wrap" class="pt-2">
+                <!--COUNTRY-->
+                <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" class="selected_filter">
+                  <el-select
+                    filterable
+                    clearable
+                    no-match-text="Страна отсутствует"
+                    v-model="selectedCountry"
+                    placeholder="Страна"
+                    @change="filterProducts"
+                    v-if="dictionaries.countries">
+                    <el-option
+                      v-for="val in dictionaries.countries"
+                      :key="val"
+                      :label="val"
+                      :value="val">
+                    </el-option>
+                  </el-select>
+                </el-col>
+                <!--BRAND-->
+                <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" class="selected_filter">
+                  <el-select
+                    filterable
+                    clearable
+                    no-match-text="Брэнд отсутствует"
+                    v-model="selectedBrand"
+                    placeholder="Бренд"
+                    @change="filterProducts"
+                    v-if="dictionaries.brands">
+                    <el-option
+                      v-for="val in dictionaries.brands"
+                      :key="val"
+                      :label="val"
+                      :value="val">
+                    </el-option>
+                  </el-select>
+                </el-col>
+                <!--COLOR-->
+                <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" class="selected_filter">
+                  <el-select
+                    filterable
+                    clearable
+                    no-match-text="Цвет отсутствует"
+                    v-model="selectedColor"
+                    placeholder="Цвет"
+                    @change="filterProducts"
+                    v-if="dictionaries.colors">
+                    <el-option
+                      v-for="val in dictionaries.colors"
+                      :key="val"
+                      :label="val"
+                      :value="val">
+                    </el-option>
+                  </el-select>
+                </el-col>
+                <!--Material-->
+                <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" class="selected_filter">
+                  <el-select
+                    filterable
+                    clearable
+                    no-match-text="Материал отсутствует"
+                    v-model="selectedMaterial"
+                    placeholder="Материал"
+                    @change="filterProducts"
+                    v-if="dictionaries.materials">
+                    <el-option
+                      v-for="val in dictionaries.materials"
+                      :key="val"
+                      :label="val"
+                      :value="val">
+                    </el-option>
+                  </el-select>
+                </el-col>
+              </el-row>
+            </el-collapse-item>
+          </el-collapse>
+        </transition>
+        <transition name="title-fade-right">
+          <el-row v-if="isMountedShop" type="flex" justify="center" style="flex-wrap: wrap">
+            <el-col :xs="23" :sm="12" :md="8" :lg="8" :xl="8"
+                    v-for="(p,key) in products" :key="key">
+              <!--PRODUCT CART-->
+              <product-card :id="p.productId"/>
+            </el-col>
+          </el-row>
+        </transition>
+        <transition name="title-fade-right">
+          <div v-if="isMountedShop" class="mb-4 mt-3">
+            <el-button
+              v-if="this.$store.getters.lastVisible"
+              type="text"
+              class="white--text"
+              @click="loadMore"
+              :disabled="this.isLoading">
+              Загрузить больше
             </el-button>
-            <div class="pl-3 pr-3">
-              <el-slider
-                v-model="sliderValues"
-                @change="filterProducts"
-                range
-                :step="100"
-                :min="0"
-                :max="this.$store.getters.productStatistics.maxPrice">
-              </el-slider>
-            </div>
-            <el-row type="flex" justify="center" style="flex-wrap: wrap" class="pt-2">
-              <!--COUNTRY-->
-              <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" class="selected_filter">
-                <el-select
-                  filterable
-                  clearable
-                  no-match-text="Страна отсутствует"
-                  v-model="selectedCountry"
-                  placeholder="Страна"
-                  @change="filterProducts"
-                  v-if="dictionaries.countries">
-                  <el-option
-                    v-for="val in dictionaries.countries"
-                    :key="val"
-                    :label="val"
-                    :value="val">
-                  </el-option>
-                </el-select>
-              </el-col>
-              <!--BRAND-->
-              <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" class="selected_filter">
-                <el-select
-                  filterable
-                  clearable
-                  no-match-text="Брэнд отсутствует"
-                  v-model="selectedBrand"
-                  placeholder="Бренд"
-                  @change="filterProducts"
-                  v-if="dictionaries.brands">
-                  <el-option
-                    v-for="val in dictionaries.brands"
-                    :key="val"
-                    :label="val"
-                    :value="val">
-                  </el-option>
-                </el-select>
-              </el-col>
-              <!--COLOR-->
-              <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" class="selected_filter">
-                <el-select
-                  filterable
-                  clearable
-                  no-match-text="Цвет отсутствует"
-                  v-model="selectedColor"
-                  placeholder="Цвет"
-                  @change="filterProducts"
-                  v-if="dictionaries.colors">
-                  <el-option
-                    v-for="val in dictionaries.colors"
-                    :key="val"
-                    :label="val"
-                    :value="val">
-                  </el-option>
-                </el-select>
-              </el-col>
-              <!--Material-->
-              <el-col :xs="12" :sm="6" :md="6" :lg="6" :xl="6" class="selected_filter">
-                <el-select
-                  filterable
-                  clearable
-                  no-match-text="Материал отсутствует"
-                  v-model="selectedMaterial"
-                  placeholder="Материал"
-                  @change="filterProducts"
-                  v-if="dictionaries.materials">
-                  <el-option
-                    v-for="val in dictionaries.materials"
-                    :key="val"
-                    :label="val"
-                    :value="val">
-                  </el-option>
-                </el-select>
-              </el-col>
-            </el-row>
-          </el-collapse-item>
-        </el-collapse>
-        <el-row type="flex" justify="center" style="flex-wrap: wrap">
-          <el-col :xs="23" :sm="12" :md="8" :lg="8" :xl="8"
-                  v-for="(p,key) in products" :key="key">
-            <!--PRODUCT CART-->
-            <product-card :id="p.productId"/>
-          </el-col>
-        </el-row>
-        <div class="mb-4 mt-3">
-          <el-button
-            type="text"
-            class="white--text"
-            @click="loadMore"
-            :disabled="this.isLoading"
-            v-if="this.$store.getters.lastVisible">
-            Загрузить больше
-          </el-button>
-        </div>
+          </div>
+        </transition>
       </el-col>
     </el-row>
-    <back-to-top visibleOffset="500"
-                 :right="this.$vuetify.breakpoint.name === 'xs' ? 85 : 130"
-                 :bottom="this.$vuetify.breakpoint.name === 'xs' ? 13 : 37"
-                 style="opacity: 0.9; z-index: 9">
-      <v-btn fab class="secondary">
-        <v-icon>keyboard_arrow_up</v-icon>
-      </v-btn>
-    </back-to-top>
   </div>
 </template>
 
@@ -233,6 +240,7 @@ export default {
   data () {
     let filter = this.$store.getters.productFilters
     return {
+      isMountedShop: false,
       hoverOnCard: false,
       algoliaSearchText: this.$store.getters.algoliaSearchText,
       sortByPrice: filter.sortByPrice,
@@ -368,13 +376,17 @@ export default {
     user () {
       return this.$store.getters.user
     }
+  },
+  mounted () {
+    setInterval(() => {
+      this.isMountedShop = true
+    }, 500)
   }
 }
 </script>
 
 <style scoped lang="scss">
   #shop_nav_menu {
-    margin-top: 76px;
     flex: 0 0 280px;
   }
 
@@ -389,6 +401,11 @@ export default {
 
   .el-menu--collapse {
     width: 82px !important;
+  }
+
+  #collapse_btn {
+    margin-top: 84px;
+    margin-left: 28px;
   }
 
   #accordion {

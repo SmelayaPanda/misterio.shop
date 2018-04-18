@@ -30,10 +30,20 @@
       <router-view key="routers"></router-view>
       <app-footer v-if="isSecondaryRouters && this.$route.path !== '/contacts'" key="footer"></app-footer>
     </transition-group>
+    <back-to-top visibleOffset="500"
+                 id="back_to_bottom"
+                 :style="this.$vuetify.breakpoint.name === 'sm' || this.$vuetify.breakpoint.name === 'xs' ?
+                  'right: ;left: 20px; bottom: 12px' :
+                  'right: 140px; bottom: 37px'">
+      <v-btn fab class="secondary">
+        <v-icon>keyboard_arrow_up</v-icon>
+      </v-btn>
+    </back-to-top>
   </v-app>
 </template>
 
 <script>
+import BackToTop from 'vue-backtotop'
 import AppHeader from '@/components/Header'
 import AppFooter from '@/components/Footer'
 import AdminPanel from '@/components/admin/AdminPanel'
@@ -48,7 +58,8 @@ export default {
     AppFooter,
     AdminPanel,
     UserIcons,
-    UserLiveChat
+    UserLiveChat,
+    BackToTop
   },
   name: 'App',
   computed: {
@@ -87,5 +98,10 @@ export default {
     background: $color-primary;
     color: $color-primary;
     text-align: center;
+  }
+
+  #back_to_bottom {
+    opacity: 0.8;
+    z-index: 9;
   }
 </style>

@@ -1,16 +1,16 @@
 <template>
-  <div id="contacts_wrap">
+  <div>
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
-    <div>
+    <div v-else>
       <transition name="title-fade-left">
-        <app-theme-page-title v-if="!isLoadingContacts">
+        <app-theme-page-title v-if="isLoadedContacts">
           <p slot="middleTitle">КОНТАКТЫ</p>
           <p slot="bottomTitle">Мы всегда на связи, чтобы подобрать для Вас самое подходящее</p>
         </app-theme-page-title>
       </transition>
-      <el-row type="flex" justify="center" style="flex-wrap: wrap" class="mt-5">
+      <el-row type="flex" justify="center" style="flex-wrap: wrap">
         <transition name="title-fade-left">
-          <el-col v-if="!isLoadingContacts" :xs="23" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle"
+          <el-col v-if="isLoadedContacts" :xs="23" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle"
                   class="pl-2">
             <el-row type="flex" justify="start" style="flex-wrap: wrap">
               <el-col :xs="12" :sm="10" :md="10" :lg="10" :xl="9" align="left">
@@ -34,7 +34,7 @@
           </el-col>
         </transition>
         <transition name="title-fade-right">
-          <el-col v-if="!isLoadingContacts" :xs="24" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle">
+          <el-col v-if="isLoadedContacts" :xs="24" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle">
             <p id="header_3" class="header">
               ИНСТАГРАМ
             </p>
@@ -71,7 +71,7 @@ export default {
   components: {ContactsSocial, ContactsPhone, ContactsImportant, ContactsServices},
   data () {
     return {
-      isLoadingContacts: true
+      isLoadedContacts: false
     }
   },
   computed: {
@@ -81,17 +81,13 @@ export default {
   },
   mounted () {
     setInterval(() => {
-      this.isLoadingContacts = false
+      this.isLoadedContacts = true
     }, 500)
   }
 }
 </script>
 
 <style scoped lang="scss">
-  #contacts_wrap {
-    margin-bottom: 100px;
-  }
-
   .header {
     font-family: $secondary-font;
     letter-spacing: 1px;
@@ -165,6 +161,7 @@ export default {
 
   #soc_icons_wrap {
     padding-right: 10px;
+    margin-bottom: 100px;
   }
 
   @media only screen and (max-width: $sm-screen) {

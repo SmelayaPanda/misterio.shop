@@ -8,13 +8,15 @@
           <p slot="bottomTitle">Мы предлагаем не просто товары, а море удовольствия и наслаждения</p>
         </app-theme-page-title>
       </transition>
-      <el-row type="flex" justify="center">
-        <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex" align="left">
-          <h2 class="about_corner">О нас</h2>
-          <span id="hor_line_1"></span>
-          <span id="ver_line_1"></span>
-        </el-col>
-      </el-row>
+      <transition name="title-fade-left">
+        <el-row v-if="isLoadedData" type="flex" justify="center">
+          <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex" align="left">
+            <h2 class="about_corner">О нас</h2>
+            <span id="hor_line_1"></span>
+            <span id="ver_line_1"></span>
+          </el-col>
+        </el-row>
+      </transition>
       <el-row type="flex" justify="center">
         <el-col :xs="22" :sm="22" :md="22" :lg="22" :xl="22" type="flex" align="middle">
           <el-row type="flex" justify="center" style="flex-wrap: wrap">
@@ -40,24 +42,28 @@
           </el-row>
         </el-col>
       </el-row>
-      <el-row type="flex" justify="center">
-        <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex" align="right">
-          <h2 class="about_corner">О продукции</h2>
-          <span id="hor_line_2"></span>
-          <span id="ver_line_2"></span>
-        </el-col>
-      </el-row>
-      <el-row type="flex" justify="center">
-        <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex">
-          <h2 id="partners_title">Наши партнеры</h2>
-          <div id="partners">
-            <img class="partner_logo" src="@/assets/img/about/company_logo1.png" alt="">
-            <img class="partner_logo" src="@/assets/img/about/company_logo2.png" alt="">
-            <img class="partner_logo" src="@/assets/img/about/company_logo1.png" alt="">
-            <img class="partner_logo" src="@/assets/img/about/company_logo2.png" alt="">
-          </div>
-        </el-col>
-      </el-row>
+      <transition name="title-fade-right">
+        <el-row v-if="isLoadedData" type="flex" justify="center">
+          <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex" align="right">
+            <h2 class="about_corner">О продукции</h2>
+            <span id="hor_line_2"></span>
+            <span id="ver_line_2"></span>
+          </el-col>
+        </el-row>
+      </transition>
+      <transition name="title-fade-left">
+        <el-row v-if="isLoadedData" type="flex" justify="center">
+          <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex">
+            <h2 id="partners_title">Наши партнеры</h2>
+            <div id="partners">
+              <img class="partner_logo" src="@/assets/img/about/company_logo1.png" alt="">
+              <img class="partner_logo" src="@/assets/img/about/company_logo2.png" alt="">
+              <img class="partner_logo" src="@/assets/img/about/company_logo1.png" alt="">
+              <img class="partner_logo" src="@/assets/img/about/company_logo2.png" alt="">
+            </div>
+          </el-col>
+        </el-row>
+      </transition>
       <el-row type="flex" justify="center">
         <el-col :xs="23" :sm="22" :md="19" :lg="17" :xl="15" type="flex" align="middle">
           <reviews></reviews>

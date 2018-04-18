@@ -179,6 +179,9 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+  #desctop_shopping_cart {
+    margin-bottom: 30px;
+  }
 
   .thumb_img {
     height: 90px;

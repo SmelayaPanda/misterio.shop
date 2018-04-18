@@ -1,43 +1,51 @@
 <template>
   <div>
-    <el-row type="flex" justify="center" style="flex-wrap: wrap">
-      <el-col :xs="22" :sm="22" :md="18" :lg="18" :xl="15" align="left" class="ml-1 mr-1 mb-3 mt-2">
-        <img src="@/assets/icons/routers/icon_favorite.svg" id="favorite_icon" alt="">
-        <span id="favorite_title">
-        ИЗБРАННОЕ
-      </span>
-        <v-divider class="secondary mt-3 mb-4"></v-divider>
-      </el-col>
-    </el-row>
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
-    <el-row
-      v-else
-      type="flex"
-      justify="center"
-      style="flex-wrap: wrap">
-      <el-col :xs="23" :sm="23" :md="18" :lg="18" :xl="15" align="left">
-        <el-row v-if="favorites && Object.keys(favorites).length" type="flex" justify="center" style="flex-wrap: wrap">
-          <el-col
-            v-for="product in favorites"
-            :key="product.productId"
-            :xs="24" :sm="12" :md="12" :lg="8" :xl="8"
-            align="left">
-            <favorite-product :id="product.productId"/>
+    <div v-else>
+      <transition name="title-fade-left">
+        <el-row v-if="isLoadedFavorites" type="flex" justify="center" style="flex-wrap: wrap">
+          <el-col :xs="22" :sm="22" :md="18" :lg="18" :xl="15" align="left"
+                  class="ml-1 mr-1 mb-3 mt-2">
+            <img src="@/assets/icons/routers/icon_favorite.svg" id="favorite_icon" alt="">
+            <span id="favorite_title">
+            ИЗБРАННОЕ
+            </span>
+            <v-divider class="secondary mt-3 mb-4"></v-divider>
           </el-col>
         </el-row>
-        <el-row v-else type="flex" justify="center" style="flex-wrap: wrap">
-          <el-col :span="24">
-            <p id="favorite_list" align="center">Список Ваших желаний пуст</p>
+      </transition>
+      <transition name="title-fade-right">
+        <el-row
+          v-if="isLoadedFavorites"
+          type="flex"
+          justify="center"
+          style="flex-wrap: wrap">
+          <el-col :xs="23" :sm="23" :md="18" :lg="18" :xl="15" align="left">
+            <el-row v-if="favorites && Object.keys(favorites).length" type="flex" justify="center"
+                    style="flex-wrap: wrap">
+              <el-col
+                v-for="product in favorites"
+                :key="product.productId"
+                :xs="24" :sm="12" :md="12" :lg="8" :xl="8"
+                align="left">
+                <favorite-product :id="product.productId"/>
+              </el-col>
+            </el-row>
+            <el-row v-else type="flex" justify="center" style="flex-wrap: wrap">
+              <el-col :span="24">
+                <p id="favorite_list" align="center">Список Ваших желаний пуст</p>
+              </el-col>
+              <router-link to="/shop">
+                <p id="into_catalog">
+                  В каталог
+                  <v-icon class="secondary--text">arrow_forward</v-icon>
+                </p>
+              </router-link>
+            </el-row>
           </el-col>
-          <router-link to="/shop">
-            <p id="into_catalog">
-              В каталог
-              <v-icon class="secondary--text">arrow_forward</v-icon>
-            </p>
-          </router-link>
         </el-row>
-      </el-col>
-    </el-row>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -46,6 +54,11 @@ import FavoriteProduct from './FavoriteProduct'
 
 export default {
   name: 'Favorites',
+  data () {
+    return {
+      isLoadedFavorites: false
+    }
+  },
   components: {FavoriteProduct},
   computed: {
     favorites () {
@@ -54,6 +67,11 @@ export default {
         return favorites
       }
     }
+  },
+  mounted () {
+    setInterval(() => {
+      this.isLoadedFavorites = true
+    }, 500)
   }
 }
 </script>

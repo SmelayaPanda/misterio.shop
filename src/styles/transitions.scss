@@ -6,8 +6,9 @@ fade
   transition-property: opacity;
   transition-duration: .4s
 }
-
-.fade-enter, .fade-leave-active {
+.fade-enter,
+.fade-enter-active,
+.fade-leave-active {
   opacity: 0
 }
 

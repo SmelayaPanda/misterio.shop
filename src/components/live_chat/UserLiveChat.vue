@@ -209,9 +209,6 @@ export default {
     this.$bus.$on('openLiveChat', () => {
       this.openChat()
     })
-  },
-  beforeDestroy () {
-    this.$bus.$off('openLiveChat')
   }
 }
 </script>
