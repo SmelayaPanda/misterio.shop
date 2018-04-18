@@ -1,7 +1,7 @@
 <template>
   <div class="home_page">
     <transition-group name="welcome">
-      <loading-misterio v-if="this.isLoadingHome"
+      <loading-misterio v-if="!isLoadedHome"
                         key="1"
                         id="misterio_shop_wrap">
       </loading-misterio>
@@ -108,14 +108,14 @@ export default {
   },
   data () {
     return {
-      isLoadingHome: true,
+      isLoadedHome: false,
       curSlide: 0,
       swiperOption: {
         direction: 'vertical',
         slidesPerView: 1,
         initialSlide: 0,
-        effect: 'coverflow',
-        speed: 1200,
+        effect: 'fade',
+        speed: 1000,
         spaceBetween: 0,
         mousewheel: true
       }
@@ -139,12 +139,9 @@ export default {
     }
   },
   mounted () {
-    let t = setInterval(() => {
-      if (document.readyState === 'complete') {
-        this.isLoadingHome = false
-        clearInterval(t)
-      }
-    }, 1000)
+    setInterval(() => {
+      this.isLoadedHome = true
+    }, 500)
   }
 }
 </script>
@@ -163,8 +160,6 @@ export default {
   -----------
   */
   .welcome-enter {
-    /*transition: 2s ease-out;*/
-    /*transform: translateY(200px);*/
   }
 
   .welcome-enter-active {

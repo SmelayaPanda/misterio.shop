@@ -2,13 +2,13 @@
   <div>
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
-      <transition name="title-fade-left">
+      <transition name="app-fade-left">
         <app-theme-page-title v-if="isLoadedData">
           <p slot="middleTitle">О НАС И НАШИХ ПАРТНЕРАХ</p>
           <p slot="bottomTitle">Мы предлагаем не просто товары, а море удовольствия и наслаждения</p>
         </app-theme-page-title>
       </transition>
-      <transition name="title-fade-left">
+      <transition name="app-fade-left">
         <el-row v-if="isLoadedData" type="flex" justify="center">
           <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex" align="left">
             <h2 class="about_corner">О нас</h2>
@@ -21,7 +21,7 @@
         <el-col :xs="22" :sm="22" :md="22" :lg="22" :xl="22" type="flex" align="middle">
           <el-row type="flex" justify="center" style="flex-wrap: wrap">
             <el-col :xs="24" :sm="22" :md="11" :lg="11" :xl="11" align="left">
-              <transition name="title-fade-left">
+              <transition name="app-fade-left">
                 <p v-if="isLoadedData" class="about_text">
                   Разнообразный и богатый опыт укрепление и развитие структуры позволяет выполнять важные задания по
                   разработке системы обучения кадров, соответствует насущным потребностям. Разнообразный и богатый опыт
@@ -30,7 +30,7 @@
               </transition>
             </el-col>
             <el-col :xs="24" :sm="22" :md="11" :lg="11" :xl="11" align="left">
-              <transition name="title-fade-right">
+              <transition name="app-fade-right">
                 <p v-if="isLoadedData" class="about_text">
                   Не следует, однако забывать, что постоянное информационно-пропагандистское обеспечение нашей
                   деятельности представляет собой интересный эксперимент проверки модели развития. Идейные соображения
@@ -42,7 +42,7 @@
           </el-row>
         </el-col>
       </el-row>
-      <transition name="title-fade-right">
+      <transition name="app-fade-right">
         <el-row v-if="isLoadedData" type="flex" justify="center">
           <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex" align="right">
             <h2 class="about_corner">О продукции</h2>
@@ -51,7 +51,7 @@
           </el-col>
         </el-row>
       </transition>
-      <transition name="title-fade-left">
+      <transition name="app-fade-left">
         <el-row v-if="isLoadedData" type="flex" justify="center">
           <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex">
             <h2 id="partners_title">Наши партнеры</h2>

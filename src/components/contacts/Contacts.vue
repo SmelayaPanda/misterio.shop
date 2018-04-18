@@ -2,14 +2,14 @@
   <div>
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
-      <transition name="title-fade-left">
+      <transition name="app-fade-left">
         <app-theme-page-title v-if="isLoadedContacts">
           <p slot="middleTitle">КОНТАКТЫ</p>
           <p slot="bottomTitle">Мы всегда на связи, чтобы подобрать для Вас самое подходящее</p>
         </app-theme-page-title>
       </transition>
       <el-row type="flex" justify="center" style="flex-wrap: wrap">
-        <transition name="title-fade-left">
+        <transition name="app-fade-left">
           <el-col v-if="isLoadedContacts" :xs="23" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle"
                   class="pl-2">
             <el-row type="flex" justify="start" style="flex-wrap: wrap">
@@ -33,7 +33,7 @@
             </el-row>
           </el-col>
         </transition>
-        <transition name="title-fade-right">
+        <transition name="app-fade-right">
           <el-col v-if="isLoadedContacts" :xs="24" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle">
             <p id="header_3" class="header">
               ИНСТАГРАМ

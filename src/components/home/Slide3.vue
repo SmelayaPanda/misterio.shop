@@ -3,9 +3,9 @@
     <white-pattern color="black"></white-pattern>
     <el-row type="flex" justify="center" style="flex-wrap: wrap">
       <el-col :span="22">
-        <el-row id="slide_3" type="flex" justify="center" style="flex-wrap: wrap">
-          <transition>
-            <el-col v-if="isLoadedSlide3" :xs="24" :sm="22" :md="10" :lg="10" :xl="8">
+        <el-row type="flex" justify="center" style="flex-wrap: wrap">
+          <transition name="app-fade-left">
+            <el-col v-if="isLoadedSlide3" id="slide_3_left" :xs="24" :sm="22" :md="10" :lg="10" :xl="8">
               <div>
                 <p id="title_3_main" align="left">
                   <span class="dark_title"> ПРИ ПОКУПКЕ </span>
@@ -30,7 +30,7 @@
               </div>
             </el-col>
           </transition>
-          <transition>
+          <transition name="app-fade-right">
             <el-col v-if="isLoadedSlide3"
                     id="sales_swiper"
                     :md="12" :lg="11" :xl="11" align="right">
@@ -85,6 +85,7 @@ export default {
           shadow: true,
           slideShadows: true,
           shadowOffset: 20,
+          speed: 1000,
           shadowScale: 0.94
         },
         pagination: {
@@ -118,7 +119,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  #slide_3 {
+  #slide_3_left {
     padding-left: 40px;
     margin-top: 17vh;
   }
@@ -166,6 +167,7 @@ export default {
   /* SWIPER */
   #sales_swiper {
     height: 400px;
+    margin-top: 17vh;
     padding-left: 50px;
   }
 
@@ -225,7 +227,7 @@ export default {
   }
 
   @media only screen and (max-width: $xs-screen) {
-    #slide_3 {
+    #slide_3_left {
       margin-top: 8vh;
     }
 

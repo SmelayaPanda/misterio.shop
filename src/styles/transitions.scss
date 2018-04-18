@@ -1,7 +1,5 @@
 /* TRANSITIONS */
-/*
-fade
-*/
+/* fade */
 .fade-enter-active, .fade-leave-active {
   transition-property: opacity;
   transition-duration: .4s
@@ -12,9 +10,7 @@ fade
   opacity: 0
 }
 
-/*
-bounce
-*/
+/* bounce */
 .bounce-enter-active {
   animation: bounce-in 0.75s;
 }
@@ -35,85 +31,60 @@ bounce
   }
 }
 
-/*
-title-fade-left
-*/
-.title-fade-left-enter-active {
+/* app-fade-left */
+.app-fade-left-enter-active {
   transition: all .5s ease;
   animation: left-title-text-animation 1s ease;
 }
 
-.title-fade-left-leave-active {
+.app-fade-left-enter {
+  opacity: 0;
+}
+.app-fade-left-leave {
+  opacity: 0;
+}
+
+.app-fade-left-leave-active {
+  opacity: 0;
   transition: all .5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
 }
 
 @keyframes left-title-text-animation {
   0% {
     opacity: 0;
-    filter: blur(4px);
-    transform: translateX(-3px);
-  }
-  20% {
-    filter: blur(5px);
-    transform: translateX(-5px);
+    transform: translateX(-15px);
   }
   100% {
     opacity: 1;
-    filter: blur(0px);
     transform: translateX(0);
   }
 }
-/*
-title-fade-right
-*/
-.title-fade-right-enter-active {
+/* app-fade-right */
+.app-fade-right-enter-active {
   transition: all .5s ease;
   animation: right-title-text-animation 1s ease;
 }
 
-.title-fade-right-leave-active {
+.app-fade-right-enter {
+  opacity: 0;
+}
+
+.app-fade-right-leave {
+  opacity: 0;
+}
+
+.app-fade-right-leave-active {
+  opacity: 0;
   transition: all .5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
 }
 
 @keyframes right-title-text-animation {
   0% {
     opacity: 0;
-    filter: blur(4px);
-    transform: translateX(3px);
-  }
-  20% {
-    filter: blur(5px);
-    transform: translateX(5px);
+    transform: translateX(15px);
   }
   100% {
     opacity: 1;
-    filter: blur(0px);
     transform: translateX(0);
   }
 }
-
-/*
-homeflow-left
-*/
-.homeflow-left-enter-active {
-  transition: all .5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
-  animation: homeflow-text-animation 0.5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
-}
-
-.homeflow-left-leave-active {
-  transition: all .5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
-}
-
-@keyframes homeflow-text-animation {
-  0% {
-    opacity: 0;
-    filter: blur(4px);
-    transform: translateX(-20px);
-  }
-  100% {
-    opacity: 1;
-    filter: blur(0px);
-    transform: translateX(0);
-  }
-}
-/* END TRANSITIONS */

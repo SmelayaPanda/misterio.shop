@@ -1,13 +1,13 @@
 <template>
   <div>
     <white-pattern color="white"></white-pattern>
-    <transition >
+    <transition name="app-fade-left">
       <h1 v-if="isLoadedSlide2" id="slide_2_title">
         НАШИ СИЛЬНЫЕ СТОРОНЫ
       </h1>
     </transition>
     <el-row type="flex" justify="center" style="flex-wrap: wrap">
-      <transition >
+      <transition name="app-fade-left">
         <el-col v-if="isLoadedSlide2" :xs="24" :sm="20" :md="20" :lg="15" :xl="12">
           <el-row type="flex" justify="center" style="flex-wrap: wrap">
             <el-col :xs="12" :sm="8" :md="6" :lg="6" :xl="6">
@@ -106,7 +106,7 @@
         </el-col>
       </transition>
       <!--IMG-->
-      <transition>
+      <transition name="app-fade-right">
         <el-col v-if="isLoadedSlide2" :md="6" :lg="5" :xl="4" id="back_girl">
           <img src="@/assets/img/home/slide_2_lady.png" alt="">
         </el-col>

@@ -2,10 +2,10 @@
   <div>
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
-      <transition name="title-fade-left">
+      <transition name="app-fade-left">
         <cart-products v-if="isLoadedCart"/>
       </transition>
-      <transition name="title-fade-right">
+      <transition name="app-fade-right">
         <orders-history v-if="isLoadedCart"/>
       </transition>
     </div>

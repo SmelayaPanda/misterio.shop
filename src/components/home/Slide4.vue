@@ -1,20 +1,22 @@
 <template>
-  <div id="slide_4">
+  <div>
     <white-pattern color="white"></white-pattern>
-    <transition>
+    <transition name="app-fade-left">
       <p v-if="isLoadedSlide4" id="title_slide_4">КОНТАКТЫ</p>
     </transition>
     <el-row type="flex" justify="center">
-      <el-col id="contact_links" :xs="23" :sm="8" :md="8" :lg="7" :xl="9" align="left">
-        <span v-if="isLoadedSlide4" class="line ver_line hor_line"></span>
-        <transition>
-          <el-row v-if="isLoadedSlide4" type="flex" justify="center" style="flex-wrap: wrap">
+      <el-col :xs="23" :sm="8" :md="8" :lg="7" :xl="9" align="left">
+        <transition name="app-fade-right">
+          <span v-if="isLoadedSlide4" class="line ver_line hor_line"></span>
+        </transition>
+        <transition name="app-fade-left">
+          <el-row v-if="isLoadedSlide4" id="contact_links" type="flex">
             <el-col :span="20" align="left">
               <contacts-services></contacts-services>
             </el-col>
           </el-row>
         </transition>
-        <transition>
+        <transition name="app-fade-left">
           <el-row  v-if="isLoadedSlide4" type="flex" id="contact_block">
             <el-col :span="20" align="left">
               <contacts-phone></contacts-phone>
@@ -27,7 +29,7 @@
           </el-row>
         </transition>
       </el-col>
-      <transition>
+      <transition name="app-fade-right">
         <instagram-photos v-if="isLoadedSlide4"/>
       </transition>
     </el-row>
@@ -74,16 +76,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  #slide_4 {
-    margin-top: 11vh;
-  }
-
   #title_slide_4 {
     padding-top: 25px;
     font-family: $secondary-font;
     font-size: 32px;
     margin-bottom: 6vh;
-    margin-top: -25px;
+    margin-top: 8vh;
     background: linear-gradient(to right, white 43%, $color-secondary 51%);
     color: transparent;
     -webkit-background-clip: text;
@@ -105,6 +103,8 @@ export default {
   }
 
   #contact_links {
+    justify-content: center;
+    flex-wrap: wrap;
     padding-left: 20px;
     padding-top: 10px;
     z-index: 2;
@@ -159,9 +159,6 @@ export default {
   }
 
   @media only screen and (max-width: $xs-screen) {
-    #slide_4 {
-      margin-top: 10vh;
-    }
     #title_slide_4 {
       margin-bottom: 10px;
     }

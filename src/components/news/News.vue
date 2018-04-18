@@ -3,13 +3,13 @@
     <!-- TODO: pagination, sort by date desc -->
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
-      <transition name="title-fade-left">
+      <transition name="app-fade-left">
         <app-theme-page-title v-if="isLoadedData">
           <p slot="middleTitle">АКЦИИ И НОВОСТИ</p>
           <p slot="bottomTitle">Самые привлекательные предложения и жгучие новости</p>
         </app-theme-page-title>
       </transition>
-      <transition name="title-fade-right">
+      <transition name="app-fade-right">
         <el-row v-if="isLoadedData" id="filter_block" type="flex">
           <el-col align="right">
             <el-radio-group id="news_types" v-model="type">
@@ -26,7 +26,7 @@
              :key="id"
              v-if="type === 'all' ? true : ( oneNews.type === type )"
              class="news_block">
-          <transition name="title-fade-left">
+          <transition name="app-fade-left">
             <el-row v-if="isLoadedData" class="news_tag_row" type="flex" justify="left">
               <el-col class="news_tag" align="left">
                 {{ oneNews.type === 'sale' ? 'А к ц и и' : 'Н о в о с т и' }}
@@ -35,7 +35,7 @@
             </el-row>
           </transition>
           <el-row type="flex" justify="center" style="flex-wrap: wrap">
-            <transition name="title-fade-left">
+            <transition name="app-fade-left">
               <el-col v-if="isLoadedData" :xs="20" :sm="9" :md="9" :lg="9" :xl="9">
                 <v-card class="white elevation-8" height="320px">
                   <v-card-media
@@ -46,7 +46,7 @@
                 </v-card>
               </el-col>
             </transition>
-            <transition name="title-fade-right">
+            <transition name="app-fade-right">
               <el-col v-if="isLoadedData" class="news_text_block" :xs="20" :sm="9" :md="9" :lg="9" :xl="9" align="left">
                 <p class="news_title">
                   {{ oneNews.title }}
@@ -146,7 +146,6 @@ export default {
   .news_title {
     font-family: $secondary-font;
     font-size: 28px;
-    font-weight: 600;
     line-height: 36px;
     color: $color-secondary;
   }

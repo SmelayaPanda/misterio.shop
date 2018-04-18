@@ -2,13 +2,13 @@
   <div id="shop_wrapper">
     <el-row type="flex" justify="left" style="flex-wrap: wrap">
       <div align="left">
-        <transition name="title-fade-right">
+        <transition name="app-fade-right">
           <el-button v-if="isMountedShop" type="text" @click="isCollapsed = !isCollapsed" id="collapse_btn">
             <v-icon v-if="isCollapsed" class="info--text">hdr_strong</v-icon>
             <v-icon v-else class="info--text">hdr_weak</v-icon>
           </el-button>
         </transition>
-        <transition name="title-fade-left">
+        <transition name="app-fade-left">
           <el-menu
             v-if="isMountedShop"
             id="shop_nav_menu"
@@ -57,7 +57,7 @@
       <!--ALGOLIA SEARCH-->
       <!-- TODO: add Algolia icon-->
       <el-col :xs="24" :sm="24" :md="17" :lg="16" :xl="14" type="flex" align="middle">
-        <transition name="title-fade-left">
+        <transition name="app-fade-left">
           <el-row v-if="isMountedShop" type="flex" justify="start">
             <el-col :span="14">
               <v-text-field
@@ -93,7 +93,7 @@
           </el-row>
         </transition>
         <!--FILTER-->
-        <transition name="title-fade-left">
+        <transition name="app-fade-left">
           <el-collapse
             v-if="isMountedShop"
             id="products_filter"
@@ -210,7 +210,7 @@
             </el-col>
           </el-row>
         </transition>
-        <transition name="title-fade-right">
+        <transition name="app-fade-right">
           <div v-if="isMountedShop" class="mb-4 mt-3">
             <el-button
               v-if="this.$store.getters.lastVisible"

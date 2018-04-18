@@ -2,7 +2,7 @@
   <div>
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
-      <transition name="title-fade-left">
+      <transition name="app-fade-left">
         <el-row v-if="isLoadedFavorites" type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :xs="22" :sm="22" :md="18" :lg="18" :xl="15" align="left"
                   class="ml-1 mr-1 mb-3 mt-2">
@@ -14,7 +14,7 @@
           </el-col>
         </el-row>
       </transition>
-      <transition name="title-fade-right">
+      <transition name="app-fade-right">
         <el-row
           v-if="isLoadedFavorites"
           type="flex"
