@@ -22,7 +22,7 @@ export default {
       brand: '',
       color: '',
       material: '',
-      sortByPrice: '',
+      sortByPrice: 'desc',
       limit: 15
     },
     algoliaSearchText: '',
