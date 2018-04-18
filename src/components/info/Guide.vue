@@ -250,7 +250,7 @@ export default {
   }
 
   table, th, td {
-    border: 1px solid $color-secondary;
+    border: 1px solid $color-secondary-ultra-dark;
     border-collapse: collapse;
   }
 

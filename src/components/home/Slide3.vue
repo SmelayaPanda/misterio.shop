@@ -155,7 +155,7 @@ export default {
   }
 
   #all_sales_btn {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     background: $color-primary;
     color: white;

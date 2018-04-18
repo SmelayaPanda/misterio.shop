@@ -116,7 +116,7 @@ export default {
   .main_card {
     margin: 10px;
     padding: 0 0 10px;
-    border: 1px solid white !important;
+    border: 1px solid $color-info-ultra-dark !important;
     transition: all .5s;
   }
 
