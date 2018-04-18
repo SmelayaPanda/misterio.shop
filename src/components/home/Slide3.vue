@@ -4,7 +4,7 @@
     <el-row type="flex" justify="center" style="flex-wrap: wrap">
       <el-col :span="22">
         <el-row id="slide_3" type="flex" justify="center" style="flex-wrap: wrap">
-          <transition name="title-fade-left">
+          <transition>
             <el-col v-if="isLoadedSlide3" :xs="24" :sm="22" :md="10" :lg="10" :xl="8">
               <div>
                 <p id="title_3_main" align="left">
@@ -30,7 +30,7 @@
               </div>
             </el-col>
           </transition>
-          <transition name="title-fade-right">
+          <transition>
             <el-col v-if="isLoadedSlide3"
                     id="sales_swiper"
                     :md="12" :lg="11" :xl="11" align="right">

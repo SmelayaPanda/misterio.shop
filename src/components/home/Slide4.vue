@@ -1,20 +1,20 @@
 <template>
   <div id="slide_4">
     <white-pattern color="white"></white-pattern>
-    <transition name="title-fade-left">
+    <transition>
       <p v-if="isLoadedSlide4" id="title_slide_4">КОНТАКТЫ</p>
     </transition>
     <el-row type="flex" justify="center">
       <el-col id="contact_links" :xs="23" :sm="8" :md="8" :lg="7" :xl="9" align="left">
         <span v-if="isLoadedSlide4" class="line ver_line hor_line"></span>
-        <transition name="title-fade-left">
+        <transition>
           <el-row v-if="isLoadedSlide4" type="flex" justify="center" style="flex-wrap: wrap">
             <el-col :span="20" align="left">
               <contacts-services></contacts-services>
             </el-col>
           </el-row>
         </transition>
-        <transition name="title-fade-left">
+        <transition>
           <el-row  v-if="isLoadedSlide4" type="flex" id="contact_block">
             <el-col :span="20" align="left">
               <contacts-phone></contacts-phone>
@@ -27,7 +27,7 @@
           </el-row>
         </transition>
       </el-col>
-      <transition name="title-fade-right">
+      <transition>
         <instagram-photos v-if="isLoadedSlide4"/>
       </transition>
     </el-row>
