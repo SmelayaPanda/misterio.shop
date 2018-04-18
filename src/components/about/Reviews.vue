@@ -52,7 +52,7 @@ REVIEW STATUSES:
       id="your_review"
       title="Ваш отзыв!"
       :visible.sync="addReviewDialog"
-      width="500px"
+      :width="this.$vuetify.breakpoint.name === 'xs' ? '100%' : '500px'"
       center>
       <el-input
         v-model="review.name"

@@ -175,12 +175,25 @@ export default {
   }
 
   @media only screen and (max-width: $xs-screen) {
+    .about_corner {
+      font-size: 16px;
+    }
     .about_text {
       padding: 20px 20px 20px 30px;
       font-size: 13px;
     }
+    #ver_line_1:after {
+      margin: 30px 4px;
+    }
+    #hor_line_1:after {
+      margin: -12px 70px;
+    }
     #hor_line_2:after {
-      width: 15%;
+      width: 16%;
+      margin: -13px 125px;
+    }
+    #ver_line_2:after {
+      margin: -155px 6px;
     }
   }
 </style>
