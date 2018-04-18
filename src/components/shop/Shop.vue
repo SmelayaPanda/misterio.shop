@@ -387,7 +387,7 @@ export default {
 
 <style scoped lang="scss">
   #shop_nav_menu {
-    flex: 0 0 280px;
+    width: 280px;
   }
 
   .search_input {
@@ -446,7 +446,10 @@ export default {
   @media only screen and (max-width: $sm-screen) {
     #shop_nav_menu {
       margin-top: 0;
-      flex: 0 0 100%;
+      width: 99vw;
+    }
+    #collapse_btn {
+      margin-top: 0;
     }
   }
 </style>
