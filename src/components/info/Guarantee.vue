@@ -10,30 +10,28 @@
       close-on-press-escape
       fullscreen
       :visible.sync="dialogVisible">
-      <div id="guarantee_body">
-        <img src="@/assets/img/home/black_pattern.svg" class="bg_pattern" alt="">
-        <el-row id="guarantee_body_wrap">
-          <el-col :xs="22" :sm="10" :md="7" :lg="6" :xl="5" id="guarantee_img_wrap">
-            <img src="@/assets/img/info/guarantee.png" id="guarantee_img" alt="">
-          </el-col>
-          <el-col :xs="22" :sm="12" :md="11" :lg="10" :xl="9">
-            <h2 id="guarantee_title">арантии и возврат</h2>
-            <p class="guarantee_text">
-              По закону РФ товары интимного назначения, белье и косметика обмену или возврату не подлежат. Исключением
-              является заводской брак производителя. Вы можете проверить работоспособность при получении заказа и, в
-              случае брака, вернуть товар, если он не является бывшим в использовании, а также не повреждена упаковка.
-              Если товар доставляется курьером, Вы можете связаться с нами в течение двух часов после получения товара в
-              случае выявления брака.
-              На товары брендов We-Vibe, LELO, Ovo, Satisfyer, Mystim, Nexus, Womanizer, Svakom, Magic Motion, RestArt,
-              Imtoy действует гарантия от производителя в течение 1 года эксплуатации.
-              На товары брендов Fun Factory действует гарантия 2 года от производителя.
-              <br> <br>
-              В случае поломки этих товаров необходимо связаться с нами. К обмену и возврату не принимается товар в
-              неполной комплектации или поврежденной упаковке.
-            </p>
-          </el-col>
-        </el-row>
-      </div>
+      <img src="@/assets/img/home/black_pattern.svg" class="bg_pattern" alt="">
+      <el-row id="guarantee_body_wrap">
+        <el-col :xs="22" :sm="10" :md="7" :lg="6" :xl="5" id="guarantee_img_wrap">
+          <img src="@/assets/img/info/guarantee.png" id="guarantee_img" alt="">
+        </el-col>
+        <el-col :xs="22" :sm="12" :md="11" :lg="10" :xl="9">
+          <h2 id="guarantee_title">арантии и возврат</h2>
+          <p class="guarantee_text">
+            По закону РФ товары интимного назначения, белье и косметика обмену или возврату не подлежат. Исключением
+            является заводской брак производителя. Вы можете проверить работоспособность при получении заказа и, в
+            случае брака, вернуть товар, если он не является бывшим в использовании, а также не повреждена упаковка.
+            Если товар доставляется курьером, Вы можете связаться с нами в течение двух часов после получения товара в
+            случае выявления брака.
+            На товары брендов We-Vibe, LELO, Ovo, Satisfyer, Mystim, Nexus, Womanizer, Svakom, Magic Motion, RestArt,
+            Imtoy действует гарантия от производителя в течение 1 года эксплуатации.
+            На товары брендов Fun Factory действует гарантия 2 года от производителя.
+            <br> <br>
+            В случае поломки этих товаров необходимо связаться с нами. К обмену и возврату не принимается товар в
+            неполной комплектации или поврежденной упаковке.
+          </p>
+        </el-col>
+      </el-row>
     </el-dialog>
   </div>
 </template>
@@ -62,11 +60,6 @@ export default {
     cursor: pointer;
   }
 
-  #guarantee_body {
-    width: 100vw;
-    height: 100vh;
-  }
-
   #guarantee_body_wrap {
     display: flex;
     justify-content: center;
@@ -75,10 +68,11 @@ export default {
   }
 
   .bg_pattern {
-    position: absolute;
-    height: 100vh;
-    width: 100vw;
+    position: fixed;
+    width: auto;
+    height: 100%;
     top: 0;
+    transform: scale(1.35);
     object-fit: cover;
     opacity: 0.2;
     z-index: 0;
@@ -116,6 +110,13 @@ export default {
     }
     #guarantee_body_wrap {
       margin-top: 1vh;
+    }
+    #guarantee_img {
+      height: 340px;
+    }
+    #guarantee_title {
+      text-align: center;
+      margin-top: 0;
     }
   }
 </style>

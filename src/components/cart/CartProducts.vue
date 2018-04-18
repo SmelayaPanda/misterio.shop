@@ -195,7 +195,6 @@ export default {
     color: white;
     font-size: 16px;
     font-weight: 600;
-    margin-top: 10px;
     text-align: right;
   }
 
@@ -267,6 +266,7 @@ export default {
 
   #go_shop {
     margin-right: 10px;
+    margin-bottom: 6px;
   }
 
   @media only screen and (max-width: $xs-screen) {
@@ -276,11 +276,9 @@ export default {
     #cart_title {
       margin-top: 15px;
     }
-
     .thumb_img {
       margin-bottom: 12px;
     }
-
     #remove_from_cart {
       position: absolute;
       top: 0;
@@ -289,8 +287,8 @@ export default {
     }
     #total_price {
       text-align: center;
+      margin-top: 10px;
     }
-
     #total_row {
       justify-content: center;
     }

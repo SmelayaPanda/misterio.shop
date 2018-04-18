@@ -65,7 +65,7 @@
           <!---------->
           <!--Form 1-->
           <el-row type="flex" justify="center" class="mt-5">
-            <el-col :span="18">
+            <el-col :xs="22" :sm="18" :md="18" :lg="18" :xl="18">
             <div class="form_1" v-if="activeStep === 1">
               <el-form
                 label-position="top"
@@ -98,7 +98,7 @@
                   class="el-input__inner"
                   required
                   mask="\+\7 (111) 111-11-11"
-                  placeholder="Phone number"/>
+                  placeholder="Номер телефона"/>
                 </el-form-item>
               </el-form>
             </div>
@@ -107,7 +107,7 @@
           <!---------->
           <!--Step 2-->
           <el-row type="flex" justify="center">
-            <el-col :span="18">
+            <el-col :xs="22" :sm="18" :md="18" :lg="18" :xl="18">
             <div class="form_2" v-if="activeStep === 2">
               <el-form
                 v-if="activeStep === 2"
@@ -133,13 +133,13 @@
                 </el-row>
                 <!--STREET-->
                 <el-row>
-                  <el-col :span="18" class="pr-1">
+                  <el-col :xs="16" :sm="18" :md="18" :lg="18" :xl="18" class="pr-1">
                     <el-form-item label="Улица" prop="street">
                       <el-input v-model="form_2.street"></el-input>
                     </el-form-item>
                   </el-col>
                   <!--BUILD-->
-                  <el-col :span="6" class="pr-1">
+                  <el-col :xs="8" :sm="6" :md="6" :lg="6" :xl="6" class="pl-1">
                     <el-form-item label="Дом" prop="build">
                       <el-input v-model="form_2.build"></el-input>
                     </el-form-item>
@@ -166,15 +166,15 @@
           <!---------->
           <!--Step 3-->
           <el-row type="flex" justify="center">
-            <el-col :span="18">
+            <el-col :xs="24" :sm="18" :md="18" :lg="18" :xl="18">
               <div id="checkout_form_3" v-if="activeStep === 3">
                 <h3 class="mb-1">
                   СПОСОБ ДОСТАВКИ
                 </h3>
                   <div>
-                    <el-radio v-model="deliveryMethod" :label="delivery.courier" name="Привет" border></el-radio>
-                    <el-radio v-model="deliveryMethod" :label="delivery.russianPost" border></el-radio>
-                    <el-radio v-model="deliveryMethod" :label="delivery.pickPoint" border></el-radio>
+                    <el-radio v-model="deliveryMethod" :label="delivery.courier" border class="mt-1"></el-radio>
+                    <el-radio v-model="deliveryMethod" :label="delivery.russianPost" border class="mt-1"></el-radio>
+                    <el-radio v-model="deliveryMethod" :label="delivery.pickPoint" border class="mt-1"></el-radio>
                   </div>
                 <div class="mb-4">
                   <h4 v-if="deliveryMethod === delivery.courier" class="mt-4">
@@ -192,8 +192,8 @@
                     СПОСОБ ОПЛАТЫ
                   </h3>
                   <div>
-                    <el-radio v-model="paymentMethod" :label="payment.online" border></el-radio>
-                    <el-radio v-model="paymentMethod" :label="payment.onReceipt" border></el-radio>
+                    <el-radio v-model="paymentMethod" :label="payment.online" border class="mt-1"></el-radio>
+                    <el-radio v-model="paymentMethod" :label="payment.onReceipt" border class="mt-1"></el-radio>
                   </div>
                   <h4 v-if="paymentMethod === payment.online" class="mt-4">
                     <v-icon class="info--text">credit_card</v-icon><br>
@@ -220,7 +220,7 @@
           <!---------->
           <!--Step 4-->
           <el-row type="flex" justify="center">
-              <el-col :span="18">
+              <el-col :xs="22" :sm="18" :md="18" :lg="18" :xl="18">
                 <div class="form_4 white--text" v-if="activeStep === 4">
                   <p>Нажимая оформить вы соглашаетесь с пользовательским соглашением
                     <!--TODO: fix address-->
