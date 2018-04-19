@@ -4,15 +4,15 @@
       <img v-if="this.$route.path === '/contacts'"
            class="router_header"
            key="contacts"
-           src="@/assets/img/contacts/header_bg.png" alt="">
+           src="@/assets/img/contacts/header.png" alt="">
       <img v-if="this.$route.path.includes('news')"
            class="router_header"
            key="news"
-           src="@/assets/img/news/news_header.png" alt="">
+           src="@/assets/img/news/header.png" alt="">
       <img v-if="this.$route.path === '/about'"
            class="router_header"
            key="about"
-           src="@/assets/img/about/header_bg.png" alt="">
+           src="@/assets/img/about/header.png" alt="">
       <mobile-menu v-if="isSecondaryRouters" key="mobile"></mobile-menu>
       <app-header v-if="isSecondaryRouters" key="head"></app-header>
       <div v-if="isSecondaryRouters"
