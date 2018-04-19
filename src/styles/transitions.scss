@@ -52,7 +52,7 @@
 @keyframes left-title-text-animation {
   0% {
     opacity: 0;
-    transform: translateX(-15px);
+    transform: translateX(-10px); // mass save!) right 15px - but here full router left slide
   }
   100% {
     opacity: 1;

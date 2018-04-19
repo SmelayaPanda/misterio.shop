@@ -5,6 +5,7 @@ import Vue from 'vue'
 import App from '@/App'
 import {sync} from 'vuex-router-sync'
 import router from '@/router'
+import vueScrollBehavior from 'vue-scroll-behavior'
 import {store} from '@/store'
 import * as firebase from 'firebase'
 // UI
@@ -72,6 +73,12 @@ Vue.component('app-help-tooltip', HelpTooltip)
 Vue.component('app-theme-page-title', ThemePageTitle)
 Vue.component('app-theme-btn', ThemeBtn)
 
+Vue.use(vueScrollBehavior, {
+  router: router, // The router instance
+  maxLength: 100, // Saved history List max length
+  ignore: [], // RegExp - ignore some routes, they will directly scroll to the top
+  delay: 0 // Delay by a number of milliseconds
+})
 Vue.use(VueAwesomeSwiper)
 Vue.use(ElementUI, {locale})
 Vue.use(Vuetify, {

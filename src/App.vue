@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <transition-group name="fade">
+    <transition-group name="app-fade-left">
       <img v-if="this.$route.path === '/contacts'"
            class="router_header"
            key="contacts"
