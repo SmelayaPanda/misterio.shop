@@ -37,7 +37,7 @@
           <el-row type="flex" justify="center" style="flex-wrap: wrap">
             <transition name="app-fade-left">
               <el-col v-if="isLoadedData" :xs="20" :sm="9" :md="9" :lg="9" :xl="9">
-                <v-card class="white elevation-8" height="320px">
+                <v-card id="news_img" class="white elevation-8" height="320px">
                   <v-card-media
                     v-if="oneNews.img_0"
                     :src="oneNews.img_0.original"
@@ -151,6 +151,13 @@ export default {
   }
 
   .news_red_line {
+  }
+
+  #news_img {
+    border-radius: 0px;
+  }
+  .card__media{
+    box-shadow: 0 3px 12px 0 rgba(19, 19, 19, 0.85), 3px 3px 12px 0 rgba(22, 22, 22, 0.87);
   }
 
   .news_red_line:after {
