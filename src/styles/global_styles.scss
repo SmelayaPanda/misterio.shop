@@ -60,6 +60,7 @@ $lg-screen: 1920px;
   top: 35px;
 }
 
+// SHOP NAV MENU
 .el-select-dropdown__item {
   font-family: $primary-font;
 }
@@ -68,7 +69,15 @@ $lg-screen: 1920px;
   background-color: $color-secondary !important;
   color: white !important;
 }
+.el-menu {
+  border-right: 1px solid $color-info-dark;
+}
 
+// ALGOLIA SEARCH
+.input-group__details:after,
+.input-group__details:before {
+  background-color: $color-info-dark !important;
+}
 #products_filter {
   .el-slider__bar {
     background: $color-secondary;
@@ -80,7 +89,11 @@ $lg-screen: 1920px;
 
   .el-collapse-item__header, .el-collapse-item__content {
     background: $color-primary;
-    color: white;
+    color: $color-info;
+  }
+  .el-collapse-item__header,
+  .el-collapse-item__wrap {
+    border-bottom: 1px solid $color-info-dark;
   }
 }
 
@@ -220,6 +233,9 @@ $lg-screen: 1920px;
     i {
       color: white;
     }
+  }
+  .el-menu {
+    border-right: 1px solid $color-info;
   }
 }
 
