@@ -16,7 +16,7 @@
         <el-col :xs="24" :sm="20" :md="20" :lg="17" :xl="16" type="flex" align="middle">
           <el-card id="product_card">
             <el-row type="flex" style="flex-wrap: wrap">
-              <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+              <el-col :xs="24" :sm="24" :md="12" :lg="10" :xl="10">
                 <zoom-on-hover :img-normal="viewImage ? viewImage : product.img_0.original"
                                :img-zoom="viewImage ? viewImage : product.img_0.original"
                                class="main_img">
@@ -33,8 +33,8 @@
                   <img v-if="product.img_4.thumbnail" :src="product.img_4.thumbnail" @click="loadOriginal('img_4')"
                        ref="img_4" class="thumb_img"/>
                 </el-row>
-                <el-row class="mt-4">
-                  <p style="font-size: 24px">
+                <el-row class="mt-3">
+                  <p style="font-size: 24px; margin-bottom: 0;">
                     <i class="el-icon-minus"></i>
                     Misterio Shop
                     <i class="el-icon-minus"></i>
@@ -187,7 +187,7 @@ export default {
 <style scoped lang="scss">
   .main_img {
     width: 100%;
-    height: 480px;
+    height: 500px;
     object-fit: cover;
   }
 

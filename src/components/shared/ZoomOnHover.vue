@@ -69,7 +69,7 @@ export default {
 
   .zoom-on-hover .normal {
     width: 100%;
-    height: 480px;
+    height: 500px;
     object-fit: cover;
   }
 
