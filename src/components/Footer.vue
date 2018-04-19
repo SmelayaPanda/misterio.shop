@@ -4,17 +4,19 @@
       <el-col :offset="2" :xs="22" :sm="18" :md="22" :lg="22" :xl="21">
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" class="footer_block" align="left">
-            <contacts-services></contacts-services>
+            <contacts-important v-if="this.$vuetify.breakpoint.name === 'xs' || this.$vuetify.breakpoint.name === 'sm'"/>
+            <contacts-services v-else/>
           </el-col>
           <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" class="footer_block" align="left">
-            <contacts-important></contacts-important>
+            <contacts-services v-if="this.$vuetify.breakpoint.name === 'xs' || this.$vuetify.breakpoint.name === 'sm'"/>
+            <contacts-important v-else/>
           </el-col>
           <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" class="footer_block" align="left">
-            <contacts-phone id="contacts_phone"></contacts-phone>
+            <contacts-phone id="contacts_phone"/>
           </el-col>
           <el-col :xs="16" :sm="12" :md="6" :lg="6" :xl="6" class="footer_block" align="left">
             <p id="watch_news" align="left">СЛЕДИ ЗА НОВОСТЯМИ</p>
-            <contacts-social class="ml-3 mb-4"></contacts-social>
+            <contacts-social class="ml-3 mb-4"/>
           </el-col>
         </el-row>
       </el-col>
