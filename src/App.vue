@@ -15,10 +15,9 @@
            src="@/assets/img/about/header_bg.png" alt="">
       <mobile-menu v-if="isSecondaryRouters" key="mobile"></mobile-menu>
       <app-header v-if="isSecondaryRouters" key="head"></app-header>
-      <div
-        v-if="showLiveChat"
-        key="liveChat"
-        id="live_chat">
+      <div v-if="isSecondaryRouters"
+           key="liveChat"
+           id="live_chat">
         <user-live-chat
           :chatId="this.$store.getters.user.uid"
           :isCollapsed="true"
@@ -36,7 +35,7 @@
                  :style="this.$vuetify.breakpoint.name === 'sm' || this.$vuetify.breakpoint.name === 'xs' ?
                   'right: ;left: 20px; bottom: 12px' :
                   'right: 140px; bottom: 37px'">
-      <v-btn fab class="secondary">
+      <v-btn fab :class="this.$route.path.includes('admin') ? 'primary_a white--text' : 'secondary'">
         <v-icon>keyboard_arrow_up</v-icon>
       </v-btn>
     </back-to-top>
@@ -64,12 +63,6 @@ export default {
   },
   name: 'App',
   computed: {
-    showLiveChat () {
-      let showIn = ['/account', '/shop', '/cart', '/favorite', '/contacts']
-      return this.$store.getters.user &&
-          (showIn.includes(this.$route.path) || this.$route.path.indexOf('/product') !== -1) &&
-          this.$route.path.indexOf('admin') === -1
-    },
     isSecondaryRouters () {
       return !this.$route.path.includes('admin') && this.$route.path !== '/'
     }

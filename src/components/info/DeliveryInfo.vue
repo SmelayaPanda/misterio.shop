@@ -15,7 +15,7 @@
         <el-col :xs="24" :sm="22" :md="9" :lg="7" :xl="6" id="delivery_info_img_wrap">
           <img src="@/assets/img/info/delivery.png" id="delivery_info_img" alt="">
         </el-col>
-        <el-col :xs="24" :sm="22" :md="13" :lg="11" :xl="9">
+        <el-col :xs="24" :sm="22" :md="13" :lg="13" :xl="9">
           <h2 id="delivery_info_title">оставка и оплата</h2>
           <div id="delivery_info_text">
             <h4>Доставка курьером по г. Новосибирску:</h4>

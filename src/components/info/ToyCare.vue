@@ -15,7 +15,7 @@
         <el-col :xs="24" :sm="22" :md="9" :lg="7" :xl="6" id="toy_care_img_wrap">
           <img src="@/assets/img/info/care.png" id="toy_care_img" alt="">
         </el-col>
-        <el-col :xs="24" :sm="22" :md="13" :lg="11" :xl="9">
+        <el-col :xs="24" :sm="22" :md="13" :lg="13" :xl="9">
           <h2 id="toy_care_title">ход за игрушками</h2>
           <div id="toy_care_text">
             <h4>Секс игрушки делаются из разных материалов, которые имеют свою специфику, но есть несколько общих

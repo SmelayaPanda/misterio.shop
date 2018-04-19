@@ -72,23 +72,20 @@
                 prepend-icon="search">
               </v-text-field>
             </el-col>
-            <el-col :span="6" align="start">
-              <transition name="fade">
-                <div style="margin-top: 25px; margin-left: -20px;">
-                  <i v-if="this.isLoading"
-                     class="el-icon-loading white--text">
-                  </i>
-                  <el-tag
-                    v-if="!this.isLoading && algoliaSearchText"
-                    type="danger"
-                    size="mini"
-                    class="white--text">
+            <el-col :span="1" align="start">
+              <div style="margin-top: 25px; margin-left: -20px;">
+                <i v-if="this.isLoading"
+                   class="el-icon-loading white--text">
+                </i>
+                <div v-if="!this.isLoading && algoliaSearchText">
+                  <el-tag type="danger" size="mini" class="white--text">
                   <span v-if="products">
                     {{ Object.keys(products).length }}
                   </span>
                   </el-tag>
+                  <img id="search_by_algolia_icon" src="@/assets/icons/text/search_by_algolia.svg" alt="">
                 </div>
-              </transition>
+              </div>
             </el-col>
           </el-row>
         </transition>
@@ -397,6 +394,11 @@ export default {
 
   .selected_filter {
     padding: 10px;
+  }
+
+  #search_by_algolia_icon {
+    position: absolute;
+    margin-left: 5px;
   }
 
   .el-menu--collapse {

@@ -8,7 +8,7 @@
       </a>
     </p>
     <p>
-      <v-icon class="info--text mr-2" >phonelink_ring</v-icon>
+      <v-icon class="info--text mr-2">phonelink_ring</v-icon>
       <a class="contacts"
          :href="'tel://' + companyInfo.contacts.mobilePhone.replace(/[ -]/g,'')">
         {{ companyInfo.contacts.mobilePhone }}
@@ -19,10 +19,10 @@
       <a class="contacts"
          :href="'mailto:' + companyInfo.contacts.email + '?Subject=Misterio Shop&body=Misterio Shop'"
          target="_blank">
-       {{ companyInfo.contacts.email }}
+        {{ companyInfo.contacts.email }}
       </a>
     </p>
-    <p class="contacts">
+    <p @click="$bus.$emit('openLiveChat')" id="need_consulting" class="contacts">
       <img id="consulting" src="@/assets/icons/footer/chat.svg" height="27px" class="contact_icon" alt="">
       Нужна консультация? <br>
       <span class="we_answer">Мы ответим на любой Ваш вопрос</span>
@@ -62,6 +62,10 @@ export default {
 
   #consulting {
     margin-bottom: -10px;
+  }
+
+  #need_consulting:hover {
+    cursor: pointer;
   }
 
   @media only screen and (max-width: $xs-screen) {
