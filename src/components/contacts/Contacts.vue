@@ -15,13 +15,13 @@
             <el-row type="flex" justify="start" style="flex-wrap: wrap">
               <el-col :xs="12" :sm="10" :md="10" :lg="10" :xl="9" align="left">
                 <span class="line ver_line hor_line"></span>
-                <contacts-services/>
-              </el-col>
-              <el-col :xs="12" :sm="10" :md="10" :lg="10" :xl="10" align="left">
                 <contacts-important/>
               </el-col>
+              <el-col :xs="12" :sm="10" :md="10" :lg="10" :xl="10" align="left">
+                <contacts-services/>
+              </el-col>
             </el-row>
-            <el-row type="flex" justify="start" style="flex-wrap: wrap; margin-top: 40px;">
+            <el-row type="flex" justify="start" style="flex-wrap: wrap; margin-top: 30px;">
               <el-col :span="22" align="left">
                 <contacts-phone/>
                 <div @click="$bus.$emit('openLiveChat')">

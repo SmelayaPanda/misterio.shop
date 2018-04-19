@@ -5,8 +5,8 @@
     @mouseover="hoveredCard = true"
     @mouseleave="hoveredCard = false"
     class="card_wrapper">
-    <v-card class="main_card primary" height="410px">
-      <v-card-media :src="product.img_0.card" height="300px"></v-card-media>
+    <v-card class="main_card primary" height="380px">
+      <v-card-media :src="product.img_0.card" height="270px"></v-card-media>
       <div style="height: 30px; padding: 10px;">
         <el-row type="flex" justify="space-evenly">
           <el-col :span="8" align="right">

@@ -12,7 +12,7 @@
       :visible.sync="dialogVisible">
       <img src="@/assets/img/home/white_pattern.svg" class="bg_pattern" alt="">
       <el-row id="toy_care_body_wrap">
-        <el-col :xs="24" :sm="22" :md="9" :lg="7" :xl="6" id="toy_care_img_wrap">
+        <el-col :xs="24" :sm="22" :md="9" :lg="9" :xl="6" id="toy_care_img_wrap">
           <img src="@/assets/img/info/care.png" id="toy_care_img" alt="">
         </el-col>
         <el-col :xs="24" :sm="22" :md="13" :lg="13" :xl="9">
