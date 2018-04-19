@@ -5,11 +5,13 @@
     @mouseover="hoveredCard = true"
     @mouseleave="hoveredCard = false"
     class="card_wrapper">
-    <v-card class="main_card primary" height="380px">
-      <v-card-media :src="product.img_0.card" height="270px"></v-card-media>
-      <div style="height: 30px; padding: 10px;">
+    <v-card
+      class="main_card primary"
+      height="420px">
+      <v-card-media :src="product.img_0.card" height="418px" style="border-radius: 2px"></v-card-media>
+      <div id="product_title">
         <el-row type="flex" justify="space-evenly">
-          <el-col :span="8" align="right">
+          <el-col :span="6" align="right">
             <transition name="fade">
               <el-tooltip v-if="user.favorites[id]"
                           class="item" effect="dark"
@@ -31,12 +33,12 @@
               </el-tooltip>
             </transition>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="12">
             <p class="grey--text pl-2">
               {{ product.price }} &#8381;
             </p>
           </el-col>
-          <el-col :span="8" align="left">
+          <el-col :span="6" align="left">
             <transition name="fade">
               <el-tooltip v-if="product.totalQty < 1 && hoveredCard"
                           class="item" effect="dark"
@@ -65,12 +67,12 @@
             </transition>
           </el-col>
         </el-row>
+        <el-row id="product_title_wrapper">
+          <p id="shop_product_title">
+            {{ product.title | snippet(56) }}
+          </p>
+        </el-row>
       </div>
-      <el-row id="product_title_wrapper" type="flex" justify="center">
-        <p class="shop_product_title">
-          {{ product.title | snippet(56) }}
-        </p>
-      </el-row>
     </v-card>
   </div>
 </template>
@@ -120,13 +122,26 @@ export default {
     transition: all .5s;
   }
 
+  .main_card:hover {
+    box-shadow: 0 3px 8px 0 rgba(250, 250, 250, 0.15), 3px 3px 8px 0 rgba(250, 250, 250, 0.15);
+    .card__media {
+      -webkit-filter: none;
+      filter: none;
+    }
+    div.card__media__background {
+      transform: scale(1.1) !important;
+      width: 110%;
+      height: 110%;
+    }
+  }
+
   .card_wrapper {
     transition: all .5s;
   }
 
   .card_wrapper:hover {
     cursor: pointer;
-    transform: scale(1.03);
+    transform: scale(1.02);
   }
 
   .own_product_icon {
@@ -140,16 +155,16 @@ export default {
   }
 
   #product_title_wrapper {
-    height: 60px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
   }
 
-  .shop_product_title {
+  #shop_product_title {
     color: white;
-    font-size: 12px;
+    font-size: 11px;
     padding: 12px;
     margin: 0;
   }
@@ -159,16 +174,12 @@ export default {
     transition: all .5s;
   }
 
-  .main_card:hover {
-    box-shadow: 0 3px 8px 0 rgba(250, 250, 250, 0.2), 3px 3px 8px 0 rgba(250, 250, 250, 0.2);
-    .card__media {
-      -webkit-filter: none;
-      filter: none;
-    }
-    div.card__media__background {
-      transform: scale(1.1) !important;
-      width: 110%;
-      height: 110%;
-    }
+  #product_title {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
   }
 </style>
