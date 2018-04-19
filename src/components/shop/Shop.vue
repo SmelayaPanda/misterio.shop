@@ -58,8 +58,8 @@
       <!-- TODO: add Algolia icon-->
       <el-col :xs="24" :sm="24" :md="17" :lg="16" :xl="14" type="flex" align="middle">
         <transition name="app-fade-left">
-          <el-row v-if="isMountedShop" type="flex" justify="start">
-            <el-col :span="14">
+          <el-row v-if="isMountedShop" type="flex" id="algolia_search_input">
+            <el-col :xs="23" :sm="23" :md="17" :lg="16" :xl="14">
               <v-text-field
                 name="Algolia search"
                 single-line
@@ -72,8 +72,8 @@
                 prepend-icon="search">
               </v-text-field>
             </el-col>
-            <el-col :span="1" align="start">
-              <div style="margin-top: 25px; margin-left: -20px;">
+            <el-col :xs="24" :sm="24" :md="4" :lg="4" :xl="4" align="start">
+              <div id="search_count">
                 <i v-if="this.isLoading"
                    class="el-icon-loading white--text">
                 </i>
@@ -444,6 +444,17 @@ export default {
     opacity: 1;
   }
 
+  #algolia_search_input {
+    justify-content: start;
+    flex-wrap: wrap;
+    margin-left: 10px;
+  }
+
+  #search_count {
+    margin-top: 25px;
+    margin-left: -20px;
+  }
+
   @media only screen and (max-width: $sm-screen) {
     #shop_nav_menu {
       margin-top: 0;
@@ -451,6 +462,11 @@ export default {
     }
     #collapse_btn {
       margin-top: 0;
+    }
+    #search_count {
+      margin-top: 0;
+      margin-left: 50%;
+      transform: translateX(-90px);
     }
   }
 </style>
