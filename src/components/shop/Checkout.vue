@@ -223,10 +223,9 @@
               <el-col :xs="22" :sm="18" :md="18" :lg="18" :xl="18">
                 <div class="form_4 white--text" v-if="activeStep === 4">
                   <p>Нажимая оформить вы соглашаетесь с пользовательским соглашением
-                    <!--TODO: fix address-->
                     <a target="_blank"
                        class="secondary--text"
-                       href="http://localhost:8080/userAgreement">
+                       href="https://misterio.shop/userAgreement">
                       пользовательским соглашением
                     </a>
                   </p>
@@ -255,8 +254,10 @@
 
 <script>
 
+import UserAgreement from '../info/UserAgreement'
 export default {
   name: 'Checkout',
+  components: {UserAgreement},
   props: ['checkoutObj', 'type'],
   data () {
     let notEmptyString = (rule, value, callback) => {

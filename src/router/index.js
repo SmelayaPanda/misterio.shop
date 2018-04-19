@@ -9,7 +9,7 @@ import Article from '@/components/news/Article'
 import Contacts from '@/components/contacts/Contacts'
 import Shop from '@/components/shop/Shop'
 import Product from '@/components/shop/Product'
-import UserAgreement from '@/components/info/UserAgreement'
+import UserAgreementText from '@/components/info/UserAgreementText'
 import Favorites from '@/components/favorites/Favorites'
 // AUTH
 import Signin from '@/components/auth/Signin'
@@ -148,7 +148,7 @@ export default new Router({
       path: '/userAgreement',
       name: 'userAgreement',
       props: true,
-      component: UserAgreement
+      component: UserAgreementText
     }
   ],
   mode: 'history'

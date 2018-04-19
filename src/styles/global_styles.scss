@@ -141,6 +141,7 @@ $lg-screen: 1920px;
 }
 
 // INFO DIALOGS
+#user_agreement_dialog,
 #delivery_info_dialog,
 #guarantee_dialog {
   .el-dialog {
@@ -149,6 +150,9 @@ $lg-screen: 1920px;
   .el-dialog__headerbtn {
     z-index: 2005;
   }
+}
+#user_agreement_dialog {
+  z-index: 10000;
 }
 
 #guide_dialog,

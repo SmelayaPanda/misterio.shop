@@ -5,6 +5,7 @@
     <delivery-info/>
     <guide/>
     <toy-care/>
+    <user-agreement/>
   </div>
 </template>
 <script>
@@ -12,10 +13,11 @@ import Guarantee from '../info/Guarantee'
 import Guide from '../info/Guide'
 import ToyCare from '../info/ToyCare'
 import DeliveryInfo from '../info/DeliveryInfo'
+import UserAgreement from '../info/UserAgreement'
 
 export default {
   name: 'contacts-important',
-  components: {DeliveryInfo, ToyCare, Guarantee, Guide}
+  components: {UserAgreement, DeliveryInfo, ToyCare, Guarantee, Guide}
 }
 </script>
 <style scoped lang="scss">
