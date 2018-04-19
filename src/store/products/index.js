@@ -110,13 +110,14 @@ export default {
             // Algolia filter
             if (getters.algoliaSearchText && getters.algoliaSearchProductIds) {
               let searchProducts = {}
-              getters.algoliaSearchProductIds.forEach(id => {
-                if (products[id]) {
-                  searchProducts[id] = products[id]
+              for (let pId in products) {
+                if (products.hasOwnProperty(pId) && getters.algoliaSearchProductIds.indexOf(pId) !== -1) {
+                  searchProducts[pId] = products[pId]
                 }
-              })
+              }
               products = searchProducts
-              commit('setLastVisible', null) // no limit records with algolia search
+              commit('setLastVisible', null) // means no limit records with Algolia search
+              // Algolia have own max 20 matches by default
             }
             commit('setProducts', {...products})
             commit('LOADING', false)
@@ -134,7 +135,6 @@ export default {
         const ALGOLIA_SEARCH_KEY = '68d8a98b0c136d3dbd0a799949007e8d'
         const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY)
         let index
-        console.log(process.env.NODE_ENV)
         if (process.env.NODE_ENV === 'production') {
           index = client.initIndex('MISTERIO-PROD-PRODUCTS')
         } else if (process.env.NODE_ENV === 'development') {
