@@ -77,7 +77,7 @@
                 <i v-if="this.isLoading"
                    class="el-icon-loading white--text">
                 </i>
-                <div v-if="!this.isLoading && algoliaSearchText">
+                <div v-if="!this.isLoading && this.$store.getters.algoliaSearchText">
                   <el-tag type="danger" size="mini" class="white--text">
                   <span v-if="products">
                     {{ Object.keys(products).length }}
@@ -107,8 +107,7 @@
                 </div>
                 <el-tag size="mini">
                   <i v-if="this.sortByPrice === 'asc'" class="el-icon-sort-up white--text"></i>
-                  <i v-else-if="!this.sortByPrice || this.sortByPrice === 'desc'"
-                     class="el-icon-sort-down white--text"></i>
+                  <i v-else class="el-icon-sort-down white--text"></i>
                 </el-tag>
               </el-button>
               <div class="pl-3 pr-3">
@@ -273,23 +272,8 @@ export default {
       }
       this.filterProducts()
     },
-    changeCategory (key) {
-      let groupList = ['sexToy', 'bdsm', 'baa', 'condom', 'eroticLingerie', 'cosmetic']
-      if (groupList.indexOf(key) !== -1) {
-        this.selectedGroup = key
-        this.selectedCategory = null
-      } else {
-        this.selectedCategory = key
-        this.selectedGroup = null
-      }
-      this.$store.dispatch('USER_EVENT', `Категория: ${this.searchGroup.split(':')[0]}`)
-    },
     filterProducts () {
       this.$store.dispatch('setLastVisible', null)
-      this.filter()
-    },
-    loadMore () {
-      this.$store.dispatch('USER_EVENT', 'Загрузить больше')
       this.filter()
     },
     filter () {
@@ -308,6 +292,25 @@ export default {
       })
       return this.$store.dispatch('fetchProducts')
     },
+    changeCategory (key) {
+      let groupList = ['sexToy', 'bdsm', 'baa', 'condom', 'eroticLingerie', 'cosmetic']
+      if (groupList.indexOf(key) !== -1) {
+        this.selectedGroup = key
+        this.selectedCategory = null
+      } else {
+        this.selectedCategory = key
+        this.selectedGroup = null
+      }
+      this.$store.dispatch('USER_EVENT', `Категория: ${this.searchGroup.split(':')[0]}`)
+    },
+    loadMore () {
+      this.$store.dispatch('USER_EVENT', 'Загрузить больше')
+      this.filter()
+    },
+    algoliaSearch () {
+      this.$store.dispatch('USER_EVENT', `Поиск по слову: "${this.algoliaSearchText}"`)
+      this.$store.dispatch('algoliaSearch', this.algoliaSearchText)
+    },
     logFilterEvents () {
       let lastFilter = this.$store.getters.productFilters
       if (lastFilter.brand !== this.selectedBrand) {
@@ -325,10 +328,6 @@ export default {
       if (lastFilter.minPrice !== this.sliderValues[0] || lastFilter.maxPrice !== this.sliderValues[1]) {
         this.$store.dispatch('USER_EVENT', `Фильтр - цена: [${this.sliderValues[0]}, ${this.sliderValues[1]}]`)
       }
-    },
-    algoliaSearch () {
-      this.$store.dispatch('USER_EVENT', `Поиск по слову: "${this.algoliaSearchText}"`)
-      this.$store.dispatch('algoliaSearch', this.algoliaSearchText)
     }
   },
   computed: {

@@ -83,9 +83,7 @@ export default {
         if (filter.material) {
           query = query.where('material', '==', filter.material)
         }
-        if (filter.sortByPrice) {
-          query = query.orderBy('price', filter.sortByPrice)
-        }
+        query = query.orderBy('price', filter.sortByPrice)
         if (getters.lastVisible) {
           query = query.startAfter(getters.lastVisible)
         }
