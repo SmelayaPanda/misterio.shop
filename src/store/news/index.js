@@ -75,7 +75,7 @@ export default {
         commit('LOADING', true)
         firebase.firestore().collection('news').doc(payload).delete()
           .then(() => {
-            if (getters.newsById(payload).img_0) {
+            if (getters.news[payload].img_0) {
               return Promise.all([ // see cloud functions "createNewsThumbnail"
                 firebase.storage().ref('news/' + payload + '/img_0').delete(),
                 firebase.storage().ref('news/' + payload + '/thumb_img_0').delete()
@@ -95,10 +95,6 @@ export default {
     news:
       state => {
         return state.news
-      },
-    newsById:
-      state => (newsId) => {
-        return state.news[newsId]
       }
   }
 }

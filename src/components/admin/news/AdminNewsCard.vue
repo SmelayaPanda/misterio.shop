@@ -55,7 +55,7 @@ export default {
   methods: {},
   computed: {
     oneNews () {
-      return this.$store.getters.newsById(this.id)
+      return this.$store.getters.news[this.id]
     }
   }
 }

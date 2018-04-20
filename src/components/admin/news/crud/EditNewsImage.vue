@@ -80,7 +80,7 @@ export default {
   },
   computed: {
     oneNews () {
-      return this.$store.getters.newsById(this.id)
+      return this.$store.getters.news[this.id]
     }
   }
 }

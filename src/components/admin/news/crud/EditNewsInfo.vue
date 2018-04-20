@@ -54,7 +54,7 @@ export default {
   name: 'EditNewsInfoDialog',
   props: ['id'],
   data () {
-    let oneNews = this.$store.getters.newsById(this.id)
+    let oneNews = this.$store.getters.news[this.id]
     return {
       type: oneNews.type,
       editDialog: false,
