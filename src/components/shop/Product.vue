@@ -13,15 +13,27 @@
             </el-button>
           </router-link>
         </el-col>
-        <el-col :xs="24" :sm="20" :md="20" :lg="18" :xl="16" type="flex" align="middle">
+        <el-col :xs="24" :sm="20" :md="21" :lg="18" :xl="16" type="flex" align="middle">
           <el-card id="product_card">
             <el-row type="flex" style="flex-wrap: wrap">
-              <el-col :xs="24" :sm="24" :md="11" :lg="10" :xl="10">
+              <el-col :xs="24" :sm="4" :md="3" :lg="3" :xl="3" id="product_thumbnails_desctop">
+                <img v-if="product.img_0.thumbnail" :src="product.img_0.thumbnail" @click="loadOriginal('img_0')"
+                     ref="img_0" class="thumb_img active"/>
+                <img v-if="product.img_1.thumbnail" :src="product.img_1.thumbnail" @click="loadOriginal('img_1')"
+                     ref="img_1" class="thumb_img"/>
+                <img v-if="product.img_2.thumbnail" :src="product.img_2.thumbnail" @click="loadOriginal('img_2')"
+                     ref="img_2" class="thumb_img"/>
+                <img v-if="product.img_3.thumbnail" :src="product.img_3.thumbnail" @click="loadOriginal('img_3')"
+                     ref="img_3" class="thumb_img"/>
+                <img v-if="product.img_4.thumbnail" :src="product.img_4.thumbnail" @click="loadOriginal('img_4')"
+                     ref="img_4" class="thumb_img"/>
+              </el-col>
+              <el-col :xs="24" :sm="20" :md="9" :lg="9" :xl="10">
                 <zoom-on-hover :img-normal="viewImage ? viewImage : product.img_0.original"
                                :img-zoom="viewImage ? viewImage : product.img_0.original"
                                class="main_img">
                 </zoom-on-hover>
-                <el-row class="mt-3">
+                <el-row id="product_thumbnails_mobile">
                   <img v-if="product.img_0.thumbnail" :src="product.img_0.thumbnail" @click="loadOriginal('img_0')"
                        ref="img_0" class="thumb_img active"/>
                   <img v-if="product.img_1.thumbnail" :src="product.img_1.thumbnail" @click="loadOriginal('img_1')"
@@ -34,7 +46,7 @@
                        ref="img_4" class="thumb_img"/>
                 </el-row>
                 <el-row class="mt-3">
-                  <p style="font-size: 24px; margin-bottom: 0;">
+                  <p id="misterio_shop">
                     <i class="el-icon-minus"></i>
                     Misterio Shop
                     <i class="el-icon-minus"></i>
@@ -209,12 +221,12 @@ export default {
 <style scoped lang="scss">
   .main_img {
     width: 100%;
-    height: 500px;
+    height: 527px;
     object-fit: cover;
   }
 
   .thumb_img {
-    height: 95px;
+    height: 100px;
     width: 75px;
     object-fit: cover;
     margin-right: 1px;
@@ -274,6 +286,7 @@ export default {
     margin-bottom: -5px;
     margin-right: 2px;
   }
+
   #into_cart_btn {
     color: white;
     background: $color-secondary;
@@ -287,12 +300,34 @@ export default {
     width: 142px;
     margin-bottom: 5px;
   }
+
+  #product_thumbnails_desctop {
+    margin-top: 3px;
+  }
+
+  #product_thumbnails_mobile {
+    display: none;
+  }
+
+  #misterio_shop {
+    font-size: 24px;
+    margin-bottom: 7px;
+    margin-top: 7px;
+  }
+
   @media only screen and (max-width: $xs-screen) {
     .product_info {
       margin-left: 10px;
     }
     .already_added_btn_xs_fix {
       margin-left: 3px;
+    }
+    #product_thumbnails_desctop {
+      display: none;
+    }
+    #product_thumbnails_mobile {
+      display: block;
+      margin-top: 12px;
     }
   }
 </style>

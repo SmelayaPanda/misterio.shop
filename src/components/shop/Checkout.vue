@@ -22,7 +22,7 @@
       </p>
       <el-row type="flex" justify="center" style="flex-wrap: wrap">
         <!--ITEMS INFO-->
-        <el-col :xs="24" :sm="24" :md="9" :lg="8" :xl="7" class="mt-3 pl-4 pr-4 mb-4">
+        <el-col :xs="24" :sm="24" :md="9" :lg="8" :xl="7" id="my_order_wrap">
           <div id="my_order">
             <p id="my_order_title">
               Мой заказ
@@ -430,6 +430,10 @@ export default {
     padding-top: 0;
   }
 
+  #my_order_wrap {
+    padding: 30px;
+  }
+
   #my_order {
     background: $color-secondary-dark;
     color: white;
@@ -481,5 +485,11 @@ export default {
 
   #checkout_form_3 {
     color: white;
+  }
+
+  @media only screen and (max-width: $xs-screen) {
+    #my_order_wrap {
+      padding: 10px;
+    }
   }
 </style>
