@@ -5,7 +5,7 @@
            class="router_header"
            key="contacts"
            src="@/assets/img/contacts/header.png" alt="">
-      <img v-if="this.$route.path.includes('news')"
+      <img v-if="this.$route.path.includes('news') && !this.$route.path.includes('admin')"
            class="router_header"
            key="news"
            src="@/assets/img/news/header.png" alt="">
