@@ -2,6 +2,8 @@
   <div
     v-if="product"
     @click="viewProduct"
+    @touchstart="hoveredCard = true"
+    @touchend="hoveredCard = false"
     @mouseover="hoveredCard = true"
     @mouseleave="hoveredCard = false"
     class="card_wrapper">
@@ -127,7 +129,8 @@ export default {
     transition: all .5s;
   }
 
-  .main_card:hover {
+  .main_card:hover,
+  .main_card:active {
     box-shadow: 0 3px 8px 0 rgba(250, 250, 250, 0.15), 3px 3px 8px 0 rgba(250, 250, 250, 0.15);
     .card__media {
       -webkit-filter: none;
@@ -144,7 +147,8 @@ export default {
     transition: all .5s;
   }
 
-  .card_wrapper:hover {
+  .card_wrapper:hover,
+  .card_wrapper:active {
     cursor: pointer;
     transform: scale(1.02);
   }
@@ -155,7 +159,8 @@ export default {
     padding-right: 5px;
   }
 
-  .own_product_icon:hover {
+  .own_product_icon:hover,
+  .own_product_icon:active {
     transform: scale(1.3);
   }
 

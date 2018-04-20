@@ -51,7 +51,8 @@ $lg-screen: 1920px;
   transform: scale(1.5);
 }
 
-.el-icon-close:hover {
+.el-icon-close:hover,
+.el-icon-close:active {
   transform: rotate(180deg) scale(2.5);
 }
 
@@ -65,7 +66,8 @@ $lg-screen: 1920px;
   font-family: $primary-font;
 }
 
-.el-menu-item:hover {
+.el-menu-item:hover,
+.el-menu-item:active {
   background-color: $color-secondary !important;
   color: white !important;
 }
@@ -117,7 +119,8 @@ $lg-screen: 1920px;
 
 #your_review,
 #buy_one_click {
-  .el-icon-close:hover {
+  .el-icon-close:hover,
+  .el-icon-close:active {
     color: $color-secondary;
   }
 }
@@ -163,7 +166,8 @@ $lg-screen: 1920px;
   .el-dialog__headerbtn {
     z-index: 2005;
   }
-  .el-icon-close:hover {
+  .el-icon-close:hover,
+  .el-icon-close:active {
     color: $color-secondary;
   }
 }
