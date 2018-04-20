@@ -7,10 +7,13 @@
     class="card_wrapper">
     <v-card
       class="main_card primary"
-      :height="this.$vuetify.breakpoint.name === 'md' ? '370px' : '420px'">
-      <v-card-media :src="product.img_0.card"
-                    :height="this.$vuetify.breakpoint.name === 'md' ? '368px' : '418px'"
-                    style="border-radius: 2px"></v-card-media>
+      :height="this.$vuetify.breakpoint.name === 'xs' ? '460px' :
+              (this.$vuetify.breakpoint.name === 'md' ? '370px' : '420px')">
+      <v-card-media
+        :src="product.img_0.card"
+        :height="this.$vuetify.breakpoint.name === 'xs' ? '458px' :
+                (this.$vuetify.breakpoint.name === 'md' ? '368px' : '418px')"
+        style="border-radius: 2px"></v-card-media>
       <div id="product_title">
         <el-row type="flex" justify="space-evenly">
           <el-col :span="6" align="right">
