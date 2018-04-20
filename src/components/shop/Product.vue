@@ -17,16 +17,16 @@
           <el-card id="product_card">
             <el-row type="flex" style="flex-wrap: wrap">
               <el-col :xs="24" :sm="4" :md="3" :lg="3" :xl="3" id="product_thumbnails_desctop">
-                <img v-if="product.img_0.thumbnail" :src="product.img_0.thumbnail" @click="loadOriginal('img_0')"
-                     ref="img_0" class="thumb_img active"/>
-                <img v-if="product.img_1.thumbnail" :src="product.img_1.thumbnail" @click="loadOriginal('img_1')"
-                     ref="img_1" class="thumb_img"/>
-                <img v-if="product.img_2.thumbnail" :src="product.img_2.thumbnail" @click="loadOriginal('img_2')"
-                     ref="img_2" class="thumb_img"/>
-                <img v-if="product.img_3.thumbnail" :src="product.img_3.thumbnail" @click="loadOriginal('img_3')"
-                     ref="img_3" class="thumb_img"/>
-                <img v-if="product.img_4.thumbnail" :src="product.img_4.thumbnail" @click="loadOriginal('img_4')"
-                     ref="img_4" class="thumb_img"/>
+                <img v-if="product.img_0.thumbnail" :src="product.img_0.thumbnail" @click="loadOriginal(0)"
+                     ref="d_img_0" class="thumb_img active"/>
+                <img v-if="product.img_1.thumbnail" :src="product.img_1.thumbnail" @click="loadOriginal(1)"
+                     ref="d_img_1" class="thumb_img"/>
+                <img v-if="product.img_2.thumbnail" :src="product.img_2.thumbnail" @click="loadOriginal(2)"
+                     ref="d_img_2" class="thumb_img"/>
+                <img v-if="product.img_3.thumbnail" :src="product.img_3.thumbnail" @click="loadOriginal(3)"
+                     ref="d_img_3" class="thumb_img"/>
+                <img v-if="product.img_4.thumbnail" :src="product.img_4.thumbnail" @click="loadOriginal(4)"
+                     ref="d_img_4" class="thumb_img"/>
               </el-col>
               <el-col :xs="24" :sm="20" :md="9" :lg="9" :xl="10">
                 <zoom-on-hover :img-normal="viewImage ? viewImage : product.img_0.original"
@@ -34,16 +34,16 @@
                                class="main_img">
                 </zoom-on-hover>
                 <el-row id="product_thumbnails_mobile">
-                  <img v-if="product.img_0.thumbnail" :src="product.img_0.thumbnail" @click="loadOriginal('img_0')"
-                       ref="img_0" class="thumb_img active"/>
-                  <img v-if="product.img_1.thumbnail" :src="product.img_1.thumbnail" @click="loadOriginal('img_1')"
-                       ref="img_1" class="thumb_img"/>
-                  <img v-if="product.img_2.thumbnail" :src="product.img_2.thumbnail" @click="loadOriginal('img_2')"
-                       ref="img_2" class="thumb_img"/>
-                  <img v-if="product.img_3.thumbnail" :src="product.img_3.thumbnail" @click="loadOriginal('img_3')"
-                       ref="img_3" class="thumb_img"/>
-                  <img v-if="product.img_4.thumbnail" :src="product.img_4.thumbnail" @click="loadOriginal('img_4')"
-                       ref="img_4" class="thumb_img"/>
+                  <img v-if="product.img_0.thumbnail" :src="product.img_0.thumbnail" @click="loadOriginal(0)"
+                       ref="m_img_0" class="thumb_img active"/>
+                  <img v-if="product.img_1.thumbnail" :src="product.img_1.thumbnail" @click="loadOriginal(1)"
+                       ref="m_img_1" class="thumb_img"/>
+                  <img v-if="product.img_2.thumbnail" :src="product.img_2.thumbnail" @click="loadOriginal(2)"
+                       ref="m_img_2" class="thumb_img"/>
+                  <img v-if="product.img_3.thumbnail" :src="product.img_3.thumbnail" @click="loadOriginal(3)"
+                       ref="m_img_3" class="thumb_img"/>
+                  <img v-if="product.img_4.thumbnail" :src="product.img_4.thumbnail" @click="loadOriginal(4)"
+                       ref="m_img_4" class="thumb_img"/>
                 </el-row>
                 <el-row class="mt-3">
                   <p id="misterio_shop">
@@ -181,6 +181,7 @@ export default {
     return {
       dialogVisible: false,
       oneClickDialogVisible: false,
+      activeImg: 0,
       viewImage: ''
     }
   },
@@ -193,14 +194,21 @@ export default {
     }
   },
   methods: {
-    loadOriginal (name) {
-      for (let i = 0; i < 5; i++) {
-        if (this.$refs['img_' + i]) {
-          this.$refs['img_' + i].classList.remove('active')
-        }
+    loadOriginal (idx) {
+      if (this.$refs['d_img_' + this.activeImg]) {
+        this.$refs['d_img_' + this.activeImg].classList.remove('active')
       }
-      this.$refs[name].classList.add('active')
-      this.viewImage = this.product[name].original
+      if (this.$refs['d_img_' + idx]) {
+        this.$refs['d_img_' + idx].classList.add('active')
+      }
+      if (this.$refs['m_img_' + this.activeImg]) {
+        this.$refs['m_img_' + this.activeImg].classList.remove('active')
+      }
+      if (this.$refs['m_img_' + idx]) {
+        this.$refs['m_img_' + idx].classList.add('active')
+      }
+      this.activeImg = idx
+      this.viewImage = this.product['img_' + idx].original
     },
     updateOwnProduct (product, subject, operation) {
       this.$store.dispatch('USER_EVENT',
