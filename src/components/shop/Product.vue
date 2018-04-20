@@ -13,10 +13,10 @@
             </el-button>
           </router-link>
         </el-col>
-        <el-col :xs="24" :sm="20" :md="20" :lg="17" :xl="16" type="flex" align="middle">
+        <el-col :xs="24" :sm="20" :md="20" :lg="18" :xl="16" type="flex" align="middle">
           <el-card id="product_card">
             <el-row type="flex" style="flex-wrap: wrap">
-              <el-col :xs="24" :sm="24" :md="12" :lg="10" :xl="10">
+              <el-col :xs="24" :sm="24" :md="11" :lg="10" :xl="10">
                 <zoom-on-hover :img-normal="viewImage ? viewImage : product.img_0.original"
                                :img-zoom="viewImage ? viewImage : product.img_0.original"
                                class="main_img">
@@ -97,11 +97,10 @@
                 <v-divider class="mb-3 mt-4"></v-divider>
                 <p>Цена: {{ product.price }} &#8381;</p>
                 <el-button v-if="!alreadyAddedProduct"
-                           size="medium"
-                           class="mt-3 secondary white--text"
+                           id="into_cart_btn"
                            :disabled="product.totalQty < 1"
                            @click="updateOwnProduct(product, 'cart', 'add')">
-                  <span style="font-size: 14px">
+                  <span>
                     В корзину
                   </span>
                   <i class="el-icon-goods ml-2" style="transform: scale(1.5)"></i>
@@ -113,18 +112,41 @@
                 </one-click>
                 <!--ALREADY IN CART-->
                 <div v-if="alreadyAddedProduct">
-                  <router-link to="/cart">
-                    <el-button type="text" class="mb-2 secondary--text">
-                      Добавлено в корзину!
-                      <i class="el-icon-d-arrow-right"></i>
-                    </el-button>
-                  </router-link>
+                  <el-tooltip
+                    class="item"
+                    effect="dark"
+                    placement="top-end"
+                    content="Продолжить покупки">
+                    <router-link to="/shop">
+                      <el-button class="already_added_btn">
+                        <i class="el-icon-d-arrow-left"></i>
+                        В каталог
+                      </el-button>
+                    </router-link>
+                  </el-tooltip>
+                  <el-tooltip
+                    class="item"
+                    effect="dark"
+                    placement="top-end"
+                    content="Оформить покупку">
+                    <router-link to="/cart">
+                      <el-button class="already_added_btn already_added_btn_xs_fix">
+                        Оформить
+                        <i class="el-icon-d-arrow-right"></i>
+                      </el-button>
+                    </router-link>
+                  </el-tooltip>
                   <br>
-                  <el-button
-                    @click="updateOwnProduct(product, 'cart', 'remove')"
-                    size="mini">
-                    <v-icon>remove_shopping_cart</v-icon>
-                  </el-button>
+                  <el-tooltip
+                    class="item"
+                    effect="dark"
+                    content="Удалить из корзины">
+                    <el-button
+                      @click="updateOwnProduct(product, 'cart', 'remove')"
+                      size="mini">
+                      <v-icon class="secondary--text">remove_shopping_cart</v-icon>
+                    </el-button>
+                  </el-tooltip>
                 </div>
               </el-col>
             </el-row>
@@ -192,8 +214,8 @@ export default {
   }
 
   .thumb_img {
-    height: 90px;
-    width: 78px;
+    height: 95px;
+    width: 75px;
     object-fit: cover;
     margin-right: 1px;
     margin-left: 1px;
@@ -252,11 +274,25 @@ export default {
     margin-bottom: -5px;
     margin-right: 2px;
   }
+  #into_cart_btn {
+    color: white;
+    background: $color-secondary;
+    height: 44px;
+    width: 160px;
+    border: 1px solid $color-secondary;
+    margin-bottom: 5px;
+  }
 
+  .already_added_btn {
+    width: 142px;
+    margin-bottom: 5px;
+  }
   @media only screen and (max-width: $xs-screen) {
     .product_info {
       margin-left: 10px;
     }
+    .already_added_btn_xs_fix {
+      margin-left: 3px;
+    }
   }
-
 </style>

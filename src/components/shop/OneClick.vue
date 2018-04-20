@@ -4,14 +4,13 @@
   <!--TODO: sort by date decs-->
     <el-button
       v-if="!alreadyAddedProduct"
-      size="medium"
-      class="mt-3"
+      id="oneclick_btn"
       :disabled="disabled"
       @click="buyOneClick">
-    <span style="font-size: 14px">
-      В один клик
-    </span>
-    <i class="el-icon-check ml-2" style="transform: scale(1.5)"></i>
+      <span>
+        В один клик
+      </span>
+      <v-icon id="oneclick_btn_icon">touch_app</v-icon>
   </el-button>
   <el-dialog
     id="buy_one_click"
@@ -137,5 +136,25 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  #oneclick_btn {
+    color: $color-secondary;
+    height: 44px;
+    width: 160px;
+    transition: all .5s;
+  }
+
+  #oneclick_btn:hover {
+    color: white;
+    background: $color-secondary;
+    border: 1px solid $color-secondary;
+    #oneclick_btn_icon {
+      color: white
+    }
+  }
+
+  #oneclick_btn_icon {
+    margin-top: -4px;
+    color: $color-secondary;
+  }
 </style>
