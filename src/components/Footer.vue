@@ -55,6 +55,7 @@ export default {
 
   .footer_block {
     padding: 25px 10px 5px 20px;
+    margin-bottom: 20px;
   }
 
   #watch_news {

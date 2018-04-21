@@ -2,7 +2,11 @@
   <v-container v-if="this.$store.getters.news[this.id]">
     <v-layout row wrap>
       <v-flex xs12>
+        <h3 class="mb-3">Редактировать новость</h3>
         <!--Edit title-->
+        <p class="mr-2 mb-2">
+          Заголовок
+        </p>
           <el-input
             v-model="editedTitle"
             id="title"
@@ -20,9 +24,9 @@
                 Длина видимого описания акций на 3м слайде домашней старницы - 300 символов, <br>
                 поэтому рекомендуется проверять то, как выглядят новые акции.
               </span>
-          <p>
+          <p class="mt-3">
             Описание
-            <v-icon>lightbulb_outline</v-icon>
+            <v-icon class="mb-1">lightbulb_outline</v-icon>
           </p>
         </el-tooltip>
         <div :id="id">

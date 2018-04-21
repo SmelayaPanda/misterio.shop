@@ -27,6 +27,7 @@ export default {
     font-family: $secondary-font;
     letter-spacing: 1px;
     color: white;
+    margin-bottom: 5px;
   }
 
   #header_2:after {

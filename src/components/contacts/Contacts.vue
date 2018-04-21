@@ -10,11 +10,13 @@
       </transition>
       <el-row type="flex" justify="center" style="flex-wrap: wrap">
         <transition name="app-fade-left">
-          <el-col v-if="isLoadedContacts" :xs="23" :sm="18" :md="10" :lg="10" :xl="9" type="flex" align="middle"
+          <span v-if="isLoadedContacts" class="line ver_line hor_line"></span>
+        </transition>
+        <transition name="app-fade-left">
+          <el-col v-if="isLoadedContacts" :xs="23" :sm="18" :md="10" :lg="10" :xl="9" align="middle"
                   class="pl-2">
             <el-row type="flex" justify="start" style="flex-wrap: wrap">
               <el-col :xs="12" :sm="10" :md="10" :lg="10" :xl="9" align="left">
-                <span class="line ver_line hor_line"></span>
                 <contacts-important/>
               </el-col>
               <el-col :xs="12" :sm="10" :md="10" :lg="10" :xl="10" align="left">
@@ -109,10 +111,12 @@ export default {
 
   .hor_line {
     border-top: 1px solid;
-    width: 36%;
+    width: 15vw;
   }
 
   .ver_line {
+    position: absolute;
+    left: 6vw;
     border-left: 1px solid $color-secondary;
     height: 434px;
   }

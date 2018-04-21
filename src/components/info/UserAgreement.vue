@@ -1,9 +1,9 @@
 <template>
   <div>
-    <p @click="dialogVisible = true"
+    <span @click="dialogVisible = true"
        class="sub_header">
       Пользовательское соглашение
-    </p>
+    </span>
     <el-dialog
       id="user_agreement_dialog"
       center
@@ -44,7 +44,7 @@ export default {
     font-weight: 600;
     color: $color-info;
     font-size: 12px;
-    line-height: 22px;
+    line-height: 34px;
   }
 
   .sub_header:hover {
@@ -117,9 +117,6 @@ export default {
   }
 
   @media only screen and (max-width: $sm-screen) {
-    .sub_header {
-      line-height: 18px;
-    }
     #user_agreement_img_wrap {
       text-align: left;
     }
