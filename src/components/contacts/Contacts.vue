@@ -145,6 +145,11 @@ export default {
     height: 180px;
     width: 100%;
     object-fit: cover;
+    transition: all .5s;
+  }
+
+  .inst_photo:hover {
+    transform: scale(1.03);
   }
 
   .inst_card_wrap {
