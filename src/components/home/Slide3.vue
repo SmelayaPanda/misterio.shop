@@ -6,20 +6,21 @@
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <transition name="app-fade-left">
             <el-col v-if="isLoadedSlide3" id="slide_3_left" :xs="24" :sm="22" :md="10" :lg="10" :xl="8">
-              <div>
+              <div v-for="sale in sales"
+                   :key="sale.id"
+                   v-if="Object.values(sales).indexOf(sale) === curSlide">
                 <p id="title_3_main" align="left">
-                  <span class="dark_title"> ПРИ ПОКУПКЕ </span>
-                  <span class="white_title"> 2Х </span> <br>
-                  <span class="dark_title"> ВТУЛОК </span>
-                  <span class="white_title"> 3УЮ </span> <br>
-                  <span class="dark_title"> ЗАБТРАЕТЕ </span> <br>
-                  <span class="white_title"> В ПОДАРОК! </span>
+                  <span class="dark_title">
+                    {{ sale.title }}
+                  </span>
+                  <!--<span class="dark_title"> ПРИ ПОКУПКЕ </span>-->
+                  <!--<span class="white_title"> 2Х </span> <br>-->
+                  <!--<span class="dark_title"> ВТУЛОК </span>-->
+                  <!--<span class="white_title"> 3УЮ </span> <br>-->
+                  <!--<span class="dark_title"> ЗАБТРАЕТЕ </span> <br>-->
+                  <!--<span class="white_title"> В ПОДАРОК! </span>-->
                 </p>
-                <p id="title_3_sub" align="left">
-                  Драм-машина представляет собой тетрахорд. Показательный пример – струна представляет собой
-                  микрохроматический интервал. Техника полифигурно начинает рефрен. Плотностная компонентная форма,
-                  как бы это ни казалось парадоксальным, сонорна.
-                </p>
+                <p v-html="sale.description" id="title_3_sub" align="left"></p>
                 <div align="left">
                   <router-link to="/news" exact>
                     <el-button id="all_sales_btn">
@@ -31,20 +32,17 @@
             </el-col>
           </transition>
           <transition name="app-fade-right">
-            <el-col v-if="isLoadedSlide3"
+            <el-col v-show="isLoadedSlide3"
                     id="sales_swiper"
                     :md="12" :lg="11" :xl="11" align="right">
               <swiper
+                @slideChange="updateCurIndex"
                 ref="salesSwiper"
                 :options="swiperOption">
-                <swiper-slide>
-                  <img src="@/assets/img/home/slide_3_three.png" alt="">
-                </swiper-slide>
-                <swiper-slide>
-                  <img src="@/assets/img/home/slide_3_two.png" alt="">
-                </swiper-slide>
-                <swiper-slide>
-                  <img src="@/assets/img/home/slide_3_one.png" alt="">
+                <swiper-slide
+                  v-for="sale in sales"
+                  :key="sale.id">
+                  <img v-if="sale.img_0" :src="sale.img_0.original" alt="">
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
               </swiper>
@@ -77,10 +75,11 @@ export default {
   data () {
     return {
       isLoadedSlide3: false,
+      curSlide: 0,
+      loadedNews: {},
       swiperOption: {
         effect: 'cube',
         grabCursor: true,
-        loop: true,
         cubeEffect: {
           shadow: true,
           slideShadows: true,
@@ -94,14 +93,26 @@ export default {
       }
     }
   },
+  methods: {
+    loadNews () {
+      this.$store.dispatch('loadNews')
+    },
+    updateCurIndex () {
+      this.curSlide = this.salesSwiper.realIndex
+    }
+  },
   computed: {
     salesSwiper () {
       if (this.$refs.salesSwiper) {
         return this.$refs.salesSwiper.swiper
       }
+    },
+    sales () {
+      return this.$store.getters.news ? Object.values(this.$store.getters.news).filter(el => el.type === 'sale') : {}
     }
   },
   created () {
+    this.loadNews()
     this.$bus.$on('isHomeSlide1', () => {
       this.isLoadedSlide3 = false
     })

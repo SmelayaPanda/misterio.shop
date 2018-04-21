@@ -88,7 +88,7 @@ export default {
           query = query.startAfter(getters.lastVisible)
         }
         if (filter.limit && !getters.algoliaSearchText) { // no limit with algoliaText
-          query = query.limit(filter.limit)
+          query = query.limit(filter.limit) // TODO: replace to 12 individual queries
         }
 
         query.get()

@@ -5,6 +5,7 @@
     </el-button>
     <el-dialog
       id="edit_news_info_dialog"
+      :key="id"
       width="100%"
       center
       close-on-press-escape
@@ -22,10 +23,23 @@
               label="Заголовок"
               id="title"
               v-model="editedTitle"
-              required></v-text-field>
+              required>
+            </v-text-field>
             <!--Edit description-->
-            <p>Описание</p>
-            <vue-html-editor v-model="editedDescription"></vue-html-editor>
+            <el-tooltip
+              effect="dark"
+              placement="top-start">
+              <span slot="content">
+                По умолчанию, описание будет отображаться белым шрифтом.<br>
+                Белый цвет является приоритетным для общей стилистики сайта.
+              </span>
+              <p>Описание
+                <v-icon>lightbulb_outline</v-icon>
+              </p>
+            </el-tooltip>
+            <div :id="id">
+              <vue-html-editor v-model="editedDescription"></vue-html-editor>
+            </div>
           </v-flex>
         </v-layout>
 
@@ -39,6 +53,7 @@
             </v-btn>
             <v-btn
               @click="onSaveChanges"
+              :disabled="!isValidForm"
               flat class="primary--text">
               Сохранить
             </v-btn>
@@ -56,8 +71,8 @@ export default {
   data () {
     let oneNews = this.$store.getters.news[this.id]
     return {
-      type: oneNews.type,
       editDialog: false,
+      type: oneNews.type,
       editedTitle: oneNews.title,
       editedDescription: oneNews.description
     }
@@ -76,14 +91,14 @@ export default {
     }
   },
   computed: {
-    // isValidForm () {
-    //   return this.editedTitle.trim() && this.editedDescription.trim()
-    // }
+    isValidForm () {
+      return this.editedTitle.trim() && this.editedDescription.trim()
+    }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .edit_news_title {
     font-size: 20px;
   }

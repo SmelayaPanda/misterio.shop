@@ -15,7 +15,7 @@
         <el-form-item label="Заголовок">
           <el-input
             v-model="title"
-            placeholder="(max 100 symbols)"
+            placeholder="( < 100 символов)"
             :maxlength="100">
           </el-input>
         </el-form-item>

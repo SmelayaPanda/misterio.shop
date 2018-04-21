@@ -4,7 +4,7 @@
     <div v-else>
       <transition name="app-fade-left">
         <el-row v-if="isLoadedFavorites" type="flex" justify="center" style="flex-wrap: wrap">
-          <el-col :xs="22" :sm="22" :md="18" :lg="18" :xl="15" align="left"
+          <el-col :xs="22" :sm="22" :md="17" :lg="18" :xl="15" align="left"
                   class="ml-1 mr-1 mb-3 mt-2">
             <img src="@/assets/icons/routers/icon_favorite.svg" id="favorite_icon" alt="">
             <span id="favorite_title">
@@ -20,7 +20,7 @@
           type="flex"
           justify="center"
           style="flex-wrap: wrap">
-          <el-col :xs="23" :sm="23" :md="18" :lg="18" :xl="15" align="left">
+          <el-col :xs="23" :sm="23" :md="17" :lg="18" :xl="15" align="left">
             <el-row v-if="favorites && Object.keys(favorites).length" type="flex" justify="center"
                     style="flex-wrap: wrap">
               <el-col

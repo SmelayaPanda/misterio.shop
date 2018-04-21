@@ -7,7 +7,7 @@
       type="flex"
       justify="center"
       style="flex-wrap: wrap">
-      <el-col :span="10" align="left">
+      <el-col :span="8" align="left">
         <img :src="product.img_0.thumbnail" class="product_thumb" alt="">
       </el-col>
       <v-icon
@@ -15,7 +15,7 @@
         @click="updateOwnProduct(product, 'favorites', 'remove')"
         class="remove_btn">close
       </v-icon>
-      <el-col :span="13" class="product_descr">
+      <el-col :span="14" class="product_descr">
         <span class="product_title">
           {{ product.title }}
         </span> <br>
@@ -81,7 +81,7 @@ export default {
   }
 
   .product_thumb {
-    height: 140px;
+    height: 150px;
     width: 100%;
     object-fit: cover;
     border-radius: 2px;

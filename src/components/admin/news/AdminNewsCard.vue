@@ -1,7 +1,5 @@
 <template>
-  <div @mouseover="showCloseBtn = true"
-       @mouseleave="showCloseBtn = false"
-       class="one_news">
+  <div :key="id" class="one_news">
     <el-row
       v-if="oneNews"
       type="flex"
@@ -23,9 +21,9 @@
           {{ oneNews.creationDate | date }}
         </span>
         <el-row type="flex" justify="center" class="actions">
-            <edit-news-info-dialog :id="id"/>
-            <edit-news-image :id="id"/>
-            <delete-news :id="id"/>
+          <edit-news-info-dialog :id="id"/>
+          <edit-news-image :id="id"/>
+          <delete-news :id="id"/>
         </el-row>
       </el-col>
     </el-row>
@@ -45,12 +43,7 @@ export default {
     EditNewsInfoDialog
   },
   data () {
-    return {
-      showCloseBtn: false,
-      editNewsInfoDialog: false,
-      editImageDialog: false,
-      previewDialog: false
-    }
+    return {}
   },
   methods: {},
   computed: {
@@ -64,11 +57,12 @@ export default {
 
   .one_news {
     padding: 20px 10px;
+    transition: all .3s;
+    border: 1px solid white;
   }
 
   .one_news:hover {
     border: 1px solid $color-primary;
-    cursor: pointer;
   }
 
   .news_description {

@@ -34,6 +34,9 @@ export default {
             let news = getters.news
             news[docRef.id] = payload
             commit('setNews', {...news})
+            return firebase.firestore().collection('news').doc(docRef.id).update({id: docRef.id})
+          })
+          .then(() => {
             commit('LOADING', false)
           })
           .catch(err => dispatch('LOG', err))

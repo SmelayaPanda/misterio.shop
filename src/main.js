@@ -41,7 +41,7 @@ import HeartLoader from '@/components/shared/HeartLoader'
 import BallsLoader from '@/components/shared/BallsLoader'
 import HelpTooltip from '@/components/shared/HelpTooltip'
 import MaskedInput from 'vue-masked-input'
-import {VueEditor} from 'vue2-editor'
+import { VueEditor } from 'vue2-editor'
 // THEME
 import ThemePageTitle from '@/components//shared/theme/ThemePageTitle.vue'
 import ThemeBtn from '@/components/shared/theme/ThemeBtn.vue'

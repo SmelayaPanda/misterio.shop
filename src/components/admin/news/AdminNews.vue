@@ -24,10 +24,9 @@
           <el-col
             v-for="(oneNews, id) in news"
             :key="id"
-            v-if="oneNews.type === type"
-            :xs="24" :sm="12" :md="12" :lg="8" :xl="8"
+            :xs="24" :sm="24" :md="12" :lg="8" :xl="8"
             align="left">
-            <admin-news-card :id="id"/>
+            <admin-news-card v-if="oneNews.type === type" :id="id"/>
           </el-col>
         </el-row>
       </el-col>
@@ -41,7 +40,10 @@ import CreateNews from './crud/CreateNews'
 
 export default {
   name: 'AdminNews',
-  components: {CreateNews, AdminNewsCard},
+  components: {
+    CreateNews,
+    AdminNewsCard
+  },
   data () {
     return {
       type: 'sale',
@@ -64,7 +66,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   #admin_news_title_wrap {
     margin: 10px 0 30px 20px;
     align-items: center;
