@@ -28,10 +28,10 @@
             @change="onFilePicked"> <br>
           <img :src="imageUrl" :height="200" class="mt-2">
           <el-row type="flex" justify="center">
-            <v-btn @click="dialogVisible = false" flat class="secondary--text">
+            <v-btn @click="dialogVisible = false" flat>
               Отмена
             </v-btn>
-            <v-btn @click="uploadImage" flat class="primary--text">
+            <v-btn @click="uploadImage" flat class="primary_a--text">
               Сохранить
             </v-btn>
           </el-row>

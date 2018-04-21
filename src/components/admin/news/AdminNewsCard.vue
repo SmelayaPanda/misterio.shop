@@ -21,7 +21,11 @@
           {{ oneNews.creationDate | date }}
         </span>
         <el-row type="flex" justify="center" class="actions">
-          <edit-news-info-dialog :id="id"/>
+          <router-link :to="'/admin/news/' + id" exact>
+            <el-button>
+              <i class="el-icon-edit"></i>
+            </el-button>
+          </router-link>
           <edit-news-image :id="id"/>
           <delete-news :id="id"/>
         </el-row>
@@ -30,7 +34,6 @@
   </div>
 </template>
 <script>
-import EditNewsInfoDialog from './crud/EditNewsInfo'
 import DeleteNews from './crud/DeleteNews'
 import EditNewsImage from './crud/EditNewsImage'
 
@@ -39,8 +42,7 @@ export default {
   props: ['id'],
   components: {
     EditNewsImage,
-    DeleteNews,
-    EditNewsInfoDialog
+    DeleteNews
   },
   data () {
     return {}

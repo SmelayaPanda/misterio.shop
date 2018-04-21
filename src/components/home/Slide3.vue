@@ -11,7 +11,7 @@
                    v-if="Object.values(sales).indexOf(sale) === curSlide">
                 <p id="title_3_main" align="left">
                   <span class="dark_title">
-                    {{ sale.title }}
+                    {{ sale.title | snippet(100)}}
                   </span>
                   <!--<span class="dark_title"> ПРИ ПОКУПКЕ </span>-->
                   <!--<span class="white_title"> 2Х </span> <br>-->
@@ -20,7 +20,9 @@
                   <!--<span class="dark_title"> ЗАБТРАЕТЕ </span> <br>-->
                   <!--<span class="white_title"> В ПОДАРОК! </span>-->
                 </p>
-                <p v-html="sale.description" id="title_3_sub" align="left"></p>
+                <p v-if="sale.description"
+                   v-html="sale.description.slice(0, 300)"
+                   id="title_3_sub" align="left"></p>
                 <div align="left">
                   <router-link to="/news" exact>
                     <el-button id="all_sales_btn">
@@ -135,6 +137,10 @@ export default {
     margin-top: 17vh;
   }
 
+  #title_3_main {
+    padding-right: 20px;
+  }
+
   #title_3_main:after {
     content: "";
     display: block;
@@ -151,7 +157,7 @@ export default {
 
   @mixin slide_3_title {
     font-family: $secondary-font;
-    font-size: 34px;
+    font-size: 32px;
     font-weight: 500;
   }
 
