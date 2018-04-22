@@ -56,16 +56,16 @@
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
               </swiper>
-              <el-row id="desctop_controls">
-                <el-col :span="12">
-                  <p class="sales_swiper_forward" @click="salesSwiper.slideNext()">
+              <el-row type="flex" justify="center">
+                <el-col :span="12" align="left">
+                  <el-button  @click="salesSwiper.slideNext()" type="text" class="sales_swiper_forward">
                     Вперед
-                  </p>
+                  </el-button>
                 </el-col>
-                <el-col :span="12">
-                  <p class="sales_swiper_back" @click="salesSwiper.slidePrev()">
+                <el-col :span="12" align="right">
+                  <el-button @click="salesSwiper.slidePrev()" type="text" class="sales_swiper_back">
                     Назад
-                  </p>
+                  </el-button>
                 </el-col>
               </el-row>
             </el-col>

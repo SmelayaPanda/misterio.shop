@@ -99,7 +99,7 @@ export default {
   #contact_block {
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: 22px;
   }
 
   #contact_links {

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <span @click="dialogVisible = true"
+    <el-button type="text" @click="dialogVisible = true"
        class="sub_header">
       Доставка и оплата
-    </span>
+    </el-button>
     <el-dialog
       id="delivery_info_dialog"
       center
@@ -78,7 +78,6 @@ export default {
     font-weight: 600;
     color: $color-info;
     font-size: 12px;
-    line-height: 34px;
   }
 
   .sub_header:hover {

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <span @click="dialogVisible = true"
+    <el-button type="text" @click="dialogVisible = true"
        class="sub_header">
       Уход за игрушками
-    </span>
+    </el-button>
     <el-dialog
       id="toy_care_dialog"
       center
@@ -101,7 +101,6 @@ export default {
     font-weight: 600;
     color: $color-info;
     font-size: 12px;
-    line-height: 34px;
   }
 
   .sub_header:hover {

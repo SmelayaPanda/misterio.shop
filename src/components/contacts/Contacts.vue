@@ -149,7 +149,7 @@ export default {
   }
 
   .inst_photo:hover {
-    transform: scale(1.03);
+    transform: scale(1.05);
   }
 
   .inst_card_wrap {

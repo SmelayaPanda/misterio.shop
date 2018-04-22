@@ -1,16 +1,22 @@
 <template>
   <div>
     <p id="header_1">УСЛУГИ</p>
-    <router-link to="/shop" class="sub_header" exact>
-      Каталог
+    <router-link to="/shop" exact>
+      <el-button type="text" class="sub_header">
+        Каталог
+      </el-button>
     </router-link>
     <br>
-    <router-link to="/news" class="sub_header" exact>
-      Акции и новости
+    <router-link to="/news" exact>
+      <el-button type="text" class="sub_header">
+        Акции и новости
+      </el-button>
     </router-link>
     <br>
-    <router-link to="/about" class="sub_header" exact>
-      Отзывы о нас
+    <router-link to="/about" exact>
+      <el-button type="text" class="sub_header">
+        Отзывы о нас
+      </el-button>
     </router-link>
   </div>
 </template>
@@ -25,7 +31,7 @@ export default {
     font-family: $secondary-font;
     letter-spacing: 1px;
     color: white;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
   #header_1:after {
     width: 65px;
@@ -40,7 +46,6 @@ export default {
     font-weight: 600;
     color: $color-info;
     font-size: 12px;
-    line-height: 34px;
   }
 
   @media only screen and (max-width: $xs-screen) {
