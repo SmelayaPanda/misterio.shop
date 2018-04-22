@@ -22,7 +22,7 @@
             <router-link to="/news" exact>
               <app-theme-btn
                 width="200px">
-                Последние новости
+                Последние {{ oneNews.type === 'sale' ? 'акции' : 'новости' }}
               </app-theme-btn>
             </router-link>
             <div v-for="(oneNews, id) in lastNews" :key="id" class="last_news_list">
@@ -68,7 +68,7 @@ export default {
     lastNews () {
       let news = this.$store.getters.news
       let lastNews = {}
-      let i = 0
+      let i = 1
       for (let id in news) {
         if (news.hasOwnProperty(id) && id !== this.id && i < 4) {
           lastNews[id] = news[id]

@@ -172,7 +172,7 @@ export default {
         brand: '',
         currency: 'RUB',
         price: 100,
-        totalQty: 1,
+        totalQty: 50,
         color: ''
       },
       formLabelWidth: '120px'
@@ -205,7 +205,7 @@ export default {
           this.product.SKU = ''
           this.product.brand = ''
           this.product.price = 100
-          this.product.totalQty = 1
+          this.product.totalQty = 50
           this.product.color = ''
         })
     }

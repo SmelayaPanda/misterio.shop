@@ -2,19 +2,31 @@ import * as firebase from 'firebase'
 
 export default {
   state: {
-    news: {} // article, sale
+    news: {}, // article, sale
+    loadedNewsType: 'sale'
   },
   mutations: {
     setNews:
       (state, payload) => {
         state.news = payload
+      },
+    setLoadedNewsType:
+      (state, payload) => {
+        state.loadedNewsType = payload
       }
   },
   actions: {
     loadNews:
-      ({commit, dispatch}) => {
+      ({commit, dispatch}, payload) => {
         commit('LOADING', true)
-        firebase.firestore().collection('news').get()
+        let query = firebase.firestore().collection('news')
+        if (payload && payload.type) {
+          query = query.where('type', '==', payload.type)
+          commit('setLoadedNewsType', payload.type)
+        } else {
+          commit('setLoadedNewsType', null)
+        }
+        query.orderBy('creationDate', 'desc').get()
           .then(snap => {
             let news = {}
             snap.docs.forEach(doc => {
@@ -98,6 +110,10 @@ export default {
     news:
       state => {
         return state.news
+      },
+    loadedNewsType:
+      state => {
+        return state.loadedNewsType
       }
   }
 }

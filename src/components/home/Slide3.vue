@@ -106,7 +106,7 @@ export default {
   },
   methods: {
     loadNews () {
-      this.$store.dispatch('loadNews')
+      this.$store.dispatch('loadNews', {type: 'sale'})
     },
     updateCurIndex () {
       this.curSlide = this.salesSwiper.realIndex
@@ -133,7 +133,7 @@ export default {
       }
     },
     sales () {
-      return this.$store.getters.news ? Object.values(this.$store.getters.news).filter(el => el.type === 'sale') : {}
+      return this.$store.getters.news ? Object.values(this.$store.getters.news) : {}
     }
   },
   created () {

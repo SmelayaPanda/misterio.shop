@@ -1,11 +1,11 @@
 <template>
   <div class="home_page">
     <transition-group name="welcome">
-      <loading-misterio v-if="!isLoadedHome"
+      <loading-misterio v-show="!isLoadedHome"
                         key="1"
                         id="misterio_shop_wrap">
       </loading-misterio>
-      <div v-else key="2">
+      <div v-show="isLoadedHome" key="2">
         <!-- MOBILE -->
         <mobile-menu></mobile-menu>
         <!-- DESCTOP -->
@@ -108,7 +108,7 @@ export default {
   },
   data () {
     return {
-      isLoadedHome: false,
+      isMountedHome: false,
       curSlide: 0,
       swiperOption: {
         direction: 'vertical',
@@ -136,11 +136,16 @@ export default {
     },
     companyInfo () {
       return this.$store.getters.companyInfo
+    },
+    isLoadedHome () {
+      return this.isMountedHome &&
+        this.$store.getters.news &&
+        this.$store.getters.companyInfo.photos
     }
   },
   mounted () {
     setInterval(() => {
-      this.isLoadedHome = true
+      this.isMountedHome = true
     }, 500)
   }
 }

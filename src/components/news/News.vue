@@ -12,7 +12,7 @@
       <transition name="app-fade-right">
         <el-row v-show="isLoadedData" id="filter_block" type="flex">
           <el-col align="right">
-            <el-radio-group id="news_types" v-model="type">
+            <el-radio-group @change="changeType" v-model="type" id="news_types">
               <el-radio label="all">Все</el-radio>
               <el-radio label="sale">Акции</el-radio>
               <el-radio label="article">Новости</el-radio>
@@ -22,8 +22,8 @@
       </transition>
       <!--NEWS 1-->
       <div v-if="news" id="news_wrapper">
-        <div v-for="(oneNews, id) in news"
-             :key="id"
+        <div v-for="oneNews in news"
+             :key="oneNews.id"
              v-if="type === 'all' ? true : ( oneNews.type === type )"
              class="news_block">
           <transition name="app-fade-left">
@@ -55,8 +55,10 @@
                 <p class="news_public_date">
                   Опубликовано {{ oneNews.creationDate | newsDate }}
                 </p>
-                <p v-html="oneNews.description.slice(0, 160) + '...'" class="new_descr_snippet"></p>
-                <router-link :to="'/news/' + id">
+                <p v-if="oneNews.description"
+                   v-html="oneNews.description.slice(0, 160) + '...'"
+                   class="new_descr_snippet"></p>
+                <router-link :to="'/news/' + oneNews.id">
                   <app-theme-btn>
                     Узнать больше
                   </app-theme-btn>
@@ -66,6 +68,17 @@
           </el-row>
         </div>
       </div>
+      <el-row v-if="totalNewsCount > 5" type="flex" justify="center" class="mt-2">
+        <el-pagination
+          id="news_pagination"
+          @current-change="changeCurPage"
+          @size-change="changePageSize"
+          layout="prev, pager, next"
+          :current-page.sync="curPage"
+          :page-size="pageSize"
+          :total="totalNewsCount">
+        </el-pagination>
+      </el-row>
     </div>
   </div>
 </template>
@@ -75,18 +88,43 @@ export default {
   name: 'News',
   data () {
     return {
-      type: 'all',
-      isLoadedData: true
+      type: 'sale',
+      isLoadedData: true,
+      curPage: 1,
+      pageSize: 5
     }
   },
   methods: {
     loadNews () {
-      this.$store.dispatch('loadNews')
+      this.$store.dispatch('loadNews', {type: this.$store.getters.loadedNewsType})
+    },
+    changeCurPage (curPage) {
+      this.curPage = curPage
+      window.smoothscroll() // npm back-to-top method!
+    },
+    changePageSize (size) {
+      this.pageSize = size
+    },
+    changeType (type) {
+      this.curPage = 1
+      if (type === 'all') {
+        this.$store.dispatch('loadNews')
+      } else {
+        this.$store.dispatch('loadNews', {type: type})
+      }
     }
   },
   computed: {
     news () {
-      return this.$store.getters.news
+      if (this.$store.getters.news) {
+        return Object.values(this.$store.getters.news)
+          .slice((this.curPage - 1) * this.pageSize, this.curPage * this.pageSize)
+      } else {
+        return []
+      }
+    },
+    totalNewsCount () {
+      return this.$store.getters.news ? Object.keys(this.$store.getters.news).length : 0
     }
   },
   created () {
@@ -183,6 +221,10 @@ export default {
     font-weight: 600;
     color: white;
     margin-top: 14px;
+  }
+
+  #news_pagination {
+    margin-bottom: 20px;
   }
 
   @media only screen and (max-width: $xs-screen) {

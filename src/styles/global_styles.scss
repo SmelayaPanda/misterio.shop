@@ -145,6 +145,28 @@ $lg-screen: 1920px;
   }
 }
 
+#news_pagination {
+  .el-pagination,
+  .el-pager li,
+  .btn-prev,
+  .btn-next {
+    background: $color-primary !important;
+  }
+
+  .el-pager li.active {
+    color: $color-secondary;
+  }
+
+  .el-pager li {
+    transition: all .5s;
+  }
+  .btn-prev:hover,
+  .btn-next:hover,
+  .el-pager li:hover {
+    color: $color-secondary;
+  }
+}
+
 // INFO DIALOGS
 #user_agreement_dialog,
 #delivery_info_dialog,
