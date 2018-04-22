@@ -221,6 +221,18 @@ ORDER STATUS CHAIN:
         </template>
       </el-table-column>
     </el-table>
+    <el-row v-if="totalOneClickCount" type="flex" justify="start" class="mt-2">
+      <el-pagination
+        @current-change="changeCurPage"
+        @size-change="changePageSize"
+        background
+        layout="sizes, prev, pager, next, total"
+        :current-page.sync="curPage"
+        :page-size="pageSize"
+        :page-sizes="[5, 10, 20, 50, 100]"
+        :total="totalOneClickCount">
+      </el-pagination>
+    </el-row>
   </div>
 </template>
 
@@ -236,17 +248,33 @@ export default {
   name: 'AdminOneClick',
   data () {
     return {
-      status: 'created'
+      status: 'created',
+      curPage: 1,
+      pageSize: 6
     }
   },
   methods: {
     loadStatusOneClick () {
       this.$store.dispatch('fetchOneClick', this.status)
+    },
+    changeCurPage (curPage) {
+      this.curPage = curPage
+    },
+    changePageSize (size) {
+      this.pageSize = size
     }
   },
   computed: {
     oneClick () {
-      return this.$store.getters.oneClick ? Object.values(this.$store.getters.oneClick) : []
+      if (this.$store.getters.oneClick) {
+        return Object.values(this.$store.getters.oneClick)
+          .slice((this.curPage - 1) * this.pageSize, this.curPage * this.pageSize)
+      } else {
+        return []
+      }
+    },
+    totalOneClickCount () {
+      return this.$store.getters.oneClick ? Object.keys(this.$store.getters.oneClick).length : 0
     },
     statuses () {
       return [

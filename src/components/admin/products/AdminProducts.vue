@@ -175,7 +175,7 @@ export default {
       }
     },
     totalProductCount () {
-      return Object.keys(this.$store.getters.products).length
+      return this.$store.getters.products ? Object.keys(this.$store.getters.products).length : 0
     }
   },
   created () {

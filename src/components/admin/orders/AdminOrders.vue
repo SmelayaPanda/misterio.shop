@@ -197,6 +197,18 @@ ORDER STATUS CHAIN:
         </template>
       </el-table-column>
     </el-table>
+    <el-row v-if="totalOrdersCount" type="flex" justify="start" class="mt-2">
+      <el-pagination
+        @current-change="changeCurPage"
+        @size-change="changePageSize"
+        background
+        layout="sizes, prev, pager, next, total"
+        :current-page.sync="curPage"
+        :page-size="pageSize"
+        :page-sizes="[5, 10, 20, 50, 100]"
+        :total="totalOrdersCount">
+      </el-pagination>
+    </el-row>
   </div>
 </template>
 
@@ -209,17 +221,33 @@ export default {
   data () {
     return {
       status: 'payPending',
-      showPayPalIPN: false
+      showPayPalIPN: false,
+      curPage: 1,
+      pageSize: 5
     }
   },
   methods: {
     loadOrdersWithStatus () {
       this.$store.dispatch('fetchOrders', {status: this.status})
+    },
+    changeCurPage (curPage) {
+      this.curPage = curPage
+    },
+    changePageSize (size) {
+      this.pageSize = size
     }
   },
   computed: {
     orders () {
-      return this.$store.getters.orders
+      if (this.$store.getters.orders) {
+        return Object.values(this.$store.getters.orders)
+          .slice((this.curPage - 1) * this.pageSize, this.curPage * this.pageSize)
+      } else {
+        return []
+      }
+    },
+    totalOrdersCount () {
+      return this.$store.getters.orders ? Object.keys(this.$store.getters.orders).length : 0
     },
     statuses () {
       return [

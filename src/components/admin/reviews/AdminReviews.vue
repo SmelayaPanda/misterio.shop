@@ -92,6 +92,18 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-row v-if="totalReviewsCount" type="flex" justify="start" class="mt-2">
+      <el-pagination
+        @current-change="changeCurPage"
+        @size-change="changePageSize"
+        background
+        layout="sizes, prev, pager, next, total"
+        :current-page.sync="curPage"
+        :page-size="pageSize"
+        :page-sizes="[5, 10, 20, 50, 100]"
+        :total="totalReviewsCount">
+      </el-pagination>
+    </el-row>
   </div>
 </template>
 
@@ -108,17 +120,33 @@ export default {
   data () {
     return {
       status: 'created',
-      statuses: ['created', 'published', 'archived']
+      statuses: ['created', 'published', 'archived'],
+      curPage: 1,
+      pageSize: 6
     }
   },
   methods: {
     loadStatusReviews () {
       return this.$store.dispatch('fetchReviews', {status: this.status})
+    },
+    changeCurPage (curPage) {
+      this.curPage = curPage
+    },
+    changePageSize (size) {
+      this.pageSize = size
     }
   },
   computed: {
     reviews () {
-      return Object.values(this.$store.getters.reviews)
+      if (this.$store.getters.reviews) {
+        return Object.values(this.$store.getters.reviews)
+          .slice((this.curPage - 1) * this.pageSize, this.curPage * this.pageSize)
+      } else {
+        return []
+      }
+    },
+    totalReviewsCount () {
+      return this.$store.getters.reviews ? Object.keys(this.$store.getters.reviews).length : 0
     }
   },
   created () {
