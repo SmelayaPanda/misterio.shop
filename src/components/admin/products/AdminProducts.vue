@@ -1,6 +1,6 @@
 <template>
   <div v-if="products" id="admin_products">
-    <el-row type="flex" justify="start" align="middle" class="mb-4">
+    <el-row type="flex" justify="start" align="middle" class="mb-1">
       <el-cascader
         :options="PRODUCT_CLASSIFICATION"
         filterable
@@ -111,6 +111,18 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-row v-if="totalProductCount" type="flex" justify="start" class="mt-2">
+      <el-pagination
+        @current-change="changeCurPage"
+        @size-change="changePageSize"
+        background
+        layout="sizes, prev, pager, next, total"
+        :current-page.sync="curPage"
+        :page-size="pageSize"
+        :page-sizes="[6, 10, 20, 50, 100]"
+        :total="totalProductCount">
+      </el-pagination>
+    </el-row>
   </div>
 </template>
 
@@ -130,7 +142,9 @@ export default {
   name: 'AdminProducts',
   data () {
     return {
-      productOption: ['sexToy', 'vibrator']
+      productOption: ['sexToy', 'vibrator'],
+      curPage: 1,
+      pageSize: 6
     }
   },
   methods: {
@@ -143,11 +157,25 @@ export default {
         group: this.productOption[1] ? null : this.productOption[0]
       })
       this.$store.dispatch('fetchProducts')
+    },
+    changeCurPage (curPage) {
+      this.curPage = curPage
+    },
+    changePageSize (size) {
+      this.pageSize = size
     }
   },
   computed: {
     products () {
-      return this.$store.getters.products ? Object.values(this.$store.getters.products) : []
+      if (this.$store.getters.products) {
+        return Object.values(this.$store.getters.products)
+          .slice((this.curPage - 1) * this.pageSize, this.curPage * this.pageSize)
+      } else {
+        return []
+      }
+    },
+    totalProductCount () {
+      return Object.keys(this.$store.getters.products).length
     }
   },
   created () {

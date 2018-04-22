@@ -1,6 +1,6 @@
 <template>
   <div align="left" id="admin_nav_menu">
-    <el-button type="text" @click="isCollapsed = !isCollapsed" class="mt-2 ml-3 pl-1">
+    <el-button type="text" @click="isCollapsed = !isCollapsed" class="mt-3 ml-3 pl-1">
       <v-icon v-if="isCollapsed">hdr_strong</v-icon>
       <v-icon v-if="!isCollapsed">hdr_weak</v-icon>
     </el-button>
