@@ -105,15 +105,14 @@ export default {
   #contact_links {
     justify-content: center;
     flex-wrap: wrap;
-    padding-left: 20px;
-    padding-top: 10px;
+    padding-top: 25px;
     z-index: 2;
   }
 
   .line {
     position: absolute;
     top: -20px;
-    left: 8vw;
+    left: 7vw;
   }
 
   .hor_line {
@@ -150,6 +149,13 @@ export default {
     #title_slide_4:after {
       width: 130px;
     }
+    #contact_links {
+      padding-top: 10px;
+      padding-left: 10px;
+    }
+    #contact_block {
+      margin-left: 10px;
+    }
   }
 
   @media only screen and (max-width: $sm-screen) {
@@ -170,7 +176,8 @@ export default {
       display: none;
     }
     #contact_block {
-      margin-top: 5px;
+      margin-top: 10px;
+      margin-left: 0;
     }
   }
 </style>

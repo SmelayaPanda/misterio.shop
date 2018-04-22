@@ -47,6 +47,10 @@
             <div :class="curSlide === i - 1 ? 'active_bullet' : 'bullet'"></div>
           </div>
         </div>
+        <v-btn v-if="curSlide !== 3" @click="swiper.slideNext()"
+               key="down_btn" id="home_down_btn" fab class="secondary white--text">
+          <v-icon>keyboard_arrow_down</v-icon>
+        </v-btn>
         <swiper
           @slideChange="updateCurIndex"
           :options="swiperOption"
@@ -320,11 +324,16 @@ export default {
     transition: all .5s;
   }
 
+  #home_down_btn {
+    display: none;
+  }
+
   @media only screen and (max-width: $sm-screen) {
     #phone_number {
       font-size: 13px;
       bottom: 25px;
-      left: 20px;
+      left: 50%;
+      transform: translateX(-56px);
     }
 
     #flip_down, .social_icons {
@@ -332,6 +341,18 @@ export default {
     }
     .live_chat {
       bottom: 10px;
+    }
+
+    #home_down_btn {
+      display: block;
+      z-index: 4000;
+      position: absolute;
+      left: 14px;
+      bottom: 12px;
+    }
+
+    #home_down_btn:hover {
+      cursor: pointer;
     }
   }
 
