@@ -3,13 +3,13 @@
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
       <transition name="app-fade-left">
-        <app-theme-page-title v-if="isLoadedData">
+        <app-theme-page-title v-show="isLoadedData">
           <p slot="middleTitle">О НАС И НАШИХ ПАРТНЕРАХ</p>
           <p slot="bottomTitle">Мы предлагаем не просто товары, а море удовольствия и наслаждения</p>
         </app-theme-page-title>
       </transition>
       <transition name="app-fade-left">
-        <el-row v-if="isLoadedData" type="flex" justify="center">
+        <el-row v-show="isLoadedData" type="flex" justify="center">
           <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex" align="left">
             <h2 class="about_corner">О нас</h2>
             <span id="hor_line_1"></span>
@@ -22,7 +22,7 @@
           <el-row type="flex" justify="center" style="flex-wrap: wrap">
             <el-col :xs="24" :sm="22" :md="11" :lg="11" :xl="11" align="left">
               <transition name="app-fade-left">
-                <p v-if="isLoadedData" class="about_text">
+                <p v-show="isLoadedData" class="about_text">
                   Разнообразный и богатый опыт укрепление и развитие структуры позволяет выполнять важные задания по
                   разработке системы обучения кадров, соответствует насущным потребностям. Разнообразный и богатый опыт
                   укрепление и развитие структуры способствует подготовки и реализации модели развития.
@@ -31,7 +31,7 @@
             </el-col>
             <el-col :xs="24" :sm="22" :md="11" :lg="11" :xl="11" align="left">
               <transition name="app-fade-right">
-                <p v-if="isLoadedData" class="about_text">
+                <p v-show="isLoadedData" class="about_text">
                   Не следует, однако забывать, что постоянное информационно-пропагандистское обеспечение нашей
                   деятельности представляет собой интересный эксперимент проверки модели развития. Идейные соображения
                   высшего порядка, а также консультация с широким активом обеспечивает широкому кругу (специалистов)
@@ -43,7 +43,7 @@
         </el-col>
       </el-row>
       <transition name="app-fade-right">
-        <el-row v-if="isLoadedData" type="flex" justify="center">
+        <el-row v-show="isLoadedData" type="flex" justify="center">
           <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex" align="right">
             <h2 class="about_corner">О продукции</h2>
             <span id="hor_line_2"></span>
@@ -52,7 +52,7 @@
         </el-row>
       </transition>
       <transition name="app-fade-left">
-        <el-row v-if="isLoadedData" type="flex" justify="center">
+        <el-row v-show="isLoadedData" type="flex" justify="center">
           <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex">
             <h2 id="partners_title">Наши партнеры</h2>
             <div id="partners">

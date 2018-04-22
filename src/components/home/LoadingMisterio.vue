@@ -36,17 +36,17 @@ export default {
     text-align: center;
     position: absolute;
     width: 100%;
-    font-size: 32px;
+    font-size: 36px;
     height: 100px;
     line-height: 100px;
     span {
       display: inline-block;
       margin: 0 1px;
       color: #fff;
-      @for $i from 0 through 16 {
+      @for $i from 0 through 15 {
         &:nth-child(#{$i + 1}) {
           filter: blur(0px);
-          animation: blur-text 1.3s $i/16+s infinite linear alternate;
+          animation: blur-text 1.5s $i/15+s infinite linear alternate;
         }
       }
     }
@@ -65,7 +65,7 @@ export default {
       filter: blur(0px);
     }
     100% {
-      filter: blur(3px);
+      filter: blur(4px);
     }
   }
 

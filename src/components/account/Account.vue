@@ -5,7 +5,7 @@
       <div v-if="!user.isAnonymous && user.emailVerified">
         <!--Personal card-->
         <transition name="app-fade-left">
-          <el-row v-if="isLoadedAccount" type="flex" justify="center" style="flex-wrap: wrap">
+          <el-row v-show="isLoadedAccount" type="flex" justify="center" style="flex-wrap: wrap">
             <el-col :xs="23" :sm="23" :md="21" :lg="16" :xl="13" align="left" class="ml-1 mr-1 mb-3 mt-2">
               <img src="@/assets/icons/user/user_account.svg" id="user_icon" alt="">
               <span id="account_title">
@@ -16,7 +16,7 @@
         </transition>
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <transition name="app-fade-left">
-            <el-col v-if="isLoadedAccount" :xs="23" :sm="6" :md="6" :lg="4" :xl="4" class="ml-1 mr-1 mb-2">
+            <el-col v-show="isLoadedAccount" :xs="23" :sm="6" :md="6" :lg="4" :xl="4" class="ml-1 mr-1 mb-2">
               <el-card :body-style="{ padding: '0px' }">
                 <img src="@/assets/placeholders/person_placeholder.png" height="210px">
                 <div style="padding: 14px;">
@@ -54,7 +54,7 @@
             </el-col>
           </transition>
           <transition name="app-fade-right">
-            <el-col v-if="isLoadedAccount" :xs="23" :sm="16" :md="14" :lg="11" :xl="8" class="ml-1 mr-1">
+            <el-col v-show="isLoadedAccount" :xs="23" :sm="16" :md="14" :lg="11" :xl="8" class="ml-1 mr-1">
               <el-card>
                 <!--EDIT CONTACTS-->
                 <edit-personal-address></edit-personal-address>

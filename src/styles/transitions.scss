@@ -1,6 +1,7 @@
 /* TRANSITIONS */
 /* fade */
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition-property: opacity;
   transition-duration: .4s
 }

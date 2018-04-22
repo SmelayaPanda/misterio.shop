@@ -1,15 +1,15 @@
 <template>
   <v-app id="app">
     <transition-group name="app-fade-left">
-      <img v-if="this.$route.path === '/contacts'"
+      <img v-show="this.$route.path === '/contacts'"
            class="router_header"
            key="contacts"
            src="@/assets/img/contacts/header.png" alt="">
-      <img v-if="this.$route.path.includes('news') && !this.$route.path.includes('admin')"
+      <img v-show="this.$route.path.includes('news') && !this.$route.path.includes('admin')"
            class="router_header"
            key="news"
            src="@/assets/img/news/header.png" alt="">
-      <img v-if="this.$route.path === '/about'"
+      <img v-show="this.$route.path === '/about'"
            class="router_header"
            key="about"
            src="@/assets/img/about/header.png" alt="">

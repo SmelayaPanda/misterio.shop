@@ -4,13 +4,13 @@
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
       <transition name="app-fade-left">
-        <app-theme-page-title v-if="isLoadedData">
+        <app-theme-page-title v-show="isLoadedData">
           <p slot="middleTitle">АКЦИИ И НОВОСТИ</p>
           <p slot="bottomTitle">Самые привлекательные предложения и жгучие новости</p>
         </app-theme-page-title>
       </transition>
       <transition name="app-fade-right">
-        <el-row v-if="isLoadedData" id="filter_block" type="flex">
+        <el-row v-show="isLoadedData" id="filter_block" type="flex">
           <el-col align="right">
             <el-radio-group id="news_types" v-model="type">
               <el-radio label="all">Все</el-radio>
@@ -27,7 +27,7 @@
              v-if="type === 'all' ? true : ( oneNews.type === type )"
              class="news_block">
           <transition name="app-fade-left">
-            <el-row v-if="isLoadedData" class="news_tag_row" type="flex" justify="left">
+            <el-row v-show="isLoadedData" class="news_tag_row" type="flex" justify="left">
               <el-col class="news_tag" align="left">
                 {{ oneNews.type === 'sale' ? 'А к ц и и' : 'Н о в о с т и' }}
                 <div class="red_line"></div>
@@ -36,7 +36,7 @@
           </transition>
           <el-row type="flex" justify="center" style="flex-wrap: wrap">
             <transition name="app-fade-left">
-              <el-col v-if="isLoadedData" :xs="20" :sm="9" :md="9" :lg="9" :xl="9">
+              <el-col v-show="isLoadedData" :xs="20" :sm="9" :md="9" :lg="9" :xl="9">
                 <v-card id="news_img" class="white elevation-8" height="320px">
                   <v-card-media
                     v-if="oneNews.img_0"
@@ -47,7 +47,7 @@
               </el-col>
             </transition>
             <transition name="app-fade-right">
-              <el-col v-if="isLoadedData" class="news_text_block" :xs="20" :sm="9" :md="9" :lg="9" :xl="9" align="left">
+              <el-col v-show="isLoadedData" class="news_text_block" :xs="20" :sm="9" :md="9" :lg="9" :xl="9" align="left">
                 <p class="news_title">
                   {{ oneNews.title }}
                 </p>
