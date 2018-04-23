@@ -69,7 +69,7 @@
         width="290">
         <template slot-scope="scope">
           <el-popover trigger="hover" placement="top">
-            <p>Title: {{ scope.row.title }}</p>
+            <p>{{ scope.row.title }}</p>
             <div slot="reference" class="name-wrapper">
               <v-chip outline label color="info_a">
                 {{ scope.row.title | snippet(25) }}
@@ -104,7 +104,7 @@
         label="Операции">
         <template slot-scope="scope">
           <el-row type="flex" justify="center">
-            <edit-product-image :id="scope.row.productId"></edit-product-image>
+            <edit-product-image :id="scope.row.productId" :key="scope.row.productId"></edit-product-image>
             <edit-product :id="scope.row.productId"></edit-product>
             <delete-product :id="scope.row.productId" :title="scope.row.title"></delete-product>
           </el-row>
