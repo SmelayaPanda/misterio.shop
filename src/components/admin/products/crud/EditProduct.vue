@@ -122,24 +122,16 @@
             </el-row>
             <el-row type="flex" style="flex-wrap: wrap">
               <el-form-item label="Цена" :label-width="formLabelWidth">
-                <el-input-number v-model="product.price" :min="0" :max="1000000"></el-input-number>
+                <el-input-number v-model="product.price" :min="0" :max="1000000">
+                </el-input-number>
+                <span class="mt-2 ml-2">RUB</span>
               </el-form-item>
-              <el-form-item label="Валюта" :label-width="formLabelWidth">
-                <el-select v-model="product.currency" placeholder="Select a currency">
-                  <el-option label="RUB" value="RUB"></el-option>
-                  <el-option label="USD" value="USD" disabled></el-option>
-                  <el-option label="EUR" value="EUR" disabled></el-option>
-                  <el-option label="GBP" value="GBP" disabled></el-option>
-                </el-select>
-              </el-form-item>
-            </el-row>
-            <el-row type="flex" style="flex-wrap: wrap">
               <el-form-item label="Количество" :label-width="formLabelWidth">
                 <el-input-number v-model="product.totalQty" :min="0" :max="1000000"></el-input-number>
               </el-form-item>
             </el-row>
           </el-form>
-          <el-row type="flex" justify="center">
+          <el-row type="flex" justify="center" class="mt-3">
             <el-button
               @click="edit"
               class="success_a white--text"
@@ -161,7 +153,7 @@ export default {
   data () {
     return {
       dialogFormVisible: false,
-      formLabelWidth: '120px'
+      formLabelWidth: '130px'
     }
   },
   methods: {
@@ -176,7 +168,7 @@ export default {
         size: this.product.size ? this.product.size : '',
         brand: this.product.brand,
         price: parseFloat(this.product.price),
-        currency: this.product.currency,
+        currency: 'RUB',
         qty: 1, // for user cart
         totalQty: this.product.totalQty,
         color: this.product.color,
@@ -184,31 +176,13 @@ export default {
       }
       this.dialogFormVisible = false
       this.$store.dispatch('editProduct', editObj)
-    },
-    onPickFile:
-        function () {
-          this.$refs.fileInput.click()
-        },
-    onFilePicked:
-        function (event) {
-          const files = event.target.files // files[0] because it may be multiselect of files, take first
-          const filename = files[0].name
-          if (filename.indexOf('.') <= 0) { // file have an extension
-            return alert('Please, pick a valid file')
-          }
-          const fileReader = new FileReader() // native js future for client file work
-          fileReader.addEventListener('load', () => {
-            this.imageUrl = fileReader.result
-          })
-          fileReader.readAsDataURL(files[0])
-          this.image = files[0]
-        }
+    }
   },
   computed: {
     isValidForm () {
       return this.product.title && this.product.description &&
-        this.product.color && this.product.SKU && this.product.brand &&
-        this.product.originCountry
+          this.product.color && this.product.SKU && this.product.brand &&
+          this.product.originCountry
     },
     dictionaries () {
       return this.$store.getters.dictionaries

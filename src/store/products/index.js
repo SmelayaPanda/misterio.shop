@@ -210,8 +210,11 @@ export default {
     editProduct:
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
+        let products = getters.products
         firebase.firestore().collection('products').doc(payload.productId).update(payload)
           .then(() => {
+            products[payload.productId] = Object.assign(products[payload.productId], payload)
+            commit('setProducts', {...products})
             commit('LOADING', false)
           })
           .catch(err => dispatch('LOG', err))

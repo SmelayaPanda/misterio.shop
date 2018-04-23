@@ -103,10 +103,10 @@
         width="180"
         label="Операции">
         <template slot-scope="scope">
-          <el-row type="flex" justify="center">
-            <edit-product-image :id="scope.row.productId" :key="scope.row.productId"></edit-product-image>
-            <edit-product :id="scope.row.productId"></edit-product>
-            <delete-product :id="scope.row.productId" :title="scope.row.title"></delete-product>
+          <el-row type="flex" justify="center" :key="scope.row.productId">
+            <edit-product-image :id="scope.row.productId"/>
+            <edit-product :id="scope.row.productId"/>
+            <delete-product :id="scope.row.productId" :title="scope.row.title"/>
           </el-row>
         </template>
       </el-table-column>

@@ -122,30 +122,24 @@
             <!--PRICE-->
             <el-row type="flex" style="flex-wrap: wrap">
               <el-form-item label="Цена" :label-width="formLabelWidth">
-                <el-input-number v-model="product.price" :min="0" :max="1000000"></el-input-number>
+                <el-input-number v-model="product.price" :min="0" :max="1000000">
+                </el-input-number>
+                <span class="mt-2 ml-2">RUB</span>
               </el-form-item>
-              <el-form-item label="Валюта" :label-width="formLabelWidth">
-                <el-select v-model="product.currency" placeholder="Выберите валюту">
-                  <el-option label="RUB" value="RUB"></el-option>
-                  <el-option label="USD" value="USD" disabled></el-option>
-                  <el-option label="EUR" value="EUR" disabled></el-option>
-                  <el-option label="GBP" value="GBP" disabled></el-option>
-                </el-select>
-              </el-form-item>
-            </el-row>
-            <el-row type="flex" style="flex-wrap: wrap">
               <el-form-item label="Количество" :label-width="formLabelWidth">
                 <el-input-number v-model="product.totalQty" :min="0" :max="1000000"></el-input-number>
               </el-form-item>
             </el-row>
           </el-form>
-          <el-button
-            @click="addNewProduct"
-            class="success_a white--text"
-            :disabled="!isValidForm">
-            Создать
-          </el-button>
-          <el-button @click="dialogFormVisible = false">Отмена</el-button>
+          <el-row type="flex" justify="center" class="mt-3">
+            <el-button
+              @click="addNewProduct"
+              class="success_a white--text"
+              :disabled="!isValidForm">
+              Создать
+            </el-button>
+            <el-button @click="dialogFormVisible = false">Отмена</el-button>
+          </el-row>
         </el-col>
       </el-row>
     </el-dialog>
@@ -175,7 +169,7 @@ export default {
         totalQty: 50,
         color: ''
       },
-      formLabelWidth: '120px'
+      formLabelWidth: '130px'
     }
   },
   methods: {
