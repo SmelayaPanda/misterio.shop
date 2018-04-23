@@ -293,7 +293,9 @@ export default {
     },
     algoliaSearch () {
       if (this.algoliaSearchText !== this.$store.getters.algoliaSearchText) { // because input have 2 events
-        this.$store.dispatch('USER_EVENT', `Поиск по слову: "${this.algoliaSearchText}"`)
+        if (this.algoliaSearchText) {
+          this.$store.dispatch('USER_EVENT', `Поиск по слову: "${this.algoliaSearchText}"`)
+        }
         this.$store.dispatch('algoliaSearch', this.algoliaSearchText)
       }
     },

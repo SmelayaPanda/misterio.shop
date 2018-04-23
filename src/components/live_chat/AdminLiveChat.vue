@@ -107,7 +107,7 @@ export default {
             })
           })
       }
-      if (this.isCollapsedUser || !this.isOnlineUser) {
+      if (this.isCollapsedUser) {
         this.setUnread('unreadByUser', this.unreadByUser + 1)
       }
     },
