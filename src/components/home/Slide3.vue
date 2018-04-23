@@ -15,7 +15,9 @@
                   <div id="sale_descr_wrap">
                     <p id="sale_title">{{ sale.title | snippet(100)}}</p>
                     <p v-if="sale.description"
-                       v-html="sale.description.slice(0, 300)"
+                       v-html="sale.description.slice(0, 200).length > 199 ?
+                               sale.description.slice(0, 200).concat('...') :
+                               sale.description.slice(0, 200)"
                        id="sale_subtitle"></p>
                     <div align="left">
                       <router-link to="/news" exact>
@@ -58,7 +60,7 @@
               </swiper>
               <el-row type="flex" justify="center">
                 <el-col :span="12" align="left">
-                  <el-button  @click="salesSwiper.slideNext()" type="text" class="sales_swiper_forward">
+                  <el-button @click="salesSwiper.slideNext()" type="text" class="sales_swiper_forward">
                     Вперед
                   </el-button>
                 </el-col>
@@ -274,7 +276,7 @@ export default {
 
     #sale_title {
       margin-top: 20px;
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 </style>

@@ -48,7 +48,7 @@
           </div>
         </div>
         <v-btn v-if="curSlide !== 3" @click="swiper.slideNext()"
-               key="down_btn" id="home_down_btn" fab class="secondary white--text">
+               id="home_down_btn" fab class="secondary white--text">
           <v-icon>keyboard_arrow_down</v-icon>
         </v-btn>
         <swiper
@@ -143,8 +143,8 @@ export default {
     },
     isLoadedHome () {
       return this.isMountedHome &&
-        this.$store.getters.news &&
-        this.$store.getters.companyInfo.photos
+          this.$store.getters.news &&
+          this.$store.getters.companyInfo.photos
     }
   },
   mounted () {
@@ -178,6 +178,7 @@ export default {
 
   .welcome-enter-to {
   }
+
   /* --------------- */
   .welcome-leave {
   }
@@ -254,7 +255,7 @@ export default {
       cursor: pointer;
     }
     #flip_down {
-      font-size: 11px;
+      font-size: 12px;
       color: white;
       @include rotate(-90deg);
     }
@@ -264,6 +265,20 @@ export default {
       width: 60px;
       margin: 5px auto;
       border-bottom: 1px solid $color-secondary;
+      animation: colorchange 6s;
+      animation-iteration-count: infinite;
+    }
+  }
+
+  @keyframes colorchange {
+    0% {
+      border-bottom: 1px solid $color-secondary
+    }
+    50% {
+      border-bottom: 1px solid white
+    }
+    100% {
+      border-bottom: 1px solid $color-secondary
     }
   }
 
