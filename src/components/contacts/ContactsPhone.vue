@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="companyInfo.contacts">
     <p>
       <img src="@/assets/icons/footer/phone.svg" height="22px" class="contact_icon" alt="">
       <a class="contacts"

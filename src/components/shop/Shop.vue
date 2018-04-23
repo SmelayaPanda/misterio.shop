@@ -263,7 +263,7 @@ export default {
     filter () {
       this.logFilterEvents()
       this.$store.dispatch('productFilters', {
-        limit: this.algoliaSearchText ? null : 15, // all with algolia search
+        limit: 15,
         sortByPrice: this.sortByPrice,
         minPrice: this.sliderValues[0],
         maxPrice: this.sliderValues[1],
@@ -274,7 +274,13 @@ export default {
         color: this.selectedColor,
         material: this.selectedMaterial
       })
-        .then(() => this.$store.dispatch('fetchProducts'))
+        .then(() => {
+          if (this.algoliaSearchText) {
+            return this.$store.dispatch('algoliaSearch', this.algoliaSearchText)
+          } else {
+            return this.$store.dispatch('fetchProducts')
+          }
+        })
     },
     changeCategory (key) {
       let groupList = ['sexToy', 'bdsm', 'baa', 'condom', 'eroticLingerie', 'cosmetic']
@@ -292,11 +298,13 @@ export default {
       this.filter()
     },
     algoliaSearch () {
+      if (!this.algoliaSearchText) {
+        this.$store.dispatch('setAlgoliaSearchText', null)
+        return this.filterProducts()
+      }
       if (this.algoliaSearchText !== this.$store.getters.algoliaSearchText) { // because input have 2 events
-        if (this.algoliaSearchText) {
-          this.$store.dispatch('USER_EVENT', `Поиск по слову: "${this.algoliaSearchText}"`)
-        }
         this.$store.dispatch('algoliaSearch', this.algoliaSearchText)
+        this.$store.dispatch('USER_EVENT', `Поиск по слову: "${this.algoliaSearchText}"`)
       }
     },
     logFilterEvents () {

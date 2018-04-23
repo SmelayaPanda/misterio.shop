@@ -52,9 +52,6 @@ export default {
   actions: {
     fetchProducts:
       ({commit, getters, dispatch}) => {
-        if (getters.algoliaSearchText) {
-          return dispatch('algoliaSearch', getters.algoliaSearchText)
-        }
         commit('LOADING', true)
         let filter = getters.productFilters
         let query = firebase.firestore().collection('products')
@@ -92,7 +89,7 @@ export default {
         query.get()
           .then((snap) => {
             let products
-            if (getters.lastVisible && !getters.algoliaSearchText) {
+            if (getters.lastVisible) {
               products = getters.products ? getters.products : {}
             } else {
               products = {}
@@ -180,6 +177,10 @@ export default {
     setLastVisible:
       ({commit}, payload) => {
         commit('setLastVisible', payload)
+      },
+    setAlgoliaSearchText:
+      ({commit}, payload) => {
+        commit('algoliaSearchText', payload)
       },
     addNewProduct:
       ({commit, getters, dispatch}, payload) => {
