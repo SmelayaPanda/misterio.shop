@@ -311,7 +311,9 @@ export default {
       if (lastFilter.material !== this.selectedMaterial) {
         this.$store.dispatch('USER_EVENT', `Фильтр - материал: ${this.selectedMaterial}`)
       }
-      if (lastFilter.minPrice !== this.sliderValues[0] || lastFilter.maxPrice !== this.sliderValues[1]) {
+      if (lastFilter.minPrice !== this.sliderValues[0] ||
+          (lastFilter.maxPrice !== this.sliderValues[1] &&
+            this.sliderValues[1] !== this.$store.getters.productStatistics.maxPrice)) {
         this.$store.dispatch('USER_EVENT', `Фильтр - цена: [${this.sliderValues[0]}, ${this.sliderValues[1]}]`)
       }
     }

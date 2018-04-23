@@ -82,7 +82,7 @@ export default {
   name: 'Dashboard',
   methods: {
     fetchDashboardStatistics () {
-      // this.$store.dispatch('fetchProductStatistics') always fetched for max price
+      this.$store.dispatch('fetchProductStatistics')
       this.$store.dispatch('fetchOrderStatistics')
       this.$store.dispatch('fetchOneClickStatistics')
       this.$store.dispatch('fetchReviewStatistics')
