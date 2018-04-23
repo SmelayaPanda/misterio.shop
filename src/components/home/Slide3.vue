@@ -26,15 +26,15 @@
                     </div>
                   </div>
                   <el-row id="mobile_controls">
-                    <el-col :span="12">
-                      <p class="sales_swiper_forward" @click="nextSale">
+                    <el-col :span="12" align="left">
+                      <el-button type="text" class="sales_swiper_forward" @click="nextSale">
                         Вперед
-                      </p>
+                      </el-button>
                     </el-col>
-                    <el-col :span="12">
-                      <p class="sales_swiper_back" @click="prevSale">
+                    <el-col :span="12" align="right">
+                      <el-button type="text" class="sales_swiper_back" @click="prevSale">
                         Назад
-                      </p>
+                      </el-button>
                     </el-col>
                   </el-row>
                 </div>

@@ -346,7 +346,7 @@ export default {
     #home_down_btn {
       display: block;
       z-index: 4000;
-      position: absolute;
+      position: fixed;
       left: 14px;
       bottom: 12px;
     }
