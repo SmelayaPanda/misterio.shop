@@ -41,7 +41,8 @@
               <el-menu-item
                 v-for="child in option.children"
                 :key="child.value"
-                :index="child.value" @click="filterProducts">
+                :index="child.value"
+                @click="filterProducts">
                 {{ child.label }}
               </el-menu-item>
             </el-menu-item-group>
@@ -54,14 +55,14 @@
           <el-col :xs="23" :sm="23" :md="17" :lg="16" :xl="14">
             <v-text-field
               name="Algolia search"
-              single-line
-              dark
               v-model="algoliaSearchText"
               @change="algoliaSearch"
               @keyup.enter.exact="algoliaSearch"
-              color="white"
               :prefix="searchGroup"
-              prepend-icon="search">
+              prepend-icon="search"
+              dark
+              single-line
+              color="white">
             </v-text-field>
           </el-col>
           <el-col :xs="24" :sm="24" :md="4" :lg="4" :xl="4" align="start">
@@ -85,11 +86,10 @@
           id="products_filter"
           v-model="activeName"
           accordion
-          style="margin-left: 16px; margin-right: 16px"
           class="primary">
           <!--PRICE FILTER-->
           <el-collapse-item title="Фильтр" name="1" class="primary">
-            <el-button type="text" class="pr-4 pb-0 white--text" @click="changeSortByPrice">
+            <el-button @click="changeSortByPrice" type="text" class="pr-4 pb-0 white--text">
               <div class="tooltip pl-4 white--text">
                 Цена
                 <span class="tooltip_text">Нажми для сортировки</span>
@@ -274,7 +274,7 @@ export default {
         color: this.selectedColor,
         material: this.selectedMaterial
       })
-      return this.$store.dispatch('fetchProducts')
+        .then(() => this.$store.dispatch('fetchProducts'))
     },
     changeCategory (key) {
       let groupList = ['sexToy', 'bdsm', 'baa', 'condom', 'eroticLingerie', 'cosmetic']
@@ -363,6 +363,11 @@ export default {
     setInterval(() => {
       this.isMountedShop = true
     }, 500)
+  },
+  created () {
+    this.$store.dispatch('fetchProductStatistics') // product MaxPrice for shop
+    this.$store.dispatch('fetchDictionaries') // product dropdowns
+    this.$store.dispatch('fetchProducts')
   }
 }
 </script>

@@ -142,11 +142,13 @@ new Vue({
           this.$store.dispatch('fetchUserData', user)
             .then(() => {
               if (this.$route.path.includes('admin') && ( // TODO: isAdmin copypast fix
-                user.email === 'smelayapandagm@gmail.com' || user.email === 'otkrovennieigri@mail.ru')) {
+                user.email === 'smelayapandagm@gmail.com' ||
+                user.email === 'otkrovennieigri@mail.ru' ||
+                user.email === 'shop.misterio@gmail.ru')
+              ) {
                 this.$store.dispatch('fetchAllChats')
               } else {
                 this.$store.dispatch('initializeChat', user)
-                this.$store.dispatch('fetchProducts')
                 this.$store.dispatch('updateEmailVerification', user) // always check - because there is no another way
               }
             })
@@ -154,10 +156,7 @@ new Vue({
           this.$store.dispatch('signInAnonymously')
         }
         // ALWAYS
-        this.$store.dispatch('fetchDictionaries') // product dropdowns
         this.$store.dispatch('fetchCompanyInfo') // for footer
-        this.$store.dispatch('fetchProductStatistics') // MaxPrice for shop
       })
-    // In admin panel all data fetched by router click
   }
 })

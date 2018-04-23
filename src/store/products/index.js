@@ -85,8 +85,11 @@ export default {
         if (getters.lastVisible) {
           query = query.startAfter(getters.lastVisible)
         }
+        if (filter.limit) {
+          query = query.limit(filter.limit)
+        }
 
-        query.limit(filter.limit).get()
+        query.get()
           .then((snap) => {
             let products
             if (getters.lastVisible && !getters.algoliaSearchText) {
@@ -134,50 +137,37 @@ export default {
               return firebase.firestore().collection('products').doc(id).get()
             }
             for (let product in resp) {
-              actions.push(fetchProduct(resp[product].objectID))
+              if (resp.hasOwnProperty(product)) {
+                actions.push(fetchProduct(resp[product].objectID))
+              }
             }
             return Promise.all(actions)
           })
           .then((snap) => {
             let products = {}
             let filter = getters.productFilters
-            for (const doc of snap) {
-              let product = doc.data()
-              let isValidProduct = true
-              if (isValidProduct && filter.maxPrice) {
-                isValidProduct = product.price <= filter.maxPrice
-              }
-              if (isValidProduct && filter.minPrice) {
-                isValidProduct = product.price >= filter.minPrice
-              }
-              if (isValidProduct && filter.group) {
-                isValidProduct = product.group === filter.group
-              }
-              if (isValidProduct && filter.category) {
-                isValidProduct = product.category === filter.category
-              }
-              if (isValidProduct && filter.country) {
-                isValidProduct = product.country === filter.country
-              }
-              if (isValidProduct && filter.brand) {
-                isValidProduct = product.brand === filter.brand
-              }
-              if (isValidProduct && filter.color) {
-                isValidProduct = product.color === filter.color
-              }
-              if (isValidProduct && filter.material) {
-                isValidProduct = product.material === filter.material
-              }
-              if (isValidProduct) {
-                products[product.productId] = product
-              }
+            if (filter.sortByPrice === 'asc') { // TODO: not right - a.data().price - obj in obj not working sort
+              snap.sort(function (a, b) {
+                return a.data().price > b.data().price
+              })
+            } else {
+              snap.sort(function (a, b) {
+                return b.data().price > a.data().price
+              })
             }
-            // TODO: sort object by price
-            // if (filter.sortByPrice === 'asc') {
-            //   snap = snap.sort((a, b) => a.price > b.price)
-            // } else {
-            //   snap = snap.sort((a, b) => a.price < b.price)
-            // }
+            for (const doc of snap) {
+              let p = doc.data()
+              console.log(p.price)
+              if (filter.maxPrice && p.price >= filter.maxPrice) continue
+              if (filter.minPrice && p.price <= filter.minPrice) continue
+              if (filter.group && p.group !== filter.group) continue
+              if (filter.category && p.category !== filter.category) continue
+              if (filter.country && p.country !== filter.country) continue
+              if (filter.brand && p.brand !== filter.brand) continue
+              if (filter.color && p.color !== filter.color) continue
+              if (filter.material && p.material !== filter.material) continue
+              products[p.productId] = p
+            }
             commit('setProducts', {...products})
             commit('LOADING', false)
             commit('algoliaSearchText', payload)

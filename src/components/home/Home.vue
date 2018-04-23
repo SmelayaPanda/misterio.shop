@@ -254,7 +254,7 @@ export default {
       width: 60px;
       margin: 5px auto;
       border-bottom: 1px solid $color-secondary;
-      animation: colorchange 6s;
+      animation: colorchange 3s;
       animation-iteration-count: infinite;
     }
   }

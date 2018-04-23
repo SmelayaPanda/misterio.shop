@@ -155,8 +155,7 @@ export default {
         sortByPrice: 'desc',
         category: this.productOption[1],
         group: this.productOption[1] ? null : this.productOption[0]
-      })
-      this.$store.dispatch('fetchProducts')
+      }).then(() => this.$store.dispatch('fetchProducts'))
     },
     changeCurPage (curPage) {
       this.curPage = curPage
@@ -179,6 +178,8 @@ export default {
     }
   },
   created () {
+    this.$store.dispatch('fetchProductStatistics') // product MaxPrice for shop
+    this.$store.dispatch('fetchDictionaries') // product dropdowns
     this.loadCategoryProducts()
   }
 }
