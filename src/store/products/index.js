@@ -25,8 +25,7 @@ export default {
       sortByPrice: 'desc',
       limit: 15
     },
-    algoliaSearchText: '',
-    algoliaSearchProductIds: []
+    algoliaSearchText: ''
   },
   mutations: {
     setProducts:
@@ -45,10 +44,6 @@ export default {
       (state, payload) => {
         state.algoliaSearchText = payload
       },
-    algoliaSearchProductIds:
-      (state, payload) => {
-        state.algoliaSearchProductIds = payload
-      },
     productStatistics:
       (state, payload) => {
         state.productStatistics = payload
@@ -57,6 +52,9 @@ export default {
   actions: {
     fetchProducts:
       ({commit, getters, dispatch}) => {
+        if (getters.algoliaSearchText) {
+          return dispatch('algoliaSearch', getters.algoliaSearchText)
+        }
         commit('LOADING', true)
         let filter = getters.productFilters
         let query = firebase.firestore().collection('products')
@@ -87,11 +85,8 @@ export default {
         if (getters.lastVisible) {
           query = query.startAfter(getters.lastVisible)
         }
-        if (filter.limit && !getters.algoliaSearchText) { // no limit with algoliaText
-          query = query.limit(filter.limit) // TODO: replace to 12 individual queries
-        }
 
-        query.get()
+        query.limit(filter.limit).get()
           .then((snap) => {
             let products
             if (getters.lastVisible && !getters.algoliaSearchText) {
@@ -107,18 +102,6 @@ export default {
             snap.docs.forEach(doc => {
               products[doc.id] = doc.data()
             })
-            // Algolia filter
-            if (getters.algoliaSearchText && getters.algoliaSearchProductIds) {
-              let searchProducts = {}
-              for (let pId in products) {
-                if (products.hasOwnProperty(pId) && getters.algoliaSearchProductIds.indexOf(pId) !== -1) {
-                  searchProducts[pId] = products[pId]
-                }
-              }
-              products = searchProducts
-              commit('setLastVisible', null) // means no limit records with Algolia search
-              // Algolia have own max 20 matches by default
-            }
             commit('setProducts', {...products})
             commit('LOADING', false)
           })
@@ -128,8 +111,8 @@ export default {
       ({commit, getters}, payload) => {
         commit('productFilters', payload)
       },
-    algoliaSearch: // intersect with fb data as filter
-      ({commit, dispatch}, payload) => {
+    algoliaSearch:
+      ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         const ALGOLIA_APP_ID = '2CVO44WQ94'
         const ALGOLIA_SEARCH_KEY = '68d8a98b0c136d3dbd0a799949007e8d'
@@ -140,23 +123,65 @@ export default {
         } else if (process.env.NODE_ENV === 'development') {
           index = client.initIndex('e_store_products')
         }
-        let objectIds = []
         index
           .search({
             query: payload
           })
           .then(responses => {
             let resp = responses.hits
-            for (let product in resp) {
-              objectIds.push(resp[product].objectID)
+            let actions = []
+            let fetchProduct = function (id) {
+              return firebase.firestore().collection('products').doc(id).get()
             }
+            for (let product in resp) {
+              actions.push(fetchProduct(resp[product].objectID))
+            }
+            return Promise.all(actions)
           })
-          .then(() => {
+          .then((snap) => {
+            let products = {}
+            let filter = getters.productFilters
+            for (const doc of snap) {
+              let product = doc.data()
+              let isValidProduct = true
+              if (isValidProduct && filter.maxPrice) {
+                isValidProduct = product.price <= filter.maxPrice
+              }
+              if (isValidProduct && filter.minPrice) {
+                isValidProduct = product.price >= filter.minPrice
+              }
+              if (isValidProduct && filter.group) {
+                isValidProduct = product.group === filter.group
+              }
+              if (isValidProduct && filter.category) {
+                isValidProduct = product.category === filter.category
+              }
+              if (isValidProduct && filter.country) {
+                isValidProduct = product.country === filter.country
+              }
+              if (isValidProduct && filter.brand) {
+                isValidProduct = product.brand === filter.brand
+              }
+              if (isValidProduct && filter.color) {
+                isValidProduct = product.color === filter.color
+              }
+              if (isValidProduct && filter.material) {
+                isValidProduct = product.material === filter.material
+              }
+              if (isValidProduct) {
+                products[product.productId] = product
+              }
+            }
+            // TODO: sort object by price
+            // if (filter.sortByPrice === 'asc') {
+            //   snap = snap.sort((a, b) => a.price > b.price)
+            // } else {
+            //   snap = snap.sort((a, b) => a.price < b.price)
+            // }
+            commit('setProducts', {...products})
             commit('LOADING', false)
             commit('algoliaSearchText', payload)
-            commit('algoliaSearchProductIds', objectIds)
             commit('setLastVisible', null)
-            dispatch('fetchProducts')
           })
           .catch(err => dispatch('LOG', err))
       },
@@ -283,10 +308,6 @@ export default {
     algoliaSearchText:
       state => {
         return state.algoliaSearchText
-      },
-    algoliaSearchProductIds:
-      state => {
-        return state.algoliaSearchProductIds
       },
     productStatistics:
       state => {
