@@ -260,6 +260,10 @@ export default {
       this.$store.dispatch('setLastVisible', null)
       this.filter()
     },
+    loadMore () {
+      this.$store.dispatch('USER_EVENT', 'Загрузить больше')
+      this.filter()
+    },
     filter () {
       this.logFilterEvents()
       this.$store.dispatch('productFilters', {
@@ -292,10 +296,6 @@ export default {
         this.selectedGroup = null
       }
       this.$store.dispatch('USER_EVENT', `Категория: ${this.searchGroup.split(':')[0]}`)
-    },
-    loadMore () {
-      this.$store.dispatch('USER_EVENT', 'Загрузить больше')
-      this.filter()
     },
     algoliaSearch () {
       if (!this.algoliaSearchText) {
