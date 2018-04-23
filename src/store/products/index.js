@@ -146,18 +146,8 @@ export default {
           .then((snap) => {
             let products = {}
             let filter = getters.productFilters
-            if (filter.sortByPrice === 'asc') { // TODO: not right - a.data().price - obj in obj not working sort
-              snap.sort(function (a, b) {
-                return a.data().price > b.data().price
-              })
-            } else {
-              snap.sort(function (a, b) {
-                return b.data().price > a.data().price
-              })
-            }
             for (const doc of snap) {
               let p = doc.data()
-              console.log(p.price)
               if (filter.maxPrice && p.price >= filter.maxPrice) continue
               if (filter.minPrice && p.price <= filter.minPrice) continue
               if (filter.group && p.group !== filter.group) continue
@@ -167,6 +157,18 @@ export default {
               if (filter.color && p.color !== filter.color) continue
               if (filter.material && p.material !== filter.material) continue
               products[p.productId] = p
+            }
+            if (products) { // sort object by price
+              let arr = Object.values(products)
+              if (filter.sortByPrice === 'asc') {
+                arr.sort((a, b) => a.price - b.price)
+              } else {
+                arr.sort((a, b) => b.price - a.price)
+              }
+              products = {}
+              arr.forEach(el => {
+                products[el.productId] = el
+              })
             }
             commit('setProducts', {...products})
             commit('LOADING', false)
