@@ -156,18 +156,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  /*
-  home slide-fade
-  -----------
-  -enter
-  -enter-active
-  -enter-to
-  -----------
-  -leave
-  -leave-active
-  -leave-to
-  -----------
-  */
+  /* home slide-fade */
   .welcome-enter {
   }
 

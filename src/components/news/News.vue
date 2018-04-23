@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- TODO: pagination, sort by date desc -->
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
       <transition name="app-fade-left">
