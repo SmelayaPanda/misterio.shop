@@ -322,3 +322,16 @@ $lg-screen: 1920px;
     }
   }
 }
+
+.application .theme--light.input-group input,
+.application .theme--light.input-group textarea,
+.theme--light .input-group input,
+.theme--light .input-group textarea {
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
+.application .theme--light.input-group:not(.input-group--error) label,
+.theme--light .input-group:not(.input-group--error) label {
+  color: white;
+}

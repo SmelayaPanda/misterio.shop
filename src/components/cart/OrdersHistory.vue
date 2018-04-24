@@ -61,12 +61,20 @@
                   </el-tooltip>
                 </el-button>
                 <!--PAY NOW-->
-                <pay-now-dialog
+                <!--PAYPAL-->
+                <!--<pay-pal-paymet-dialog-->
+                  <!--:orderId="order.id"-->
+                  <!--:orderItems="order.products"-->
+                  <!--:amount="order.totalPrice"-->
+                  <!--v-if="order.status === 'payPending'">-->
+                <!--</pay-pal-paymet-dialog>-->
+                <!--YANDEX-->
+                <yandex-payment-dialog
                   :orderId="order.id"
                   :orderItems="order.products"
                   :amount="order.totalPrice"
                   v-if="order.status === 'payPending'">
-                </pay-now-dialog>
+                </yandex-payment-dialog>
               </el-col>
             </el-row>
             <!--DEATAILS-->
@@ -158,11 +166,15 @@
 </template>
 
 <script>
-import PayNowDialog from '@/components/shop/PayNowDialog'
+// import PayPalPaymetDialog from '@/components/shop/PayPalPaymetDialog'
+import YandexPaymentDialog from '@/components/shop/YandexPaymentDialog'
 
 export default {
   name: 'OrdersHistory',
-  components: {PayNowDialog},
+  components: {
+    // PayPalPaymetDialog,
+    YandexPaymentDialog
+  },
   data () {
     return {
       statusTooltips: {

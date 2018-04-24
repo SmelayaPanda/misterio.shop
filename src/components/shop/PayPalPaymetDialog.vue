@@ -28,7 +28,7 @@
 import PayPal from 'vue-paypal-checkout'
 
 export default {
-  name: 'PayNowDialog',
+  name: 'PayPalPaymetDialog',
   props: ['orderId', 'orderItems', 'amount'],
   components: {
     PayPal
