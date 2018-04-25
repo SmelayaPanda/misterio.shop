@@ -19,7 +19,8 @@
     "cors": "^2.8.4",
     "nodemailer": "^4.6.3",
     "mkdirp": "^0.5.1",
-    "mkdirp-promise": "^5.0.1"
+    "mkdirp-promise": "^5.0.1",
+    "yandex-checkout": "^1.0.9"
   },
   "devDependencies": {
     "eslint": "^4.12.0",

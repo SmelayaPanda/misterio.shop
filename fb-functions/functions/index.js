@@ -21,6 +21,8 @@ const sendUnreadLiveChatEmail = require('./src/live_chat/sendUnreadLiveChatEmail
 const notifyDeveloperAboutError = require('./src/common/notifyDeveloperAboutError')
 // HTTP
 const processPayPal = require('./src/http/processPayPal')
+const processYandexPayment = require('./src/http/processYandexPayment')
+const createYandexPayment = require('./src/http/createYandexPayment')
 
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
@@ -31,11 +33,16 @@ global.CONST = require('./src/common/constants')
 // firebase functions:config:set app.production="1/0"
 // firebase functions:config:set algolia.app_id="<YOUR-ALGOLIA-APP-ID>"
 // firebase functions:config:set algolia.api_key="<YOUR-ALGOLIA-ADMIN-KEY>"
-// firebase functions:config:set algolia.product_idx="<YOUR-ALGOLIA-PRODUCT-IDX-NAME>" // 'e_store_products', "MISTERIO-PROD-PRODUCTS" /
+// firebase functions:config:set algolia.product_idx="<YOUR-ALGOLIA-PRODUCT-IDX-NAME>" // 'e_store_products', "MISTERIO-PROD-PRODUCTS"
+
 // firebase functions:config:set admin.email="shop.misterio@gmail.com"
 // firebase functions:config:set admin.password="***"
 // firebase functions:config:set developer.email="SmelayaPandaGM@gmail.com"
 // firebase functions:config:set developer.password="***"
+
+// TODO: set for prod
+// firebase functions:config:set yandex.shopid="505***"      // settings: test shop id for dev / real for prod
+// firebase functions:config:set yandex.secretkey="test_***" // settings: secret key id from test shop for dev / real for prod
 global.IS_PRODUCTION = Number(functions.config().app.production) // 1 - true (misterio-prod), 0 - false (e-store-dev)
 global.ADMIN_EMAIL = functions.config().admin.email
 global.ADMIN_PASS = functions.config().admin.password
@@ -44,6 +51,8 @@ global.DEVELOPER_PASS = functions.config().developer.password
 global.ALGOLIA_ID = functions.config().algolia.app_id;
 global.ALGOLIA_ADMIN_KEY = functions.config().algolia.api_key;
 global.ALGOLIA_INDEX_NAME = functions.config().algolia.product_idx;
+global.YANADEX_SHOPID = functions.config().yandex.shopid;
+global.YANADEX_SECRET_KEY = functions.config().yandex.secretkey;
 
 let nodemailer = require('nodemailer')
 let transporter = nodemailer.createTransport({
@@ -88,6 +97,18 @@ exports.processPayPal = functions
   .https
   .onRequest((req, res) => {
     processPayPal.handler(req, res, admin, transporter)
+  })
+
+exports.createYandexPayment = functions
+  .https
+  .onRequest((req, res) => {
+    return createYandexPayment.handler(req, res, admin, transporter)
+  })
+
+exports.processYandexPayment = functions
+  .https
+  .onRequest((req, res) => {
+    return processYandexPayment.handler(req, res, admin, transporter)
   })
 // DATABASE
 // oneclick

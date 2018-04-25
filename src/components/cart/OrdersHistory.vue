@@ -68,13 +68,8 @@
                   <!--:amount="order.totalPrice"-->
                   <!--v-if="order.status === 'payPending'">-->
                 <!--</pay-pal-paymet-dialog>-->
-                <!--YANDEX-->
-                <yandex-payment-dialog
-                  :orderId="order.id"
-                  :orderItems="order.products"
-                  :amount="order.totalPrice"
-                  v-if="order.status === 'payPending'">
-                </yandex-payment-dialog>
+                <!--YANDEX PAYMENT-->
+                <yandex-payment-dialog v-if="order.status === 'payPending'" :orderId="order.id"/>
               </el-col>
             </el-row>
             <!--DEATAILS-->
