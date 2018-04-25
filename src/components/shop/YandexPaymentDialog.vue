@@ -16,7 +16,7 @@
           <br>
           <el-tag type="success" class="mt-2 mb-3">Номер ордера: {{ orderId }}</el-tag>
           <credit-card></credit-card>
-          <el-button @click="payOrder" id="success_pay_btn">Оплатить {{ order.totalPrice }} РУБ</el-button>
+          <el-button @click="tokenizeCard" id="success_pay_btn">Оплатить {{ order.totalPrice }} РУБ</el-button>
         </el-col>
       </el-row>
     </el-dialog>
@@ -37,7 +37,7 @@ export default {
     }
   },
   methods: {
-    payOrder () {
+    tokenizeCard: function () {
       let yandexCheckout = window.YandexCheckout(505369)
       yandexCheckout.tokenize({
         number: '1111111111111026',
@@ -46,34 +46,54 @@ export default {
         year: '25'
       })
         .then(res => {
-          if (res.status === 'success') {
+          if (res.status === 'success') { // OK - tokenize
             const {paymentToken} = res.data.response
-            console.log(paymentToken)
-            let url = ''
-            if (process.env.NODE_ENV === 'production') { // TODO: for prod
-              url = 'https://us-central1-e-store-dev.cloudfunctions.net/createYandexPayment'
-            } else if (process.env.NODE_ENV === 'development') {
-              url = 'https://us-central1-e-store-dev.cloudfunctions.net/createYandexPayment'
-            }
-            // this.dialogVisible = false
-            return axios.post(url, {
-              paymentToken: paymentToken,
-              idempotenceKey: this.orderId + '4',
-              order: this.order
-            })
-              .then(function (response) {
-                console.log(response)
-              })
-              .catch(function (error) {
-                console.log(error)
-              })
+            this.createPayment(paymentToken)
           }
-          if (res.status === 'error') {
+          if (res.status === 'error') { // FAIL - tokenize
             const {type} = res.error
             console.log(res.error)
             console.log(type)
           }
         })
+        .catch((err) => this.$store.dispatch('LOG', err))
+    },
+    // Cloud functions create payment
+    async createPayment (paymentToken) {
+      console.log(paymentToken)
+      let url = ''
+      if (process.env.NODE_ENV === 'production') { // TODO: for prod
+        url = 'https://us-central1-e-store-dev.cloudfunctions.net/createYandexPayment'
+      } else if (process.env.NODE_ENV === 'development') {
+        url = 'https://us-central1-e-store-dev.cloudfunctions.net/createYandexPayment'
+      }
+      this.dialogVisible = false
+      await axios.post(url, {
+        paymentToken: paymentToken,
+        idempotenceKey: this.orderId + '13',
+        order: this.order
+      })
+        .then((response) => {
+          if (response.data.type === 'success') {
+            // console.log(response.data.obj)
+            this.$notify.success({
+              title: 'Поздравляем!',
+              message: 'Ваш платеж успешно совершен! Мы свяжемся с Вами в ближайшее время',
+              offset: 100,
+              duration: 60000
+            })
+          }
+          if (response.data.type === 'error') {
+            this.$notify.error({
+              title: 'Что-то пошло не так.',
+              message: 'Попробуйте повторить попытку позже или свяжитесь с администратором.',
+              offset: 100,
+              duration: 60000
+            })
+            throw response.data.obj
+          }
+        })
+        .catch((err) => this.$store.dispatch('LOG', err))
     }
   },
   computed: {

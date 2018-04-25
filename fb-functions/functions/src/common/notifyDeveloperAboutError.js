@@ -13,7 +13,7 @@ let notifyDeveloperAboutError = function (transporter, info) {
     let mailOptions = {
       from: ADMIN_EMAIL,
       to: DEVELOPER_EMAIL,
-      subject: `ERROR NOTIFIER`,
+      subject: `ERROR NOTIFIER (Misterio Shop)`,
       text: info
     };
 

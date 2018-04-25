@@ -41,7 +41,7 @@ export default {
         commit('ERR', payload)
         commit('LOADING', false)
         if (payload.code !== 'aborted') { // offline client
-          firebase.database().ref('errLog').push(payload.stack)
+          firebase.database().ref('errLog').push(payload.stack ? payload.stack : payload)
         }
       }
   },
