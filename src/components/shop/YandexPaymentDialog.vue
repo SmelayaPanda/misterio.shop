@@ -132,7 +132,7 @@ export default {
       }
       await axios.post(url, {
         paymentToken: paymentToken,
-        idempotenceKey: this.orderId + '19',
+        idempotenceKey: this.orderId,
         order: this.order
       })
         .then((response) => {

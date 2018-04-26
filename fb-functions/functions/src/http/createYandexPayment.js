@@ -43,8 +43,11 @@ exports.handler = function (req, res, admin, transporter) {
         'return_url': 'https://misterio.shop/'
       },
       'payment_token': req.body.paymentToken, // token created by Yandex.Checkout
-      'capture': true // automatic waiting_for_capture -> succeeded
-    }, idempotenceKey)
+      'capture': true, // automatic waiting_for_capture -> succeeded
+      'metadata': {
+        'orderId': idempotenceKey
+      }
+    }, idempotenceKey + new Date().getTime()) // temporary for test one order
       .then((result) => {
         console.log('Payment Result:', result)
         // result.status = pending / waiting_for_capture / succeeded / canceled
