@@ -14,8 +14,8 @@ exports.handler = function (req, res, admin, transporter) {
       console.log('Wrong payment data!')
       return res.status(200).send({type: 'error', obj: `See no valid data in ${JSON.stringify(req.body)}`})
     }
-    let idempotenceKey = req.body.idempotenceKey
-    let order = req.body.order
+    let {idempotenceKey} = req.body
+    let {order} = req.body
     let items = []
     for (let product of order.products) {
       let item = {}

@@ -132,7 +132,7 @@ export default {
       this.dialogVisible = false
       await axios.post(url, {
         paymentToken: paymentToken,
-        idempotenceKey: this.orderId + '13',
+        idempotenceKey: this.orderId + '17',
         order: this.order
       })
         .then((response) => {

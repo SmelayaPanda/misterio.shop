@@ -114,6 +114,7 @@ export default {
     algoliaSearch:
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
+        let filter = getters.productFilters
         const ALGOLIA_APP_ID = '2CVO44WQ94'
         const ALGOLIA_SEARCH_KEY = '68d8a98b0c136d3dbd0a799949007e8d'
         const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY)
@@ -123,9 +124,18 @@ export default {
         } else if (process.env.NODE_ENV === 'development') {
           index = client.initIndex('e_store_products')
         }
+        let query = ''
+        if (filter.group) query += filter.group + ' '
+        if (filter.category) query += filter.category + ' '
+        if (filter.country) query += filter.country + ' '
+        if (filter.brand) query += filter.brand + ' '
+        if (filter.color) query += filter.color + ' '
+        if (filter.material) query += filter.material + ' '
+        query += payload
+        console.log(query)
         index
           .search({
-            query: payload
+            query: query
           })
           .then(responses => {
             let resp = responses.hits
@@ -142,17 +152,10 @@ export default {
           })
           .then((snap) => {
             let products = {}
-            let filter = getters.productFilters
             for (const doc of snap) {
               let p = doc.data()
               if (filter.maxPrice && p.price >= filter.maxPrice) continue
               if (filter.minPrice && p.price <= filter.minPrice) continue
-              if (filter.group && p.group !== filter.group) continue
-              if (filter.category && p.category !== filter.category) continue
-              if (filter.country && p.country !== filter.country) continue
-              if (filter.brand && p.brand !== filter.brand) continue
-              if (filter.color && p.color !== filter.color) continue
-              if (filter.material && p.material !== filter.material) continue
               products[p.productId] = p
             }
             if (products) { // sort object by price
