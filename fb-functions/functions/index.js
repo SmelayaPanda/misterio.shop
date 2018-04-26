@@ -23,6 +23,7 @@ const notifyDeveloperAboutError = require('./src/common/notifyDeveloperAboutErro
 const processPayPal = require('./src/http/processPayPal')
 const processYandexPayment = require('./src/http/processYandexPayment')
 const createYandexPayment = require('./src/http/createYandexPayment')
+// const patchAlgoliaIndex = require('./src/http/patchAlgoliaIndex')
 
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
@@ -104,6 +105,12 @@ exports.createYandexPayment = functions
   .onRequest((req, res) => {
     return createYandexPayment.handler(req, res, admin, transporter)
   })
+
+// exports.patchAlgoliaIndex = functions
+//   .https
+//   .onRequest((req, res) => {
+//     return patchAlgoliaIndex.handler(req, res, admin)
+//   })
 
 exports.processYandexPayment = functions
   .https

@@ -12,10 +12,12 @@ exports.handler = function (change, context, functions) {
       after.description === before.description &&
       after.group === before.group &&
       after.category === before.category &&
+      after.price === before.price &&
       after.originCountry === before.originCountry &&
       after.material === before.material &&
       after.brand === before.brand &&
       after.color === before.color &&
+      after.size === before.size &&
       after.SKU === before.SKU &&
       after.productId === before.productId // permanent product update after creation
     ) {
@@ -31,13 +33,16 @@ exports.handler = function (change, context, functions) {
       product.description = after.description
       product.group = after.group
       product.category = after.category
+      product.price = after.price
       product.originCountry = after.originCountry
       product.material = after.material
       product.brand = after.brand
       product.color = after.color
+      product.size = after.size
+      product.creationDate = after.creationDate
       product.SKU = after.SKU
       // Write to the algolia index
-      return index.saveObject(product, (err) => {
+      return index.saveObject(product, (err) => { // TODO: optimize -> to partialUpdateObject() ?
         if (err) {
           reject(err)
         } else {
