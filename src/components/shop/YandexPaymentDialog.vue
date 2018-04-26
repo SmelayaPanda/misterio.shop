@@ -132,11 +132,20 @@ export default {
       }
       await axios.post(url, {
         paymentToken: paymentToken,
-        idempotenceKey: this.orderId + '17',
+        idempotenceKey: this.orderId + '19',
         order: this.order
       })
         .then((response) => {
-          if (response.data.type === 'success') {
+          if (response.data.status === 'pending') {
+            // console.log(response.data.obj)
+            this.$notify.success({
+              title: 'Инфо',
+              message: 'Ваш платеж поступил в обработку и ожидает подтверждения',
+              offset: 100,
+              duration: 60000
+            })
+          }
+          if (response.data.status === 'succeeded') {
             // console.log(response.data.obj)
             this.$notify.success({
               title: 'Поздравляем!',
@@ -145,7 +154,7 @@ export default {
               duration: 60000
             })
           }
-          if (response.data.type === 'error') {
+          if (response.data.status === 'error') {
             this.$notify.error({
               title: 'Что-то пошло не так.',
               message: 'Попробуйте повторить попытку позже или свяжитесь с администратором.',
