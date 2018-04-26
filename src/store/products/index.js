@@ -53,6 +53,9 @@ export default {
     fetchProducts:
       ({commit, getters, dispatch}) => {
         commit('LOADING', true)
+        if (getters.algoliaSearchText) {
+          return // product -> shop (old result)
+        }
         let filter = getters.productFilters
         let query = firebase.firestore().collection('products')
         if (filter.maxPrice) {
@@ -124,18 +127,21 @@ export default {
         } else if (process.env.NODE_ENV === 'development') {
           index = client.initIndex('e_store_products')
         }
-        let query = ''
-        if (filter.group) query += filter.group + ' '
-        if (filter.category) query += filter.category + ' '
-        if (filter.country) query += filter.country + ' '
-        if (filter.brand) query += filter.brand + ' '
-        if (filter.color) query += filter.color + ' '
-        if (filter.material) query += filter.material + ' '
-        query += payload
-        console.log(query)
+        let facetFilters = []
+        let numericFilters = []
+        if (filter.group) facetFilters.push(`group:${filter.group}`)
+        if (filter.category) facetFilters.push(`category:${filter.category}`)
+        if (filter.country) facetFilters.push(`country:${filter.country}`)
+        if (filter.brand) facetFilters.push(`brand:${filter.brand}`)
+        if (filter.color) facetFilters.push(`color:${filter.color}`)
+        if (filter.material) facetFilters.push(`material:${filter.material}`)
+        if (filter.maxPrice) numericFilters.push(`price <= ${filter.maxPrice}`)
+        if (filter.minPrice) numericFilters.push(`price >= ${filter.minPrice}`)
         index
           .search({
-            query: query
+            query: payload,
+            facetFilters: facetFilters,
+            numericFilters: numericFilters
           })
           .then(responses => {
             let resp = responses.hits
@@ -152,23 +158,17 @@ export default {
           })
           .then((snap) => {
             let products = {}
-            for (const doc of snap) {
-              let p = doc.data()
-              if (filter.maxPrice && p.price >= filter.maxPrice) continue
-              if (filter.minPrice && p.price <= filter.minPrice) continue
-              products[p.productId] = p
-            }
-            if (products) { // sort object by price
-              let arr = Object.values(products)
+            if (snap) {
+              // sort object by price here,
+              // because client key not allow to switch algolia sort
+              let arr = []
+              snap.forEach(doc => arr.push(doc.data()))
               if (filter.sortByPrice === 'asc') {
                 arr.sort((a, b) => a.price - b.price)
               } else {
                 arr.sort((a, b) => b.price - a.price)
               }
-              products = {}
-              arr.forEach(el => {
-                products[el.productId] = el
-              })
+              arr.forEach(el => { products[el.productId] = el })
             }
             commit('setProducts', {...products})
             commit('LOADING', false)
