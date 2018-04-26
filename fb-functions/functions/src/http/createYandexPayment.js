@@ -25,7 +25,7 @@ exports.handler = function (req, res, admin, transporter) {
         value: parseFloat(product.price).toFixed(2), // TODO: save in this format initially
         currency: 'RUB'
       }
-      item.vat_code = 1 // TODO: know real vat_code
+      item.vat_code = 4
       items.push(item)
     }
     return YandexCheckout.createPayment({

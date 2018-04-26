@@ -122,6 +122,7 @@ export default {
     },
     // Cloud functions create payment
     async createPayment (paymentToken) {
+      this.dialogVisible = false
       console.log(paymentToken)
       let url = ''
       if (process.env.NODE_ENV === 'production') { // TODO: for prod
@@ -129,7 +130,6 @@ export default {
       } else if (process.env.NODE_ENV === 'development') {
         url = 'https://us-central1-e-store-dev.cloudfunctions.net/createYandexPayment'
       }
-      this.dialogVisible = false
       await axios.post(url, {
         paymentToken: paymentToken,
         idempotenceKey: this.orderId + '17',
