@@ -1,36 +1,56 @@
 <template>
-  <v-data-table
-    v-if="delivery"
-    :headers="headers"
-    :items="delivery"
-    hide-actions>
-    <template slot="items" slot-scope="props">
-      <td>{{ props.item.code }}</td>
-      <td v-if="regions[props.item.code]" class="text-xs-left">{{ regions[props.item.code] }}</td>
-      <td v-else class="text-xs-left">none</td>
-      <td class="text-xs-left">
-        <el-input-number
-          @blur="saveDeliveryCoast(props.item.code, 'pickpoint', props.item.pickpoint)"
-          :controls="false" size="mini"
-          v-model="props.item.pickpoint">
-        </el-input-number>
-      </td>
-      <td class="text-xs-left">
-        <el-input-number
-          @blur="saveDeliveryCoast(props.item.code, 'cdek', props.item.cdek)"
-          :controls="false" size="mini"
-          v-model="props.item.cdek">
-        </el-input-number>
-      </td>
-      <td class="text-xs-left">
-        <el-input-number
-          @blur="saveDeliveryCoast(props.item.code, 'postrf', props.item.postrf)"
-          :controls="false" size="mini"
-          v-model="props.item.postrf">
-        </el-input-number>
-      </td>
-    </template>
-  </v-data-table>
+  <el-row type="flex" justify="center">
+    <el-col :span="22" class="mt-3">
+      <v-divider class="mb-3 mt-4"></v-divider>
+      <h3>Стоимость доставки
+      <v-tooltip right>
+          <v-icon slot="activator">lightbulb_outline</v-icon>
+        <span class="text-xs-center">
+          Просто измените значение.<br>
+          Нажимать Enter необязательно. <br>
+          Стоимость указана в рублях <br>
+          Для сортировки таблицы по цене нажмите на выбраную колонку в хэдере
+        </span>
+      </v-tooltip>
+      </h3>
+      <v-data-table
+        v-if="delivery"
+        :headers="headers"
+        :items="delivery"
+        :search="search"
+        hide-actions>
+        <template slot="items" slot-scope="props">
+          <td>{{ props.item.code }}</td>
+          <td v-if="regions[props.item.code]" class="text-xs-left">{{ regions[props.item.code] }}</td>
+          <td v-else class="text-xs-left">none</td>
+          <td class="text-xs-left">
+            <el-input-number
+              @blur="saveDeliveryCoast(props.item.code, 'pickpoint', props.item.pickpoint)"
+              :controls="false" size="mini"
+              :min="0" :max="100000"
+              v-model="props.item.pickpoint">
+            </el-input-number>
+          </td>
+          <td class="text-xs-left">
+            <el-input-number
+              @blur="saveDeliveryCoast(props.item.code, 'cdek', props.item.cdek)"
+              :controls="false" size="mini"
+              :min="0" :max="100000"
+              v-model="props.item.cdek">
+            </el-input-number>
+          </td>
+          <td class="text-xs-left">
+            <el-input-number
+              @blur="saveDeliveryCoast(props.item.code, 'postrf', props.item.postrf)"
+              :controls="false" size="mini"
+              :min="0" :max="100000"
+              v-model="props.item.postrf">
+            </el-input-number>
+          </td>
+        </template>
+      </v-data-table>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
@@ -40,11 +60,12 @@ export default {
     saveDeliveryCoast (regionCode, company, price) {
       let delivery = this.delivery
       let idx = delivery.findIndex(el => el.code === regionCode)
-      if (!delivery[idx]['cdek']) delivery[idx]['cdek'] = 1
-      if (!delivery[idx]['pickpoint']) delivery[idx]['pickpoint'] = 1
-      if (!delivery[idx]['postrf']) delivery[idx]['postrf'] = 1
-      delivery[idx][company] = price
-      console.log(delivery)
+      if (!delivery[idx]['cdek']) delivery[idx]['cdek'] = 0
+      if (!delivery[idx]['postrf']) delivery[idx]['postrf'] = 0
+      if (!delivery[idx]['pickpoint']) delivery[idx]['pickpoint'] = 0
+      if (price) {
+        delivery[idx][company] = price
+      }
       this.$store.dispatch('uploadDictionary', {name: 'delivery', data: delivery})
     }
   },
@@ -55,17 +76,18 @@ export default {
   },
   data () {
     return {
+      search: '',
       headers: [
         {
           text: 'Код',
           align: 'left',
-          sortable: false,
+          sortable: true,
           value: 'code'
         },
         {
           text: 'Регион',
           align: 'left',
-          sortable: true,
+          sortable: false,
           value: 'region'
         },
         {
@@ -85,22 +107,6 @@ export default {
           align: 'left',
           sortable: true,
           value: 'postrf'
-        }
-      ],
-      items: [
-        {
-          code: 1,
-          region: 'Республика Адыгея (Адыгея)',
-          pickpoint: 200,
-          cdek: 300,
-          postrf: 350
-        },
-        {
-          code: 2,
-          region: 'Республика Башкортостан',
-          pickpoint: 250,
-          cdek: 300,
-          postrf: 350
         }
       ],
       regions: {
