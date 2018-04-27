@@ -132,7 +132,7 @@
                 label-width="100px"
                 status-icon
                 ref="buyer"
-                :rules="formRules_1"
+                :rules="buyerFormRules"
                 :model="buyer">
                 <!--EMAIL-->
               <el-form-item label="Email" prop="email">
@@ -175,7 +175,7 @@
                 label-width="100px"
                 status-icon
                 ref="address"
-                :rules="formRules_2"
+                :rules="addressFormRules"
                 :model="address">
                 <!--COUNTRY-->
                 <el-row type="flex">
@@ -227,51 +227,58 @@
           <!--Step 3-->
           <el-row type="flex" justify="center">
             <el-col :xs="24" :sm="18" :md="18" :lg="18" :xl="18">
-              <div v-if="activeStep === 3" id="checkout_form_3" >
+              <div v-if="activeStep === 3" id="checkout_form_3">
                 <h3 class="mb-1">
                   СПОСОБ ДОСТАВКИ
                 </h3>
                   <div>
-                    <el-radio v-model="deliveryMethod" :label="delivery.courier" border class="mt-1"></el-radio>
-                    <el-radio v-model="deliveryMethod" :label="delivery.russianPost" border class="mt-1"></el-radio>
-                    <el-radio v-model="deliveryMethod" :label="delivery.pickPoint" border class="mt-1"></el-radio>
+                    <el-radio v-model="deliveryMethod" :label="DELIVERY_METHODS.courier.value" border class="mt-2">{{ DELIVERY_METHODS.courier.label }}</el-radio>
+                    <el-radio v-model="deliveryMethod" :label="DELIVERY_METHODS.cdek.value" border class="mt-2">{{ DELIVERY_METHODS.cdek.label }}</el-radio>
+                    <el-radio v-model="deliveryMethod" :label="DELIVERY_METHODS.pickpoint.value" border class="mt-2">{{ DELIVERY_METHODS.pickpoint.label }}</el-radio>
+                    <el-radio v-model="deliveryMethod" :label="DELIVERY_METHODS.postrf.value" border class="mt-2">{{ DELIVERY_METHODS.postrf.label }}</el-radio>
                   </div>
                 <div class="mb-4">
-                  <h4 v-if="deliveryMethod === delivery.courier" class="mt-4">
-                    Бесплатная доставка по Новосибирску!
-                    <v-icon class="ml-2 info--text">directions_bike</v-icon>
+                  <h4 v-if="deliveryMethod === this.DELIVERY_METHODS.courier.value" class="mt-4">
+                    Бесплатная доставка по Новосибирску!*
+                    <v-icon class="ml-2 info--text">directions_bike</v-icon><br>
+                    <span class="additional_info">
+                      * Курьерская доставка доступна только по г. Новосибирск<br>
+                      ** Академгородок, Шлюз, Первомайский р-н - 200р
+                    </span>
                   </h4>
-                  <h4 v-if="deliveryMethod === delivery.russianPost" class="mt-4">
+                  <h4 v-if="deliveryMethod === this.DELIVERY_METHODS.cdek.value" class="mt-4">
+                  </h4>
+                  <h4 v-if="deliveryMethod === this.DELIVERY_METHODS.postrf.value" class="mt-4">
                     Оплата за доставку <v-icon class="info--text">train</v-icon> при получении!
                   </h4>
-                  <h4 v-if="deliveryMethod === delivery.pickPoint" class="mt-4">
+                  <h4 v-if="deliveryMethod === this.DELIVERY_METHODS.pickpoint.value" class="mt-4">
                     Оплата за доставку <v-icon class="info--text">touch_app</v-icon> при получении!
                   </h4>
                   <v-divider></v-divider>
                   <h3 class="mb-1 mt-4">
                     СПОСОБ ОПЛАТЫ
                   </h3>
-                  <div>
-                    <el-radio v-model="paymentMethod" :label="payment.online" border class="mt-1"></el-radio>
-                    <el-radio v-model="paymentMethod" :label="payment.onReceipt" border class="mt-1"></el-radio>
-                  </div>
-                  <h4 v-if="paymentMethod === payment.online" class="mt-4">
-                    <v-icon class="info--text">credit_card</v-icon><br>
-                    На данный момент мы принимаем оплату только с помощью сервиса PayPal
-                  </h4>
-                  <h4 v-if="deliveryMethod === delivery.courier && paymentMethod === payment.onReceipt" class="mt-4">
-                    <v-icon class="info--text">monetization_on</v-icon><br>
-                    Оплата курьеру возможна только наличными
-                  </h4>
-                  <h4 v-if="deliveryMethod === delivery.russianPost && paymentMethod === payment.onReceipt"
-                      class="mt-4">
-                    <v-icon class="info--text">assignment</v-icon><br>
-                    Оплата наложенным платежем
-                  </h4>
-                  <h4 v-if="deliveryMethod === delivery.pickPoint && paymentMethod === payment.onReceipt" class="mt-4">
-                    <v-icon class="info--text">donut_small</v-icon><br>
-                    Услуги PickPoint оплачиваются при получении
-                  </h4>
+                  <!--<div>-->
+                  <!--<el-radio v-model="paymentMethod" :label="payment.online" border class="mt-1"></el-radio>-->
+                  <!--<el-radio v-model="paymentMethod" :label="payment.onReceipt" border class="mt-1"></el-radio>-->
+                  <!--</div>-->
+                  <!--<h4 v-if="paymentMethod === payment.online" class="mt-4">-->
+                  <!--<v-icon class="info&#45;&#45;text">credit_card</v-icon><br>-->
+                  <!--На данный момент мы принимаем оплату только с помощью сервиса PayPal-->
+                  <!--</h4>-->
+                  <!--<h4 v-if="deliveryMethod === this.DELIVERY_METHODS.courier && paymentMethod === payment.onReceipt" class="mt-4">-->
+                  <!--<v-icon class="info&#45;&#45;text">monetization_on</v-icon><br>-->
+                  <!--Оплата курьеру возможна только наличными-->
+                  <!--</h4>-->
+                  <!--<h4 v-if="deliveryMethod === this.DELIVERY_METHODS.russianPost && paymentMethod === payment.onReceipt"-->
+                  <!--class="mt-4">-->
+                  <!--<v-icon class="info&#45;&#45;text">assignment</v-icon><br>-->
+                  <!--Оплата наложенным платежем-->
+                  <!--</h4>-->
+                  <!--<h4 v-if="deliveryMethod === this.DELIVERY_METHODS.pickPoint && paymentMethod === payment.onReceipt" class="mt-4">-->
+                  <!--<v-icon class="info&#45;&#45;text">donut_small</v-icon><br>-->
+                  <!--Услуги PickPoint оплачиваются при получении-->
+                  <!--</h4>-->
                   <v-divider></v-divider>
                 </div>
               </div>
@@ -281,7 +288,7 @@
           <!--Step 4-->
           <el-row type="flex" justify="center">
               <el-col :xs="22" :sm="18" :md="18" :lg="18" :xl="18">
-                <div v-if="activeStep === 4" class="white--text" >
+                <div v-if="activeStep === 4" class="white--text">
                   <p>Нажимая оформить вы соглашаетесь с пользовательским соглашением
                     <a target="_blank"
                        class="secondary--text"
@@ -313,8 +320,8 @@
 </template>
 
 <script>
-
 import UserAgreement from '../info/UserAgreement'
+
 export default {
   name: 'Checkout',
   components: {UserAgreement},
@@ -340,18 +347,8 @@ export default {
       }, 1000)
     }
     return {
-      deliveryMethod: 'Курьер',
-      delivery: {
-        // Very bad! replace
-        courier: 'Курьер', // TODO: bad idea store cyrillic values
-        russianPost: 'Почта России',
-        pickPoint: 'PickPoint'
-      },
-      paymentMethod: 'При получении',
-      payment: {
-        online: 'Онлайн',
-        onReceipt: 'При получении'
-      },
+      deliveryMethod: 'courier',
+      paymentMethod: 'bank_card',
       dialogFormVisible: false,
       activeStep: 1,
       buyer: {
@@ -369,36 +366,18 @@ export default {
         house: '65',
         postCode: '630030'
       },
-      formRules_1: {
-        firstname: [
-          {validator: notEmptyString, trigger: 'blur'}
-        ],
-        lastname: [
-          {validator: notEmptyString, trigger: 'blur'}
-        ],
-        email: [
-          {validator: checkEmail, trigger: 'blur'}
-        ]
+      buyerFormRules: {
+        firstname: [{validator: notEmptyString, trigger: 'blur'}],
+        lastname: [{validator: notEmptyString, trigger: 'blur'}],
+        email: [{validator: checkEmail, trigger: 'blur'}]
       },
-      formRules_2: {
-        country: [
-          {validator: notEmptyString, trigger: 'blur'}
-        ],
-        city: [
-          {validator: notEmptyString, trigger: 'blur'}
-        ],
-        street: [
-          {validator: notEmptyString, trigger: 'blur'}
-        ],
-        build: [
-          {validator: notEmptyString, trigger: 'blur'}
-        ],
-        house: [
-          {validator: notEmptyString, trigger: 'blur'}
-        ],
-        postCode: [
-          {validator: notEmptyString, trigger: 'blur'}
-        ]
+      addressFormRules: {
+        country: [{validator: notEmptyString, trigger: 'blur'}],
+        city: [{validator: notEmptyString, trigger: 'blur'}],
+        street: [{validator: notEmptyString, trigger: 'blur'}],
+        build: [{validator: notEmptyString, trigger: 'blur'}],
+        house: [{validator: notEmptyString, trigger: 'blur'}],
+        postCode: [{validator: notEmptyString, trigger: 'blur'}]
       }
     }
   },
@@ -408,9 +387,7 @@ export default {
       this.$store.dispatch('USER_EVENT', 'Купить товар')
     },
     nextStep () {
-      if (this.activeStep < 4) {
-        this.activeStep++
-      }
+      if (this.activeStep < 4) this.activeStep++
       this.$store.dispatch('USER_EVENT', `Шаг: ${this.activeStep}`)
     },
     prevStep () {
@@ -478,7 +455,7 @@ export default {
     },
     isValidAddress () {
       return this.address.country && this.address.city && this.address.build &&
-        this.address.street && this.address.house && this.address.postCode
+          this.address.street && this.address.house && this.address.postCode
     },
     orderProducts () {
       let checkoutObj = this.checkoutObj
@@ -561,6 +538,12 @@ export default {
     border-radius: 4px;
     margin-left: 2px;
     margin-right: 5px;
+  }
+
+  .additional_info {
+    font-size: 12px;
+    color: $color-info;
+    font-weight: 300;
   }
 
   #checkout_form_3 {

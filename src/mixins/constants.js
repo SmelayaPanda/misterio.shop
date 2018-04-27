@@ -62,8 +62,37 @@ export const appConstants = {
           {value: 'womenBaa', label: 'для женщин'},
           {value: 'menBaa', label: 'для мужчин'},
           {value: 'unisexBaa', label: 'унисекс'}
-        ]}
-      ]
+        ]
+      }
+      ],
+      DELIVERY_METHODS: {
+        cdek: {
+          value: 'cdek',
+          label: 'СДЭК'
+        },
+        courier: {
+          value: 'courier',
+          label: 'Курьер'
+        },
+        pickpoint: {
+          value: 'pickpoint',
+          label: 'PickPoint'
+        },
+        postrf: {
+          value: 'postrf',
+          label: 'Почта России'
+        }
+      },
+      PAYMENT_METHODS: {
+        cash: {
+          val: 'cash',
+          label: 'Наличные'
+        },
+        bank_card: {
+          val: 'bank_card',
+          label: 'Банковская карта'
+        }
+      }
     }
   }
 }
