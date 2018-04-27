@@ -1,7 +1,6 @@
 export const appConstants = {
   data: function () {
     return {
-      appMail: 'otkrovennieigri@mail.ru',
       PRODUCT_CLASSIFICATION: [{
         value: 'sexToy',
         label: 'Секс-игрушки',

@@ -26,24 +26,12 @@
           id="cart_table_header"
           type="flex"
           justify="center">
-          <el-col :span="3" align="left">
-            <span>ТОВАР</span>
-          </el-col>
-          <el-col :span="8" align="left">
-            <span>ОПИСАНИЕ</span>
-          </el-col>
-          <el-col :span="4" align="center">
-            <span>КОЛИЧЕСТВО</span>
-          </el-col>
-          <el-col :span="3" align="center" class="pr-2">
-            <span>СУММА</span>
-          </el-col>
-          <el-col :span="2" align="center">
-            <span>УДАЛИТЬ</span>
-          </el-col>
-          <el-col :span="3" align="center">
-            <span></span>
-          </el-col>
+          <el-col :span="3" align="left"><span>ТОВАР</span></el-col>
+          <el-col :span="8" align="left"><span>ОПИСАНИЕ</span></el-col>
+          <el-col :span="4" align="center"><span>КОЛИЧЕСТВО</span></el-col>
+          <el-col :span="3" align="center" class="pr-2"><span>СУММА</span></el-col>
+          <el-col :span="2" align="center"><span>УДАЛИТЬ</span></el-col>
+          <el-col :span="3" align="center"><span></span></el-col>
         </el-row>
         <v-divider class="secondary mb-3"></v-divider>
         <div
@@ -65,8 +53,7 @@
               <!--TODO: link not working if product not loaded-->
               <router-link :to="'/product/' + product.productId">
                 <p id="cart_product_descr" class="white--text">
-                  {{ product.title }},
-                  {{ product.color }} <br>
+                  {{ product.title }} <br>
                   <span class="cart_sub_text">
                     Артикул: {{ product.SKU }}
                   </span>
