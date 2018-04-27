@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     loadNews () {
-      this.$store.dispatch('loadNews')
+      this.$store.dispatch('loadNews', {type: 'all'})
     }
   },
   computed: {

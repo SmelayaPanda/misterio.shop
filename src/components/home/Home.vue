@@ -1,11 +1,11 @@
 <template>
   <div class="home_page">
     <transition-group name="welcome">
-      <loading-misterio v-show="!isLoadedHome"
+      <loading-misterio v-if="!isLoadedHome"
                         key="1"
                         id="misterio_shop_wrap">
       </loading-misterio>
-      <div v-show="isLoadedHome" key="2">
+      <div v-if="isLoadedHome" key="2">
         <!-- MOBILE -->
         <mobile-menu></mobile-menu>
         <!-- DESCTOP -->

@@ -95,6 +95,7 @@ export default {
   },
   methods: {
     loadNews () {
+      this.type = this.$store.getters.loadedNewsType
       this.$store.dispatch('loadNews', {type: this.$store.getters.loadedNewsType})
     },
     changeCurPage (curPage) {
@@ -106,11 +107,7 @@ export default {
     },
     changeType (type) {
       this.curPage = 1
-      if (type === 'all') {
-        this.$store.dispatch('loadNews')
-      } else {
-        this.$store.dispatch('loadNews', {type: type})
-      }
+      this.$store.dispatch('loadNews', {type: type})
     }
   },
   computed: {

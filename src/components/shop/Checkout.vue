@@ -246,34 +246,33 @@
                       :value="name">
                     </el-option>
                   </el-select>
-                  <div>
+                  <el-radio-group v-model="deliveryMethod">
                     <el-radio
                       v-if="courier"
-                      v-model="deliveryMethod"
                       :label="DELIVERY_METHODS.courier.value"
                       border class="mt-2">{{ DELIVERY_METHODS.courier.label }}</el-radio>
                     <el-radio
                       v-if="deliveryPrice.cdek"
-                      v-model="deliveryMethod"
                       :label="DELIVERY_METHODS.cdek.value"
                       border class="mt-2">
-                      {{ DELIVERY_METHODS.cdek.label }} - <b> {{ deliveryPrice.cdek }}</b> <span v-html="RUBLE"></span>
+                      {{ DELIVERY_METHODS.cdek.label }} -<b>{{ deliveryPrice.cdek }}</b>
+                      <span v-html="RUBLE"></span>
                     </el-radio>
                     <el-radio
                       v-if="deliveryPrice.pickpoint"
-                      v-model="deliveryMethod"
                       :label="DELIVERY_METHODS.pickpoint.value"
                       border class="mt-2">
-                      {{ DELIVERY_METHODS.pickpoint.label }} - <b>{{ deliveryPrice.pickpoint }}</b> <span v-html="RUBLE"></span>
+                      {{ DELIVERY_METHODS.pickpoint.label }} - <b>{{ deliveryPrice.pickpoint }}</b>
+                      <span v-html="RUBLE"></span>
                     </el-radio>
                     <el-radio
                       v-if="deliveryPrice.postrf"
-                      v-model="deliveryMethod"
                       :label="DELIVERY_METHODS.postrf.value"
                       border class="mt-2">
-                      {{ DELIVERY_METHODS.postrf.label }} - <b>{{ deliveryPrice.postrf }}</b> <span v-html="RUBLE"></span>
+                      {{ DELIVERY_METHODS.postrf.label }} - <b>{{ deliveryPrice.postrf }}</b>
+                      <span v-html="RUBLE"></span>
                     </el-radio>
-                  </div>
+                  </el-radio-group>
                 <div class="mb-4">
                   <h4 v-if="deliveryMethod === this.DELIVERY_METHODS.courier.value" class="mt-4">
                     Бесплатная доставка по Новосибирску!*
@@ -391,7 +390,7 @@ export default {
         pickpoint: '',
         postrf: ''
       },
-      deliveryMethod: 'courier',
+      deliveryMethod: '',
       paymentMethod: 'bank_card',
       dialogFormVisible: false,
       activeStep: 1,
