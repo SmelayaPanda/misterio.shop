@@ -14,11 +14,16 @@
     },
     payment: {
       status: "" | "pending" | "waiting_for_capture" | "succeeded" | "canceled"
+      full: Boolean(true = full, false = part)
       type: "cash" | "online" | "terminal"
       method: "cash" | "bank_card" | "sberbank" | "yandex_money" | "qiwi" | "alfabank" | "webmoney" | "apple_pay" | "mobile_balance" | "installments"
       check: { "YandexPaymentResponse" }
     },
     delivery: {
+      amount: {
+        value: "",
+        currency: "RUB"
+      }
       method: "courier" | "cdek" | "pickpoint" | "postrf"
       address: {
         country: "",
@@ -52,7 +57,6 @@
     }
     comments: ""
 }
-
 -->
 <template>
   <span style="text-align: center">
@@ -122,35 +126,35 @@
           <!--Form 1-->
           <el-row type="flex" justify="center" class="mt-5">
             <el-col :xs="22" :sm="18" :md="18" :lg="18" :xl="18">
-            <div class="form_1" v-if="activeStep === 1">
+            <div v-if="activeStep === 1">
               <el-form
                 label-position="top"
                 label-width="100px"
                 status-icon
-                ref="form_1"
+                ref="buyer"
                 :rules="formRules_1"
-                :model="form_1">
+                :model="buyer">
                 <!--EMAIL-->
               <el-form-item label="Email" prop="email">
-                <el-input type="email" v-model="form_1.email" auto-complete="on"></el-input>
+                <el-input type="email" v-model="buyer.email" auto-complete="on"></el-input>
               </el-form-item>
                 <!--NAME-->
                 <el-row>
                   <el-col :span="12" class="pr-1">
                     <el-form-item label="Имя" prop="firstname">
-                      <el-input type="text" v-model="form_1.firstname" auto-complete="off"></el-input>
+                      <el-input type="text" v-model="buyer.firstname" auto-complete="off"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="12" class="pl-1">
                     <el-form-item label="Фамилия" prop="lastname">
-                      <el-input v-model="form_1.lastname"></el-input>
+                      <el-input v-model="buyer.lastname"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
                 <!--PHONE-->
                 <el-form-item label="Телефон" prop="phone">
                 <masked-input
-                  v-model="form_1.phone"
+                  v-model="buyer.phone"
                   class="el-input__inner"
                   required
                   mask="\+\7 (111) 111-11-11"
@@ -164,26 +168,26 @@
           <!--Step 2-->
           <el-row type="flex" justify="center">
             <el-col :xs="22" :sm="18" :md="18" :lg="18" :xl="18">
-            <div class="form_2" v-if="activeStep === 2">
+            <div v-if="activeStep === 2">
               <el-form
                 v-if="activeStep === 2"
                 label-position="top"
                 label-width="100px"
                 status-icon
-                ref="form_2"
+                ref="address"
                 :rules="formRules_2"
-                :model="form_2">
+                :model="address">
                 <!--COUNTRY-->
                 <el-row type="flex">
                   <el-col :span="12" class="pr-1">
                     <el-form-item label="Страна" prop="country">
-                      <el-input v-model="form_2.country"></el-input>
+                      <el-input v-model="address.country"></el-input>
                     </el-form-item>
                   </el-col>
                   <!--CITY-->
                   <el-col :span="12" class="pl-1">
                     <el-form-item label="Город" prop="city">
-                      <el-input v-model="form_2.city"></el-input>
+                      <el-input v-model="address.city"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -191,13 +195,13 @@
                 <el-row>
                   <el-col :xs="16" :sm="18" :md="18" :lg="18" :xl="18" class="pr-1">
                     <el-form-item label="Улица" prop="street">
-                      <el-input v-model="form_2.street"></el-input>
+                      <el-input v-model="address.street"></el-input>
                     </el-form-item>
                   </el-col>
                   <!--BUILD-->
                   <el-col :xs="8" :sm="6" :md="6" :lg="6" :xl="6" class="pl-1">
                     <el-form-item label="Дом" prop="build">
-                      <el-input v-model="form_2.build"></el-input>
+                      <el-input v-model="address.build"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -205,13 +209,13 @@
                 <!--HOUSE/Apartment-->
                   <el-col :span="12" class="pr-1">
                     <el-form-item label="Квартира" prop="house">
-                      <el-input v-model="form_2.house"></el-input>
+                      <el-input v-model="address.house"></el-input>
                     </el-form-item>
                   </el-col>
                   <!--POST CODE-->
                   <el-col :span="12" class="pl-1">
                     <el-form-item label="Почтовый индекс" prop="postCode">
-                      <el-input v-model="form_2.postCode"></el-input>
+                      <el-input v-model="address.postCode"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -223,7 +227,7 @@
           <!--Step 3-->
           <el-row type="flex" justify="center">
             <el-col :xs="24" :sm="18" :md="18" :lg="18" :xl="18">
-              <div id="checkout_form_3" v-if="activeStep === 3">
+              <div v-if="activeStep === 3" id="checkout_form_3" >
                 <h3 class="mb-1">
                   СПОСОБ ДОСТАВКИ
                 </h3>
@@ -277,7 +281,7 @@
           <!--Step 4-->
           <el-row type="flex" justify="center">
               <el-col :xs="22" :sm="18" :md="18" :lg="18" :xl="18">
-                <div class="form_4 white--text" v-if="activeStep === 4">
+                <div v-if="activeStep === 4" class="white--text" >
                   <p>Нажимая оформить вы соглашаетесь с пользовательским соглашением
                     <a target="_blank"
                        class="secondary--text"
@@ -298,8 +302,8 @@
               v-if="activeStep !== 4"
               id="next_step"
               @click="nextStep"
-              :type="isValidForm_1 ? 'danger' : 'info'"
-              :disabled="!isValidForm_1 || (activeStep === 2 && !isValidForm_2)">
+              :type="isValidBuyer ? 'danger' : 'info'"
+              :disabled="!isValidBuyer || (activeStep === 2 && !isValidAddress)">
               Вперед
              </el-button>
         </el-col>
@@ -350,13 +354,14 @@ export default {
       },
       dialogFormVisible: false,
       activeStep: 1,
-      form_1: {
+      buyer: {
+        userId: this.$store.getters.userId,
         firstname: 'ALEXEY',
         lastname: 'AZAROV',
         email: 'smelayapandagm@gmail.com',
         phone: '89994677857'
       },
-      form_2: {
+      address: {
         country: 'Россия',
         city: 'Новосибирск',
         street: 'Сиреневая',
@@ -415,10 +420,10 @@ export default {
       }
     },
     isValidEmail () {
-      return /^\S+@\S+\.\S+$/.test(this.form_1.email)
+      return /^\S+@\S+\.\S+$/.test(this.buyer.email)
     },
     isValidPhone () {
-      return this.form_1.phone.replace(/[^0-9]/g, '').length === 11
+      return this.buyer.phone.replace(/[^0-9]/g, '').length === 11
     },
     checkout () {
       this.orderIsProcessed = true
@@ -436,38 +441,44 @@ export default {
       }
       let order = {
         amount: {
-          value: parseFloat(this.totalPrice).toFixed(2),
+          value: parseFloat(this.totalPrice).toFixed(2), // without discount / without delivery
           currency: 'RUB'
-        },
-        status: 'created',
-        history: {
-          'created': new Date()
-        },
-        payment: {
-          status: '',
-          method: 'cash' | 'online'
-        },
-        delivery: {
-          method: this.deliveryMethod,
-          address: this.form_2
         },
         discount: {
           type: '' | 'online',
-          val: Number,
+          val: 3,
           dim: 'percent'
         },
-        buyer: this.form_1
+        delivery: {
+          amount: {
+            value: '',
+            currency: 'RUB'
+          },
+          method: this.deliveryMethod,
+          address: this.address
+        },
+        status: 'created',
+        history: {'created': new Date()},
+        payment: {
+          status: '',
+          full: false,
+          type: 'cash' | 'online' | 'terminal',
+          method: 'cash' | 'bank_card',
+          check: {}
+        },
+        buyer: this.buyer
       }
       this.$store.dispatch('checkout', order)
       this.$store.dispatch('USER_EVENT', 'Успешная покупка!')
     }
   },
   computed: {
-    isValidForm_1 () {
-      return this.isValidPhone() && this.isValidEmail() && this.form_1.firstname && this.form_1.lastname
+    isValidBuyer () {
+      return this.isValidPhone() && this.isValidEmail() && this.buyer.firstname && this.buyer.lastname
     },
-    isValidForm_2 () {
-      return this.form_2.country && this.form_2.city && this.form_2.street && this.form_2.house && this.form_2.postCode
+    isValidAddress () {
+      return this.address.country && this.address.city && this.address.build &&
+        this.address.street && this.address.house && this.address.postCode
     },
     orderProducts () {
       let checkoutObj = this.checkoutObj
