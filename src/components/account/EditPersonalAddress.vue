@@ -27,7 +27,7 @@
           <el-form-item label="Квартира">
             <el-input v-model="address.house"></el-input>
           </el-form-item>
-          <el-form-item label="Почтовый код">
+          <el-form-item label="Почтовый индекс">
             <el-input v-model="address.postCode"></el-input>
           </el-form-item>
         </el-form>

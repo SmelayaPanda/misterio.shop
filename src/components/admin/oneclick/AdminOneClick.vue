@@ -74,7 +74,7 @@ ORDER STATUS CHAIN:
                   Улица: {{ props.row.shipping.street }}<br>
                   Здание: {{ props.row.shipping.build }}<br>
                   Дом: {{ props.row.shipping.house }}<br>
-                  Почтовый код: {{ props.row.shipping.postCode }}<br>
+                  Почтовый индекс: {{ props.row.shipping.postCode }}<br>
                 </p>
               </span>
             </el-col>

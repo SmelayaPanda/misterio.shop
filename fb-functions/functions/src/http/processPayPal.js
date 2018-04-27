@@ -61,12 +61,12 @@ function payPalSuccessOrderMail(transporter, info, orderId, to) {
      
        Покупатель:
        --------------------------------------------------
-       Фамилия Имя ......... ${info.last_name} ${info.first_name} 
-       Email ....................... ${info.payer_email}
-       Страна .................... ${info.address_country}
-       Город ....................... ${info.address_city}
-       Улица ...................... ${info.address_street}
-       Почтовый код ......... ${info.address_zip}
+       Фамилия Имя _________ ${info.last_name} ${info.first_name} 
+       Email _______________ ${info.payer_email}
+       Страна ______________ ${info.address_country}
+       Город _______________ ${info.address_city}
+       Улица _______________ ${info.address_street}
+       Почтовый индекс _____ ${info.address_zip}
        --------------------------------------------------
        ИД транзакции: ${info.txn_id}
        ИД ордера (FirebaseDB): ${orderId}

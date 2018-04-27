@@ -37,7 +37,7 @@ let sendOrderEmailNotifyToAdmin = function (transporter, info) {
         Улица ___________________ ${info.shipping.street}
         Дом _____________________ ${info.shipping.build}
         Квартира ________________ ${info.shipping.house}
-        Почтовый код ____________ ${info.shipping.postCode}
+        Почтовый индекс _________ ${info.shipping.postCode}
         
         Способ доставки _________ ${info.deliveryMethod}
         Способ оплаты ___________ ${info.paymentMethod}

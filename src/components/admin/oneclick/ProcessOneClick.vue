@@ -98,9 +98,9 @@
                 </el-form-item>
               </el-col>
               <el-col>
-                <el-form-item label="Почтовый код" :label-width="formLabelWidth">
+                <el-form-item label="Почтовый индекс" :label-width="formLabelWidth">
                   <el-input v-model="shipping.postCode"
-                            placeholder="Почтовый код"
+                            placeholder="Почтовый индекс"
                             :maxlength="10">
                   </el-input>
                 </el-form-item>

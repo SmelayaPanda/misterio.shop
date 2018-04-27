@@ -108,7 +108,7 @@
                       Улица: {{ order.shipping.street }}<br>
                       Здание: {{ order.shipping.build }}<br>
                       Дом: {{ order.shipping.house }}<br>
-                      Почтовый код: {{ order.shipping.postCode }}<br>
+                      Почтовый индекс: {{ order.shipping.postCode }}<br>
                     </p>
                     <p>
                       <v-icon class="info--text">airplanemode_active</v-icon>

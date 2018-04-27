@@ -83,7 +83,7 @@
                       <span v-if="user.address">{{ user.address.house }}</span>
                       <span v-else class="info--text"> no data</span>
                     </p>
-                    <p>Почтовый код:
+                    <p>Почтовый индекс:
                       <span v-if="user.address">{{ user.address.postCode }}</span>
                       <span v-else class="info--text"> no data</span>
                     </p>

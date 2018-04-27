@@ -111,7 +111,7 @@
               <edit-company-info-field
                 document="address"
                 field="postCode"
-                title="Почтовый код"
+                title="Почтовый индекс"
                 :value="companyInfo.address.postCode">
               </edit-company-info-field>
               <el-tag>{{ companyInfo.address.postCode }}</el-tag>

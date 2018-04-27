@@ -1,3 +1,59 @@
+<!--
+  order: {
+    amount: {
+      value: Number,
+      currency: "RUB"
+    },
+    status: "created" | "pending" | "sent" | "delivered’ | "refused’,
+    history: {
+      created: Date,
+      pending: Date,
+      sent: Date,
+      delivered: Date,
+      refused: Date
+    },
+    payment: {
+      status: "" | "pending" | "waiting_for_capture" | "succeeded" | "canceled"
+      type: "cash" | "online" | "terminal"
+      method: "cash" | "bank_card" | "sberbank" | "yandex_money" | "qiwi" | "alfabank" | "webmoney" | "apple_pay" | "mobile_balance" | "installments"
+      check: { "YandexPaymentResponse" }
+    },
+    delivery: {
+      method: "courier" | "cdek" | "pickpoint" | "postrf"
+      address: {
+        country: "",
+        city: "",
+        street: "",
+        build: "",
+        house: "",
+        postCode: ""
+      }
+    },
+    discount: {
+      type: "" | "online" | "instagram" | "friends"
+      val: Number
+      dim: "percent" | "ruble"
+    }
+    products: [{
+        title: "",
+        SKU: "",
+        price: "",
+        currency: "",
+        qty: "",
+        productId: ""
+      }
+    ],
+    buyer: {
+      userId: "",
+      firstname: "",
+      lastname: "",
+      email: "",
+      phone: ""
+    }
+    comments: ""
+}
+
+-->
 <template>
   <span style="text-align: center">
     <span v-if="type === 'single'" @click="clickBuy">
@@ -154,7 +210,7 @@
                   </el-col>
                   <!--POST CODE-->
                   <el-col :span="12" class="pl-1">
-                    <el-form-item label="Почтовый код" prop="postCode">
+                    <el-form-item label="Почтовый индекс" prop="postCode">
                       <el-input v-model="form_2.postCode"></el-input>
                     </el-form-item>
                   </el-col>
@@ -379,15 +435,28 @@ export default {
         lightProducts.push(sp)
       }
       let order = {
-        products: lightProducts,
-        buyer: this.form_1,
-        shipping: this.form_2,
-        checkoutDate: new Date(),
-        deliveryMethod: this.deliveryMethod,
-        paymentMethod: this.paymentMethod,
-        status: this.paymentMethod === this.payment.online ? 'payPending' : 'sentPending',
-        totalPrice: parseFloat(this.totalPrice).toFixed(2),
-        currency: 'RUB'
+        amount: {
+          value: parseFloat(this.totalPrice).toFixed(2),
+          currency: 'RUB'
+        },
+        status: 'created',
+        history: {
+          'created': new Date()
+        },
+        payment: {
+          status: '',
+          method: 'cash' | 'online'
+        },
+        delivery: {
+          method: this.deliveryMethod,
+          address: this.form_2
+        },
+        discount: {
+          type: '' | 'online',
+          val: Number,
+          dim: 'percent'
+        },
+        buyer: this.form_1
       }
       this.$store.dispatch('checkout', order)
       this.$store.dispatch('USER_EVENT', 'Успешная покупка!')
