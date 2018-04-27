@@ -6,7 +6,8 @@ export default {
       brands: [],
       colors: [],
       countries: [],
-      materials: []
+      materials: [],
+      delivery: []
     }
   },
   mutations: {
