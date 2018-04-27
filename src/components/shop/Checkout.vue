@@ -103,10 +103,10 @@
               </span>
               =
               <span class="price_tag">
-                {{ parseFloat(product.price * product.qty).toFixed(2) }} &#8381;
+                {{ parseFloat(product.price * product.qty).toFixed(2) }}<span v-html="RUBLE"></span>
               </span>
             </div>
-          <p id="total">ИТОГО: {{ this.totalPrice }} &#8381;</p>
+          <p id="total">ИТОГО: {{ this.totalPrice }}<span v-html="RUBLE"></span></p>
           </div>
         </el-col>
         <el-col :xs="24" :sm="16" :md="14" :lg="12" :xl="10">
@@ -227,15 +227,52 @@
           <!--Step 3-->
           <el-row type="flex" justify="center">
             <el-col :xs="24" :sm="18" :md="18" :lg="18" :xl="18">
-              <div v-if="activeStep === 3" id="checkout_form_3">
+              <div v-if="activeStep === 3" id="checkout_form_3" class="selected_region">
                 <h3 class="mb-1">
                   СПОСОБ ДОСТАВКИ
                 </h3>
+                  <el-select
+                    v-model="region"
+                    @change="findDeliveryRegion"
+                    no-data-text="Отсутвует"
+                    no-match-text="Отсутвует"
+                    filterable
+                    size="large"
+                    placeholder="Выберите регион">
+                    <el-option
+                      v-for="(regionCode, name) in RUS_REGIONS"
+                      :key="regionCode"
+                      :label="regionCode"
+                      :value="name">
+                    </el-option>
+                  </el-select>
                   <div>
-                    <el-radio v-model="deliveryMethod" :label="DELIVERY_METHODS.courier.value" border class="mt-2">{{ DELIVERY_METHODS.courier.label }}</el-radio>
-                    <el-radio v-model="deliveryMethod" :label="DELIVERY_METHODS.cdek.value" border class="mt-2">{{ DELIVERY_METHODS.cdek.label }}</el-radio>
-                    <el-radio v-model="deliveryMethod" :label="DELIVERY_METHODS.pickpoint.value" border class="mt-2">{{ DELIVERY_METHODS.pickpoint.label }}</el-radio>
-                    <el-radio v-model="deliveryMethod" :label="DELIVERY_METHODS.postrf.value" border class="mt-2">{{ DELIVERY_METHODS.postrf.label }}</el-radio>
+                    <el-radio
+                      v-if="courier"
+                      v-model="deliveryMethod"
+                      :label="DELIVERY_METHODS.courier.value"
+                      border class="mt-2">{{ DELIVERY_METHODS.courier.label }}</el-radio>
+                    <el-radio
+                      v-if="deliveryPrice.cdek"
+                      v-model="deliveryMethod"
+                      :label="DELIVERY_METHODS.cdek.value"
+                      border class="mt-2">
+                      {{ DELIVERY_METHODS.cdek.label }} - <b> {{ deliveryPrice.cdek }}</b> <span v-html="RUBLE"></span>
+                    </el-radio>
+                    <el-radio
+                      v-if="deliveryPrice.pickpoint"
+                      v-model="deliveryMethod"
+                      :label="DELIVERY_METHODS.pickpoint.value"
+                      border class="mt-2">
+                      {{ DELIVERY_METHODS.pickpoint.label }} - <b>{{ deliveryPrice.pickpoint }}</b> <span v-html="RUBLE"></span>
+                    </el-radio>
+                    <el-radio
+                      v-if="deliveryPrice.postrf"
+                      v-model="deliveryMethod"
+                      :label="DELIVERY_METHODS.postrf.value"
+                      border class="mt-2">
+                      {{ DELIVERY_METHODS.postrf.label }} - <b>{{ deliveryPrice.postrf }}</b> <span v-html="RUBLE"></span>
+                    </el-radio>
                   </div>
                 <div class="mb-4">
                   <h4 v-if="deliveryMethod === this.DELIVERY_METHODS.courier.value" class="mt-4">
@@ -347,6 +384,13 @@ export default {
       }, 1000)
     }
     return {
+      region: '',
+      courier: false, // only 54 region
+      deliveryPrice: {
+        cdek: '',
+        pickpoint: '',
+        postrf: ''
+      },
       deliveryMethod: 'courier',
       paymentMethod: 'bank_card',
       dialogFormVisible: false,
@@ -382,6 +426,16 @@ export default {
     }
   },
   methods: {
+    findDeliveryRegion (regionCode) {
+      let prices = this.deliveryDictionary.find(el => el.code === Number(regionCode))
+      if (prices) {
+        this.deliveryPrice = prices
+      } else {
+        this.deliveryPrice = {cdek: '', pickpoint: '', postrf: ''}
+        this.courier = false
+      }
+      if (Number(regionCode) === 54) this.courier = true
+    },
     clickBuy () {
       this.dialogFormVisible = true
       this.$store.dispatch('USER_EVENT', 'Купить товар')
@@ -475,6 +529,9 @@ export default {
         total += p.qty * p.price
       }
       return total
+    },
+    deliveryDictionary () {
+      return this.$store.getters.dictionaries['delivery']
     }
   }
 }

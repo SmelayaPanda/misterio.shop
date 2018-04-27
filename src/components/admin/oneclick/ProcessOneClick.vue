@@ -25,7 +25,7 @@
             <p>
               Название: {{ oneClick.title }}<br>
               Артикул: {{ oneClick.SKU }}<br>
-              Цена: {{ oneClick.price }} RUB
+              Цена: {{ oneClick.price }} <span v-html="RUBLE"></span>
             </p>
             <p class="right">{{ oneClick.creationDate | date }}</p>
           </el-card>

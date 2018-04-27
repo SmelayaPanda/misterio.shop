@@ -84,7 +84,7 @@
         width="110">
         <template slot-scope="scope">
           <span>
-            {{ scope.row.price }} {{ scope.row.currency }}
+            {{ scope.row.price }}<span v-html="RUBLE"></span>
           </span>
         </template>
       </el-table-column>

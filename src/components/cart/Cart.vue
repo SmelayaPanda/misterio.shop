@@ -31,6 +31,9 @@ export default {
     setInterval(() => {
       this.isLoadedCart = true
     }, 500)
+  },
+  created () {
+    this.$store.dispatch('fetchDictionaries')
   }
 }
 </script>

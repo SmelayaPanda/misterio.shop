@@ -103,7 +103,8 @@ $lg-screen: 1920px;
   }
 }
 
-.selected_filter {
+.selected_filter,
+.selected_region {
   .el-input__inner {
     background-color: $color-primary;
     color: $color-secondary;
@@ -111,6 +112,11 @@ $lg-screen: 1920px;
   }
   .el-select .el-input__inner:focus {
     border-color: $color-info;
+  }
+}
+.selected_region {
+  .el-input__inner {
+    width: 320px;
   }
 }
 
