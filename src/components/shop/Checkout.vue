@@ -237,6 +237,15 @@
               <div v-if="activeStep === 3" id="checkout_form_3" class="selected_region">
                 <h3 class="mb-1">
                   СПОСОБ ДОСТАВКИ
+                  <el-tooltip placement="bottom" class="item">
+                    <v-icon id="card_help" class="info--text mb-1 ml-1">live_help</v-icon>
+                    <span slot="content">
+                      На данный момент постоянная доставка осущестявляется только по России. <br>
+                      Если вы находитесь в другой стране, то мы готовы рассмотреть Вашу заявку в индивидуальном плане, <br>
+                      для этого свяжитесь с нами по телефону горячей линии
+                      {{ this.$store.getters.companyInfo.contacts.phone }}
+                    </span>
+                  </el-tooltip>
                 </h3>
                   <el-select
                     v-model="region"
@@ -289,12 +298,12 @@
                       ** Академгородок, Шлюз, Первомайский р-н - 200р
                     </span>
                   </h4>
-                  <h4 v-if="delivery.method === this.DELIVERY_METHODS.cdek.value" class="mt-4">
+                  <h4 v-if="delivery.method === DELIVERY_METHODS.cdek.value" class="mt-4">
                   </h4>
-                  <h4 v-if="delivery.method === this.DELIVERY_METHODS.postrf.value" class="mt-4">
+                  <h4 v-if="delivery.method === DELIVERY_METHODS.postrf.value" class="mt-4">
                     Оплата за доставку <v-icon class="info--text">train</v-icon> при получении!
                   </h4>
-                  <h4 v-if="delivery.method === this.DELIVERY_METHODS.pickpoint.value" class="mt-4">
+                  <h4 v-if="delivery.method === DELIVERY_METHODS.pickpoint.value" class="mt-4">
                     Оплата за доставку <v-icon class="info--text">touch_app</v-icon> при получении!
                   </h4>
                   <v-divider></v-divider>
