@@ -31,36 +31,14 @@
                   ИД: {{ order.id }}
                 </el-tag>
                 <el-tag type="info">
-                  {{ order.checkoutDate | date }}
+                  {{ order.history.created | date }}
                 </el-tag>
                 <el-tag type="info">
-                  {{ order.totalPrice }} {{ order.currency }}
+                  {{ order.amount.final.value }} {{ order.amount.final.currency }}
                 </el-tag>
-                <el-tag v-if="order.paymentDate" type="danger">
-                  ОПЛАЧЕНО
+                <el-tag type="danger">
+                  {{ PAYMENT_STATUSES[order.payment.status].label }}
                 </el-tag>
-                <el-tag v-if="order.paymentMethod === 'On receipt'" type="danger">
-                  ОПЛАТА ПРИ ПОЛУЧЕНИИ
-                </el-tag>
-                <!--TODO: process all statuses!!!-->
-                <el-button type="text" class="info--text">
-                  <!--Status:-->
-                  <el-tag type="danger" v-if="order.status === 'payPending'">
-                    Статус: не оплачено
-                  </el-tag>
-                  <el-tag type="info" v-if="order.status === 'sentPending'">
-                    Статус: ожидает отправки
-                  </el-tag>
-                  <el-tooltip
-                    class="item"
-                    effect="dark"
-                    placement="top-start"
-                    v-if="order.status === 'payPending' || order.status === 'sentPending'"
-                    :content="order.status === 'payPending' ? statusTooltips.payPending : statusTooltips.sentPending">
-                    <v-icon class="pb-1 info--text">lightbulb_outline</v-icon>
-                  </el-tooltip>
-                </el-button>
-                <!--PAY NOW-->
                 <!--PAYPAL-->
                 <!--<pay-pal-paymet-dialog-->
                   <!--:orderId="order.id"-->
@@ -69,7 +47,7 @@
                   <!--v-if="order.status === 'payPending'">-->
                 <!--</pay-pal-paymet-dialog>-->
                 <!--YANDEX PAYMENT-->
-                <yandex-payment-dialog v-if="order.status === 'payPending'" :orderId="order.id"/>
+                <yandex-payment-dialog v-if="order.payment.status === PAYMENT_STATUSES.none.value" :orderId="order.id"/>
               </el-col>
             </el-row>
             <!--DEATAILS-->

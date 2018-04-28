@@ -74,6 +74,13 @@ export const appConstants = {
         receipt: {value: 'receipt', label: 'При получении'},
         online: {value: 'online', label: 'На сайте'}
       },
+      PAYMENT_STATUSES: {
+        none: {value: 'none', label: 'Ожидает оплаты'},
+        pending: {value: 'pending', label: 'Платеж создан (ожидает вашего подтверждения)'},
+        waiting_for_capture: {value: 'waiting_for_capture', label: 'Оплачено (ожидает подтверждения магазином)'},
+        succeeded: {value: 'succeeded', label: 'Оплачено'},
+        canceled: {value: 'canceled', label: 'Отменен'}
+      },
       DELIVERY_METHODS: {
         cdek: {value: 'cdek', label: 'СДЭК'},
         postrf: {value: 'postrf', label: 'Почта России'},

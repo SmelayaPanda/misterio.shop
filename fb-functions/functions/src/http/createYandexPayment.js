@@ -17,23 +17,24 @@ exports.handler = function (req, res, admin, transporter) {
     let {idempotenceKey} = req.body
     let {order} = req.body
     let items = []
-    for (let product of order.products) {
+    order.products.forEach(el => {
       let item = {}
-      item.description = product.title
-      item.quantity = product.qty
-      item.amount = {
-        value: parseFloat(product.price).toFixed(2), // TODO: save in this format initially
-        currency: 'RUB'
-      }
       item.vat_code = 4
+      item.description = el.title
+      item.quantity = el.qty
+      item.amount = {
+        value: el.price,
+        currency: el.currency
+      }
       items.push(item)
-    }
+    })
+    let description = `${order.buyer.firstname} ${order.buyer.lastname} / ${order.buyer.phone} / ${order.id}.`.substring(0, 127)
     return YandexCheckout.createPayment({
       'amount': {
-        'value': order.totalPrice,
-        'currency': 'RUB'
+        'value': order.amount.final.value,
+        'currency': order.amount.final.currency
       },
-      'description': 'Ордер БД №' + idempotenceKey,
+      'description': description,
       'receipt': {
         'items': items,
         'phone': order.buyer.phone.replace(/[^0-9]/g, '') // -> 79000000000

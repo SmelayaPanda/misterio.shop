@@ -1,7 +1,6 @@
 <template>
   <div>
-    <el-button @click="dialogVisible = true"
-               class="ml-2 secondary white--text">
+    <el-button @click="dialogVisible = true" id="buy_btn">
       Оплатить
     </el-button>
     <el-dialog title="Misterio Shop"
@@ -66,16 +65,19 @@
               <el-tooltip placement="bottom" class="item">
                 <v-icon id="card_help" class="white--text">live_help</v-icon>
                 <div slot="content">
-                  * - поля обязательные для заполнения<br/> <br>
+                  * - поля обязательные для заполнения<br/><br>
                   CVC - Код проверки подлинности карты (или код CVC*) <br>
                   - это дополнительный код, нанесенный на вашу дебетовую или кредитную карту. <br>
                   Для большинства карт (Visa, MasterCard, банковские карты и т. д.) <br>
-                  это последние три цифры числа, напечатанного в поле подписи на обратной стороне карты.
+                  это последние три цифры числа, напечатанного в поле подписи на обратной стороне карты.<br><br>
+                  Символ<span v-html="RUBLE"></span> обозначает рубли
                 </div>
               </el-tooltip>
             </form>
           </div>
-          <el-button @click="tokenizeCard" id="success_pay_btn">Оплатить {{ order.totalPrice }} РУБ</el-button>
+          <el-button @click="tokenizeCard" id="success_pay_btn">
+            Оплатить {{ order.amount.final.value }}<span v-html="RUBLE"></span>
+          </el-button>
         </el-col>
       </el-row>
     </el-dialog>
@@ -169,13 +171,21 @@ export default {
   },
   computed: {
     order () {
-      return this.$store.getters.order[this.orderId]
+      return this.$store.getters.orders[this.orderId]
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
+  #buy_btn {
+    margin-top: 10px;
+    color: white;
+    width: 120px;
+    border: 1px solid $color-secondary;
+    background: $color-secondary;
+  }
+
   #success_pay_btn {
     color: white;
     background: $color-success;

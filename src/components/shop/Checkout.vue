@@ -29,7 +29,7 @@
       refused: Date
     },
     payment: {
-      status: "" | "pending" | "waiting_for_capture" | "succeeded" | "canceled"
+      status: "none" | "pending" | "waiting_for_capture" | "succeeded" | "canceled"
       full: Boolean(true = full, false = part)
       type: "receipt" | "online"
       method: "cash" | "bank_card"  ("sberbank" | "yandex_money" | "qiwi" | "alfabank" | "webmoney" | "apple_pay" | "mobile_balance" | "installments")
@@ -476,7 +476,7 @@ export default {
           SKU: el.SKU,
           qty: el.qty,
           title: el.title,
-          price: el.price,
+          price: parseFloat(el.price).toFixed(2),
           currency: 'RUB'
         })
       })
@@ -503,7 +503,7 @@ export default {
           }
         },
         payment: {
-          status: '',
+          status: this.PAYMENT_STATUSES.none.value,
           full: true,
           type: this.payment.type,
           method: this.payment.method,
@@ -545,9 +545,9 @@ export default {
     totalPrice () {
       let total = 0
       let products = this.orderProducts
-      for (let p of products) {
-        total += p.qty * p.price
-      }
+      products.forEach(el => {
+        total += el.qty * el.price
+      })
       if (this.delivery.method) {
         total += this.delivery.prices[this.delivery.method]
       }
