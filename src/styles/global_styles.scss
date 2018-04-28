@@ -104,7 +104,7 @@ $lg-screen: 1920px;
 }
 
 .selected_filter,
-.selected_region {
+#delivery_form {
   .el-input__inner {
     background-color: $color-primary;
     color: $color-secondary;
@@ -114,7 +114,7 @@ $lg-screen: 1920px;
     border-color: $color-info;
   }
 }
-.selected_region {
+#delivery_form {
   .el-input__inner {
     width: 320px;
   }
@@ -215,6 +215,11 @@ $lg-screen: 1920px;
   .el-step__title,
   .el-step__icon-inner {
     color: white;
+    line-height: 28px;
+    margin-top: 5px;
+  }
+  .el-step__icon.is-text {
+    border: none;
   }
 
   .el-step__title.is-success,
@@ -233,7 +238,8 @@ $lg-screen: 1920px;
   }
 }
 
-#checkout_form_3 {
+#delivery_form,
+#payment_form {
   .el-radio__label {
     color: white;
   }

@@ -66,33 +66,19 @@ export const appConstants = {
         ]
       }
       ],
-      DELIVERY_METHODS: {
-        cdek: {
-          value: 'cdek',
-          label: 'СДЭК'
-        },
-        courier: {
-          value: 'courier',
-          label: 'Курьер'
-        },
-        pickpoint: {
-          value: 'pickpoint',
-          label: 'PickPoint'
-        },
-        postrf: {
-          value: 'postrf',
-          label: 'Почта России'
-        }
-      },
       PAYMENT_METHODS: {
-        cash: {
-          val: 'cash',
-          label: 'Наличные'
-        },
-        bank_card: {
-          val: 'bank_card',
-          label: 'Банковская карта'
-        }
+        cash: {value: 'cash', label: 'Наличные'},
+        bank_card: {value: 'bank_card', label: 'Банковская карта'}
+      },
+      PAYMENT_TYPES: {
+        receipt: {value: 'receipt', label: 'При получении'},
+        online: {value: 'online', label: 'На сайте'}
+      },
+      DELIVERY_METHODS: {
+        cdek: {value: 'cdek', label: 'СДЭК'},
+        postrf: {value: 'postrf', label: 'Почта России'},
+        courier: {value: 'courier', label: 'Курьер'},
+        pickpoint: {value: 'pickpoint', label: 'PickPoint'}
       },
       RUS_REGIONS: {
         1: 'Республика Адыгея (Адыгея)',

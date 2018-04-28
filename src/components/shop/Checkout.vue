@@ -31,8 +31,8 @@
     payment: {
       status: "" | "pending" | "waiting_for_capture" | "succeeded" | "canceled"
       full: Boolean(true = full, false = part)
-      type: "cash" | "online" | "terminal"
-      method: "cash" | "bank_card" | "sberbank" | "yandex_money" | "qiwi" | "alfabank" | "webmoney" | "apple_pay" | "mobile_balance" | "installments"
+      type: "receipt" | "online"
+      method: "cash" | "bank_card"  ("sberbank" | "yandex_money" | "qiwi" | "alfabank" | "webmoney" | "apple_pay" | "mobile_balance" | "installments")
       check: { "YandexPaymentResponse" }
     },
     delivery: {
@@ -113,7 +113,7 @@
                 {{ delivery.prices[delivery.method] }}
               </span>
             </div>
-          <p id="total">ИТОГО: {{ this.totalPrice }}<span v-html="RUBLE"></span></p>
+            <p id="total">ИТОГО: {{ this.totalPrice }}<span v-html="RUBLE"></span></p>
           </div>
         </el-col>
         <el-col :xs="24" :sm="16" :md="14" :lg="12" :xl="10">
@@ -123,10 +123,11 @@
             :active="activeStep"
             align-center
             finish-status="success">
-            <el-step title="Personal Details" icon="el-icon-info"></el-step>
-            <el-step title="Shipping" icon="el-icon-location"></el-step>
-            <el-step title="Delivery / Payment" icon="el-icon-document"></el-step>
-            <el-step title="Ordering" icon="el-icon-circle-check-outline"></el-step>
+            <el-step title="Ваши контакты" icon="el-icon-info"></el-step>
+            <el-step title="Адрес" icon="el-icon-location"></el-step>
+            <el-step title="Доставка"><v-icon slot="icon" class="white--text">train</v-icon></el-step>
+            <el-step title="Оплата" icon="el-icon-document"></el-step>
+            <el-step title="Оформление" icon="el-icon-circle-check-outline"></el-step>
           </el-steps>
           </el-row>
           <!---------->
@@ -177,7 +178,6 @@
             <el-col :xs="22" :sm="18" :md="18" :lg="18" :xl="18">
             <div v-if="activeStep === 2">
               <el-form
-                v-if="activeStep === 2"
                 label-position="top"
                 label-width="100px"
                 status-icon
@@ -234,14 +234,14 @@
           <!--Step 3-->
           <el-row type="flex" justify="center">
             <el-col :xs="24" :sm="18" :md="18" :lg="18" :xl="18">
-              <div v-if="activeStep === 3" id="checkout_form_3" class="selected_region">
+              <div v-if="activeStep === 3" id="delivery_form">
                 <h3 class="mb-1">
                   СПОСОБ ДОСТАВКИ
                   <el-tooltip placement="bottom" class="item">
-                    <v-icon id="card_help" class="info--text mb-1 ml-1">live_help</v-icon>
+                    <v-icon small id="delivery_help">live_help</v-icon>
                     <span slot="content">
                       На данный момент постоянная доставка осущестявляется только по России. <br>
-                      Если вы находитесь в другой стране, то мы готовы рассмотреть Вашу заявку в индивидуальном плане, <br>
+                      Если вы находитесь в другой стране, то мы готовы рассмотреть Вашу заявку в индивидуальном плане,<br>
                       для этого свяжитесь с нами по телефону горячей линии {{ this.$store.getters.companyInfo.contacts.phone }}
                     </span>
                   </el-tooltip>
@@ -253,6 +253,7 @@
                     no-match-text="Отсутвует"
                     filterable
                     size="large"
+                    class="mb-3"
                     placeholder="Выберите регион">
                     <el-option
                       v-for="(regionCode, name) in RUS_REGIONS"
@@ -261,12 +262,13 @@
                       :value="name">
                     </el-option>
                   </el-select>
-                  <p v-if="delivery.region && !delivery.courier && !delivery.prices.cdek && !delivery.prices.pickpoint && !delivery.prices.postrf"
-                      class="mt-2">
+                  <p v-if="delivery.region && !delivery.courier && !delivery.prices.cdek
+                       && !delivery.prices.pickpoint && !delivery.prices.postrf"
+                     class="mt-2">
                     К сожалению доставка в Ваш регион на данный момент не осуществляется.
                     Для уточнения свяжитесь с нами по телефону горячей линии {{ this.$store.getters.companyInfo.contacts.phone }}
                   </p>
-                  <el-radio-group v-model="delivery.method">
+                  <el-radio-group v-model="delivery.method" class="mb-4">
                     <el-radio
                       v-if="delivery.courier"
                       :label="DELIVERY_METHODS.courier.value"
@@ -293,50 +295,6 @@
                       <span v-html="RUBLE"></span>
                     </el-radio>
                   </el-radio-group>
-                <div class="mb-4">
-                  <h4 v-if="delivery.method === this.DELIVERY_METHODS.courier.value" class="mt-4">
-                    Бесплатная доставка по Новосибирску!*
-                    <v-icon class="ml-2 info--text">directions_bike</v-icon><br>
-                    <span class="additional_info">
-                      * Курьерская доставка доступна только по г. Новосибирск<br>
-                      ** Академгородок, Шлюз, Первомайский р-н - 200р
-                    </span>
-                  </h4>
-                  <h4 v-if="delivery.method === DELIVERY_METHODS.cdek.value" class="mt-4">
-                  </h4>
-                  <h4 v-if="delivery.method === DELIVERY_METHODS.postrf.value" class="mt-4">
-                    Оплата за доставку <v-icon class="info--text">train</v-icon> при получении!
-                  </h4>
-                  <h4 v-if="delivery.method === DELIVERY_METHODS.pickpoint.value" class="mt-4">
-                    Оплата за доставку <v-icon class="info--text">touch_app</v-icon> при получении!
-                  </h4>
-                  <v-divider></v-divider>
-                  <h3 class="mb-1 mt-4">
-                    СПОСОБ ОПЛАТЫ
-                  </h3>
-                  <!--<div>-->
-                  <!--<el-radio v-model="payment.method" :label="payment.online" border class="mt-1"></el-radio>-->
-                  <!--<el-radio v-model="payment.method" :label="payment.onReceipt" border class="mt-1"></el-radio>-->
-                  <!--</div>-->
-                  <!--<h4 v-if="payment.method === payment.online" class="mt-4">-->
-                  <!--<v-icon class="info&#45;&#45;text">credit_card</v-icon><br>-->
-                  <!--На данный момент мы принимаем оплату только с помощью сервиса PayPal-->
-                  <!--</h4>-->
-                  <!--<h4 v-if="delivery.method === this.DELIVERY_METHODS.courier && payment.method === payment.onReceipt" class="mt-4">-->
-                  <!--<v-icon class="info&#45;&#45;text">monetization_on</v-icon><br>-->
-                  <!--Оплата курьеру возможна только наличными-->
-                  <!--</h4>-->
-                  <!--<h4 v-if="delivery.method === this.DELIVERY_METHODS.russianPost && payment.method === payment.onReceipt"-->
-                  <!--class="mt-4">-->
-                  <!--<v-icon class="info&#45;&#45;text">assignment</v-icon><br>-->
-                  <!--Оплата наложенным платежем-->
-                  <!--</h4>-->
-                  <!--<h4 v-if="delivery.method === this.DELIVERY_METHODS.pickPoint && payment.method === payment.onReceipt" class="mt-4">-->
-                  <!--<v-icon class="info&#45;&#45;text">donut_small</v-icon><br>-->
-                  <!--Услуги PickPoint оплачиваются при получении-->
-                  <!--</h4>-->
-                  <v-divider></v-divider>
-                </div>
               </div>
             </el-col>
           </el-row>
@@ -344,12 +302,43 @@
           <!--Step 4-->
           <el-row type="flex" justify="center">
               <el-col :xs="22" :sm="18" :md="18" :lg="18" :xl="18">
-                <div v-if="activeStep === 4" class="white--text">
-                  <p>Нажимая оформить вы соглашаетесь с пользовательским соглашением
-                    <a target="_blank"
-                       class="secondary--text"
+                <div v-if="activeStep === 4" id="payment_form">
+                  <h3 class="mb-1">
+                    ОПЛАТА
+                  </h3>
+                  <el-radio-group v-model="payment.type" class="mb-4">
+                    <el-radio :label="PAYMENT_TYPES.online.value" border class="mt-1">
+                      {{ PAYMENT_TYPES.online.label }}
+                    </el-radio>
+                    <el-radio :label="PAYMENT_TYPES.receipt.value" border class="mt-1">
+                      {{ PAYMENT_TYPES.receipt.label }}
+                    </el-radio>
+                  </el-radio-group>
+                  <h4 class="mb-1">
+                    Способ
+                  </h4>
+                  <el-radio-group v-if="payment.type" v-model="payment.method" class="mb-4">
+                    <el-radio :label="PAYMENT_METHODS.bank_card.value" border class="mt-1">
+                      {{ PAYMENT_METHODS.bank_card.label }}
+                    </el-radio>
+                    <el-radio
+                      v-if="payment.type !== PAYMENT_TYPES.online.value"
+                      :label="PAYMENT_METHODS.cash.value" border class="mt-1">
+                      {{ PAYMENT_METHODS.cash.label }}
+                    </el-radio>
+                  </el-radio-group>
+                </div>
+              </el-col>
+          </el-row>
+          <!---------->
+          <!--Step 5-->
+          <el-row type="flex" justify="center">
+              <el-col :xs="22" :sm="18" :md="18" :lg="18" :xl="18">
+                <div v-if="activeStep === 5" class="white--text">
+                  <p>Нажимая оформить вы соглашаетесь с
+                    <a target="_blank" class="secondary--text"
                        href="https://misterio.shop/userAgreement">
-                      пользовательским соглашением
+                      офертой
                     </a>
                   </p>
                   <el-button class="mb-4" @click="checkout" type="danger">
@@ -362,7 +351,7 @@
               Назад
             </el-button>
             <el-button
-              v-if="activeStep !== 4"
+              v-if="activeStep !== 5"
               id="next_step"
               @click="nextStep"
               :type="isValidBuyer ? 'danger' : 'info'"
@@ -414,8 +403,8 @@ export default {
         courier: false // only 54 region
       },
       payment: {
-        method: 'bank_card',
-        type: ''
+        type: '',
+        method: ''
       },
       dialogFormVisible: false,
       activeStep: 1,
@@ -465,7 +454,7 @@ export default {
       this.$store.dispatch('USER_EVENT', 'Купить товар')
     },
     nextStep () {
-      if (this.activeStep < 4) this.activeStep++
+      if (this.activeStep < 5) this.activeStep++
       this.$store.dispatch('USER_EVENT', `Шаг: ${this.activeStep}`)
     },
     prevStep () {
@@ -518,7 +507,7 @@ export default {
         payment: {
           status: '',
           full: true,
-          type: 'cash' | 'online' | 'terminal',
+          type: 'receipt' | 'online',
           method: 'cash' | 'bank_card',
           check: {}
         },
@@ -637,8 +626,14 @@ export default {
     font-weight: 300;
   }
 
-  #checkout_form_3 {
+  #delivery_form,
+  #payment_form {
     color: white;
+  }
+
+  #delivery_help {
+    margin-bottom: 14px;
+    color: $color-info;
   }
 
   @media only screen and (max-width: $xs-screen) {
