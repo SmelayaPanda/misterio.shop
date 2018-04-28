@@ -47,12 +47,12 @@
       }
     },
     products: [{
-        title: "",
+        id: "",
         SKU: "",
+        title: "",
         price: "",
         currency: "",
-        qty: "",
-        productId: ""
+        qty: ""
       }
     ],
     buyer: {
@@ -409,7 +409,6 @@ export default {
       dialogFormVisible: false,
       activeStep: 1,
       buyer: {
-        userId: this.$store.getters.userId,
         firstname: 'ALEXEY',
         lastname: 'AZAROV',
         email: 'smelayapandagm@gmail.com',
@@ -470,23 +469,22 @@ export default {
       return this.buyer.phone.replace(/[^0-9]/g, '').length === 11
     },
     checkout () {
-      this.orderIsProcessed = true
-      let lightProducts = []
-      for (let p of this.orderProducts) {
-        // minimum info
-        let sp = {}
-        sp.productId = p.productId
-        sp.SKU = p.SKU
-        sp.qty = p.qty
-        sp.title = p.title
-        sp.price = p.price
-        sp.currency = 'RUB'
-        lightProducts.push(sp)
-      }
+      let products = []
+      this.orderProducts.forEach(el => {
+        products.push({
+          id: el.productId,
+          SKU: el.SKU,
+          qty: el.qty,
+          title: el.title,
+          price: el.price,
+          currency: 'RUB'
+        })
+      })
+
       let order = {
         amount: {
           final: {
-            value: Number,
+            value: parseFloat(this.totalPrice).toFixed(2),
             currency: 'RUB'
           },
           products: {
@@ -498,7 +496,7 @@ export default {
             currency: 'RUB'
           },
           discount: {
-            value: Number,
+            value: 3,
             currency: '',
             type: 'online',
             dim: 'percent'
@@ -507,17 +505,19 @@ export default {
         payment: {
           status: '',
           full: true,
-          type: 'receipt' | 'online',
-          method: 'cash' | 'bank_card',
+          type: this.payment.type,
+          method: this.payment.method,
           check: {}
         },
         delivery: {
           method: this.delivery.method,
           address: this.address
         },
+        products: products,
         status: 'created',
         history: {'created': new Date()},
-        buyer: this.buyer
+        buyer: this.buyer,
+        userId: this.$store.getters.user.uid
       }
       this.$store.dispatch('checkout', order)
       this.$store.dispatch('USER_EVENT', 'Успешная покупка!')

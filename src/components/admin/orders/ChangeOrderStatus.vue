@@ -84,7 +84,7 @@ export default {
   },
   computed: {
     order () {
-      return this.$store.getters.orderById(this.orderId)
+      return this.$store.getters.order[this.orderId]
     }
   }
 }

@@ -4,7 +4,7 @@ import {Notification} from 'element-ui'
 
 export default {
   state: {
-    orders: [],
+    orders: {},
     orderStatistics: {
       payPending: 0,
       sentPending: 0,
@@ -35,57 +35,47 @@ export default {
         if (payload.status) {
           query = query.where('status', '==', payload.status)
         }
-        query.orderBy('checkoutDate', 'desc').get()
-          .then(
-            (snapshot) => {
-              let orders = []
-              snapshot.docs.forEach(doc => {
-                let order = doc.data()
-                order.id = doc.id
-                order.showDetails = false
-                orders.push(order)
-              })
-              commit('setOrders', orders)
-              commit('LOADING', false)
+        let orders = {}
+        query.orderBy('history.created', 'desc').get()
+          .then(snap => {
+            snap.docs.forEach(doc => {
+              let order = doc.data()
+              order.showDetails = false // for collapse details
+              order.id = doc.id
+              orders[doc.id] = order
             })
+            commit('setOrders', {...orders})
+            commit('LOADING', false)
+          })
           .catch(err => dispatch('LOG', err))
       },
     checkout:
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         let user = getters.user
-        let orderId
-        let orders = getters.orders ? getters.orders : []
+        let orders = getters.orders ? getters.orders : {}
         payload.userId = user.uid
         firebase.firestore().collection('orders').add(payload)
           .then((docRef) => {
-            orderId = docRef.id
-            payload.id = orderId
-            orders.unshift(payload)
+            payload.id = docRef.id
+            orders.id = payload
             let actions = []
             // 1. Decrease totalQty of each products
-            let decreaseTotalQty = function (productId, totalQty) {
-              return firebase.firestore().collection('products').doc(productId).update({totalQty: totalQty})
+            let decreaseQty = function (id, totalQty) {
+              return firebase.firestore().collection('products').doc(id).update({totalQty: totalQty})
             }
-            let productQty
-            for (let p of payload.products) {
-              productQty = user.cart[p.productId].totalQty
-              delete user.cart[p.productId]
-              actions.push(decreaseTotalQty(p.productId, productQty - p.qty < 0 ? 0 : productQty - p.qty))
-            }
+            let productQty = 0
+            payload.products.forEach(el => {
+              productQty = user.cart[el.id].totalQty
+              delete user.cart[el.id]
+              actions.push(decreaseQty(el.id, productQty - el.qty > 0 ? productQty - el.qty : 0))
+            })
             // 2. Update user data
-            let orderIds = []
-            let cartProductIds = []
-            if (user.cart) {
-              cartProductIds = Object.keys(user.cart)
-            }
+            let orderIds = Object.keys(orders)
+            let cartProductIds = user.cart ? Object.keys(user.cart) : []
             let updateUserData = function (cart, ordersIds) {
-              return firebase.firestore().collection('users').doc(user.uid).update({
-                cart: cart,
-                orders: ordersIds
-              })
+              return firebase.firestore().collection('users').doc(user.uid).update({cart: cart, orders: ordersIds})
             }
-            orders.forEach(order => orderIds.push(order.id))
             actions.push(updateUserData(cartProductIds, orderIds))
             return Promise.all(actions)
           })
@@ -135,12 +125,6 @@ export default {
     orders:
       state => {
         return state.orders
-      },
-    orderById:
-      state => (id) => {
-        return state.orders.find(el => {
-          return el.id === id
-        })
       },
     orderStatistics:
       state => {
