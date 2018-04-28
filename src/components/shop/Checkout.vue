@@ -1,8 +1,24 @@
 <!--
   order: {
     amount: {
-      value: Number,
-      currency: "RUB"
+      final: {
+        value: Number,
+        currency: "RUB",
+      },
+      products: {
+        value: Number
+        currency: "RUB"
+      },
+      delivery: {
+        value: "",
+        currency: "RUB"
+      },
+      discount: {
+        value: Number,
+        currency: '' | 'RUB',
+        type: '' | 'online' | 'instagram' | 'friends',
+        dim: 'percent' | 'money'
+      }
     },
     status: "created" | "pending" | "sent" | "delivered’ | "refused’,
     history: {
@@ -20,10 +36,6 @@
       check: { "YandexPaymentResponse" }
     },
     delivery: {
-      amount: {
-        value: "",
-        currency: "RUB"
-      }
       method: "courier" | "cdek" | "pickpoint" | "postrf"
       address: {
         country: "",
@@ -34,11 +46,6 @@
         postCode: ""
       }
     },
-    discount: {
-      type: "" | "online" | "instagram" | "friends"
-      val: Number
-      dim: "percent" | "ruble"
-    }
     products: [{
         title: "",
         SKU: "",
@@ -246,35 +253,35 @@
                       :value="name">
                     </el-option>
                   </el-select>
-                  <el-radio-group v-model="deliveryMethod">
+                  <el-radio-group v-model="delivery.method">
                     <el-radio
                       v-if="courier"
                       :label="DELIVERY_METHODS.courier.value"
                       border class="mt-2">{{ DELIVERY_METHODS.courier.label }}</el-radio>
                     <el-radio
-                      v-if="deliveryPrice.cdek"
+                      v-if="delivery.prices.cdek"
                       :label="DELIVERY_METHODS.cdek.value"
                       border class="mt-2">
-                      {{ DELIVERY_METHODS.cdek.label }} -<b>{{ deliveryPrice.cdek }}</b>
+                      {{ DELIVERY_METHODS.cdek.label }} -<b>{{ delivery.prices.cdek }}</b>
                       <span v-html="RUBLE"></span>
                     </el-radio>
                     <el-radio
-                      v-if="deliveryPrice.pickpoint"
+                      v-if="delivery.prices.pickpoint"
                       :label="DELIVERY_METHODS.pickpoint.value"
                       border class="mt-2">
-                      {{ DELIVERY_METHODS.pickpoint.label }} - <b>{{ deliveryPrice.pickpoint }}</b>
+                      {{ DELIVERY_METHODS.pickpoint.label }} - <b>{{ delivery.prices.pickpoint }}</b>
                       <span v-html="RUBLE"></span>
                     </el-radio>
                     <el-radio
-                      v-if="deliveryPrice.postrf"
+                      v-if="delivery.prices.postrf"
                       :label="DELIVERY_METHODS.postrf.value"
                       border class="mt-2">
-                      {{ DELIVERY_METHODS.postrf.label }} - <b>{{ deliveryPrice.postrf }}</b>
+                      {{ DELIVERY_METHODS.postrf.label }} - <b>{{ delivery.prices.postrf }}</b>
                       <span v-html="RUBLE"></span>
                     </el-radio>
                   </el-radio-group>
                 <div class="mb-4">
-                  <h4 v-if="deliveryMethod === this.DELIVERY_METHODS.courier.value" class="mt-4">
+                  <h4 v-if="delivery.method === this.DELIVERY_METHODS.courier.value" class="mt-4">
                     Бесплатная доставка по Новосибирску!*
                     <v-icon class="ml-2 info--text">directions_bike</v-icon><br>
                     <span class="additional_info">
@@ -282,12 +289,12 @@
                       ** Академгородок, Шлюз, Первомайский р-н - 200р
                     </span>
                   </h4>
-                  <h4 v-if="deliveryMethod === this.DELIVERY_METHODS.cdek.value" class="mt-4">
+                  <h4 v-if="delivery.method === this.DELIVERY_METHODS.cdek.value" class="mt-4">
                   </h4>
-                  <h4 v-if="deliveryMethod === this.DELIVERY_METHODS.postrf.value" class="mt-4">
+                  <h4 v-if="delivery.method === this.DELIVERY_METHODS.postrf.value" class="mt-4">
                     Оплата за доставку <v-icon class="info--text">train</v-icon> при получении!
                   </h4>
-                  <h4 v-if="deliveryMethod === this.DELIVERY_METHODS.pickpoint.value" class="mt-4">
+                  <h4 v-if="delivery.method === this.DELIVERY_METHODS.pickpoint.value" class="mt-4">
                     Оплата за доставку <v-icon class="info--text">touch_app</v-icon> при получении!
                   </h4>
                   <v-divider></v-divider>
@@ -295,23 +302,23 @@
                     СПОСОБ ОПЛАТЫ
                   </h3>
                   <!--<div>-->
-                  <!--<el-radio v-model="paymentMethod" :label="payment.online" border class="mt-1"></el-radio>-->
-                  <!--<el-radio v-model="paymentMethod" :label="payment.onReceipt" border class="mt-1"></el-radio>-->
+                  <!--<el-radio v-model="payment.method" :label="payment.online" border class="mt-1"></el-radio>-->
+                  <!--<el-radio v-model="payment.method" :label="payment.onReceipt" border class="mt-1"></el-radio>-->
                   <!--</div>-->
-                  <!--<h4 v-if="paymentMethod === payment.online" class="mt-4">-->
+                  <!--<h4 v-if="payment.method === payment.online" class="mt-4">-->
                   <!--<v-icon class="info&#45;&#45;text">credit_card</v-icon><br>-->
                   <!--На данный момент мы принимаем оплату только с помощью сервиса PayPal-->
                   <!--</h4>-->
-                  <!--<h4 v-if="deliveryMethod === this.DELIVERY_METHODS.courier && paymentMethod === payment.onReceipt" class="mt-4">-->
+                  <!--<h4 v-if="delivery.method === this.DELIVERY_METHODS.courier && payment.method === payment.onReceipt" class="mt-4">-->
                   <!--<v-icon class="info&#45;&#45;text">monetization_on</v-icon><br>-->
                   <!--Оплата курьеру возможна только наличными-->
                   <!--</h4>-->
-                  <!--<h4 v-if="deliveryMethod === this.DELIVERY_METHODS.russianPost && paymentMethod === payment.onReceipt"-->
+                  <!--<h4 v-if="delivery.method === this.DELIVERY_METHODS.russianPost && payment.method === payment.onReceipt"-->
                   <!--class="mt-4">-->
                   <!--<v-icon class="info&#45;&#45;text">assignment</v-icon><br>-->
                   <!--Оплата наложенным платежем-->
                   <!--</h4>-->
-                  <!--<h4 v-if="deliveryMethod === this.DELIVERY_METHODS.pickPoint && paymentMethod === payment.onReceipt" class="mt-4">-->
+                  <!--<h4 v-if="delivery.method === this.DELIVERY_METHODS.pickPoint && payment.method === payment.onReceipt" class="mt-4">-->
                   <!--<v-icon class="info&#45;&#45;text">donut_small</v-icon><br>-->
                   <!--Услуги PickPoint оплачиваются при получении-->
                   <!--</h4>-->
@@ -385,13 +392,19 @@ export default {
     return {
       region: '',
       courier: false, // only 54 region
-      deliveryPrice: {
-        cdek: '',
-        pickpoint: '',
-        postrf: ''
+      delivery: {
+        method: '',
+        price: '',
+        prices: {
+          cdek: '',
+          pickpoint: '',
+          postrf: ''
+        }
       },
-      deliveryMethod: '',
-      paymentMethod: 'bank_card',
+      payment: {
+        method: 'bank_card',
+        type: ''
+      },
       dialogFormVisible: false,
       activeStep: 1,
       buyer: {
@@ -428,9 +441,9 @@ export default {
     findDeliveryRegion (regionCode) {
       let prices = this.deliveryDictionary.find(el => el.code === Number(regionCode))
       if (prices) {
-        this.deliveryPrice = prices
+        this.delivery.prices = prices
       } else {
-        this.deliveryPrice = {cdek: '', pickpoint: '', postrf: ''}
+        this.delivery.prices = {cdek: '', pickpoint: '', postrf: ''}
         this.courier = false
       }
       if (Number(regionCode) === 54) this.courier = true
@@ -471,31 +484,38 @@ export default {
       }
       let order = {
         amount: {
-          value: parseFloat(this.totalPrice).toFixed(2), // without discount / without delivery
-          currency: 'RUB'
-        },
-        discount: {
-          type: '' | 'online',
-          val: 3,
-          dim: 'percent'
-        },
-        delivery: {
-          amount: {
+          final: {
+            value: Number,
+            currency: 'RUB'
+          },
+          products: {
+            value: parseFloat(this.totalPrice).toFixed(2),
+            currency: 'RUB'
+          },
+          delivery: {
             value: '',
             currency: 'RUB'
           },
-          method: this.deliveryMethod,
-          address: this.address
+          discount: {
+            value: Number,
+            currency: '',
+            type: 'online',
+            dim: 'percent'
+          }
         },
-        status: 'created',
-        history: {'created': new Date()},
         payment: {
           status: '',
-          full: false,
+          full: true,
           type: 'cash' | 'online' | 'terminal',
           method: 'cash' | 'bank_card',
           check: {}
         },
+        delivery: {
+          method: this.delivery.method,
+          address: this.address
+        },
+        status: 'created',
+        history: {'created': new Date()},
         buyer: this.buyer
       }
       this.$store.dispatch('checkout', order)
