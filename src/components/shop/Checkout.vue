@@ -61,8 +61,11 @@
       lastname: "",
       email: "",
       phone: ""
+    },
+    comments: {
+      user: "",
+      admin: ""
     }
-    comments: ""
 }
 -->
 <template>
@@ -469,6 +472,7 @@ export default {
       return this.buyer.phone.replace(/[^0-9]/g, '').length === 11
     },
     checkout () {
+      this.buyer.userId = this.$store.getters.user.uid
       let products = []
       this.orderProducts.forEach(el => {
         products.push({
@@ -517,7 +521,7 @@ export default {
         status: 'created',
         history: {'created': new Date()},
         buyer: this.buyer,
-        userId: this.$store.getters.user.uid
+        comments: {user: '', admin: ''}
       }
       this.$store.dispatch('checkout', order)
       this.$store.dispatch('USER_EVENT', 'Успешная покупка!')

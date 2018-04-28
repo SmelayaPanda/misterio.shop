@@ -75,7 +75,7 @@
               </el-tooltip>
             </form>
           </div>
-          <el-button @click="tokenizeCard" id="success_pay_btn">
+          <el-button v-if="order" @click="tokenizeCard" id="success_pay_btn">
             Оплатить {{ order.amount.final.value }}<span v-html="RUBLE"></span>
           </el-button>
         </el-col>

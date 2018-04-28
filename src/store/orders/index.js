@@ -30,7 +30,7 @@ export default {
         commit('LOADING', true)
         let query = firebase.firestore().collection('orders')
         if (payload.userId) {
-          query = query.where('userId', '==', payload.userId)
+          query = query.where('buyer.userId', '==', payload.userId)
         }
         if (payload.status) {
           query = query.where('status', '==', payload.status)
@@ -54,7 +54,6 @@ export default {
         commit('LOADING', true)
         let user = getters.user
         let orders = getters.orders ? getters.orders : {}
-        payload.userId = user.uid
         firebase.firestore().collection('orders').add(payload)
           .then((docRef) => {
             payload.id = docRef.id

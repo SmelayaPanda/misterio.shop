@@ -20,11 +20,7 @@
               class="mt-3 mb-3"
               style="flex-wrap: wrap; align-items: center">
               <el-col :xs="6" :sm="3" :md="3" :lg="2" :xl="2">
-                <el-switch
-                  type="text" class="pl-4 pb-1"
-                  v-model="order.showDetails">
-                  Показать детали
-                </el-switch>
+                <el-switch v-model="order.showDetails" type="text" class="pl-4 pb-1"></el-switch>
               </el-col>
               <el-col :xs="18" :sm="21" :md="21" :lg="22" :xl="22" class="mb-2">
                 <el-tag type="info">
@@ -54,7 +50,7 @@
             <div v-show="order.showDetails === true">
               <el-row type="flex" justify="center" style="flex-wrap: wrap;">
                 <el-col :xs="20" :sm="10" :md="10" :lg="10" :xl="10">
-                  <div v-if="order.shipping">
+                  <div v-if="order.buyer">
                     <p class="info_title">
                       <v-icon class="info--text">person_pin_circle</v-icon>
                       Контакты:
@@ -68,32 +64,33 @@
                     <p>
                       <v-icon class="info--text">monetization_on</v-icon>
                       <span class="info_title">
-                        Метод оплаты:
+                        Оплата:
                       </span><br>
-                      {{ order.paymentMethod }}
+                      {{ PAYMENT_TYPES[order.payment.type].label }}:
+                      {{ PAYMENT_METHODS[order.payment.method].label }}
                     </p>
                   </div>
                 </el-col>
                 <el-col :xs="20" :sm="10" :md="10" :lg="10" :xl="10">
-                  <div v-if="order.shipping">
+                  <div v-if="order.delivery && order.delivery.address">
                     <p class="info_title">
                       <v-icon class="info--text">location_on</v-icon>
                       Доставка:
                     </p>
                     <p>
-                      Страна: {{ order.shipping.country }}<br>
-                      Город: {{ order.shipping.city }}<br>
-                      Улица: {{ order.shipping.street }}<br>
-                      Здание: {{ order.shipping.build }}<br>
-                      Дом: {{ order.shipping.house }}<br>
-                      Почтовый индекс: {{ order.shipping.postCode }}<br>
+                      Страна: {{ order.delivery.address.country }}<br>
+                      Город: {{ order.delivery.address.city }}<br>
+                      Улица: {{ order.delivery.address.street }}<br>
+                      Здание: {{ order.delivery.address.build }}<br>
+                      Дом: {{ order.delivery.address.house }}<br>
+                      Почтовый индекс: {{ order.delivery.address.postCode }}<br>
                     </p>
                     <p>
                       <v-icon class="info--text">airplanemode_active</v-icon>
                       <span class="info_title">
                         Способ доставки:
-                      </span> <br>
-                      {{ order.deliveryMethod }}
+                      </span><br>
+                      {{ DELIVERY_METHODS[order.delivery.method].label }}
                     </p>
                   </div>
                 </el-col>
@@ -125,7 +122,7 @@
                       <i class="el-icon-warning"></i>
                       Комментарии:
                     </span>
-                    {{ order.comments }}<br>
+                    {{ order.comments.user }}<br>
                   </p>
                 </el-col>
               </el-row>
