@@ -27,27 +27,33 @@ function handleNotification(req, admin) {
   let {event} = req.body
   if (event === 'payment.succeeded') {
     return admin.firestore().collection('orders').doc(orderId).update({
-      status: 'pending', // from 'created'
+      'status': 'pending', // order from 'created'
+      'history.pending': new Date(),
+
       'payment.status': 'succeeded',
-      'payment.check': object
+      'payment.history.succeeded': new Date(),
+      'payment.notification.succeeded': object
     })
   }
   if (event === 'payment.pending') {
     return admin.firestore().collection('orders').doc(orderId).update({
       'payment.status': 'pending',
-      'payment.check': object
+      'payment.history.pending': new Date(),
+      'payment.notification.pending': object
     })
   }
   if (event === 'payment.waiting_for_capture') {
     return admin.firestore().collection('orders').doc(orderId).update({
       'payment.status': 'waiting_for_capture',
-      'payment.check': object
+      'payment.history.waiting_for_capture': new Date(),
+      'payment.notification.waiting_for_capture': object
     })
   }
   if (event === 'payment.canceled') {
     return admin.firestore().collection('orders').doc(orderId).update({
       'payment.status': 'canceled',
-      'payment.check': object
+      'payment.history.canceled': new Date(),
+      'payment.notification.canceled': object
     })
   } else {
     return console.error('Not handled notification status!')

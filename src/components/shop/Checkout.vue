@@ -33,7 +33,18 @@
       full: Boolean(true = full, false = part)
       type: "receipt" | "online"
       method: "cash" | "bank_card"  ("sberbank" | "yandex_money" | "qiwi" | "alfabank" | "webmoney" | "apple_pay" | "mobile_balance" | "installments")
-      check: { "YandexPaymentResponse" }
+      history: {
+        pending: Date,
+        waiting_for_capture: Date,
+        succeeded: Date,
+        canceled: Date
+      },
+      notification: { // Yandex Payment Response Obj
+        pending: obj,
+        waiting_for_capture: obj,
+        succeeded: obj,
+        canceled: obj
+      }
     },
     delivery: {
       method: "courier" | "cdek" | "pickpoint" | "postrf"
@@ -508,10 +519,11 @@ export default {
         },
         payment: {
           status: this.PAYMENT_STATUSES.none.value,
+          history: {},
           full: true,
           type: this.payment.type,
           method: this.payment.method,
-          check: {}
+          notification: {}
         },
         delivery: {
           method: this.delivery.method,

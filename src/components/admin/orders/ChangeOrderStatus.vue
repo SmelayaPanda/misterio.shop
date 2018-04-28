@@ -1,27 +1,27 @@
 <template>
   <el-row type="flex" justify="start">
     <el-button @click="dialogVisible = true"
-               v-if="order.status === this.SENT_PEND || order.status === this.SENT">
-      <v-icon small v-if="order.status === this.SENT_PEND">flight_takeoff</v-icon>
-      <v-icon small v-if="order.status === this.SENT">flight_land</v-icon>
+               v-if="order.status === ORDER_STATUSES.pending.value ||
+                     order.status === ORDER_STATUSES.sent.value">
+      <v-icon small v-if="order.status === ORDER_STATUSES.pending.value">flight_takeoff</v-icon>
+      <v-icon small v-if="order.status === ORDER_STATUSES.sent.value">flight_land</v-icon>
     </el-button>
-    <el-button @click="refuseDialogVisible = true"
-               v-if="order.status !== this.REFUSED">
+    <el-button v-if="order.status !== ORDER_STATUSES.refused.value" @click="refuseDialogVisible = true">
       <v-icon small>close</v-icon>
     </el-button>
     <!--Main statuses dialog-->
     <el-dialog
-      :title="order.status === this.SENT_PEND ? 'Товар отправлен?' : 'Товар доставлен?'"
+      :title="order.status === ORDER_STATUSES.pending.value ? 'Товар отправлен?' : 'Товар доставлен?'"
       :visible.sync="dialogVisible"
       width="500px"
       center>
       <b>Коментарий:</b><br>
-      <el-input v-model="order.comments"
+      <el-input v-model="order.comments.admin"
                 type="textarea"
                 placeholder="( < 400 символов )"
                 :autosize="{ minRows: 3, maxRows: 7}"
-                :maxlength="400"
-      ></el-input>
+                :maxlength="400">
+      </el-input>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">Отмена</el-button>
         <el-button type="danger" @click="changeStatus(false)">Подтвердить</el-button>
@@ -34,12 +34,12 @@
       width="500px"
       center>
       <b>Добавьте причину возврата товара:</b><br>
-      <el-input v-model="order.comments"
+      <el-input v-model="order.comments.admin"
                 type="textarea"
                 placeholder="( < 400 символов )"
                 :autosize="{ minRows: 3, maxRows: 7}"
-                :maxlength="400"
-      ></el-input>
+                :maxlength="400">
+      </el-input>
       <span slot="footer" class="dialog-footer">
         <el-button @click="refuseDialogVisible = false">Отмена</el-button>
         <el-button type="danger" @click="changeStatus(true)">Подтвердить</el-button>
@@ -62,29 +62,32 @@ export default {
     changeStatus (refused) {
       this.dialogVisible = false
       this.refuseDialogVisible = false
-      let obj = {}
+      let obj
       if (refused) {
-        obj.status = this.REFUSED
-        obj.comments = this.order.comments
-        obj.refuseDate = new Date()
-      } else if (this.order.status === this.SENT_PEND) { // SENT_PEND -> SENT
-        obj.status = this.SENT
-        obj.comments = this.order.comments
-        obj.sentDate = new Date()
-      } else if (this.order.status === this.SENT) { // SENT -> DELIVERED
-        obj.status = this.DELIVERED
-        obj.comments = this.order.comments
-        obj.deliveryDate = new Date()
+        obj = {
+          status: this.ORDER_STATUSES.refused.value,
+          'comments.admin': this.order.comments.admin,
+          'history.refused': new Date()
+        }
+      } else if (this.order.status === this.ORDER_STATUSES.pending.value) { // SENT_PEND -> SENT
+        obj = {
+          status: this.ORDER_STATUSES.sent.value,
+          'comments.admin': this.order.comments.admin,
+          'history.sent': new Date()
+        }
+      } else if (this.order.status === this.ORDER_STATUSES.sent.value) { // SENT -> DELIVERED
+        obj = {
+          status: this.ORDER_STATUSES.delivered.value,
+          'comments.admin': this.order.comments.admin,
+          'history.delivered': new Date()
+        }
       }
-      this.$store.dispatch('updateOrder', {
-        updateData: obj,
-        orderId: this.orderId
-      })
+      this.$store.dispatch('updateOrder', {orderId: this.orderId, updateData: obj})
     }
   },
   computed: {
     order () {
-      return this.$store.getters.order[this.orderId]
+      return this.$store.getters.orders[this.orderId]
     }
   }
 }

@@ -4,7 +4,7 @@ export const purchaseStatuses = {
       // One click only
       CREATED: 'created',
       // Order only
-      PAY_PEND: 'payPending',
+      PAY_PEND: 'pending',
       // Common
       SENT_PEND: 'sentPending',
       SENT: 'sent',

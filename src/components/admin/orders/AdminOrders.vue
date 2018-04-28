@@ -1,8 +1,8 @@
 <template>
   <!--
 ORDER STATUS CHAIN:
-  1. payPending  - ожидает оплаты
-  2. sentPending - ожидает отправки ( товар с оплатой при получении попадает сразу в данный статус )
+  1. created     - создан
+  2. pending     - ожидает отправки ( товар с оплатой при получении попадает сразу в данный статус )
   3. sent        - товар отправлен
   4. delivered   - товар доставлен
   5. refused     - отказ
@@ -19,10 +19,10 @@ ORDER STATUS CHAIN:
         placeholder="Brand"
         @change="loadOrdersWithStatus">
         <el-option
-          v-for="val in statuses"
-          :key="val"
-          :label="val"
-          :value="val">
+          v-for="status in ORDER_STATUSES"
+          :key="status.value"
+          :label="status.label"
+          :value="status.value">
         </el-option>
       </el-select>
     </el-row>
@@ -36,106 +36,100 @@ ORDER STATUS CHAIN:
         <template slot-scope="props">
           <el-row>
             <el-col :span="12" class="pl-1">
-              <p><span>Order id:</span>
-                <el-tag size="mini" type="success">{{ props.row.id }}</el-tag>
-              </p>
-              <p><span>User id:</span>
-                <el-tag size="mini" type="success">{{ props.row.userId }}</el-tag>
-              </p>
+              <p>Order id:<el-tag size="mini" type="success">{{ props.row.id }}</el-tag></p>
+              <p>User id:<el-tag size="mini" type="success">{{ props.row.buyer.userId }}</el-tag></p>
               <h3><i class="el-icon-info"></i>
                 Информация о продуктах:
               </h3>
-              <p v-for="p in props.row.products" :key="p.productId">
+              <p v-for="p in props.row.products" :key="p.id">
                 ИД:
-                <el-tag size="mini" type="success">{{ p.productId }}</el-tag>
+                <el-tag size="mini" type="success">{{ p.id }}</el-tag>
                 <br>
                 Название: {{ p.title }}<br>
                 Артикул: {{ p.SKU }}<br>
                 Цена: {{ p.price }}<br>
-                <span v-if="p.qty">Total Qty: {{ p.qty }}</span>
+                Количество: {{ p.qty }}
               </p>
-              <span v-if="props.row.comments">
-                <h3><i class="el-icon-warning"></i>
-                  Коментарий:
-                </h3>
-                {{ props.row.comments }}<br>
-              </span>
+              <p v-if="props.row.comments">
+                <span class="info_title"><i class="el-icon-warning"></i>
+                  Коментарии:
+                </span><br>
+                Пользователя: {{ props.row.comments.user }}<br>
+                Администратора: {{ props.row.comments.admin }}
+              </p>
             </el-col>
             <el-col :span="12" class="pl-2">
-              <span v-if="props.row.shipping">
-                <h3><i class="el-icon-location"></i>
+              <p v-if="props.row.delivery.address">
+                <span class="info_title"><i class="el-icon-location"></i>
                   Доставка:
-                </h3>
-                <p>
-                  Страна: {{ props.row.shipping.country }}<br>
-                  Город: {{ props.row.shipping.city }}<br>
-                  Улица: {{ props.row.shipping.street }}<br>
-                  Здание: {{ props.row.shipping.build }}<br>
-                  Дом: {{ props.row.shipping.house }}<br>
-                  Почтовый индекс: {{ props.row.shipping.postCode }}<br>
-                </p>
-              </span>
+                </span><br>
+                Страна: {{ props.row.delivery.address.country }}<br>
+                Город: {{ props.row.delivery.address.city }}<br>
+                Улица: {{ props.row.delivery.address.street }}<br>
+                Здание: {{ props.row.delivery.address.build }}<br>
+                Дом: {{ props.row.delivery.address.house }}<br>
+                Почтовый индекс: {{ props.row.delivery.address.postCode }}<br>
+              </p>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="24">
-              <h3 class="mt-3">
-                <i class="el-icon-date"></i>
+              <h3 class="mt-3"><i class="el-icon-date"></i>
                 История:
               </h3>
-              <span>
-                  <el-tag>Покупка
+              <!--CREATED-->
+              <el-tag>
+                Оформлено
+                <p>
+                  {{ props.row.history.created | date }}<br>
+                  <span v-if="props.row.history.pending">
+                    ------------------------------
+                  </span>
+                </p>
+              </el-tag>
+              <!--PENDING-->
+              <span v-if="props.row.history.pending">
+                <i class="el-icon-caret-right"></i>
+                <el-tag>
+                  Ожидает отправки
+                  <p>
+                    {{ props.row.history.pending | date }}<br>
+                    {{(Math.abs(props.row.history.pending - props.row.history.created) / 36e5).toFixed(1) }} ч.
+                  </p>
+                </el-tag>
+              </span>
+              <!--SENT-->
+              <span v-if="props.row.history.sent">
+                  <i class="el-icon-caret-right"></i>
+                  <el-tag>
+                    Отправлено
                     <p>
-                      {{ props.row.checkoutDate | date }}<br>
-                      <span v-if="props.row.checkoutDate">
-                        ------------------------------
-                      </span>
+                      {{ props.row.history.sent | date }}<br>
+                      {{(Math.abs(props.row.history.sent - props.row.history.pending) / 36e5).toFixed(1) }} ч.
                     </p>
                   </el-tag>
                 </span>
-              <!--SENT-->
-              <span v-if="props.row.sentDate">
-                  <i class="el-icon-caret-right"></i>
-                    <el-tag>Отправлено
-                      <p>
-                        {{ props.row.sentDate | date }}<br>
-                        {{(Math.abs(props.row.sentDate - props.row.checkoutDate) / 36e5).toFixed(1) }} hours
-                      </p>
-                    </el-tag>
-                </span>
               <!--DELIVERED-->
-              <span v-if="props.row.deliveryDate">
-                  <i class="el-icon-caret-right"></i>
-                    <el-tag>Доставлено
-                      <p>
-                        {{ props.row.deliveryDate | date }}<br>
-                        {{(Math.abs(props.row.deliveryDate - props.row.sentDate) / 36e5).toFixed(1) }} hours
-                      </p>
-                    </el-tag>
-                </span>
+              <span v-if="props.row.history.delivered">
+                <i class="el-icon-caret-right"></i>
+                <el-tag>
+                  Доставлено
+                  <p>
+                    {{ props.row.history.delivered | date }}<br>
+                    {{(Math.abs(props.row.history.delivered - props.row.history.sent) / 36e5).toFixed(1) }} ч.
+                  </p>
+                </el-tag>
+              </span>
               <!--REFUSE-->
-              <span v-if="props.row.refuseDate">
-                  <i class="el-icon-caret-right"></i>
-                    <el-tag>Отклонено
-                      <p>
-                        {{ props.row.refuseDate | date }}<br>
-                        {{(Math.abs(props.row.refuseDate - props.row.checkoutDate) / 36e5).toFixed(1) }} hours (from checkout)
-                      </p>
-                    </el-tag>
-                </span>
-            </el-col>
-          </el-row>
-          <el-row v-if="props.row.payPalIPN">
-            <el-col :span="20" class="ml-1 mt-2">
-              <h3><i class="el-icon-success"></i>
-                PayPal IPN (Instant Payment Notification):
-              </h3>
-              <el-switch v-model="showPayPalIPN"></el-switch>
-              <span v-for="(prop, key) in props.row.payPalIPN"
-                    :key="prop.txn_id"
-                    v-if="showPayPalIPN">
-                <span class="primary--text">{{key}}:</span>
-                {{ prop }} /
+              <span v-if="props.row.history.refused">
+                <i class="el-icon-caret-right"></i>
+                <el-tag>
+                  Отклонено
+                  <p>
+                    {{ props.row.history.refused | date }}<br>
+                    {{(Math.abs(props.row.history.refused - props.row.history.created) / 36e5).toFixed(1) }} ч. (от начала)
+                  </p>
+                </el-tag>
               </span>
             </el-col>
           </el-row>
@@ -146,7 +140,7 @@ ORDER STATUS CHAIN:
         label="Дата"
         width="200">
         <template slot-scope="scope">
-          <span><el-tag type="success">{{ scope.row.checkoutDate | date }}</el-tag></span>
+          <span><el-tag type="success">{{ scope.row.history.created | date }}</el-tag></span>
         </template>
       </el-table-column>
       <!--Title-->
@@ -220,7 +214,7 @@ export default {
   name: 'AdminOrders',
   data () {
     return {
-      status: 'payPending',
+      status: 'created',
       showPayPalIPN: false,
       curPage: 1,
       pageSize: 5
@@ -248,15 +242,6 @@ export default {
     },
     totalOrdersCount () {
       return this.$store.getters.orders ? Object.keys(this.$store.getters.orders).length : 0
-    },
-    statuses () {
-      return [
-        this.PAY_PEND,
-        this.SENT_PEND,
-        this.SENT,
-        this.DELIVERED,
-        this.REFUSED
-      ]
     }
   },
   created () {
@@ -265,5 +250,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .info_title {
+    font-size: 16px;
+    font-weight: 600;
+  }
 </style>

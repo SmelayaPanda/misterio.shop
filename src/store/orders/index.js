@@ -79,7 +79,7 @@ export default {
             return Promise.all(actions)
           })
           .then(() => {
-            commit('setOrders', orders)
+            commit('setOrders', {...orders})
             commit('setUser', {...user})
             commit('LOADING', false)
             Notification({
@@ -102,10 +102,10 @@ export default {
         let orders = getters.orders
         firebase.firestore().collection('orders').doc(payload.orderId).update(payload.updateData)
           .then(() => {
-            // total product qty not increased on refuse - operator work
-            orders.splice(orders.indexOf(payload.orderId), 1)
+            // Fact: total product qty not increased on refuse
+            delete orders[payload.orderId]
             console.log('Order updated')
-            commit('setOrders', orders)
+            commit('setOrders', {...orders})
             commit('LOADING', false)
           })
           .catch(err => dispatch('LOG', err))

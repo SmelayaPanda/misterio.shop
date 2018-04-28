@@ -74,6 +74,12 @@ export const appConstants = {
         receipt: {value: 'receipt', label: 'При получении'},
         online: {value: 'online', label: 'На сайте'}
       },
+      DELIVERY_METHODS: {
+        cdek: {value: 'cdek', label: 'СДЭК'},
+        postrf: {value: 'postrf', label: 'Почта России'},
+        courier: {value: 'courier', label: 'Курьер'},
+        pickpoint: {value: 'pickpoint', label: 'PickPoint'}
+      },
       PAYMENT_STATUSES: {
         none: {value: 'none', label: 'Ожидает оплаты'},
         pending: {value: 'pending', label: 'Платеж создан (ожидает вашего подтверждения)'},
@@ -81,11 +87,12 @@ export const appConstants = {
         succeeded: {value: 'succeeded', label: 'Оплачено'},
         canceled: {value: 'canceled', label: 'Отменен'}
       },
-      DELIVERY_METHODS: {
-        cdek: {value: 'cdek', label: 'СДЭК'},
-        postrf: {value: 'postrf', label: 'Почта России'},
-        courier: {value: 'courier', label: 'Курьер'},
-        pickpoint: {value: 'pickpoint', label: 'PickPoint'}
+      ORDER_STATUSES: {
+        created: {value: 'created', label: 'Оформлен'},
+        pending: {value: 'pending', label: 'Ожидает отправки'},
+        sent: {value: 'sent', label: 'Отправлен'},
+        delivered: {value: 'delivered', label: 'Доставлен'},
+        refused: {value: 'refused', label: 'Отклонен'}
       },
       RUS_REGIONS: {
         1: 'Республика Адыгея (Адыгея)',
