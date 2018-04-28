@@ -94,23 +94,23 @@
             <p id="my_order_title">
               Мой заказ
             </p>
-            <div
-              class="order_info"
-              v-for="product in orderProducts"
-              :key="product.productId">
-              <span class="product_title">
-                {{ product.title }}:
-              </span><br>
-              <span class="price_tag">
-                {{ product.price }}
-              </span>
-              x
-              <span class="price_tag">
-                {{ product.qty }}
-              </span>
-              =
+            <div class="order_info"
+                 v-for="product in orderProducts"
+                 :key="product.productId">
+              <span class="product_title">{{ product.title }}:</span><br>
+              <span class="price_tag">{{ product.price }}</span>x
+              <span class="price_tag">{{ product.qty }}</span>=
               <span class="price_tag">
                 {{ parseFloat(product.price * product.qty).toFixed(2) }}<span v-html="RUBLE"></span>
+              </span>
+            </div>
+            <!-- DELIVERY COAST -->
+            <div v-if="delivery.method" class="mb-2">
+              <span class="product_title">
+                Доставка ({{ DELIVERY_METHODS[delivery.method].label }}):
+              </span><br>
+              <span class="price_tag">
+                {{ delivery.prices[delivery.method] }}
               </span>
             </div>
           <p id="total">ИТОГО: {{ this.totalPrice }}<span v-html="RUBLE"></span></p>
@@ -242,13 +242,12 @@
                     <span slot="content">
                       На данный момент постоянная доставка осущестявляется только по России. <br>
                       Если вы находитесь в другой стране, то мы готовы рассмотреть Вашу заявку в индивидуальном плане, <br>
-                      для этого свяжитесь с нами по телефону горячей линии
-                      {{ this.$store.getters.companyInfo.contacts.phone }}
+                      для этого свяжитесь с нами по телефону горячей линии {{ this.$store.getters.companyInfo.contacts.phone }}
                     </span>
                   </el-tooltip>
                 </h3>
                   <el-select
-                    v-model="region"
+                    v-model="delivery.region"
                     @change="findDeliveryRegion"
                     no-data-text="Отсутвует"
                     no-match-text="Отсутвует"
@@ -262,9 +261,14 @@
                       :value="name">
                     </el-option>
                   </el-select>
+                  <p v-if="delivery.region && !delivery.courier && !delivery.prices.cdek && !delivery.prices.pickpoint && !delivery.prices.postrf"
+                      class="mt-2">
+                    К сожалению доставка в Ваш регион на данный момент не осуществляется.
+                    Для уточнения свяжитесь с нами по телефону горячей линии {{ this.$store.getters.companyInfo.contacts.phone }}
+                  </p>
                   <el-radio-group v-model="delivery.method">
                     <el-radio
-                      v-if="courier"
+                      v-if="delivery.courier"
                       :label="DELIVERY_METHODS.courier.value"
                       border class="mt-2">{{ DELIVERY_METHODS.courier.label }}</el-radio>
                     <el-radio
@@ -399,16 +403,15 @@ export default {
       }, 1000)
     }
     return {
-      region: '',
-      courier: false, // only 54 region
       delivery: {
+        region: '',
         method: '',
-        price: '',
         prices: {
           cdek: '',
           pickpoint: '',
           postrf: ''
-        }
+        },
+        courier: false // only 54 region
       },
       payment: {
         method: 'bank_card',
@@ -453,9 +456,9 @@ export default {
         this.delivery.prices = prices
       } else {
         this.delivery.prices = {cdek: '', pickpoint: '', postrf: ''}
-        this.courier = false
+        this.delivery.courier = false
       }
-      if (Number(regionCode) === 54) this.courier = true
+      if (Number(regionCode) === 54) this.delivery.courier = true
     },
     clickBuy () {
       this.dialogFormVisible = true
@@ -555,6 +558,9 @@ export default {
       let products = this.orderProducts
       for (let p of products) {
         total += p.qty * p.price
+      }
+      if (this.delivery.method) {
+        total += this.delivery.prices[this.delivery.method]
       }
       return total
     },
