@@ -36,9 +36,23 @@ ORDER STATUS CHAIN:
         <template slot-scope="props">
           <el-row>
             <el-col :span="12" class="pl-1">
-              <p>Order id:<el-tag size="mini" type="success">{{ props.row.id }}</el-tag></p>
-              <p>User id:<el-tag size="mini" type="success">{{ props.row.buyer.userId }}</el-tag></p>
-              <h3><i class="el-icon-info"></i>
+              <p>Order id:
+                <el-tag size="mini" type="success">{{ props.row.id }}</el-tag>
+              </p>
+              <p>User id:
+                <el-tag size="mini" type="success">{{ props.row.buyer.userId }}</el-tag>
+              </p>
+              <p>
+                <v-icon class="mb-1">monetization_on</v-icon>
+                <span class="info_title">
+                  Оплата:
+                </span><br>
+                {{ PAYMENT_TYPES[props.row.payment.type].label }}:
+                {{ PAYMENT_METHODS[props.row.payment.method].label }} <br>
+                Статус: {{ PAYMENT_STATUSES[props.row.payment.status].label }}
+              </p>
+              <h3>
+                <v-icon class="mb-1">info</v-icon>
                 Информация о продуктах:
               </h3>
               <p v-for="p in props.row.products" :key="p.id">
@@ -50,17 +64,10 @@ ORDER STATUS CHAIN:
                 Цена: {{ p.price }}<br>
                 Количество: {{ p.qty }}
               </p>
-              <p v-if="props.row.comments">
-                <span class="info_title"><i class="el-icon-warning"></i>
-                  Коментарии:
-                </span><br>
-                Пользователя: {{ props.row.comments.user }}<br>
-                Администратора: {{ props.row.comments.admin }}
-              </p>
             </el-col>
             <el-col :span="12" class="pl-2">
-              <p v-if="props.row.delivery.address">
-                <span class="info_title"><i class="el-icon-location"></i>
+              <p v-if="props.row.delivery">
+                <span class="info_title"><v-icon class="mb-1">location_on</v-icon>
                   Доставка:
                 </span><br>
                 Страна: {{ props.row.delivery.address.country }}<br>
@@ -70,6 +77,29 @@ ORDER STATUS CHAIN:
                 Дом: {{ props.row.delivery.address.house }}<br>
                 Почтовый индекс: {{ props.row.delivery.address.postCode }}<br>
               </p>
+              <p>
+                <v-icon class="mb-1">airplanemode_active</v-icon>
+                <span class="info_title">Способ доставки:</span><br>
+                {{ DELIVERY_METHODS[props.row.delivery.method].label }}
+              </p>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="24">
+              <p v-if="props.row.comments">
+                <span class="info_title"><v-icon class="mb-1">report</v-icon>
+                  Коментарии:
+                </span><br>
+                Пользователя: {{ props.row.comments.user }}<br>
+                Администратора: {{ props.row.comments.admin }}
+              </p>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col v-if="props.row.payment.notification.succeeded" :span="24">
+              Чековая информация по оплате:
+              <v-switch v-model="props.row.showDetails"></v-switch>
+              <p v-if="props.row.showDetails">{{ props.row.payment.notification.succeeded }}</p>
             </el-col>
           </el-row>
           <el-row>
@@ -145,10 +175,10 @@ ORDER STATUS CHAIN:
       </el-table-column>
       <!--Title-->
       <el-table-column
-        label="Сумма (РУБ)"
+        label="Сумма"
         width="130">
         <template slot-scope="scope">
-          <p>{{ scope.row.totalPrice }} </p>
+          <p>{{ scope.row.amount.final.value }} <span v-html="RUBLE"></span></p>
         </template>
       </el-table-column>
       <!--NAME-->

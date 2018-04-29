@@ -81,18 +81,18 @@ export const appConstants = {
         pickpoint: {value: 'pickpoint', label: 'PickPoint'}
       },
       PAYMENT_STATUSES: {
-        none: {value: 'none', label: 'Ожидает оплаты'},
+        none: {value: 'none', label: 'Не оплачено'},
         pending: {value: 'pending', label: 'Платеж создан (ожидает вашего подтверждения)'},
         waiting_for_capture: {value: 'waiting_for_capture', label: 'Оплачено (ожидает подтверждения магазином)'},
         succeeded: {value: 'succeeded', label: 'Оплачено'},
-        canceled: {value: 'canceled', label: 'Отменен'}
+        canceled: {value: 'canceled', label: 'Отменено'}
       },
       ORDER_STATUSES: {
-        created: {value: 'created', label: 'Оформлен'},
+        created: {value: 'created', label: 'Оформлено'},
         pending: {value: 'pending', label: 'Ожидает отправки'},
-        sent: {value: 'sent', label: 'Отправлен'},
-        delivered: {value: 'delivered', label: 'Доставлен'},
-        refused: {value: 'refused', label: 'Отклонен'}
+        sent: {value: 'sent', label: 'Отправлено'},
+        delivered: {value: 'delivered', label: 'Доставлено'},
+        refused: {value: 'refused', label: 'Отклонено'}
       },
       DISCOUNT_TYPES: {
         online: {

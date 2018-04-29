@@ -519,25 +519,22 @@ export default {
           currency: 'RUB'
         })
       })
+      let status
+      let history
+      if (this.PAYMENT_TYPES.receipt.value === this.payment.type) {
+        status = this.ORDER_STATUSES.pending.value
+        history = {created: new Date(), pending: new Date()}
+      } else {
+        status = this.ORDER_STATUSES.created.value
+        history = {created: new Date()}
+      }
 
       let order = {
         amount: {
-          final: {
-            value: parseFloat(this.totalOrderPrice).toFixed(2),
-            currency: 'RUB'
-          },
-          products: {
-            value: parseFloat(this.totalProductsPrice).toFixed(2),
-            currency: 'RUB'
-          },
-          discount: {
-            value: parseFloat(this.totalDiscount).toFixed(2),
-            currency: 'RUB'
-          },
-          delivery: {
-            value: parseFloat(this.totalDeliveryPrice).toFixed(2),
-            currency: 'RUB'
-          }
+          final: {value: parseFloat(this.totalOrderPrice).toFixed(2), currency: 'RUB'},
+          discount: {value: parseFloat(this.totalDiscount).toFixed(2), currency: 'RUB'},
+          products: {value: parseFloat(this.totalProductsPrice).toFixed(2), currency: 'RUB'},
+          delivery: {value: parseFloat(this.totalDeliveryPrice).toFixed(2), currency: 'RUB'}
         },
         payment: {
           status: this.PAYMENT_STATUSES.none.value,
@@ -552,10 +549,8 @@ export default {
           address: this.address
         },
         products: products,
-        status: this.PAYMENT_TYPES.receipt.value === this.payment.method
-          ? this.ORDER_STATUSES.pending.value
-          : this.ORDER_STATUSES.created.value,
-        history: {'created': new Date()},
+        status: status,
+        history: history,
         buyer: this.buyer,
         comments: {user: '', admin: ''}
       }

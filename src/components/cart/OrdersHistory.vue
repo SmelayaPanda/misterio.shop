@@ -32,11 +32,11 @@
                 <el-tag type="info">
                   {{ order.amount.final.value }} {{ order.amount.final.currency }}
                 </el-tag>
-                <el-tag type="danger">
-                  {{ PAYMENT_STATUSES[order.payment.status].label }}
-                </el-tag>
-                <el-tag type="danger">
+                <el-tag type="info">
                   {{ ORDER_STATUSES[order.status].label }}
+                </el-tag>
+                <el-tag type="info">
+                  {{ PAYMENT_STATUSES[order.payment.status].label }}
                 </el-tag>
                 <!--PAYPAL-->
                 <!--<pay-pal-paymet-dialog-->
@@ -46,7 +46,10 @@
                   <!--v-if="order.status === 'payPending'">-->
                 <!--</pay-pal-paymet-dialog>-->
                 <!--YANDEX PAYMENT-->
-                <yandex-payment-dialog v-if="order.payment.status === PAYMENT_STATUSES.none.value" :orderId="order.id"/>
+                <yandex-payment-dialog
+                  v-if="order.payment.status === PAYMENT_STATUSES.none.value &&
+                        order.payment.type === PAYMENT_TYPES.online.value"
+                  :orderId="order.id"/>
               </el-col>
             </el-row>
             <!--DEATAILS-->
