@@ -133,8 +133,8 @@ export default {
       this.dialogVisible = false
       console.log(paymentToken)
       let url = ''
-      if (process.env.NODE_ENV === 'production') { // TODO: for prod
-        url = 'https://us-central1-e-store-dev.cloudfunctions.net/createYandexPayment'
+      if (process.env.NODE_ENV === 'production') {
+        url = 'https://us-central1-misterio-prod.cloudfunctions.net/createYandexPayment'
       } else if (process.env.NODE_ENV === 'development') {
         url = 'https://us-central1-e-store-dev.cloudfunctions.net/createYandexPayment'
       }
