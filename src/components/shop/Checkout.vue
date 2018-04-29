@@ -119,11 +119,14 @@
               </span>
             </div>
             <!-- DELIVERY COAST -->
-            <div v-if="delivery.method && totalDeliveryPrice" class="mb-2">
+            <div v-if="delivery.method" class="mb-3">
               <span class="product_title">
                 Доставка ({{ DELIVERY_METHODS[delivery.method].label }}):
-              </span><br>
-              <span class="price_tag">{{ totalDeliveryPrice }}<span v-html="RUBLE"></span></span>
+              </span>
+              <span v-if="totalDeliveryPrice" class="price_tag">
+                {{ totalDeliveryPrice }}<span v-html="RUBLE"></span>
+              </span>
+              <span v-else class="product_title">бесплатно</span>
             </div>
             <p id="total">ИТОГО: {{ totalProductsPrice + totalDeliveryPrice }}<span v-html="RUBLE"></span></p>
           </div>
@@ -247,17 +250,6 @@
           <el-row type="flex" justify="center">
             <el-col :xs="24" :sm="18" :md="18" :lg="18" :xl="18">
               <div v-if="activeStep === 3" id="delivery_form">
-                <h3 class="mb-1">
-                  СПОСОБ ДОСТАВКИ
-                  <el-tooltip placement="bottom" class="item">
-                    <v-icon small id="delivery_help">live_help</v-icon>
-                    <span slot="content">
-                      На данный момент постоянная доставка осущестявляется только по России. <br>
-                      Если вы находитесь в другой стране, то мы готовы рассмотреть Вашу заявку в индивидуальном плане,<br>
-                      для этого свяжитесь с нами по телефону горячей линии {{ this.$store.getters.companyInfo.contacts.phone }}
-                    </span>
-                  </el-tooltip>
-                </h3>
                   <el-select
                     v-model="delivery.region"
                     @change="changeDeliveryRegion"
@@ -274,6 +266,18 @@
                       :value="name">
                     </el-option>
                   </el-select>
+                  <el-tooltip placement="bottom" class="item">
+                    <v-icon small id="delivery_help">live_help</v-icon>
+                    <span slot="content">
+                      На данный момент постоянная доставка осущестявляется только по России. <br>
+                      Если вы находитесь в другой стране, то мы готовы рассмотреть Вашу заявку в индивидуальном плане,<br>
+                      для этого свяжитесь с нами по телефону горячей линии {{ this.$store.getters.companyInfo.contacts.phone }}
+                    </span>
+                  </el-tooltip>
+                  <p v-if="delivery.region && totalProductsPrice > 3000">
+                    Бесплатная доставка любым выбранным способом! <br>
+                    <span style="font-size: 12px;">* действительно при покупке от 3000 рублей</span>
+                  </p>
                   <p v-if="delivery.region && !delivery.courier && !delivery.prices.cdek
                        && !delivery.prices.pickpoint && !delivery.prices.postrf"
                      class="mt-2">
@@ -370,9 +374,9 @@
             </el-button>
             <el-button
               v-if="activeStep !== 5"
-              id="next_step"
               @click="nextStep"
-              :type="isValidBuyer ? 'danger' : 'info'"
+              id="next_step"
+              :type="validCheckoutStep ? 'danger' : 'info'"
               :disabled="!validCheckoutStep">
               Вперед
              </el-button>
@@ -657,8 +661,14 @@ export default {
   }
 
   #delivery_help {
-    margin-bottom: 14px;
+    margin-top: -42px;
+    margin-left: 2px;
     color: $color-info;
+  }
+
+  #delivery_help:hover,
+  #delivery_help:active {
+    cursor: help;
   }
 
   @media only screen and (max-width: $xs-screen) {

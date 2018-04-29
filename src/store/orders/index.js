@@ -49,6 +49,18 @@ export default {
           })
           .catch(err => dispatch('LOG', err))
       },
+    subscribeToOrderModification:
+      ({commit, getters, dispatch}, payload) => {
+        let orders = getters.orders ? getters.orders : {}
+        return firebase.firestore().collection('orders').doc(payload)
+          .onSnapshot(function (doc) {
+            console.log('Order changed')
+            let order = doc.data()
+            order.id = doc.id
+            orders[doc.id] = order
+            commit('setOrders', {...orders})
+          })
+      },
     checkout:
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
@@ -57,7 +69,7 @@ export default {
         firebase.firestore().collection('orders').add(payload)
           .then((docRef) => {
             payload.id = docRef.id
-            orders.id = payload
+            orders[docRef.id] = payload
             let actions = []
             // 1. Decrease totalQty of each products
             let decreaseQty = function (id, totalQty) {

@@ -77,6 +77,7 @@
           </div>
           <el-button v-if="order" @click="tokenizeCard" id="success_pay_btn">
             Оплатить {{ order.amount.final.value }}<span v-html="RUBLE"></span>
+            <i v-if="isTokenizeInProcess" class="el-icon-loading"></i>
           </el-button>
         </el-col>
       </el-row>
@@ -94,6 +95,7 @@ export default {
     return {
       dialogVisible: true,
       tokenizeError: '',
+      isTokenizeInProcess: false,
       card: {
         number: '1111111111111026',
         cvc: '000',
@@ -104,14 +106,17 @@ export default {
   },
   methods: {
     tokenizeCard: function () {
+      this.isTokenizeInProcess = true
       let yandexCheckout = window.YandexCheckout(505369)
       yandexCheckout.tokenize(this.card)
         .then(res => {
           if (res.status === 'success') { // OK - tokenize
+            this.isTokenizeInProcess = false
             const {paymentToken} = res.data.response
             this.createPayment(paymentToken)
           }
           if (res.status === 'error') { // FAIL - tokenize
+            this.isTokenizeInProcess = false
             const {params} = res.error
             let msg = 'Ошибка: '
             for (let p of params) {
@@ -124,6 +129,7 @@ export default {
     },
     // Cloud functions create payment
     async createPayment (paymentToken) {
+      await this.$store.dispatch('subscribeToOrderModification', this.orderId)
       this.dialogVisible = false
       console.log(paymentToken)
       let url = ''

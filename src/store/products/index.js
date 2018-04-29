@@ -238,9 +238,7 @@ export default {
           actions.push(uploadImage(img, images[img]))
         }
         return Promise.all(actions)
-          .then(() => {
-            commit('LOADING', false)
-          })
+          .then(() => { commit('LOADING', false) })
           .catch(err => dispatch('LOG', err))
       },
     subscribeToSubImagesCreation: // realtime change images
