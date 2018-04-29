@@ -119,15 +119,13 @@
               </span>
             </div>
             <!-- DELIVERY COAST -->
-            <div v-if="delivery.method" class="mb-2">
+            <div v-if="delivery.method && totalDeliveryPrice" class="mb-2">
               <span class="product_title">
                 Доставка ({{ DELIVERY_METHODS[delivery.method].label }}):
               </span><br>
-              <span class="price_tag">
-                {{ delivery.prices[delivery.method] }}
-              </span>
+              <span class="price_tag">{{ totalDeliveryPrice }}<span v-html="RUBLE"></span></span>
             </div>
-            <p id="total">ИТОГО: {{ this.totalPrice }}<span v-html="RUBLE"></span></p>
+            <p id="total">ИТОГО: {{ totalProductsPrice + totalDeliveryPrice }}<span v-html="RUBLE"></span></p>
           </div>
         </el-col>
         <el-col :xs="24" :sm="16" :md="14" :lg="12" :xl="10">
@@ -262,7 +260,7 @@
                 </h3>
                   <el-select
                     v-model="delivery.region"
-                    @change="findDeliveryRegion"
+                    @change="changeDeliveryRegion"
                     no-data-text="Отсутвует"
                     no-match-text="Отсутвует"
                     filterable
@@ -291,22 +289,28 @@
                       v-if="delivery.prices.cdek"
                       :label="DELIVERY_METHODS.cdek.value"
                       border class="mt-2">
-                      {{ DELIVERY_METHODS.cdek.label }} -<b>{{ delivery.prices.cdek }}</b>
-                      <span v-html="RUBLE"></span>
+                      {{ DELIVERY_METHODS.cdek.label }}
+                      <span v-if="totalDeliveryPrice">
+                        - <b>{{ delivery.prices.cdek }}</b><span v-html="RUBLE"></span>
+                      </span>
                     </el-radio>
                     <el-radio
                       v-if="delivery.prices.pickpoint"
                       :label="DELIVERY_METHODS.pickpoint.value"
                       border class="mt-2">
-                      {{ DELIVERY_METHODS.pickpoint.label }} - <b>{{ delivery.prices.pickpoint }}</b>
-                      <span v-html="RUBLE"></span>
+                      {{ DELIVERY_METHODS.pickpoint.label }}
+                      <span v-if="totalDeliveryPrice">
+                        - <b>{{ delivery.prices.pickpoint }}</b><span v-html="RUBLE"></span>
+                      </span>
                     </el-radio>
                     <el-radio
                       v-if="delivery.prices.postrf"
                       :label="DELIVERY_METHODS.postrf.value"
                       border class="mt-2">
-                      {{ DELIVERY_METHODS.postrf.label }} - <b>{{ delivery.prices.postrf }}</b>
-                      <span v-html="RUBLE"></span>
+                      {{ DELIVERY_METHODS.postrf.label }}
+                      <span v-if="totalDeliveryPrice">
+                        - <b>{{ delivery.prices.postrf }}</b><span v-html="RUBLE"></span>
+                      </span>
                     </el-radio>
                   </el-radio-group>
               </div>
@@ -320,7 +324,7 @@
                   <h3 class="mb-1">
                     ОПЛАТА
                   </h3>
-                  <el-radio-group v-model="payment.type" class="mb-4">
+                  <el-radio-group @change="payment.method = ''" v-model="payment.type" class="mb-4">
                     <el-radio :label="PAYMENT_TYPES.online.value" border class="mt-1">
                       {{ PAYMENT_TYPES.online.label }}
                     </el-radio>
@@ -328,9 +332,9 @@
                       {{ PAYMENT_TYPES.receipt.label }}
                     </el-radio>
                   </el-radio-group>
-                  <h4 class="mb-1">
-                    Способ
-                  </h4>
+                  <h3 class="mb-1">
+                    СПОСОБ ОПЛАТЫ
+                  </h3>
                   <el-radio-group v-if="payment.type" v-model="payment.method" class="mb-4">
                     <el-radio :label="PAYMENT_METHODS.bank_card.value" border class="mt-1">
                       {{ PAYMENT_METHODS.bank_card.label }}
@@ -369,7 +373,7 @@
               id="next_step"
               @click="nextStep"
               :type="isValidBuyer ? 'danger' : 'info'"
-              :disabled="!isValidBuyer || (activeStep === 2 && !isValidAddress)">
+              :disabled="!validCheckoutStep">
               Вперед
              </el-button>
         </el-col>
@@ -452,7 +456,8 @@ export default {
     }
   },
   methods: {
-    findDeliveryRegion (regionCode) {
+    changeDeliveryRegion (regionCode) {
+      this.delivery.method = ''
       let prices = this.deliveryDictionary.find(el => el.code === Number(regionCode))
       if (prices) {
         this.delivery.prices = prices
@@ -499,11 +504,11 @@ export default {
       let order = {
         amount: {
           final: {
-            value: parseFloat(this.totalPrice).toFixed(2),
+            value: parseFloat(this.totalProductsPrice).toFixed(2),
             currency: 'RUB'
           },
           products: {
-            value: parseFloat(this.totalPrice).toFixed(2),
+            value: parseFloat(this.totalProductsPrice).toFixed(2),
             currency: 'RUB'
           },
           delivery: {
@@ -547,6 +552,12 @@ export default {
       return this.address.country && this.address.city && this.address.build &&
           this.address.street && this.address.house && this.address.postCode
     },
+    validCheckoutStep () {
+      if (this.activeStep === 1) return this.isValidBuyer
+      if (this.activeStep === 2) return this.isValidAddress
+      if (this.activeStep === 3) return this.delivery.region && this.delivery.method
+      if (this.activeStep === 4) return this.payment.type && this.payment.method
+    },
     orderProducts () {
       let checkoutObj = this.checkoutObj
       let cart = this.$store.getters.user.cart
@@ -558,16 +569,14 @@ export default {
       })
       return products
     },
-    totalPrice () {
-      let total = 0
+    totalProductsPrice () {
       let products = this.orderProducts
-      products.forEach(el => {
-        total += el.qty * el.price
-      })
-      if (this.delivery.method) {
-        total += this.delivery.prices[this.delivery.method]
-      }
+      let total = 0
+      products.forEach(el => { total += el.qty * el.price })
       return total
+    },
+    totalDeliveryPrice () {
+      return this.delivery.method && this.totalProductsPrice < 3000 ? this.delivery.prices[this.delivery.method] : 0
     },
     deliveryDictionary () {
       return this.$store.getters.dictionaries['delivery']
