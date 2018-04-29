@@ -49,7 +49,11 @@ ORDER STATUS CHAIN:
                 </span><br>
                 {{ PAYMENT_TYPES[props.row.payment.type].label }}:
                 {{ PAYMENT_METHODS[props.row.payment.method].label }} <br>
-                Статус: {{ PAYMENT_STATUSES[props.row.payment.status].label }}
+                Статус: {{ PAYMENT_STATUSES[props.row.payment.status].label }} <br>
+                Стоимость товаров: {{ props.row.amount.products.value }} <span v-html="RUBLE"></span><br>
+                Стоимость доставки: {{ props.row.amount.delivery.value }} <span v-html="RUBLE"></span><br>
+                Размер скидки: {{ props.row.amount.discount.value }} <span v-html="RUBLE"></span> <br>
+                Конечная цена: {{ props.row.amount.final.value }} <span v-html="RUBLE"></span> <br>
               </p>
               <h3>
                 <v-icon class="mb-1">info</v-icon>
