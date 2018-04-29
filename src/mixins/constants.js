@@ -94,6 +94,13 @@ export const appConstants = {
         delivered: {value: 'delivered', label: 'Доставлен'},
         refused: {value: 'refused', label: 'Отклонен'}
       },
+      DISCOUNT_TYPES: {
+        online: {
+          value: 3,
+          type: 'online',
+          dim: 'percent'
+        }
+      },
       RUS_REGIONS: {
         1: 'Республика Адыгея (Адыгея)',
         2: 'Республика Башкортостан',

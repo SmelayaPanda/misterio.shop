@@ -2,22 +2,20 @@
   order: {
     amount: {
       final: {
-        value: Number,
+        value: String(0.00),
         currency: "RUB",
       },
       products: {
-        value: Number
+        value: String(0.00),
         currency: "RUB"
       },
       delivery: {
-        value: "",
+        value: String(0.00),
         currency: "RUB"
       },
       discount: {
-        value: Number,
-        currency: '' | 'RUB',
-        type: '' | 'online' | 'instagram' | 'friends',
-        dim: 'percent' | 'money'
+        value: String(0.00),
+        currency: "RUB",
       }
     },
     status: "created" | "pending" | "sent" | "delivered’ | "refused’,
@@ -118,6 +116,10 @@
                 {{ parseFloat(product.price * product.qty).toFixed(2) }}<span v-html="RUBLE"></span>
               </span>
             </div>
+            <div v-if="discount" class="mb-2">
+              <span class="product_title">Скидка:</span>
+              <span class="price_tag">- {{ totalDiscount }}<span v-html="RUBLE"></span></span>
+            </div>
             <!-- DELIVERY COAST -->
             <div v-if="delivery.method" class="mb-3">
               <span class="product_title">
@@ -128,7 +130,7 @@
               </span>
               <span v-else class="product_title">бесплатно</span>
             </div>
-            <p id="total">ИТОГО: {{ totalProductsPrice + totalDeliveryPrice }}<span v-html="RUBLE"></span></p>
+            <p id="total">ИТОГО: {{ totalOrderPrice }}<span v-html="RUBLE"></span></p>
           </div>
         </el-col>
         <el-col :xs="24" :sm="16" :md="14" :lg="12" :xl="10">
@@ -328,7 +330,7 @@
                   <h3 class="mb-1">
                     ОПЛАТА
                   </h3>
-                  <el-radio-group @change="payment.method = ''" v-model="payment.type" class="mb-4">
+                  <el-radio-group @change="changePaymentType" v-model="payment.type" class="mb-4">
                     <el-radio :label="PAYMENT_TYPES.online.value" border class="mt-1">
                       {{ PAYMENT_TYPES.online.label }}
                     </el-radio>
@@ -336,6 +338,10 @@
                       {{ PAYMENT_TYPES.receipt.label }}
                     </el-radio>
                   </el-radio-group>
+                  <p v-if="payment.type === PAYMENT_TYPES.online.value">
+                    <b>Скидка 3% на любой товар!</b><br>
+                    При покупке онлайн на сайте!<br>
+                  </p>
                   <h3 class="mb-1">
                     СПОСОБ ОПЛАТЫ
                   </h3>
@@ -428,6 +434,7 @@ export default {
         type: '',
         method: ''
       },
+      discount: '',
       dialogFormVisible: false,
       activeStep: 1,
       buyer: {
@@ -471,6 +478,14 @@ export default {
       }
       if (Number(regionCode) === 54) this.delivery.courier = true
     },
+    changePaymentType (type) {
+      this.payment.method = ''
+      if (type === this.PAYMENT_TYPES.online.value) {
+        this.discount = this.DISCOUNT_TYPES.online
+      } else {
+        this.discount = ''
+      }
+    },
     clickBuy () {
       this.dialogFormVisible = true
       this.$store.dispatch('USER_EVENT', 'Купить товар')
@@ -508,22 +523,20 @@ export default {
       let order = {
         amount: {
           final: {
-            value: parseFloat(this.totalProductsPrice).toFixed(2),
+            value: parseFloat(this.totalOrderPrice).toFixed(2),
             currency: 'RUB'
           },
           products: {
             value: parseFloat(this.totalProductsPrice).toFixed(2),
             currency: 'RUB'
           },
-          delivery: {
-            value: '',
+          discount: {
+            value: parseFloat(this.totalDiscount).toFixed(2),
             currency: 'RUB'
           },
-          discount: {
-            value: 3,
-            currency: '',
-            type: 'online',
-            dim: 'percent'
+          delivery: {
+            value: parseFloat(this.totalDeliveryPrice).toFixed(2),
+            currency: 'RUB'
           }
         },
         payment: {
@@ -539,7 +552,9 @@ export default {
           address: this.address
         },
         products: products,
-        status: 'created',
+        status: this.PAYMENT_TYPES.receipt.value === this.payment.method
+          ? this.ORDER_STATUSES.pending.value
+          : this.ORDER_STATUSES.created.value,
         history: {'created': new Date()},
         buyer: this.buyer,
         comments: {user: '', admin: ''}
@@ -549,7 +564,7 @@ export default {
     }
   },
   computed: {
-    isValidBuyer () {
+    isValidBuyerData () {
       return this.isValidPhone() && this.isValidEmail() && this.buyer.firstname && this.buyer.lastname
     },
     isValidAddress () {
@@ -557,7 +572,7 @@ export default {
           this.address.street && this.address.house && this.address.postCode
     },
     validCheckoutStep () {
-      if (this.activeStep === 1) return this.isValidBuyer
+      if (this.activeStep === 1) return this.isValidBuyerData
       if (this.activeStep === 2) return this.isValidAddress
       if (this.activeStep === 3) return this.delivery.region && this.delivery.method
       if (this.activeStep === 4) return this.payment.type && this.payment.method
@@ -573,11 +588,28 @@ export default {
       })
       return products
     },
+    totalOrderPrice () {
+      return this.totalProductsPrice - this.totalDiscount + this.totalDeliveryPrice
+    },
     totalProductsPrice () {
       let products = this.orderProducts
       let total = 0
-      products.forEach(el => { total += el.qty * el.price })
+      products.forEach(el => {
+        total += el.qty * el.price
+      })
       return total
+    },
+    totalDiscount () {
+      if (!this.discount) {
+        return 0
+      }
+      let discount = 0
+      if (this.discount.dim === 'percent') {
+        discount = this.totalProductsPrice * this.discount.value / 100
+      } else if (this.discount.dim === 'money') {
+        discount = this.totalProductsPrice - this.discount.value
+      }
+      return discount
     },
     totalDeliveryPrice () {
       return this.delivery.method && this.totalProductsPrice < 3000 ? this.delivery.prices[this.delivery.method] : 0
@@ -592,7 +624,7 @@ export default {
 <style scoped lang="scss">
   .order_info {
     font-size: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
     padding-top: 0;
   }
 

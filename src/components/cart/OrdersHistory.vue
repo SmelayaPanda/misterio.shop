@@ -35,6 +35,9 @@
                 <el-tag type="danger">
                   {{ PAYMENT_STATUSES[order.payment.status].label }}
                 </el-tag>
+                <el-tag type="danger">
+                  {{ ORDER_STATUSES[order.status].label }}
+                </el-tag>
                 <!--PAYPAL-->
                 <!--<pay-pal-paymet-dialog-->
                   <!--:orderId="order.id"-->
