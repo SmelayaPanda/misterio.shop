@@ -21,37 +21,33 @@ let sendOrderEmailNotifyToAdmin = function (transporter, info) {
       from: ADMIN_EMAIL,
       to: ADMIN_EMAIL, DEVELOPER_EMAIL,
       subject: `Новая покупка!`,
-      text:
-        `
-        Покупатель:
+      text: `
+      Покупатель:
 
-        Фамилия Имя _____________ ${info.buyer.lastname} ${info.buyer.firstname}
-        Email ___________________ ${info.buyer.email}
-        Телефон _________________ ${info.buyer.phone}
-        ИД пользователя _________ ${info.userId}
-       
-       
-        Доставка:
-        Страна __________________ ${info.shipping.country}
-        Город ___________________ ${info.shipping.city}
-        Улица ___________________ ${info.shipping.street}
-        Дом _____________________ ${info.shipping.build}
-        Квартира ________________ ${info.shipping.house}
-        Почтовый индекс _________ ${info.shipping.postCode}
-        
-        Способ доставки _________ ${info.deliveryMethod}
-        Способ оплаты ___________ ${info.paymentMethod}
-       
-        Товары:
-        ${products}
-        `
+      Фамилия Имя _____________ ${info.buyer.lastname} ${info.buyer.firstname}
+      Email ___________________ ${info.buyer.email}
+      Телефон _________________ ${info.buyer.phone}
+      ИД пользователя _________ ${info.buyer.userId}
+     
+     
+      Доставка:
+      Страна __________________ ${info.delivery.address.country}
+      Город ___________________ ${info.delivery.address.city}
+      Улица ___________________ ${info.delivery.address.street}
+      Дом _____________________ ${info.delivery.address.build}
+      Квартира ________________ ${info.delivery.address.house}
+      Почтовый индекс _________ ${info.delivery.address.postCode}
+     
+      Товары:
+      ${products}
+      `
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         reject(error)
       } else {
-        resolve('Email sent: ' + info.response)
+        resolve(`Email sent: ${info.response}`)
       }
     });
   })
@@ -63,14 +59,13 @@ let sendOrderEmailNotifyToBuyer = function (transporter, info) {
     let mailOptions = {
       from: ADMIN_EMAIL,
       to: info.buyer.email,
-      subject: `Покупка товара`,
-      text:
-        `${info.buyer.firstname}, спасибо за Вашу покупку на нашем сайте.
+      subject: `Misterio shop: покупка товара`,
+      text: `
+      ${info.buyer.firstname}, спасибо за Вашу покупку на нашем сайте.   
+      Мы свяжемся с Вами по телефону ${info.buyer.phone} в ближайшее время для подтвердения заказа!
          
-         Мы свяжемся с Вами по телефону ${info.buyer.phone} в ближайшее время для подтвердения заказа!
-         
-         ${CONST.EMAIL_SIGN}
-        `
+      ${CONST.EMAIL_SIGN}
+      `
     };
 
     transporter.sendMail(mailOptions, (error, info) => {

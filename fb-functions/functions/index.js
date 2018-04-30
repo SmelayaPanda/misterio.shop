@@ -93,19 +93,18 @@ exports.createNewsThumbnail = functions
   .onFinalize((object, context) => {
     return createNewsThumbnail.handler(object, context, admin)
   })
+
 // HTTP
 exports.processPayPal = functions
   .https
   .onRequest((req, res) => {
     processPayPal.handler(req, res, admin, transporter)
   })
-
 exports.createYandexPayment = functions
   .https
   .onRequest((req, res) => {
     return createYandexPayment.handler(req, res, admin, transporter)
   })
-
 // exports.patchAlgoliaIndex = functions
 //   .https
 //   .onRequest((req, res) => {

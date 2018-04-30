@@ -18,21 +18,18 @@ let sendOneClickEmailNotifyToAdmin = function (transporter, info) {
       from: ADMIN_EMAIL,
       to: ADMIN_EMAIL, DEVELOPER_EMAIL,
       subject: `Новая покупка в один клик!`,
-      text:
-        `
-        Покупатель:
-
-        Имя ............................. ${info.firstname}
-        Email ......................... ${info.email}
-        Телефон ................... ${info.phone}
-        ИД пользователя ...... ${info.userId}
-       
-       
-        Товар:
-        Артикул ................... ${info.product.SKU}
-        Название ................. ${info.product.title}
-        Цена ......................... ${info.product.price} РУБ
-        `
+      text: `
+      Покупатель:
+      Имя _____________________ ${info.buyer.firstname}
+      Email ___________________ ${info.buyer.email}
+      Телефон _________________ ${info.buyer.phone}
+      ИД пользователя _________ ${info.buyer.userId}
+     
+      Товар:
+      Артикул _________________ ${info.products[0].SKU}
+      Название ________________ ${info.products[0].title}
+      Цена ____________________ ${info.products[0].price} РУБ
+      `
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -50,15 +47,14 @@ let sendOneClickEmailNotifyToBuyer = function (transporter, info) {
   return new Promise(((resolve, reject) => {
     let mailOptions = {
       from: ADMIN_EMAIL,
-      to: info.email,
-      subject: `Покупка в один клик`,
-      text:
-        `${info.firstname}, спасибо за Вашу заявку на "${info.product.title}".
-         
-         Мы свяжемся с Вами по телефону ${info.phone} в ближайшее время для уточнения деталей!
-         
-         ${CONST.EMAIL_SIGN}
-        `
+      to: info.buyer.email,
+      subject: `Misterio Shop: Покупка в один клик`,
+      text: `
+      ${info.firstname}, спасибо за Вашу заявку на "${info.products[0].title}".   
+      Мы свяжемся с Вами по телефону ${info.buyer.phone} в ближайшее время для уточнения деталей!
+
+      ${CONST.EMAIL_SIGN}
+      `
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
