@@ -107,9 +107,15 @@ export default {
   methods: {
     tokenizeCard: function () {
       this.isTokenizeInProcess = true
-      let yandexCheckout = window.YandexCheckout(505369)
+      let yandexCheckout
+      if (process.env.NODE_ENV === 'production') {
+        yandexCheckout = window.YandexCheckout(196390)
+      } else if (process.env.NODE_ENV === 'development') {
+        yandexCheckout = window.YandexCheckout(505369)
+      }
       yandexCheckout.tokenize(this.card)
         .then(res => {
+          console.log(res)
           if (res.status === 'success') { // OK - tokenize
             this.isTokenizeInProcess = false
             const {paymentToken} = res.data.response
@@ -119,8 +125,11 @@ export default {
             this.isTokenizeInProcess = false
             const {params} = res.error
             let msg = 'Ошибка: '
-            for (let p of params) {
-              msg += p.message + '. '
+            if (params) {
+              params.forEach(el => { msg += el.message + '. ' })
+            } else {
+              msg += 'что-то пошло не так, обратитесь к администратору.'
+              this.$store.dispatch('LOG', res)
             }
             this.tokenizeError = msg
           }

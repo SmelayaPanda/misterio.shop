@@ -4,9 +4,7 @@
       <i class="el-icon-service" style="transform: scale(1.1)"></i>
     </el-button>
 
-    <app-loader v-if="this.isLoading"></app-loader>
     <el-dialog
-      v-else
       title="Обработать заявку"
       :visible.sync="dialogFormVisible"
       width="100%"
