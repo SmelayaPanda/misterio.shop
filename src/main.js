@@ -32,7 +32,6 @@ import {appConstants} from '@/mixins/constants'
 import {image} from '@/mixins/image'
 import {isLoading} from '@/mixins/loading'
 import {appError} from '@/mixins/error'
-import {purchaseStatuses} from '@/mixins/purchaseStatuses'
 // SHARED
 import AlertComp from '@/components/shared/Alert'
 import Loader from '@/components/shared/Loader'
@@ -53,7 +52,6 @@ Vue.mixin(authMixin)
 Vue.mixin(image)
 Vue.mixin(isLoading)
 Vue.mixin(appError)
-Vue.mixin(purchaseStatuses)
 Vue.filter('date', DateFilter)
 Vue.filter('newsDate', NewsDateFilter)
 Vue.filter('adminDate', AdminDateFilter)
