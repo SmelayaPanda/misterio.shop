@@ -2,7 +2,7 @@
   <el-row type="flex" justify="center">
     <el-col :span="22" class="mt-3">
       <v-divider class="mb-3 mt-4"></v-divider>
-      <h3>Стоимость доставки
+      <h3>Доставка по России
       <v-tooltip right>
           <v-icon slot="activator">lightbulb_outline</v-icon>
         <span class="text-xs-center">
