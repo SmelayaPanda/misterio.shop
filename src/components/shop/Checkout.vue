@@ -3,22 +3,22 @@
     amount: {
       final: {
         value: String(0.00),
-        currency: "RUB",
+        currency: 'RUB',
       },
       products: {
         value: String(0.00),
-        currency: "RUB"
+        currency: 'RUB'
       },
       delivery: {
         value: String(0.00),
-        currency: "RUB"
+        currency: 'RUB'
       },
       discount: {
         value: String(0.00),
-        currency: "RUB",
+        currency: 'RUB',
       }
     },
-    status: "created" | "pending" | "sent" | "delivered’ | "refused’,
+    status: 'created' | 'pending' | 'sent' | 'delivered’ | 'refused’,
     history: {
       created: Date,
       pending: Date,
@@ -27,10 +27,10 @@
       refused: Date
     },
     payment: {
-      status: "none" | "pending" | "waiting_for_capture" | "succeeded" | "canceled"
+      status: 'none' | 'pending' | 'waiting_for_capture' | 'succeeded' | 'canceled'
       full: Boolean(true = full, false = part)
-      type: "receipt" | "online"
-      method: "cash" | "bank_card"  ("sberbank" | "yandex_money" | "qiwi" | "alfabank" | "webmoney" | "apple_pay" | "mobile_balance" | "installments")
+      type: 'receipt' | 'online'
+      method: 'cash' | 'bank_card'  ('sberbank' | 'yandex_money' | 'qiwi' | 'alfabank' | 'webmoney' | 'apple_pay' | 'mobile_balance' | 'installments')
       history: {
         pending: Date,
         waiting_for_capture: Date,
@@ -38,44 +38,44 @@
         canceled: Date
       },
       notification: { // Yandex Payment Response Obj
-        pending: obj,
-        waiting_for_capture: obj,
-        succeeded: obj,
-        canceled: obj
+        pending: Object,
+        waiting_for_capture: Object,
+        succeeded: Object,
+        canceled: Object
       }
     },
     delivery: {
-      method: "courier" | "cdek" | "pickpoint" | "postrf",
-      region: '',
-      district: '',
+      method: 'courier' | 'cdek' | 'pickpoint' | 'postrf',
+      region: String,
+      district: String,
       address: {
-        country: "",
-        city: "",
-        street: "",
-        build: "",
-        house: "",
-        postCode: ""
+        country: String,
+        city: String,
+        street: String,
+        build: String,
+        house: String,
+        postCode: String
       }
     },
     products: [{
-        id: "",
-        SKU: "",
-        title: "",
-        price: "",
-        currency: "",
-        qty: ""
+        id: String,
+        SKU: String,
+        title: String,
+        price: String,
+        currency: String,
+        qty: String
       }
     ],
     buyer: {
-      userId: "",
-      firstname: "",
-      lastname: "",
-      email: "",
-      phone: ""
+      userId: String,
+      firstname: String,
+      lastname: String,
+      email: String,
+      phone: String
     },
     comments: {
-      user: "",
-      admin: ""
+      user: String,
+      admin: String
     }
 }
 -->
@@ -441,6 +441,8 @@ export default {
       }, 1000)
     }
     return {
+      dialogFormVisible: false,
+      activeStep: 1,
       delivery: {
         region: '',
         district: '',
@@ -457,8 +459,6 @@ export default {
         method: ''
       },
       discount: '',
-      dialogFormVisible: false,
-      activeStep: 1,
       buyer: {
         firstname: 'ALEXEY',
         lastname: 'AZAROV',

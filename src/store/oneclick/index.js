@@ -74,8 +74,8 @@ export default {
         firebase.firestore().collection('oneclick').doc(payload.id).update(payload.updateData)
           .then(() => {
             if (payload.updateData.status === 'pending') { // processed oneclick
-              return firebase.firestore().collection('products')
-                .doc(payload.productId).update({totalQty: payload.totalQty > 0 ? payload.totalQty : 0})
+              return firebase.firestore().collection('products').doc(payload.product.id)
+                .update({totalQty: payload.product.newTotalQty})
             }
           })
           .then(() => {
