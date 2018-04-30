@@ -23,7 +23,7 @@ Common table for one click and orders
               <span class="info_title">
                   Оплата:
                 </span><br>
-              <span v-if="Object.keys(props.row.payment).length">
+              <span v-if="props.row.payment.type && props.row.payment.method && props.row.payment.status">
                 {{ PAYMENT_TYPES[props.row.payment.type].label }}:
                 {{ PAYMENT_METHODS[props.row.payment.method].label }} <br>
                 Статус: {{ PAYMENT_STATUSES[props.row.payment.status].label }} <br>
@@ -59,7 +59,7 @@ Common table for one click and orders
               Дом: {{ props.row.delivery.address.house }}<br>
               Почтовый индекс: {{ props.row.delivery.address.postCode }}<br>
             </p>
-            <p>
+            <p v-if="props.row.delivery.method">
               <v-icon class="mb-1">airplanemode_active</v-icon>
               <span class="info_title">Способ доставки:</span><br>
               {{ DELIVERY_METHODS[props.row.delivery.method].label }}
@@ -78,7 +78,8 @@ Common table for one click and orders
           </el-col>
         </el-row>
         <el-row>
-          <el-col v-if="props.row.payment && props.row.payment.notification" :span="24">
+          <el-col v-if="props.row.payment && props.row.payment.notification &&
+                        props.row.payment.notification.succeeded" :span="24">
             Чековая информация по оплате:
             <v-switch v-model="props.row.showDetails"></v-switch>
             <p v-if="props.row.showDetails">{{ props.row.payment.notification.succeeded }}</p>
