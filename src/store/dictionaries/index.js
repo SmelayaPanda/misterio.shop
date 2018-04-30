@@ -7,7 +7,8 @@ export default {
       colors: [],
       countries: [],
       materials: [],
-      delivery: []
+      delivery: [],
+      courier: []
     }
   },
   mutations: {

@@ -17,7 +17,6 @@
         v-if="delivery"
         :headers="headers"
         :items="delivery"
-        :search="search"
         hide-actions>
         <template slot="items" slot-scope="props">
           <td>{{ props.item.code }}</td>
@@ -76,7 +75,6 @@ export default {
   },
   data () {
     return {
-      search: '',
       headers: [
         {
           text: 'Код',

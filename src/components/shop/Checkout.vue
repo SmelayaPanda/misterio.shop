@@ -45,7 +45,9 @@
       }
     },
     delivery: {
-      method: "courier" | "cdek" | "pickpoint" | "postrf"
+      method: "courier" | "cdek" | "pickpoint" | "postrf",
+      region: '',
+      district: '',
       address: {
         country: "",
         city: "",
@@ -262,10 +264,10 @@
                     class="mb-3"
                     placeholder="Выберите регион">
                     <el-option
-                      v-for="(regionCode, name) in RUS_REGIONS"
-                      :key="regionCode"
-                      :label="regionCode"
-                      :value="name">
+                      v-for="(regionName, code) in RUS_REGIONS"
+                      :key="regionName"
+                      :label="regionName"
+                      :value="code">
                     </el-option>
                   </el-select>
                   <el-tooltip placement="bottom" class="item">
@@ -275,20 +277,20 @@
                       Если вы находитесь в другой стране, то мы готовы рассмотреть Вашу заявку в индивидуальном плане,<br>
                       для этого свяжитесь с нами по телефону горячей линии {{ this.$store.getters.companyInfo.contacts.phone }}
                     </span>
-                  </el-tooltip>
+                  </el-tooltip> <br>
                   <p v-if="delivery.region && totalProductsPrice > 3000">
                     Бесплатная доставка любым выбранным способом! <br>
                     <span style="font-size: 12px;">* действительно при покупке от 3000 рублей</span>
                   </p>
-                  <p v-if="delivery.region && !delivery.courier && !delivery.prices.cdek
-                       && !delivery.prices.pickpoint && !delivery.prices.postrf"
+                  <p v-if="delivery.region && Number(delivery.region) !== 54 &&
+                          !delivery.prices.cdek && !delivery.prices.pickpoint && !delivery.prices.postrf"
                      class="mt-2">
                     К сожалению доставка в Ваш регион на данный момент не осуществляется.
                     Для уточнения свяжитесь с нами по телефону горячей линии {{ this.$store.getters.companyInfo.contacts.phone }}
                   </p>
-                  <el-radio-group v-model="delivery.method" class="mb-4">
+                  <el-radio-group @change="changeDeliveryMethod" v-model="delivery.method" class="mb-4">
                     <el-radio
-                      v-if="delivery.courier"
+                      v-if="Number(delivery.region) === 54"
                       :label="DELIVERY_METHODS.courier.value"
                       border class="mt-2">{{ DELIVERY_METHODS.courier.label }}</el-radio>
                     <el-radio
@@ -319,6 +321,25 @@
                       </span>
                     </el-radio>
                   </el-radio-group>
+                  <br>
+                  <el-select
+                    v-if="delivery.method === DELIVERY_METHODS.courier.value"
+                    v-model="delivery.district"
+                    @change="changeCourierDistrict"
+                    no-data-text="Отсутвует"
+                    no-match-text="Отсутвует"
+                    filterable
+                    size="large"
+                    class="mb-3 mr-3"
+                    placeholder="Выберите регион">
+                    <el-option
+                      v-for="(districtName, code) in NSK_DISTRICTS"
+                      :key="districtName"
+                      :label="districtName"
+                      :value="code"
+                      :disabled="!districtWithDelivery(code)">
+                    </el-option>
+                  </el-select>
               </div>
             </el-col>
           </el-row>
@@ -422,13 +443,14 @@ export default {
     return {
       delivery: {
         region: '',
+        district: '',
         method: '',
         prices: {
           cdek: '',
           pickpoint: '',
-          postrf: ''
-        },
-        courier: false // only 54 region
+          postrf: '',
+          courier: '' // only 54 region
+        }
       },
       payment: {
         type: '',
@@ -474,9 +496,25 @@ export default {
         this.delivery.prices = prices
       } else {
         this.delivery.prices = {cdek: '', pickpoint: '', postrf: ''}
-        this.delivery.courier = false
       }
-      if (Number(regionCode) === 54) this.delivery.courier = true
+    },
+    changeDeliveryMethod (method) {
+      if (method === this.DELIVERY_METHODS.courier.value && !this.delivery.district) {
+        let prices = this.delivery.prices
+        prices.courier = 0
+        this.delivery.prices = {...prices}
+      }
+    },
+    changeCourierDistrict (districtCode) {
+      let courier = this.courierDictionary.find(el => el.code === Number(districtCode))
+      let prices = this.delivery.prices
+      prices.courier = courier.price
+      this.delivery.prices = {...prices}
+    },
+    districtWithDelivery (districtCode) {
+      let courier = this.courierDictionary.find(el => el.code === Number(districtCode))
+      if (courier) return courier.price > 0
+      else return false
     },
     changePaymentType (type) {
       this.payment.method = ''
@@ -546,6 +584,8 @@ export default {
         },
         delivery: {
           method: this.delivery.method,
+          region: this.delivery.region,
+          district: this.delivery.district ? this.delivery.district : '',
           address: this.address
         },
         products: products,
@@ -569,7 +609,13 @@ export default {
     validCheckoutStep () {
       if (this.activeStep === 1) return this.isValidBuyerData
       if (this.activeStep === 2) return this.isValidAddress
-      if (this.activeStep === 3) return this.delivery.region && this.delivery.method
+      if (this.activeStep === 3) {
+        if (Number(this.delivery.region) === 54) {
+          return this.delivery.region && this.delivery.district && this.delivery.method
+        } else {
+          return this.delivery.region && this.delivery.method
+        }
+      }
       if (this.activeStep === 4) return this.payment.type && this.payment.method
     },
     orderProducts () {
@@ -611,6 +657,9 @@ export default {
     },
     deliveryDictionary () {
       return this.$store.getters.dictionaries['delivery']
+    },
+    courierDictionary () {
+      return this.$store.getters.dictionaries['courier']
     }
   }
 }
