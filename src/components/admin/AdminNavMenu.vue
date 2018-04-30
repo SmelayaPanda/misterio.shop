@@ -23,7 +23,7 @@
         <v-icon>description</v-icon>
         <span slot="title">Покупки</span>
       </el-menu-item>
-      <el-menu-item index="/admin/oneClick" route="/admin/oneClick">
+      <el-menu-item index="/admin/oneclick" route="/admin/oneclick">
         <v-icon>touch_app</v-icon>
         <span slot="title">Один клик</span>
       </el-menu-item>

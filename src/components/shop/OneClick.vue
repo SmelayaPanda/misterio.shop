@@ -1,12 +1,15 @@
+<!--
+Structure of one click identical with order:
+@see Checkout.vue
+-->
 <template>
 <span>
-  <!--TODO: how confirm one click person?-->
   <!--TODO: sort by date decs-->
     <el-button
       v-if="!alreadyAddedProduct"
       id="oneclick_btn"
       :disabled="disabled"
-      @click="buyOneClick">
+      @click="openOneClickDialog">
       <span>
         В один клик
       </span>
@@ -40,7 +43,7 @@
                           placeholder="Номер телефона"/>
           </el-form-item>
           <el-button type="danger"
-                     @click="addOneClick"
+                     @click="oneClickBuy"
                      :disabled="!isValidForm">
             Отправить заявку!
           </el-button>
@@ -95,31 +98,48 @@ export default {
     }
   },
   methods: {
-    buyOneClick () {
-      this.$store.dispatch('USER_EVENT', 'Купить в один клик')
+    openOneClickDialog () {
       this.dialogVisible = true
+      this.$store.dispatch('USER_EVENT', 'Купить в один клик')
     },
     closeOneClick () {
       this.dialogVisible = false
       this.$store.dispatch('USER_EVENT', 'Отмена')
     },
-    addOneClick () {
-      this.$store.dispatch('USER_EVENT', 'Товар куплен в один клик!')
+    oneClickBuy () {
       this.dialogVisible = false
 
-      this.$store.dispatch('addOneClick', {
-        firstname: this.oneClickForm.firstname,
-        email: this.oneClickForm.email,
-        phone: this.oneClickForm.phone,
-        userId: this.$store.getters.user.uid,
-        title: this.product.title,
-        price: this.product.price,
-        SKU: this.product.SKU,
-        productId: this.product.productId,
-        qty: 1,
-        creationDate: new Date(),
-        status: 'created'
-      })
+      let oneclick = {
+        amount: {
+          final: {value: 1, currency: 'RUB'},
+          products: {value: String(0.00), currency: 'RUB'},
+          delivery: {value: String(0.00), currency: 'RUB'},
+          discount: {value: String(0.00), currency: 'RUB'}
+        },
+        status: 'created',
+        history: {created: new Date()},
+        payment: {},
+        delivery: {},
+        products: [{
+          id: this.product.productId,
+          SKU: this.product.SKU,
+          title: this.product.title,
+          price: this.product.price,
+          currency: 'RUB',
+          qty: 1
+        }],
+        buyer: {
+          userId: this.$store.getters.user.uid,
+          firstname: this.oneClickForm.firstname,
+          lastname: '',
+          email: this.oneClickForm.email,
+          phone: this.oneClickForm.phone
+        },
+        comments: {user: '', admin: ''}
+      }
+
+      this.$store.dispatch('addOneClick', oneclick)
+      this.$store.dispatch('USER_EVENT', 'Товар куплен в один клик!')
     },
     isValidEmail () {
       return /^\S+@\S+\.\S+$/.test(this.oneClickForm.email)

@@ -10,22 +10,22 @@
       width="100%"
       :fullscreen="true"
       center>
-      <el-row type="flex" justify="center" v-if="oneClick">
+      <el-row type="flex" justify="center" v-if="oneclick">
         <el-col :xs="24" :sm="20" :md="10" :lg="8" :xl="6">
           <el-card>
-            <h3>{{ oneClick.firstname }}</h3>
+            <h3>{{ oneclick.firstname }}</h3>
             <p>
-              <i class="el-icon-phone"> </i> {{ oneClick.phone }}<br>
-              <i class="el-icon-message"></i> {{ oneClick.email }}
+              <i class="el-icon-phone"> </i> {{ oneclick.phone }}<br>
+              <i class="el-icon-message"></i> {{ oneclick.email }}
             </p>
             <v-divider></v-divider>
             <h3>Товар: </h3>
             <p>
-              Название: {{ oneClick.title }}<br>
-              Артикул: {{ oneClick.SKU }}<br>
-              Цена: {{ oneClick.price }} <span v-html="RUBLE"></span>
+              Название: {{ oneclick.title }}<br>
+              Артикул: {{ oneclick.SKU }}<br>
+              Цена: {{ oneclick.price }} <span v-html="RUBLE"></span>
             </p>
-            <p class="right">{{ oneClick.creationDate | date }}</p>
+            <p class="right">{{ oneclick.creationDate | date }}</p>
           </el-card>
         </el-col>
       </el-row>
@@ -179,7 +179,7 @@ export default {
     openProcessDialog () {
       this.dialogFormVisible = true
       this.$store.dispatch('LOADING', true)
-      firebase.firestore().collection('products').doc(this.oneClick.productId).get()
+      firebase.firestore().collection('products').doc(this.oneclick.productId).get()
         .then((snap) => {
           this.product = snap.data()
           this.$store.dispatch('LOADING', false)
@@ -191,8 +191,8 @@ export default {
     }
   },
   computed: {
-    oneClick () {
-      return this.$store.getters.oneClick[this.oneClickId]
+    oneclick () {
+      return this.$store.getters.oneclick[this.oneClickId]
     },
     isValidForm () {
       return this.firstname && this.lastname &&
