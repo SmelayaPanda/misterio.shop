@@ -100,8 +100,8 @@ export const appConstants = {
         archived: {value: 'archived', label: 'Архив'}
       },
       NEWS_TYPES: {
-        article: {value: 'article', label: 'Статья'},
-        sale: {value: 'sale', label: 'Акция'}
+        article: {value: 'article', label: 'Статьи'},
+        sale: {value: 'sale', label: 'Акции'}
       },
       DISCOUNT_TYPES: {
         online: {

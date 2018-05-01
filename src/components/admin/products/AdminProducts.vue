@@ -24,7 +24,7 @@
       <!-- TODO: pagination table!-->
       <el-table-column type="expand">
         <template slot-scope="props">
-          <p><span>Database id:</span>
+          <p><span>ИД:</span>
             <el-tag v-if="props.row.productId" size="mini" type="success">
               {{ props.row.productId }}
             </el-tag>

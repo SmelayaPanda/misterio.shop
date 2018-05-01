@@ -61,7 +61,7 @@
       </v-toolbar-items>
     </v-toolbar>
     <!--No admin case-->
-    <v-container v-if="!this.isAdmin">
+    <el-row v-if="!this.isAdmin">
       <v-card>
         <!--Alert message-->
         <v-layout row v-if="error">
@@ -73,15 +73,20 @@
           </v-flex>
         </v-layout>
 
-        <p align="center" class="pt-2">Для доступа к функционалу необходимо зайти как администратор</p>
+        <h3 align="center" class="primary_a--text pt-3">
+          Для доступа к функционалу необходимо зайти как <v-icon>fingerprint</v-icon> администратор
+
+        </h3>
         <v-card-text>
-          <p>Developer info</p>
-          <p>Alexey Azarov</p>
-          <p>8 (999) 467 78 57</p>
-          <p>smelayapandagm@gmail.com</p>
+          <p><b>Developer info</b><br>
+            <v-icon>code</v-icon>
+            <br>
+            Alexey Azarov <br>
+            8 (999) 467 78 57 <br>
+            smelayapandagm@gmail.com</p>
         </v-card-text>
       </v-card>
-    </v-container>
+    </el-row>
 
     <el-row type="flex" justify="start" v-if="this.isAdmin">
       <el-col style="width: 180px">

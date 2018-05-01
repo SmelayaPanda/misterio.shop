@@ -5,9 +5,6 @@
       justify="center"
       id="admin_news_title_wrap">
       <el-col align="left">
-        <span id="admin_news_title">
-          Новости
-        </span>
         <el-radio-group @change="loadNews" v-model="type" id="news_types">
           <el-radio-button :label="NEWS_TYPES.article.value">{{ NEWS_TYPES.article.label }}</el-radio-button>
           <el-radio-button :label="NEWS_TYPES.sale.value">{{ NEWS_TYPES.sale.label }}</el-radio-button>
@@ -61,7 +58,7 @@ export default {
       type: 'sale',
       addNewsDialog: false,
       curPage: 1,
-      pageSize: 5
+      pageSize: 6
     }
   },
   methods: {
@@ -97,16 +94,7 @@ export default {
 
 <style scoped lang="scss">
   #admin_news_title_wrap {
-    margin: 10px 0 30px 20px;
+    margin: 10px 0 30px 30px;
     align-items: center;
-  }
-
-  #admin_news_title {
-    font-size: 20px;
-    font-weight: 500;
-    margin-right: 10px;
-  }
-
-  #news_types {
   }
 </style>

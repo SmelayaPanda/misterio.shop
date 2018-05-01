@@ -58,7 +58,7 @@ export default {
     return {
       status: 'created',
       curPage: 1,
-      pageSize: 6
+      pageSize: 5
     }
   },
   methods: {
