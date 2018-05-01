@@ -35,9 +35,8 @@ export default {
           .then(snapshot => {
             let oneclicks = {}
             snapshot.docs.forEach(doc => {
-              let oneclick = doc.data()
-              oneclick.id = doc.id
-              oneclicks[doc.id] = oneclick
+              oneclicks[doc.id] = doc.data()
+              oneclicks[doc.id].id = doc.id
             })
             commit('setOneClick', {...oneclicks})
             commit('LOADING', false)

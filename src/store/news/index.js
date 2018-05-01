@@ -29,6 +29,7 @@ export default {
             let news = {}
             snap.docs.forEach(doc => {
               news[doc.id] = doc.data()
+              news[doc.id].id = doc.id
             })
             commit('setNews', {...news})
             commit('LOADING', false)
@@ -43,10 +44,8 @@ export default {
           .then(docRef => {
             let news = getters.news
             news[docRef.id] = payload
+            news[docRef.id].id = docRef.id
             commit('setNews', {...news})
-            return firebase.firestore().collection('news').doc(docRef.id).update({id: docRef.id})
-          })
-          .then(() => {
             commit('LOADING', false)
           })
           .catch(err => dispatch('LOG', err))

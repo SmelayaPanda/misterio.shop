@@ -39,10 +39,9 @@ export default {
         query.orderBy('history.created', 'desc').get()
           .then(snap => {
             snap.docs.forEach(doc => {
-              let order = doc.data()
-              order.showDetails = false // for collapse details
-              order.id = doc.id
-              orders[doc.id] = order
+              orders[doc.id] = doc.data()
+              orders[doc.id].id = doc.id
+              orders[doc.id].showDetails = false // for collapse details
             })
             commit('setOrders', {...orders})
             commit('LOADING', false)

@@ -229,7 +229,7 @@ export default {
         if (user.favorites) {
           user.favorites.forEach(pId => actions.push(loadProduct(pId, 'favorites')))
         }
-        Promise.all(actions)
+        return Promise.all(actions)
           .then(() => {
             user.cart = cart
             user.favorites = favorites

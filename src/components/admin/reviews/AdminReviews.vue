@@ -11,10 +11,10 @@
         placeholder="Бренд"
         @change="loadStatusReviews">
         <el-option
-          v-for="val in statuses"
-          :key="val"
-          :label="val"
-          :value="val">
+          v-for="status in REVIEW_STATUSES"
+          :key="status.value"
+          :label="status.label"
+          :value="status.value">
         </el-option>
       </el-select>
     </el-row>
@@ -28,8 +28,11 @@
         <template slot-scope="props">
           <el-row>
             <el-col :span="22" class="pl-1">
-              <p><span>ИД:</span>
+              <p><span>ИД отзыва:</span>
                 <el-tag size="mini" type="success">{{ props.row.id }}</el-tag>
+              </p>
+              <p><span>ИД пользователя:</span>
+                <el-tag size="mini" type="success">{{ props.row.userId }}</el-tag>
               </p>
               <h3><i class="el-icon-info"></i>
                 Отзыв:
@@ -64,7 +67,7 @@
         <template slot-scope="scope">
           <span>
             <el-tag type="success" v-if="scope.row.corrected">+</el-tag>
-            <v-chip outline label color="info_a"  v-else>-</v-chip>
+            <v-chip outline label color="info_a" v-else>-</v-chip>
           </span>
         </template>
       </el-table-column>
@@ -120,7 +123,6 @@ export default {
   data () {
     return {
       status: 'created',
-      statuses: ['created', 'published', 'archived'],
       curPage: 1,
       pageSize: 6
     }

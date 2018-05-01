@@ -204,7 +204,6 @@ export default {
             }
             let newProduct = {[snap.id]: Object.assign(updateData, payload)}
             products = Object.assign(newProduct, products)
-            // products[snap.id] = Object.assign(updateData, payload)
             return firebase.firestore().collection('products').doc(snap.id).update(updateData)
           })
           .then(() => {

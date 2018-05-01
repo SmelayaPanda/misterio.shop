@@ -94,6 +94,11 @@ export const appConstants = {
         delivered: {value: 'delivered', label: 'Доставлено'},
         refused: {value: 'refused', label: 'Отклонено'}
       },
+      REVIEW_STATUSES: {
+        created: {value: 'created', label: 'Новые'},
+        published: {value: 'published', label: 'Опубликовано'},
+        archived: {value: 'archived', label: 'Архив'}
+      },
       DISCOUNT_TYPES: {
         online: {
           value: 3,

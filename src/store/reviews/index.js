@@ -45,7 +45,7 @@ export default {
     addReview:
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
-        // TODO: add userId to payload and change security rule!
+        payload.userId = getters.user.uid
         firebase.firestore().collection('reviews').add(payload)
           .then(() => {
             commit('LOADING', false)
@@ -59,10 +59,7 @@ export default {
               offset: 50
             })
           })
-          .catch(err => {
-            dispatch('LOG', err)
-            commit('LOADING', false)
-          })
+          .catch(err => dispatch('LOG', err))
       },
     updateReview:
       ({commit, dispatch}, payload) => {
