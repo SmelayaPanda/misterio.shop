@@ -19,7 +19,7 @@ let sendOrderEmailNotifyToAdmin = function (transporter, info) {
 
     let mailOptions = {
       from: ADMIN_EMAIL,
-      to: ADMIN_EMAIL, DEVELOPER_EMAIL,
+      to: [ADMIN_EMAIL, DEVELOPER_EMAIL].toString(),
       subject: `Новая покупка!`,
       text: `
       Покупатель:

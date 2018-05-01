@@ -56,19 +56,12 @@ global.YANADEX_SHOPID = functions.config().yandex.shopid;
 global.YANADEX_SECRET_KEY = functions.config().yandex.secretkey;
 
 let nodemailer = require('nodemailer')
-let transporter = nodemailer.createTransport({
+// Can be only one transporter instance
+let mailTransporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: ADMIN_EMAIL,
     pass: ADMIN_PASS
-  }
-});
-
-let devTransporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: DEVELOPER_EMAIL,
-    pass: DEVELOPER_PASS
   }
 });
 
@@ -98,12 +91,12 @@ exports.createNewsThumbnail = functions
 exports.processPayPal = functions
   .https
   .onRequest((req, res) => {
-    processPayPal.handler(req, res, admin, transporter)
+    processPayPal.handler(req, res, admin, mailTransporter)
   })
 exports.createYandexPayment = functions
   .https
   .onRequest((req, res) => {
-    return createYandexPayment.handler(req, res, admin, transporter)
+    return createYandexPayment.handler(req, res, admin, mailTransporter)
   })
 // exports.patchAlgoliaIndex = functions
 //   .https
@@ -114,14 +107,14 @@ exports.createYandexPayment = functions
 exports.processYandexPayment = functions
   .https
   .onRequest((req, res) => {
-    return processYandexPayment.handler(req, res, admin, transporter)
+    return processYandexPayment.handler(req, res, admin, mailTransporter)
   })
 // DATABASE
 // oneclick
 exports.onCreateOneClick = functions.firestore
   .document('oneclick/{oneClickId}')
   .onCreate((snap, context) => {
-    return sendOneClickNotification.handler(snap, context, transporter)
+    return sendOneClickNotification.handler(snap, context, mailTransporter)
   })
 exports.onWriteOneClick = functions.firestore
   .document('oneclick/{oneClickId}')
@@ -132,7 +125,7 @@ exports.onWriteOneClick = functions.firestore
 exports.onCreateOrder = functions.firestore
   .document('orders/{orderId}')
   .onCreate((snap, context) => {
-    return sendOrderNotification.handler(snap, context, transporter)
+    return sendOrderNotification.handler(snap, context, mailTransporter)
   })
 exports.onWriteOrder = functions.firestore
   .document('orders/{orderId}')
@@ -143,7 +136,7 @@ exports.onWriteOrder = functions.firestore
 exports.onCreateReview = functions.firestore
   .document('reviews/{reviewId}')
   .onCreate((snap, context) => {
-    return sendReviewNotification.handler(snap, context, transporter)
+    return sendReviewNotification.handler(snap, context, mailTransporter)
   })
 exports.onWriteReview = functions.firestore
   .document('reviews/{reviewId}')
@@ -168,13 +161,13 @@ exports.onDeleteProduct = functions.firestore
 exports.onCreateUnreadLiveChatMsg = functions
   .database.ref('unreadLiveChat/{msgId}')
   .onCreate((snap, context) => {
-    return sendUnreadLiveChatEmail.handler(snap, context, admin, transporter)
+    return sendUnreadLiveChatEmail.handler(snap, context, admin, mailTransporter)
   })
 // error log
 exports.errLog = functions
   .database.ref('errLog/{oneClickId}')
   .onCreate((snap, context) => {
-    return notifyDeveloperAboutError.handler(snap, context, devTransporter)
+    return notifyDeveloperAboutError.handler(snap, context, mailTransporter)
   })
 
 // onWrite = created, updated, or deleted

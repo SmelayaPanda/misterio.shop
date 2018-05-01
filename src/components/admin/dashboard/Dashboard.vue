@@ -11,8 +11,8 @@
             </h3>
           </div>
           <div v-if="orderStatistics" align="left" style="padding-left: 10%">
-            <p><v-chip outline label color="danger_a">{{ orderStatistics.payPending }}</v-chip> ожидают оплаты</p>
-            <p><v-chip outline label color="danger_a">{{ orderStatistics.sentPending }}</v-chip> ожидают отправки</p>
+            <p><v-chip outline label color="danger_a">{{ orderStatistics.created }}</v-chip> ожидают оплаты</p>
+            <p><v-chip outline label color="danger_a">{{ orderStatistics.pending }}</v-chip> ожидают отправки</p>
             <p><v-chip outline label color="info_a">{{ orderStatistics.sent }}</v-chip> отправлено</p>
             <p><v-chip outline label color="success_a">{{ orderStatistics.delivered }}</v-chip> доставлено</p>
             <p><v-chip outline label color="warning_a">{{ orderStatistics.refused }}</v-chip> отклонено</p>
@@ -31,7 +31,7 @@
           </div>
           <div v-if="oneClickStatistics" align="left" style="padding-left: 10%">
             <p><v-chip outline label color="danger_a">{{ oneClickStatistics.created }}</v-chip> новые</p>
-            <p><v-chip outline label color="danger_a">{{ oneClickStatistics.sentPending }}</v-chip> ожидают отправки</p>
+            <p><v-chip outline label color="danger_a">{{ oneClickStatistics.pending }}</v-chip> ожидают отправки</p>
             <p><v-chip outline label color="info_a">{{ oneClickStatistics.sent }}</v-chip> отправлено</p>
             <p><v-chip outline label color="success_a">{{ oneClickStatistics.delivered }}</v-chip> доставлено</p>
             <p><v-chip outline label color="warning_a">{{ oneClickStatistics.refused }}</v-chip> отклонено</p>

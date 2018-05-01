@@ -1,7 +1,7 @@
 exports.handler = function (change, context, admin) {
   console.log(CONST.LOG_DELIMITER)
   let created = 0
-  let sentPending = 0
+  let pending = 0
   let sent = 0
   let delivered = 0
   let refused = 0
@@ -11,8 +11,8 @@ exports.handler = function (change, context, admin) {
       snapshot.docs.forEach(doc => {
         if (doc.data().status === 'created') {
           created += 1
-        } else if (doc.data().status === 'sentPending') {
-          sentPending += 1
+        } else if (doc.data().status === 'pending') {
+          pending += 1
         } else if (doc.data().status === 'sent') {
           sent += 1
         } else if (doc.data().status === 'delivered') {
@@ -24,7 +24,7 @@ exports.handler = function (change, context, admin) {
       })
       return admin.firestore().collection('statistics').doc('oneclick').update({
         created: created,
-        sentPending: sentPending,
+        pending: pending,
         sent: sent,
         delivered: delivered,
         refused: refused,

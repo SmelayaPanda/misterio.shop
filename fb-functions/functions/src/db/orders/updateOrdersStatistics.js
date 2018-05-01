@@ -1,7 +1,7 @@
 exports.handler = function (change, context, admin) {
   console.log(CONST.LOG_DELIMITER)
-  let payPending = 0
-  let sentPending = 0
+  let created = 0
+  let pending = 0
   let sent = 0
   let delivered = 0
   let refused = 0
@@ -9,10 +9,10 @@ exports.handler = function (change, context, admin) {
   return admin.firestore().collection('orders').get()
     .then(snapshot => {
       snapshot.docs.forEach(doc => {
-        if (doc.data().status === 'payPending') {
-          payPending += 1
-        } else if (doc.data().status === 'sentPending') {
-          sentPending += 1
+        if (doc.data().status === 'created') {
+          created += 1
+        } else if (doc.data().status === 'pending') {
+          pending += 1
         } else if (doc.data().status === 'sent') {
           sent += 1
         } else if (doc.data().status === 'delivered') {
@@ -23,8 +23,8 @@ exports.handler = function (change, context, admin) {
         totalOrders++
       })
       return admin.firestore().collection('statistics').doc('orders').update({
-        payPending: payPending,
-        sentPending: sentPending,
+        created: created,
+        pending: pending,
         sent: sent,
         delivered: delivered,
         refused: refused,

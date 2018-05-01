@@ -16,7 +16,7 @@ let sendOneClickEmailNotifyToAdmin = function (transporter, info) {
 
     let mailOptions = {
       from: ADMIN_EMAIL,
-      to: ADMIN_EMAIL, DEVELOPER_EMAIL,
+      to: [ADMIN_EMAIL, DEVELOPER_EMAIL].toString(),
       subject: `Новая покупка в один клик!`,
       text: `
       Покупатель:
@@ -50,7 +50,7 @@ let sendOneClickEmailNotifyToBuyer = function (transporter, info) {
       to: info.buyer.email,
       subject: `Misterio Shop: Покупка в один клик`,
       text: `
-      ${info.firstname}, спасибо за Вашу заявку на "${info.products[0].title}".   
+      ${info.buyer.firstname}, спасибо за Вашу заявку на "${info.products[0].title}".   
       Мы свяжемся с Вами по телефону ${info.buyer.phone} в ближайшее время для уточнения деталей!
 
       ${CONST.EMAIL_SIGN}
