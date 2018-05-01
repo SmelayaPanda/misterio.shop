@@ -20,7 +20,7 @@
           {{ product.title }}
         </span> <br>
         <span class="product_price">
-          {{ product.price }} РУБ
+          {{ product.price | price }} РУБ
         </span>
         <div @click="addToCart">
           <app-theme-btn width="120px" class="into_cart">

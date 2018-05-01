@@ -118,7 +118,7 @@
                       </el-tag>
                       <p>
                         Название: {{ order.products[i-1].title }}<br>
-                        Цена: {{ order.products[i-1].price }} {{ order.products[i-1].currency }}<br>
+                        Цена: {{ order.products[i-1].price | price }} {{ order.products[i-1].currency }}<br>
                         Количество: {{ order.products[i-1].qty }}
                       </p>
                     </div>

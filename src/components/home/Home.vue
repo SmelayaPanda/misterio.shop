@@ -1,6 +1,6 @@
 <template>
   <div class="home_page">
-    <transition-group name="welcome">
+    <transition-group :name="this.$vuetify.breakpoint.name === 'xs' ? '' : 'welcome'">
       <loading-misterio v-if="!isLoadedHome"
                         key="1"
                         id="misterio_shop_wrap">
@@ -199,7 +199,7 @@ export default {
 
   /*  background: linear-gradient(to right, $color-primary, $color-primary-light);*/
   .slide_1 {
-    /*background: url("../../../static/bg/home/draft_bg.png") no-repeat center;*/
+    background: url("../../../static/bg/home/slide_1.gif") no-repeat center;
     background-size: cover;
   }
 

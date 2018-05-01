@@ -4,11 +4,11 @@
     <el-row type="flex" justify="center" style="flex-wrap: wrap">
       <el-col :xs="22" :sm="20" :md="22" :lg="22" :xl="22">
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
-          <transition name="app-fade-left">
+          <transition :name="this.$vuetify.breakpoint.name === 'xs' ? '' : 'app-fade-left'">
             <el-col v-if="isLoadedSlide3"
                     id="sale_descr_col"
                     :xs="24" :sm="22" :md="10" :lg="10" :xl="8">
-              <transition name="fade">
+              <transition :name="this.$vuetify.breakpoint.name === 'xs' ? '' : 'fade'">
                 <div v-for="sale in sales"
                      :key="sale.id"
                      v-if="Object.values(sales).indexOf(sale) === curSlide">
@@ -43,7 +43,7 @@
               </transition>
             </el-col>
           </transition>
-          <transition name="app-fade-right">
+          <transition :name="this.$vuetify.breakpoint.name === 'xs' ? '' : 'app-fade-right'">
             <el-col v-show="isLoadedSlide3"
                     id="sales_swiper"
                     :md="12" :lg="11" :xl="11">
@@ -194,7 +194,7 @@ export default {
     font-weight: 500;
     background: $color-primary;
     color: white;
-    width: 150px;
+    width: 170px;
     border: none;
     border-radius: 2px;
   }

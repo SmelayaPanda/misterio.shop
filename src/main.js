@@ -26,6 +26,7 @@ import AdminDateFilter from '@/filters/adminDate'
 import ChatTimeFilter from '@/filters/chatTime'
 import BirthdayFilter from '@/filters/birthday'
 import Snippet from '@/filters/snippet'
+import Price from '@/filters/price'
 // MIXINS
 import {authMixin} from '@/mixins/autentication'
 import {appConstants} from '@/mixins/constants'
@@ -58,6 +59,7 @@ Vue.filter('adminDate', AdminDateFilter)
 Vue.filter('chatTime', ChatTimeFilter)
 Vue.filter('birthday', BirthdayFilter)
 Vue.filter('snippet', Snippet)
+Vue.filter('price', Price)
 Vue.component('masked-input', MaskedInput)
 Vue.component('vue-html-editor', VueEditor)
 Vue.component('app-alert', AlertComp)

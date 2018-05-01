@@ -13,6 +13,10 @@
            class="router_header"
            key="about"
            src="@/assets/img/about/header.png" alt="">
+      <!--<img v-show="this.$route.path === '/shop'"-->
+           <!--class="router_header"-->
+           <!--key="shop"-->
+           <!--src="@/assets/img/shop/дляКаталога.jpg" alt="">-->
       <mobile-menu v-if="isSecondaryRouters" key="mobile"></mobile-menu>
       <app-header v-if="isSecondaryRouters" key="head"></app-header>
       <div v-if="isSecondaryRouters"

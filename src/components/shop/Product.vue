@@ -9,6 +9,7 @@
               <p class="back_to_shop secondary--text">
                 Обратно в каталог
                 <v-icon class="secondary--text pr-2">keyboard_arrow_right</v-icon>
+                <v-icon class="secondary--text pr-2" style="margin-top: -10px;">keyboard_arrow_right</v-icon>
               </p>
             </el-button>
           </router-link>
@@ -107,7 +108,7 @@
                   </div>
                 </div>
                 <v-divider class="mb-3 mt-4"></v-divider>
-                <p>Цена: {{ product.price }}<span v-html="RUB"></span></p>
+                <p>Цена: {{ product.price | price }}<span v-html="RUB"></span></p>
                 <el-button v-if="!alreadyAddedProduct"
                            id="into_cart_btn"
                            :disabled="product.totalQty < 1"

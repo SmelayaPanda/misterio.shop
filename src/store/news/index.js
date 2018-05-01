@@ -19,7 +19,6 @@ export default {
     loadNews:
       ({commit, dispatch}, payload) => {
         commit('LOADING', true)
-        console.log(payload.type)
         commit('setLoadedNewsType', payload.type)
         let query = firebase.firestore().collection('news')
         if (payload.type !== 'all') {

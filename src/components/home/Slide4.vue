@@ -1,27 +1,27 @@
 <template>
   <div>
     <white-pattern color="white"></white-pattern>
-    <transition name="app-fade-left">
+    <transition :name="this.$vuetify.breakpoint.name === 'xs' ? '' : 'app-fade-left'">
       <p v-if="isLoadedSlide4" id="title_slide_4">КОНТАКТЫ</p>
     </transition>
     <el-row type="flex" justify="center">
       <el-col :xs="23" :sm="8" :md="8" :lg="7" :xl="9" align="left">
-        <transition name="app-fade-right">
+        <transition :name="this.$vuetify.breakpoint.name === 'xs' ? '' : 'app-fade-right'">
           <span v-if="isLoadedSlide4" class="line ver_line hor_line"></span>
         </transition>
-        <transition name="app-fade-left">
+        <transition :name="this.$vuetify.breakpoint.name === 'xs' ? '' : 'app-fade-left'">
           <el-row v-if="isLoadedSlide4" id="contact_links" type="flex">
             <el-col :span="20" align="left">
               <contacts-services></contacts-services>
             </el-col>
           </el-row>
         </transition>
-        <transition name="app-fade-left">
+        <transition :name="this.$vuetify.breakpoint.name === 'xs' ? '' : 'app-fade-left'">
           <el-row  v-if="isLoadedSlide4" type="flex" id="contact_block">
             <el-col :span="20" align="left">
               <contacts-phone></contacts-phone>
               <div @click="$bus.$emit('openLiveChat')">
-                <app-theme-btn>
+                <app-theme-btn width="170px">
                   Задать вопрос
                 </app-theme-btn>
               </div>
@@ -29,7 +29,7 @@
           </el-row>
         </transition>
       </el-col>
-      <transition name="app-fade-right">
+      <transition :name="this.$vuetify.breakpoint.name === 'xs' ? '' : 'app-fade-right'">
         <instagram-photos v-if="isLoadedSlide4"/>
       </transition>
     </el-row>

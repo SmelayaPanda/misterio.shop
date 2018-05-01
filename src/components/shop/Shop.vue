@@ -10,16 +10,14 @@
           id="shop_nav_menu"
           :default-active="selectedCategory"
           @select="changeCategory"
-          background-color="#0d0d0d"
+          background-color="transparent"
           unique-opened
           text-color="#fff"
           active-text-color="#810101"
           :collapse="isCollapsed">
           <!--Nav Menu-->
           <el-menu-item index="" @click="filterProducts">
-            <img src="/static/icon/shop/big/all_products.svg"
-                 class="groupIcon"
-                 alt="">
+            <img src="/static/icon/shop/big/all_products.svg" class="groupIcon" alt="">
             <span slot="title">Все товары</span>
           </el-menu-item>
 
@@ -28,10 +26,7 @@
             :key="option.value"
             :index="option.value">
             <template slot="title">
-              <img v-if="option.icon"
-                   :src="option.icon"
-                   class="groupIcon"
-                   alt="">
+              <img v-if="option.icon" :src="option.icon" class="groupIcon" alt="">
               <span slot="title">{{ option.label }}</span>
             </template>
             <el-menu-item-group>
@@ -85,10 +80,9 @@
         <el-collapse
           id="products_filter"
           v-model="activeName"
-          accordion
-          class="primary">
+          accordion>
           <!--PRICE FILTER-->
-          <el-collapse-item title="Фильтр" name="1" class="primary">
+          <el-collapse-item title="Фильтр" name="1">
             <el-button @click="changeSortByPrice" type="text" class="pr-4 pb-0 white--text">
               <div class="tooltip pl-4 white--text">
                 Цена

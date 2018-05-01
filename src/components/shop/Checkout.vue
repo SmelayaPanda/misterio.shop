@@ -112,7 +112,7 @@
                  v-for="product in orderProducts"
                  :key="product.productId">
               <span class="product_title">{{ product.title }}:</span><br>
-              <span class="price_tag">{{ product.price }}</span>x
+              <span class="price_tag">{{ product.price | price }}</span>x
               <span class="price_tag">{{ product.qty }}</span>=
               <span class="price_tag">
                 {{ parseFloat(product.price * product.qty).toFixed(2) }}<span v-html="RUB"></span>

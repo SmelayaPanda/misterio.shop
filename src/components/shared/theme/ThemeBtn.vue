@@ -28,6 +28,7 @@ export default {
     font-size: 14px;
     font-weight: 500;
     border-radius: 1px;
+    transition: all .3s;
   }
 
   .primary_btn {
@@ -49,6 +50,6 @@ export default {
 
   .secondary_btn:hover {
     cursor: pointer;
-    text-shadow: $primary-text-shadow;
+    background: $color-secondary;
   }
 </style>

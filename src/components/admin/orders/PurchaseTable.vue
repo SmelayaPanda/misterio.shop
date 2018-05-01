@@ -43,7 +43,7 @@ Common table for one click and orders
               <br>
               Название: {{ p.title }}<br>
               Артикул: {{ p.SKU }}<br>
-              Цена: {{ p.price }}<br>
+              Цена: {{ p.price | price }}<br>
               Количество: {{ p.qty }}
             </p>
           </el-col>
