@@ -7,7 +7,7 @@ exports.handler = function (change, context, admin) {
   return admin.firestore().collection('reviews').get()
     .then(snapshot => {
       snapshot.docs.forEach(doc => {
-        if (doc.data().status === 'new') {
+        if (doc.data().status === 'created') {
           created += 1
         } else if (doc.data().status === 'published') {
           published += 1

@@ -51,7 +51,6 @@ export default {
   data () {
     return {
       status: 'created',
-      showPayPalIPN: false,
       curPage: 1,
       pageSize: 5
     }
