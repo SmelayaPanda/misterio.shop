@@ -70,13 +70,13 @@
                   - это дополнительный код, нанесенный на вашу дебетовую или кредитную карту. <br>
                   Для большинства карт (Visa, MasterCard, банковские карты и т. д.) <br>
                   это последние три цифры числа, напечатанного в поле подписи на обратной стороне карты.<br><br>
-                  Символ<span v-html="RUBLE"></span> обозначает рубли
+                  Символ<span v-html="RUB"></span> обозначает рубли
                 </div>
               </el-tooltip>
             </form>
           </div>
           <el-button v-if="order" @click="tokenizeCard" id="success_pay_btn">
-            Оплатить {{ order.amount.final.value }}<span v-html="RUBLE"></span>
+            Оплатить {{ order.amount.final.value }}<span v-html="RUB"></span>
             <i v-if="isTokenizeInProcess" class="el-icon-loading"></i>
           </el-button>
         </el-col>

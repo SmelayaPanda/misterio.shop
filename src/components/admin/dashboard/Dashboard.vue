@@ -49,11 +49,11 @@
             </h3>
           </div>
           <div v-if="productStatistics" align="left" style="padding-left: 10%">
-            <p><v-chip>{{ productStatistics.avgPrice }} <span v-html="RUBLE"></span></v-chip> средняя цена</p>
-            <p><v-chip>{{ productStatistics.maxPrice }} <span v-html="RUBLE"></span></v-chip> максимальная цена</p>
+            <p><v-chip>{{ productStatistics.avgPrice }} <span v-html="RUB"></span></v-chip> средняя цена</p>
+            <p><v-chip>{{ productStatistics.maxPrice }} <span v-html="RUB"></span></v-chip> максимальная цена</p>
             <p><v-chip>{{ productStatistics.uniqueProductQty }}</v-chip> уникальных продуктов</p>
             <p><v-chip>{{ productStatistics.totalProductQty }}</v-chip> общее количество</p>
-            <p><v-chip label>{{ productStatistics.totalStoreCoast }} <span v-html="RUBLE"></span></v-chip> общая стоимость</p>
+            <p><v-chip label>{{ productStatistics.totalStoreCoast }} <span v-html="RUB"></span></v-chip> общая стоимость</p>
           </div>
         </el-card>
       </el-col>

@@ -42,7 +42,7 @@
           </el-col>
           <el-col :span="12">
             <p class="grey--text pl-2">
-              {{ product.price }}<span v-html="RUBLE"></span>
+              {{ product.price }}<span v-html="RUB"></span>
             </p>
           </el-col>
           <el-col :span="6" align="left">

@@ -80,7 +80,7 @@
             </el-col>
             <el-col :xs="8" :sm="3" :md="3" :lg="3" :xl="3" align="center">
               <p class="price mb-0">
-                {{ parseFloat(product.qty * product.price).toFixed(2) }}<span v-html="RUBLE"></span>
+                {{ parseFloat(product.qty * product.price).toFixed(2) }}<span v-html="RUB"></span>
               </p>
             </el-col>
             <el-col id="remove_from_cart" :xs="8" :sm="2" :md="2" :lg="2" :xl="2" align="center">
@@ -113,7 +113,7 @@
             </checkout>
             <el-col>
               <p id="total_price">
-                ИТОГО: {{ parseFloat(totalOrder.price).toFixed(2) }} <span v-html="RUBLE"></span>
+                ИТОГО: {{ parseFloat(totalOrder.price).toFixed(2) }} <span v-html="RUB"></span>
               </p>
             </el-col>
           </el-row>

@@ -124,7 +124,7 @@
               <el-form-item label="Цена" :label-width="formLabelWidth">
                 <el-input-number v-model="product.price" :min="0" :max="1000000">
                 </el-input-number>
-                <span class="mt-2 ml-2" v-html="RUBLE"></span>
+                <span class="mt-2 ml-2" v-html="RUB"></span>
               </el-form-item>
               <el-form-item label="Количество" :label-width="formLabelWidth">
                 <el-input-number v-model="product.totalQty" :min="0" :max="1000000"></el-input-number>

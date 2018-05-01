@@ -28,10 +28,10 @@ Common table for one click and orders
                 {{ PAYMENT_METHODS[props.row.payment.method].label }} <br>
                 Статус: {{ PAYMENT_STATUSES[props.row.payment.status].label }} <br>
               </span>
-              Стоимость товаров: {{ props.row.amount.products.value }} <span v-html="RUBLE"></span><br>
-              Стоимость доставки: {{ props.row.amount.delivery.value }} <span v-html="RUBLE"></span><br>
-              Размер скидки: {{ props.row.amount.discount.value }} <span v-html="RUBLE"></span> <br>
-              Конечная цена: {{ props.row.amount.final.value }} <span v-html="RUBLE"></span> <br>
+              Стоимость товаров: {{ props.row.amount.products.value }} <span v-html="RUB"></span><br>
+              Стоимость доставки: {{ props.row.amount.delivery.value }} <span v-html="RUB"></span><br>
+              Размер скидки: {{ props.row.amount.discount.value }} <span v-html="RUB"></span> <br>
+              Конечная цена: {{ props.row.amount.final.value }} <span v-html="RUB"></span> <br>
             </p>
             <h3>
               <v-icon class="mb-1">info</v-icon>
@@ -161,7 +161,7 @@ Common table for one click and orders
       label="Сумма"
       width="130">
       <template slot-scope="scope">
-        <p>{{ scope.row.amount.final.value }} <span v-html="RUBLE"></span></p>
+        <p>{{ scope.row.amount.final.value }} <span v-html="RUB"></span></p>
       </template>
     </el-table-column>
     <!--NAME-->

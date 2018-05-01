@@ -115,12 +115,12 @@
               <span class="price_tag">{{ product.price }}</span>x
               <span class="price_tag">{{ product.qty }}</span>=
               <span class="price_tag">
-                {{ parseFloat(product.price * product.qty).toFixed(2) }}<span v-html="RUBLE"></span>
+                {{ parseFloat(product.price * product.qty).toFixed(2) }}<span v-html="RUB"></span>
               </span>
             </div>
             <div v-if="discount" class="mb-2">
               <span class="product_title">Скидка:</span>
-              <span class="price_tag">- {{ totalDiscount }}<span v-html="RUBLE"></span></span>
+              <span class="price_tag">- {{ totalDiscount }}<span v-html="RUB"></span></span>
             </div>
             <!-- DELIVERY COAST -->
             <div v-if="delivery.method" class="mb-3">
@@ -128,11 +128,11 @@
                 Доставка ({{ DELIVERY_METHODS[delivery.method].label }}):
               </span>
               <span v-if="totalDeliveryPrice" class="price_tag">
-                {{ totalDeliveryPrice }}<span v-html="RUBLE"></span>
+                {{ totalDeliveryPrice }}<span v-html="RUB"></span>
               </span>
               <span v-else class="product_title">бесплатно</span>
             </div>
-            <p id="total">ИТОГО: {{ totalOrderPrice }}<span v-html="RUBLE"></span></p>
+            <p id="total">ИТОГО: {{ totalOrderPrice }}<span v-html="RUB"></span></p>
           </div>
         </el-col>
         <el-col :xs="24" :sm="16" :md="14" :lg="12" :xl="10">
@@ -299,7 +299,7 @@
                       border class="mt-2">
                       {{ DELIVERY_METHODS.cdek.label }}
                       <span v-if="totalDeliveryPrice">
-                        - <b>{{ delivery.prices.cdek }}</b><span v-html="RUBLE"></span>
+                        - <b>{{ delivery.prices.cdek }}</b><span v-html="RUB"></span>
                       </span>
                     </el-radio>
                     <el-radio
@@ -308,7 +308,7 @@
                       border class="mt-2">
                       {{ DELIVERY_METHODS.pickpoint.label }}
                       <span v-if="totalDeliveryPrice">
-                        - <b>{{ delivery.prices.pickpoint }}</b><span v-html="RUBLE"></span>
+                        - <b>{{ delivery.prices.pickpoint }}</b><span v-html="RUB"></span>
                       </span>
                     </el-radio>
                     <el-radio
@@ -317,7 +317,7 @@
                       border class="mt-2">
                       {{ DELIVERY_METHODS.postrf.label }}
                       <span v-if="totalDeliveryPrice">
-                        - <b>{{ delivery.prices.postrf }}</b><span v-html="RUBLE"></span>
+                        - <b>{{ delivery.prices.postrf }}</b><span v-html="RUB"></span>
                       </span>
                     </el-radio>
                   </el-radio-group>

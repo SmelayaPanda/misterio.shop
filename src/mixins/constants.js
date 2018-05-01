@@ -1,7 +1,7 @@
 export const appConstants = {
   data: function () {
     return {
-      RUBLE: '&nbsp;&#8381',
+      RUB: '&nbsp;&#8381',
       PRODUCT_CLASSIFICATION: [{
         value: 'sexToy',
         label: 'Секс-игрушки',

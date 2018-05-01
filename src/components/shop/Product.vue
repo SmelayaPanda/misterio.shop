@@ -107,7 +107,7 @@
                   </div>
                 </div>
                 <v-divider class="mb-3 mt-4"></v-divider>
-                <p>Цена: {{ product.price }}<span v-html="RUBLE"></span></p>
+                <p>Цена: {{ product.price }}<span v-html="RUB"></span></p>
                 <el-button v-if="!alreadyAddedProduct"
                            id="into_cart_btn"
                            :disabled="product.totalQty < 1"
