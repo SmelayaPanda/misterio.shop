@@ -92,7 +92,6 @@ export default {
       swiperOption: {
         effect: 'cube',
         grabCursor: true,
-        loop: true,
         speed: 700,
         cubeEffect: {
           shadow: true,
