@@ -9,7 +9,7 @@
       <transition name="home-fade">
         <p v-if="isLoadedSlide1" id="main_title_2" align="left">
           МЫ ЗНАЕМ ВСЁ<br v-if="this.$vuetify.breakpoint.name !== 'xs'">
-          О ВАШИХ ЖЕЛАНИЯХ
+          <span class="ml-5">О ВАШИХ ЖЕЛАНИЯХ</span>
         </p>
       </transition>
       <transition :name="this.$vuetify.breakpoint.name === 'xs' ? '' : 'svg-fade'">
