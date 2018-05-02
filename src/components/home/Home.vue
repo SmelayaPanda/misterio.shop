@@ -196,8 +196,6 @@ export default {
   }
 
   .swiper_slide {
-    /*background: url("../../../static/bg/home/draft_bg.png") no-repeat;*/
-    /*background-size: cover;*/
     /*background: url("../../../static/bg/home/wthite_pattern.svg") no-repeat center;*/
     /*background-size: cover;*/
     width: 100vw;

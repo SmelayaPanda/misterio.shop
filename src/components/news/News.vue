@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <transition name="app-fade-left">
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
       <transition name="app-fade-left">
@@ -79,7 +79,7 @@
         </el-pagination>
       </el-row>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>

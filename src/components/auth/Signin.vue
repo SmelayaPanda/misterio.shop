@@ -1,56 +1,58 @@
 <template>
-  <v-container>
+  <transition name="app-fade-left">
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
-    <el-row v-else type="flex" justify="center">
-      <el-col :xs="24" :sm="14" :md="12" :lg="10" :xl="8">
-        <app-alert v-if="this.appError" :text="this.appError.message"></app-alert>
-        <el-card>
-          <h2>Вход</h2>
-          <v-container>
-            <el-form
-              :model="formRule"
-              status-icon
-              :rules="rules"
-              auto-complete="on"
-              ref="formRule">
-              <el-form-item label="Email" prop="email">
-                <el-input
-                  type="email"
-                  id="email"
-                  :autofocus="true"
-                  v-model="formRule.email"
-                  auto-complete="on">
-                </el-input>
-              </el-form-item>
-              <el-form-item label="Пароль" prop="password">
-                <el-input
-                  type="password"
-                  v-model="formRule.password"
-                  auto-complete="off">
-                </el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button
-                  type="danger"
-                  :disabled="this.isLoading"
-                  @click="submitForm('formRule')">
-                  Вперед!
-                </el-button>
-              </el-form-item>
-              <div v-if="submitCount > 1">
-                <span class="primary--text ml-3">Забыли пароль?</span>
-                <p>Ввведите свою почту в форме выше и нажмите:</p>
-                <el-button type="danger" @click="resetPassword">Сбросить пароль</el-button>
-              </div>
-              <router-link to="/signup">
-                <el-button type="text">Нет аккаунта?</el-button>
-              </router-link>
-            </el-form>
-          </v-container>
-        </el-card>
-      </el-col>
-    </el-row>
-  </v-container>
+    <v-container v-else>
+      <el-row type="flex" justify="center">
+        <el-col :xs="24" :sm="14" :md="12" :lg="10" :xl="8">
+          <app-alert v-if="this.appError" :text="this.appError.message"></app-alert>
+          <el-card>
+            <h2>Вход</h2>
+            <v-container>
+              <el-form
+                :model="formRule"
+                status-icon
+                :rules="rules"
+                auto-complete="on"
+                ref="formRule">
+                <el-form-item label="Email" prop="email">
+                  <el-input
+                    type="email"
+                    id="email"
+                    :autofocus="true"
+                    v-model="formRule.email"
+                    auto-complete="on">
+                  </el-input>
+                </el-form-item>
+                <el-form-item label="Пароль" prop="password">
+                  <el-input
+                    type="password"
+                    v-model="formRule.password"
+                    auto-complete="off">
+                  </el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button
+                    type="danger"
+                    :disabled="this.isLoading"
+                    @click="submitForm('formRule')">
+                    Вперед!
+                  </el-button>
+                </el-form-item>
+                <div v-if="submitCount > 1">
+                  <span class="primary--text ml-3">Забыли пароль?</span>
+                  <p>Ввведите свою почту в форме выше и нажмите:</p>
+                  <el-button type="danger" @click="resetPassword">Сбросить пароль</el-button>
+                </div>
+                <router-link to="/signup">
+                  <el-button type="text">Нет аккаунта?</el-button>
+                </router-link>
+              </el-form>
+            </v-container>
+          </el-card>
+        </el-col>
+      </el-row>
+    </v-container>
+  </transition>
 </template>
 
 <script>
@@ -86,12 +88,8 @@ export default {
         email: ''
       },
       rules: {
-        password: [
-          {validator: validatePass, trigger: 'blur'}
-        ],
-        email: [
-          {validator: checkEmail, trigger: 'blur'}
-        ]
+        password: [{validator: validatePass, trigger: 'blur'}],
+        email: [{validator: checkEmail, trigger: 'blur'}]
       },
       submitCount: 0
     }

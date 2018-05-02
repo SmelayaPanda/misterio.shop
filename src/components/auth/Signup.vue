@@ -1,51 +1,53 @@
 <template>
-  <v-container>
+  <transition name="app-fade-left">
+    <app-heart-loader v-if="this.isLoading"></app-heart-loader>
+    <v-container v-else>
+      <!--Authentication form-->
+      <el-row type="flex" justify="center">
+        <el-col :xs="24" :sm="14" :md="12" :lg="10" :xl="8">
+          <app-alert v-if="this.appError" :text="this.appError.message"></app-alert>
+          <el-card>
+            <h2>Регистрация</h2>
+            <v-container>
 
-    <!--Authentication form-->
-    <el-row type="flex" justify="center">
-      <el-col :xs="24" :sm="14" :md="12" :lg="10" :xl="8">
-        <app-alert v-if="this.appError" :text="this.appError.message"></app-alert>
-        <el-card>
-          <h2>Регистрация</h2>
-          <v-container>
-
-            <el-form :model="formRule"
-                     status-icon
-                     :rules="rules"
-                     auto-complete="on"
-                     ref="formRule">
-              <el-form-item label="Email" prop="email">
-                <el-input type="email"
-                          :autofocus="true"
-                          v-model="formRule.email"
-                          auto-complete="on">
-                </el-input>
-              </el-form-item>
-              <el-form-item label="Пароль" prop="password">
-                <el-input type="password"
-                          v-model="formRule.password"
-                          auto-complete="off">
-                </el-input>
-              </el-form-item>
-              <el-form-item label="Подтверждение пароля" prop="checkPass">
-                <el-input type="password" v-model="formRule.checkPass" auto-complete="off"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="danger mt-2"
-                           :disabled="this.isLoading"
-                           @click="submitForm('formRule')">
-                  Вперед!
-                </el-button>
-              </el-form-item>
-            </el-form>
-            <router-link to="/signin">
-              <el-button type="text">Есть аккаунт?</el-button>
-            </router-link>
-          </v-container>
-        </el-card>
-      </el-col>
-    </el-row>
-  </v-container>
+              <el-form :model="formRule"
+                       status-icon
+                       :rules="rules"
+                       auto-complete="on"
+                       ref="formRule">
+                <el-form-item label="Email" prop="email">
+                  <el-input type="email"
+                            :autofocus="true"
+                            v-model="formRule.email"
+                            auto-complete="on">
+                  </el-input>
+                </el-form-item>
+                <el-form-item label="Пароль" prop="password">
+                  <el-input type="password"
+                            v-model="formRule.password"
+                            auto-complete="off">
+                  </el-input>
+                </el-form-item>
+                <el-form-item label="Подтверждение пароля" prop="checkPass">
+                  <el-input type="password" v-model="formRule.checkPass" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="danger mt-2"
+                             :disabled="this.isLoading"
+                             @click="submitForm('formRule')">
+                    Вперед!
+                  </el-button>
+                </el-form-item>
+              </el-form>
+              <router-link to="/signin">
+                <el-button type="text">Есть аккаунт?</el-button>
+              </router-link>
+            </v-container>
+          </el-card>
+        </el-col>
+      </el-row>
+    </v-container>
+  </transition>
 </template>
 
 <script>
