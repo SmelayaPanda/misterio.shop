@@ -30,9 +30,13 @@
         </user-live-chat>
       </div>
       <!--Content-->
-      <router-view key="routers"></router-view>
-      <app-footer v-if="isSecondaryRouters && this.$route.path !== '/contacts'" key="footer"></app-footer>
     </transition-group>
+    <transition name="fade">
+      <router-view key="routers"></router-view>
+    </transition>
+    <transition name="fade">
+      <app-footer v-if="isSecondaryRouters && this.$route.path !== '/contacts'" key="footer"></app-footer>
+    </transition>
     <back-to-top v-if="this.$route.path !== '/'"
                  visibleOffset="500"
                  id="back_to_bottom"

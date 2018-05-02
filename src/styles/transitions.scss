@@ -12,14 +12,16 @@ TRANSITIONS
 */
 
 /* fade */
-.fade-enter-active,
-.fade-leave-active {
+.fade-enter-active, .fade-leave-active {
   transition-property: opacity;
-  transition-duration: .4s
+  transition-duration: .25s;
 }
-.fade-enter,
-.fade-enter-active,
-.fade-leave-active {
+
+.fade-enter-active {
+  transition-delay: .25s;
+}
+
+.fade-enter, .fade-leave-active {
   opacity: 0
 }
 
