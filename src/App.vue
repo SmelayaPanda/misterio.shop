@@ -19,7 +19,7 @@
       <img v-show="this.$route.path === '/shop' || this.$route.path.includes('/product/')"
            class="router_header"
            key="shop"
-           src="@/assets/img/shop/var_3.jpg" alt="">
+           src="@/assets/img/shop/shop_bg.png" alt="">
       <mobile-menu v-if="isSecondaryRouters" key="mobile"></mobile-menu>
       <div v-if="isSecondaryRouters"
            key="liveChat"
