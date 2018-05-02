@@ -41,9 +41,9 @@ export default {
     }
   },
   mounted () {
-    setInterval(() => {
+    setTimeout(() => {
       this.isLoadedSlide1 = true
-    }, 2250)
+    }, 2000)
   },
   created () {
     this.$bus.$on('isHomeSlide1', () => {

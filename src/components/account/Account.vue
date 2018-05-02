@@ -147,7 +147,7 @@ export default {
     }
   },
   mounted () {
-    setInterval(() => {
+    setTimeout(() => {
       this.isLoadedAccount = true
     }, 500)
   }

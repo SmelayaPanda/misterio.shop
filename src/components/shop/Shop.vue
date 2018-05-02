@@ -366,7 +366,7 @@ export default {
     }
   },
   mounted () {
-    setInterval(() => {
+    setTimeout(() => {
       this.isMountedShop = true
     }, 500)
   },

@@ -1,11 +1,8 @@
 <template>
   <div class="home_page">
     <transition-group :name="this.$vuetify.breakpoint.name === 'xs' ? '' : 'welcome'">
-      <loading-misterio v-if="!isLoadedHome"
-                        key="1"
-                        id="misterio_shop_wrap">
-      </loading-misterio>
-      <div v-if="isLoadedHome" key="2">
+      <loading-misterio v-if="!isFullLoadedHome" :key="1" id="misterio_shop_wrap"/>
+      <div v-else :key="2">
         <!-- MOBILE -->
         <mobile-menu></mobile-menu>
         <!-- DESCTOP -->
@@ -113,6 +110,7 @@ export default {
   data () {
     return {
       isMountedHome: false,
+      isFullLoadedHome: false,
       curSlide: 0,
       swiperOption: {
         direction: 'vertical',
@@ -142,15 +140,24 @@ export default {
       return this.$store.getters.companyInfo
     },
     isLoadedHome () {
-      return this.isMountedHome &&
-          this.$store.getters.news &&
-          this.$store.getters.companyInfo.photos
+      return this.isMountedHome && this.$store.getters.news && Object.keys(this.$store.getters.news).length !== 0
     }
   },
+  watch: {
+    isLoadedHome (val) {
+      if (val) {
+        this.$nextTick(function () {
+          this.$bus.$emit('isHomeSlide1')
+          this.isFullLoadedHome = true
+        })
+      }
+    }
+  },
+  created () {
+    this.$store.dispatch('loadNews', {type: 'sale'})
+  },
   mounted () {
-    setInterval(() => {
-      this.isMountedHome = true
-    }, 500)
+    this.isMountedHome = true
   }
 }
 </script>

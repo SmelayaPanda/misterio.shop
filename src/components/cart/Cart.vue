@@ -28,7 +28,7 @@ export default {
     OrdersHistory
   },
   mounted () {
-    setInterval(() => {
+    setTimeout(() => {
       this.isLoadedCart = true
     }, 500)
   },

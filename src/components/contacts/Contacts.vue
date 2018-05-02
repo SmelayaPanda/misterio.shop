@@ -82,7 +82,7 @@ export default {
     }
   },
   mounted () {
-    setInterval(() => {
+    setTimeout(() => {
       this.isLoadedContacts = true
     }, 500)
   }

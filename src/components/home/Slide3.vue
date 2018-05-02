@@ -106,9 +106,6 @@ export default {
     }
   },
   methods: {
-    loadNews () {
-      this.$store.dispatch('loadNews', {type: 'sale'})
-    },
     updateCurIndex () {
       this.curSlide = this.salesSwiper.realIndex
     },
@@ -138,7 +135,6 @@ export default {
     }
   },
   created () {
-    this.loadNews()
     this.$bus.$on('isHomeSlide1', () => {
       this.isLoadedSlide3 = false
     })

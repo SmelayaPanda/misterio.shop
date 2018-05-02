@@ -69,7 +69,7 @@ export default {
     }
   },
   mounted () {
-    setInterval(() => {
+    setTimeout(() => {
       this.isLoadedFavorites = true
     }, 500)
   }
