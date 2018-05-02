@@ -20,8 +20,7 @@ export default {
     height: 100px;
     left: 50%;
     margin-left: -100px;
-    top: 50%;
-    margin-top: -100px;
+    top: 35%;
     opacity: 0.5;
   }
 

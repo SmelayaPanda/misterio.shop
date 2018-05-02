@@ -2,7 +2,7 @@
   <div>
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else>
-      <el-row el-row type="flex" justify="center" v-if="product" style="flex-wrap: wrap">
+      <el-row el-row type="flex" justify="center" v-if="product" id="product_card_wrap">
         <el-col :span="1">
           <router-link to="/shop">
             <el-button type="text" style="margin-left: -10px;" class="hidden-sm-and-down">
@@ -228,6 +228,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  #product_card_wrap {
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
   .main_img {
     width: 100%;
     height: 527px;

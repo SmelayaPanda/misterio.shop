@@ -163,32 +163,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  /* home slide-fade */
-  .welcome-enter {
+  /* START transition */
+  .welcome-enter-active,
+  .welcome-leave-active {
+    transition-property: opacity;
+    transition-duration: .8s;
   }
 
   .welcome-enter-active {
-    transition: 2.5s;
-    opacity: 0;
+    transition-delay: .65s;
   }
 
-  .welcome-enter-to {
-  }
-
-  /* --------------- */
-  .welcome-leave {
-  }
-
+  .welcome-enter,
   .welcome-leave-active {
-    transition: 2.5s cubic-bezier(1, 0.8, 0.8, 1);
-    opacity: 1;
-  }
-
-  .welcome-leave-to {
-    transform: translateY(30px);
     opacity: 0;
   }
-
   /* END transitions */
 
   .home_page {

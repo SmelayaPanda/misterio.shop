@@ -2,7 +2,6 @@
   <transition name="app-fade-left">
     <app-heart-loader v-if="this.isLoading"></app-heart-loader>
     <div v-else-if="user">
-      <transition name="app-fade-left">
         <div v-if="!user.isAnonymous && user.emailVerified">
           <!--Personal card-->
           <transition name="app-fade-left">
@@ -95,7 +94,7 @@
             </transition>
           </el-row>
         </div>
-        <div v-if="!user.isAnonymous && !user.emailVerified">
+        <div v-if="!user.isAnonymous && !user.emailVerified" :key="2">
           <el-row type="flex" justify="center" style="margin-top: 60px;">
             <el-col :xs="23" :sm="20" :md="15" :lg="13" :xl="12" type="flex" align="center">
               <b class="white--text">
@@ -116,7 +115,6 @@
         </div>
         <!--Anonymous-->
         <anonymous-account></anonymous-account>
-      </transition>
     </div>
   </transition>
 </template>

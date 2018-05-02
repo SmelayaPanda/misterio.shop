@@ -48,7 +48,7 @@ TRANSITIONS
 
 /* app-fade-left */
 .app-fade-left-enter-active {
-  transition: all .5s ease;
+  transition: all .6s ease;
   animation: left-title-text-animation 1s ease;
 }
 
@@ -61,13 +61,13 @@ TRANSITIONS
 
 .app-fade-left-leave-active {
   opacity: 0;
-  transition: all .5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
+  transition: all .6s cubic-bezier(1.0, 0.5, 0.5, 1.0);
 }
 
 @keyframes left-title-text-animation {
   0% {
     opacity: 0;
-    transform: translateX(-10px); // mass save!) right 15px - but here full router left slide
+    transform: translateX(-10px);
   }
   100% {
     opacity: 1;
@@ -76,7 +76,7 @@ TRANSITIONS
 }
 /* app-fade-right */
 .app-fade-right-enter-active {
-  transition: all .5s ease;
+  transition: all .6s ease;
   animation: right-title-text-animation 1s ease;
 }
 
@@ -90,7 +90,7 @@ TRANSITIONS
 
 .app-fade-right-leave-active {
   opacity: 0;
-  transition: all .5s cubic-bezier(1.0, 0.5, 0.5, 1.0);
+  transition: all .6s cubic-bezier(1.0, 0.5, 0.5, 1.0);
 }
 
 @keyframes right-title-text-animation {

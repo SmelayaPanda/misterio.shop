@@ -1,5 +1,8 @@
 <template>
   <v-app id="app">
+    <transition name="fade">
+      <app-header v-if="isSecondaryRouters" key="head" id="app_header"></app-header>
+    </transition>
     <transition-group name="app-fade-left">
       <img v-show="this.$route.path === '/contacts'"
            class="router_header"
@@ -13,26 +16,23 @@
            class="router_header"
            key="about"
            src="@/assets/img/about/header.png" alt="">
-      <!--<img v-show="this.$route.path === '/shop'"-->
-           <!--class="router_header"-->
-           <!--key="shop"-->
-           <!--src="@/assets/img/shop/дляКаталога.jpg" alt="">-->
+      <img v-show="this.$route.path === '/shop' || this.$route.path.includes('/product/')"
+           class="router_header"
+           key="shop"
+           src="@/assets/img/shop/var_3.jpg" alt="">
       <mobile-menu v-if="isSecondaryRouters" key="mobile"></mobile-menu>
-      <app-header v-if="isSecondaryRouters" key="head"></app-header>
       <div v-if="isSecondaryRouters"
            key="liveChat"
            id="live_chat">
         <user-live-chat
           :chatId="this.$store.getters.user.uid"
           :isCollapsed="true"
-          key="userLiveChat"
-          class="live_chat">
+          key="userLiveChat">
         </user-live-chat>
       </div>
-      <!--Content-->
     </transition-group>
     <transition name="fade">
-      <router-view key="routers"></router-view>
+      <router-view key="routers" :style="isSecondaryRouters ? 'margin-top: 100px' : ''"></router-view>
     </transition>
     <transition name="fade">
       <app-footer v-if="isSecondaryRouters && this.$route.path !== '/contacts'" key="footer"></app-footer>
@@ -105,5 +105,11 @@ export default {
   #back_to_bottom {
     opacity: 0.8;
     z-index: 9;
+  }
+
+  #app_header {
+    position: absolute;
+    z-index: 2;
+    width: 100vw;
   }
 </style>
