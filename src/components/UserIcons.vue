@@ -42,15 +42,15 @@
               <img v-if="this.$route.path === '/account'"
                    src="@/assets/icons/user/user_white.svg" alt=""
                    class="user_icon"
-                   height="40px">
+                   height="41px">
               <img v-else-if="color === 'red'"
-                   src="@/assets/icons/user/user.svg" alt=""
+                   src="@/assets/icons/user/user_red.svg" alt=""
                    class="user_icon"
-                   height="40px">
+                   height="41px">
               <img v-else
                    src="@/assets/icons/user/user_black.svg"
                    alt=""
-                   height="40px">
+                   height="41px">
             </div>
           </router-link>
         </el-col>
