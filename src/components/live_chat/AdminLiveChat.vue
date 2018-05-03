@@ -1,5 +1,5 @@
 <template>
-  <transition name="bounce">
+  <transition name="bounce" v-if="chatId">
     <!--Admin-->
     <v-btn v-if="isCollapsedChat"
            fab class="primary_a white--text collapsed_chat"
@@ -85,12 +85,11 @@
 <script>
 export default {
   name: 'AdminLiveChat',
-  props: ['chatId', 'isCollapsed'],
   data () {
     return {
       msg: '',
       isTyping: false,
-      isCollapsedChat: this.isCollapsed,
+      isCollapsedChat: false,
       isPrevLoadingEvent: false,
       isPrevLoading: false,
       prevScrollHeight: 0
@@ -144,9 +143,6 @@ export default {
         let chat = this.$refs.chatMessages
         chat.scrollTop = chat.scrollHeight
       }
-      if (this.$refs.msgInput) {
-        this.$refs.msgInput.focus()
-      }
     },
     async loadPreviousChatMessages () {
       console.log('Start loading')
@@ -162,6 +158,9 @@ export default {
     }
   },
   computed: {
+    chatId () {
+      return this.$store.getters.chatPropByName('id')
+    },
     chatMessages () {
       return this.$store.getters.chatMessages ? this.$store.getters.chatMessages : []
     },

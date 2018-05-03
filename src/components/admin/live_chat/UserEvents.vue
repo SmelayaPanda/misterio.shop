@@ -1,8 +1,5 @@
 <template>
-  <el-col v-if="userEvents"
-          :xs="24" :sm="12" :md="8" :lg="8" :xl="8"
-          class="pl-2 pr-2 mt-2">
-    <v-card>
+    <v-card  v-if="userEvents">
       <v-card-title class="event_header primary_a white--text">
         <h3 class="pl-3 white--text">
           Действия пользователя
@@ -33,7 +30,6 @@
         </el-row>
       </div>
     </v-card>
-  </el-col>
 </template>
 <script>
 export default {

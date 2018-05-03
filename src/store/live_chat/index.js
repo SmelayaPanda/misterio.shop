@@ -37,7 +37,7 @@ export default {
   },
   mutations: {
     setLiveChats:
-      (state, payload) => {
+      (state, payload) => { // TODO: fetched all database! how fix it?
         state.liveChats = payload
       },
     setAdminOnline:
@@ -78,11 +78,11 @@ export default {
             // online
             chatRef.update({
               lastOnline: 0,
-              onlineFrom: new Date().getTime() // TODO: to server time
+              onlineFrom: firebase.database.ServerValue.TIMESTAMP
             })
             // offline
             chatRef.onDisconnect().update({
-              lastOnline: new Date().getTime(),
+              lastOnline: firebase.database.ServerValue.TIMESTAMP,
               onlineFrom: 0
             })
           }
@@ -254,10 +254,14 @@ export default {
               commit('setChatMessages', messages)
             }
             commit('setIsAllLoaded', {name: 'messages', value: snap.numChildren() < limit})
+          }),
+        firebase.database().ref(`liveChats/${payload}/props`).once('value')
+          .then((snap) => {
+            commit('setAllChatPros', snap.val())
           })
       ])
         .then(() => {
-          commit('setChatProp', {name: 'id', value: payload})
+          commit('setChatProp', {name: 'id', value: payload}) // TODO: remove
           dispatch('subscribeToChat', payload)
         })
         .catch(err => dispatch('LOG', err))

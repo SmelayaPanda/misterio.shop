@@ -1,51 +1,21 @@
 <template>
   <div>
-    <el-row type="flex" justify="left" style="flex-wrap: wrap">
+    <el-row type="flex" justify="left" style="flex-wrap: wrap; margin-bottom: 60px;">
       <!--ALL USERS-->
-      <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8" class="pl-2 pr-2 mt-2">
-        <v-card>
-          <v-card-title class="event_header primary_a white--text">
-            <h3 class="pl-3 white--text">
-              Пользователи
-            </h3>
-            <el-switch v-model="showOnlineUsers" class="pl-2" active-color="#13ce66">
-            </el-switch>
-            <span class="pl-2">
-              <span v-if="showOnlineUsers">онлайн</span>
-              <span v-else>оффлайн</span>
-            </span>
-          </v-card-title>
-          <v-card>
-            <div v-if="liveChats" id="chat_users" ref="chatUsers">
-              <div v-if="showOnlineUsers ? chat.props.onlineFrom : chat.props.lastOnline"
-                   v-for="(chat, id) of liveChats"
-                   :key="id"
-                   :class="chatId === id ? 'primary_a' : ''">
-                <span v-if="chat.props.isTypingUser">
-                  ...<v-icon size="small" class="primary_a--text">edit</v-icon>
-                </span>
-                <el-button @click="openChat(id)" type="text" :class="chatId === id ? 'white--text' : ''">
-                  {{ chat.props.userEmail ? ( chat.props.userEmail ) : `Анонимный ( ${id.substring(0, 5)} )` }}
-                  <el-tag size="mini" :type="chatId === id ? '' : 'success'">
-                    {{ chat.props.unreadByAdmin }}
-                  </el-tag>
-                  <span class="info--text">/</span>
-                  <el-tag size="mini" :type="chatId === id ? '' : 'info'">
-                    <span v-if="chat.events">{{ Object.keys(chat.events).length }}</span>
-                    <span v-else>0</span>
-                  </el-tag>
-                </el-button>
-              </div>
-            </div>
-          </v-card>
-        </v-card>
+      <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-2 pr-2 mt-2">
+        <users-list/>
+      </el-col>
+      <!--USER DATA-->
+      <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-2 pr-2 mt-2">
+        <user-data/>
       </el-col>
       <!--USER EVENTS-->
-      <user-events/>
+      <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-2 pr-2 mt-2">
+        <user-events/>
+      </el-col>
       <!--LIVE CHAT-->
-      <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" class="pl-2 pr-2 mt-2">
-        <admin-live-chat v-if="chatId" :chatId="chatId" :isCollapsed="false">
-        </admin-live-chat>
+      <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-2 pr-2 mt-2">
+        <admin-live-chat/>
       </el-col>
     </el-row>
   </div>
@@ -54,63 +24,19 @@
 <script>
 import AdminLiveChat from '@/components/live_chat/AdminLiveChat'
 import UserEvents from './UserEvents'
+import UserData from './UserData'
+import UsersList from './UsersList'
 
 export default {
   name: 'AdminLiveChatBoard',
   components: {
+    UsersList,
+    UserData,
     UserEvents,
     AdminLiveChat
   },
   data () {
-    return {
-      chatId: '',
-      showOnlineUsers: true
-    }
-  },
-  methods: {
-    async openChat (chatId) {
-      // CLOSE OLD CHAT
-      this.$store.dispatch('LOADING', true)
-      if (this.chatId && this.chatId !== chatId) {
-        await Promise.all([
-          this.$store.dispatch('setChatProp', {chatId: this.chatId, props: 'isCollapsedAdmin', value: 1}),
-          this.$store.dispatch('setChatMessages', []),
-          this.$store.dispatch('setUserEvents', []),
-          this.$store.dispatch('unsubscribeFromChat', this.chatId)
-        ])
-      }
-      // OPEN NEW CHAT
-      await Promise.all([
-        this.$store.dispatch('setChatProp', {chatId: chatId, props: 'isCollapsedAdmin', value: 0}),
-        this.$store.dispatch('setChatProp', {chatId: chatId, props: 'unreadByAdmin', value: 0}),
-        this.$store.dispatch('openChat', chatId)
-      ])
-      this.chatId = chatId
-      this.$bus.$emit('openLiveChat')
-      this.$store.dispatch('LOADING', false)
-    }
-  },
-  computed: {
-    liveChats () {
-      return this.$store.getters.liveChats
-    }
-  },
-  beforeDestroy () {
-    this.$store.dispatch('setChatProp', {chatId: this.chatId, props: 'isCollapsedAdmin', value: 1})
-    this.$store.dispatch('unsubscribeFromChat', this.chatId)
+    return {}
   }
 }
 </script>
-
-<style scoped>
-  .event_header {
-    margin-bottom: 1px;
-    padding-bottom: 12px;
-  }
-
-  #chat_users {
-    width: 100%;
-    height: 420px;
-    overflow: scroll;
-  }
-</style>
