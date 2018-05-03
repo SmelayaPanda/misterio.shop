@@ -57,12 +57,12 @@ export default {
         state.chat[payload.name].cursor = payload.value
       },
     setIsAllLoaded:
-      (state, payload) => {
+      (state, payload) => { // payload.name = 'messages' | 'events'
         state.chat[payload.name].isAllLoaded = payload.value
       },
     setChatProp:
       (state, payload) => {
-        state.chat.props[payload.propName] = payload.propValue
+        state.chat.props[payload.name] = payload.value
       },
     setAllChatPros:
       (state, payload) => {
@@ -172,7 +172,7 @@ export default {
           }
         }),
         chatRef.child('props').on('child_changed', data => {
-          commit('setChatProp', {propName: data.key, propValue: data.val()})
+          commit('setChatProp', {name: data.key, value: data.val()})
         }),
         dispatch('subscribeToAdminConnectionDevices')
       ])
@@ -256,7 +256,7 @@ export default {
           })
       ])
         .then(() => {
-          commit('setChatProp', {propName: 'id', propValue: payload})
+          commit('setChatProp', {name: 'id', value: payload})
           dispatch('subscribeToChat', payload)
         })
         .catch(err => dispatch('LOG', err))
@@ -327,23 +327,13 @@ export default {
           })
           .catch(err => dispatch('LOG', err))
       },
-    async setChatProp
-    ({commit, getters, dispatch}, payload) {
+    async setChatProp ({commit, getters, dispatch}, payload) {
       if (!payload.chatId) return
-      await firebase.database().ref(`liveChats/${payload.chatId}/props`)
-        .update({
-          [payload.props]: payload.value
-        })
-        .then(() => {
-          commit('setChatProp', {
-            propName: payload.props,
-            propValue: payload.value
-          })
-        })
+      await firebase.database().ref(`liveChats/${payload.chatId}/props`).update({[payload.props]: payload.value})
+        .then(() => { commit('setChatProp', {name: payload.props, value: payload.value}) })
         .catch(err => dispatch('LOG', err))
     },
-    async setIsAllLoaded
-    ({commit}, payload) {
+    async setIsAllLoaded ({commit}, payload) {
       commit('setIsAllLoaded', {name: payload.name, value: payload.value})
     }
   },
