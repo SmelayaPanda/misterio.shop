@@ -5,6 +5,7 @@ export default {
   state: {
     chat: {
       props: {
+        id: '',
         lastOnline: 0, // timestamp (0 - online)
         onlineFrom: 0, // timestamp (0 - offline)
         isTypingUser: 0,
@@ -15,8 +16,16 @@ export default {
         unreadByAdmin: 0,
         userEmail: null
       },
-      messages: {},
-      events: {} // user action on site
+      messages: {
+        cursor: '',
+        isAllLoaded: true,
+        data: []
+      },
+      events: { // user action on site
+        cursor: '',
+        isAllLoaded: true,
+        data: []
+      }
     },
     isOnlineAdmin: 0,
     liveChats: {} // for admin
@@ -37,15 +46,27 @@ export default {
       },
     setChatMessages:
       (state, payload) => {
-        state.chat.messages = payload
+        state.chat.messages.data = payload
       },
     setUserEvents:
       (state, payload) => {
-        state.chat.events = payload
+        state.chat.events.data = payload
+      },
+    setCursor:
+      (state, payload) => {
+        state.chat[payload.name].cursor = payload.value
+      },
+    setIsAllLoaded:
+      (state, payload) => {
+        state.chat[payload.name].isAllLoaded = payload.value
       },
     setChatProp:
       (state, payload) => {
         state.chat.props[payload.propName] = payload.propValue
+      },
+    setAllChatPros:
+      (state, payload) => {
+        state.chat.props = payload
       }
   },
   actions: {
@@ -136,17 +157,17 @@ export default {
     async subscribeToChat ({commit, getters, dispatch}, payload) {
       let chatRef = firebase.database().ref(`liveChats/${payload}`)
       await Promise.all([
-        chatRef.child('messages').on('child_added', data => {
+        chatRef.child('messages').limitToLast(1).on('child_added', data => {
           if (data.exists()) {
-            let chatMessages = {...getters.chatMessages}
-            chatMessages[data.key] = data.val()
+            let chatMessages = getters.chatMessages ? getters.chatMessages : []
+            chatMessages.push(data.val())
             commit('setChatMessages', chatMessages)
           }
         }),
-        chatRef.child('events').on('child_added', data => {
+        chatRef.child('events').limitToLast(1).on('child_added', data => {
           if (data.exists()) {
-            let userEvents = {...getters.userEvents}
-            userEvents[data.key] = data.val()
+            let userEvents = getters.userEvents ? getters.userEvents : []
+            userEvents.push(data.val())
             commit('setUserEvents', userEvents)
           }
         }),
@@ -156,9 +177,7 @@ export default {
         dispatch('subscribeToAdminConnectionDevices')
       ])
     },
-    subscribeToAdminConnectionDevices:
-    // TODO: set for all chats isCollapsedAdmin when admin go away from chat or offline
-    // for users to detect online admin
+    subscribeToAdminConnectionDevices: // for users to detect online admin
       ({commit}) => {
         let adminConn = firebase.database().ref('admin').child('connections')
         adminConn.on('child_added', () => {
@@ -180,49 +199,98 @@ export default {
         chatRef.child('props').off()
       ])
     },
-    initializeChat:
-      ({commit, getters, dispatch}, payload) => {
-        if (!payload.uid) return
-        let chatRef = firebase.database().ref(`liveChats/${payload.uid}`)
-        chatRef.once('value')
-          .then(data => {
-            if (!data.val()) {
-              console.log('New chat initialized!')
-              return chatRef.child('props').set({
-                lastOnline: 0,
-                onlineFrom: 0,
-                isTypingUser: 0,
-                isTypingAdmin: 0,
-                isCollapsedUser: 1,
-                isCollapsedAdmin: 1,
-                unreadByUser: 0,
-                unreadByAdmin: 0,
-                userEmail: payload.email
-              })
-            } else { // load chat data
-              commit('setChatMessages', data.val().messages ? data.val().messages : [])
-              commit('setUserEvents', data.val().events ? data.val().events : [])
-              commit('setChatProp', {
-                propName: 'unreadByUser',
-                propValue: data.val().props.unreadByUser
-              })
+    async initializeChat ({commit, getters, dispatch}, payload) {
+      if (!payload.uid) return
+      let chatProps = firebase.database().ref(`liveChats/${payload.uid}`).child('props')
+      chatProps
+        .once('value')
+        .then(snap => {
+          if (!snap.exists()) {
+            console.log('Chat: new initialization')
+            return chatProps.set({
+              id: payload.uid,
+              lastOnline: 0,
+              onlineFrom: 0,
+              isTypingUser: 0,
+              isTypingAdmin: 0,
+              isCollapsedUser: 1,
+              isCollapsedAdmin: 1,
+              unreadByUser: 0,
+              unreadByAdmin: 0,
+              userEmail: payload.email
+            })
+          } else {
+            console.log('Chat: old initialized')
+            commit('setAllChatPros', snap.val())
+            return dispatch('openChat', payload.uid)
+          }
+        })
+        .then(() => {
+          dispatch('observeUserConnection', payload.uid)
+        })
+        .catch(err => dispatch('LOG', err))
+    },
+    async openChat ({commit, dispatch, getters}, payload) {
+      await Promise.all([
+        firebase.database().ref(`liveChats/${payload}/events`).orderByKey().limitToLast(5).once('value')
+          .then((snap) => {
+            if (snap.exists()) {
+              let events = Object.values(snap.val())
+              let cursor = Object.keys(snap.val())[0]
+              events.splice(snap.numChildren() - 1, 1)
+              commit('setCursor', {name: 'events', value: cursor})
+              commit('setUserEvents', events)
             }
+            commit('setIsAllLoaded', {name: 'events', value: snap.numChildren() < 5})
+          }),
+        firebase.database().ref(`liveChats/${payload}/messages`).orderByKey().limitToLast(5).once('value')
+          .then((snap) => {
+            if (snap.exists()) {
+              let messages = Object.values(snap.val())
+              let cursor = Object.keys(snap.val())[0]
+              messages.splice(snap.numChildren() - 1, 1)
+              commit('setCursor', {name: 'messages', value: cursor})
+              commit('setChatMessages', messages)
+            }
+            commit('setIsAllLoaded', {name: 'messages', value: snap.numChildren() < 5})
           })
-          .then(() => {
-            dispatch('subscribeToChat', payload.uid)
-            dispatch('observeUserConnection', payload.uid)
-          })
-          .catch(err => dispatch('LOG', err))
-      },
-    async openChat ({commit, dispatch}, payload) { // for admin
-      await firebase.database().ref(`liveChats/${payload}`).once('value')
-        .then(data => {
-          commit('setChatMessages', data.val().messages ? data.val().messages : [])
-          commit('setUserEvents', data.val().events ? data.val().events : [])
+      ])
+        .then(() => {
+          commit('setChatProp', {propName: 'id', propValue: payload})
           dispatch('subscribeToChat', payload)
         })
         .catch(err => dispatch('LOG', err))
     },
+    loadPreviousUserEvents:
+      ({commit, getters}) => {
+        let chatId = getters.chatPropByName('id')
+        let cursor = getters.cursor('events')
+        firebase.database().ref(`liveChats/${chatId}/events`).orderByKey().endAt(cursor).limitToLast(5).once('value')
+          .then((snap) => {
+            if (snap.exists()) {
+              let events = Object.values(getters.userEvents)
+              events.shift()
+              commit('setCursor', {name: 'events', value: Object.keys(snap.val())[0]})
+              commit('setUserEvents', Object.values(snap.val()).concat(events))
+            }
+            commit('setIsAllLoaded', {name: 'events', value: snap.numChildren() < 5})
+          })
+      },
+    loadPreviousChatMessages:
+      ({commit, getters}) => {
+        let chatId = getters.chatPropByName('id')
+        let cursor = getters.cursor('messages')
+        firebase.database().ref(`liveChats/${chatId}/messages`).orderByKey().endAt(cursor).limitToLast(5).once('value')
+          .then((snap) => {
+            if (snap.exists()) {
+              let messages = Object.values(getters.chatMessages)
+              messages.shift()
+              commit('setCursor', {name: 'messages', value: Object.keys(snap.val())[0]})
+              commit('setChatMessages', Object.values(snap.val()).concat(messages))
+            }
+            commit('setIsAllLoaded', {name: 'messages', value: snap.numChildren() < 5})
+          })
+      },
     sendChatMessage:
       ({commit, getters, dispatch}, payload) => {
         if (!payload.chatId) return
@@ -233,9 +301,6 @@ export default {
         }
         firebase.database().ref(`liveChats/${payload.chatId}/messages`).push(newMsg)
           .then((data) => {
-            let chatMessages = {...getters.chatMessages}
-            chatMessages[data.key] = newMsg
-            commit('setChatMessages', chatMessages)
             // for send email to offline admin through cloud function
             // TODO: to http trigger
             if (!getters.isOnlineAdmin) {
@@ -256,7 +321,7 @@ export default {
         }
         firebase.database().ref(`liveChats/${getters.user.uid}/events`).push(newEvent)
           .then((data) => {
-            let userEvents = {...getters.userEvents}
+            let userEvents = getters.userEvents ? getters.userEvents : []
             userEvents[data.key] = newEvent
             commit('setUserEvents', userEvents)
           })
@@ -276,16 +341,28 @@ export default {
           })
         })
         .catch(err => dispatch('LOG', err))
+    },
+    async setIsAllLoaded
+    ({commit}, payload) {
+      commit('setIsAllLoaded', {name: payload.name, value: payload.value})
     }
   },
   getters: {
     chatMessages:
       state => {
-        return state.chat.messages
+        return state.chat.messages.data
       },
     userEvents:
       state => {
-        return state.chat.events
+        return state.chat.events.data
+      },
+    cursor:
+      state => (name) => {
+        return state.chat[name].cursor
+      },
+    isAllLoaded:
+      state => (name) => {
+        return state.chat[name].isAllLoaded
       },
     chatPropByName:
       state => (name) => {

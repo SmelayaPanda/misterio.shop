@@ -44,15 +44,14 @@
             </span>
         </el-col>
       </el-row>
-      <v-card-text v-if="chatMessages"
-                   ref="chatMessages"
-                   id="chat_msg_wrap">
-          <p v-if="Object.keys(chatMessages).length === 0" style="margin-top: 60px;">
+      <v-card-text v-if="chatMessages" ref="chatMessages" id="chat_msg_wrap">
+        <p v-if="Object.keys(chatMessages).length === 0" style="margin-top: 60px;">
             <span id="need_consulting">
               Нужна консультация? <br>
               Мы рады ответить на любой Ваш вопрос :)
             </span>
-          </p>
+        </p>
+        <el-button v-if="!isAllMessagesLoaded" @click="loadPreviousChatMessages" type="text">Load prev</el-button>
         <div v-for="(chat, key) in chatMessages"
              :key="key">
           <el-row>
@@ -73,18 +72,19 @@
       </v-card-text>
       <v-divider></v-divider>
       <div>
-      <textarea v-model="msg"
-                ref="msgInput"
-                rows="3"
-                placeholder="Введите текст..."
-                id="chat_input"
-                @input="detectTyping"
-                @keydup.shift.enter="msg+='\n'"
-                @keydup.ctrl.enter="msg+='\n'"
-                @keydup.alt.enter="msg+='\n'"
-                @keydup.meta.enter="msg+='\n'"
-                @keydup.down="msg+='\n'"
-                @keyup.enter.exact="sendChatMessage">
+      <textarea
+        v-model="msg"
+        ref="msgInput"
+        rows="3"
+        placeholder="Введите текст..."
+        id="chat_input"
+        @input="detectTyping"
+        @keydup.shift.enter="msg+='\n'"
+        @keydup.ctrl.enter="msg+='\n'"
+        @keydup.alt.enter="msg+='\n'"
+        @keydup.meta.enter="msg+='\n'"
+        @keydup.down="msg+='\n'"
+        @keyup.enter.exact="sendChatMessage">
       </textarea>
         <el-row>
           <el-button @click="sendChatMessage" id="send_msg_btn">
@@ -104,7 +104,8 @@ export default {
     return {
       msg: '',
       isTyping: false,
-      isCollapsedChat: this.isCollapsed
+      isCollapsedChat: this.isCollapsed,
+      isLoadPrevMsgEvent: false
     }
   },
   methods: {
@@ -176,6 +177,10 @@ export default {
       if (this.$refs.msgInput) {
         this.$refs.msgInput.focus()
       }
+    },
+    loadPreviousChatMessages () {
+      this.isLoadPrevMsgEvent = true
+      this.$store.dispatch('loadPreviousChatMessages')
     }
   },
   computed: {
@@ -196,13 +201,20 @@ export default {
     },
     isOnlineAdmin () {
       return this.$store.getters.isOnlineAdmin
+    },
+    isAllMessagesLoaded () {
+      return this.$store.getters.isAllLoaded('messages')
     }
   },
   watch: {
     chatMessages () {
-      this.$nextTick(function () {
-        this.scrollToBottom()
-      })
+      if (!this.isLoadPrevMsgEvent) {
+        this.$nextTick(function () {
+          this.scrollToBottom()
+        })
+      } else {
+        this.isLoadPrevMsgEvent = false
+      }
     }
   },
   created () {
@@ -276,6 +288,7 @@ export default {
     color: white;
     font-size: 10px;
   }
+
   #need_consulting {
     color: $color-info-dark;
     font-weight: 500;

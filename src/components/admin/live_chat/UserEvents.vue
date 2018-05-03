@@ -9,6 +9,7 @@
         </h3>
       </v-card-title>
       <div ref="userEvents" id="event_messages">
+        <el-button v-if="!isAllLoaded" @click="loadPreviousUserEvents" type="text">Load prev</el-button>
         <el-row v-for="(event, idx) in userEvents"
                 :key="idx"
                 justify="left">
@@ -24,24 +25,40 @@
 <script>
 export default {
   name: 'user-events',
+  data () {
+    return {
+      isLoadPrevEvent: false
+    }
+  },
   methods: {
     scrollEventsToBottom () {
       if (this.$refs.userEvents) {
         let events = this.$refs.userEvents
         events.scrollTop = events.scrollHeight
       }
+    },
+    loadPreviousUserEvents () {
+      this.isLoadPrevEvent = true
+      this.$store.dispatch('loadPreviousUserEvents')
     }
   },
   computed: {
     userEvents () {
       return this.$store.getters.userEvents
+    },
+    isAllLoaded () {
+      return this.$store.getters.isAllLoaded('events')
     }
   },
   watch: {
     userEvents () {
-      this.$nextTick(function () {
-        this.scrollEventsToBottom()
-      })
+      if (!this.isLoadPrevEvent) {
+        this.$nextTick(function () {
+          this.scrollEventsToBottom()
+        })
+      } else {
+        this.isLoadPrevEvent = false
+      }
     }
   }
 }

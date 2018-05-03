@@ -30,12 +30,13 @@
       <v-card-text v-if="chatMessages"
                    ref="chatMessages"
                    class="admin_chat_messages">
+        <el-button v-if="!isAllMessagesLoaded" @click="loadPreviousChatMessages" type="text">Load prev</el-button>
         <div v-for="(chat, key) in chatMessages"
              :key="key">
           <el-row>
             <el-col :span="24" class="info--text chat_msg_meta">
                 <span :class="chat.creator ? 'left' : 'right'">
-                <span>{{ chat.creator ? 'User' : 'You' }}:</span>
+                <span>{{ chat.creator ? 'Клиент' : 'Вы' }}:</span>
                 {{ new Date(chat.date) | chatTime }}
                 </span>
             </el-col>
@@ -76,7 +77,8 @@ export default {
     return {
       msg: '',
       isTyping: false,
-      isCollapsedChat: this.isCollapsed
+      isCollapsedChat: this.isCollapsed,
+      isLoadPrevMsgEvent: false
     }
   },
   methods: {
@@ -148,11 +150,15 @@ export default {
       if (this.$refs.msgInput) {
         this.$refs.msgInput.focus()
       }
+    },
+    loadPreviousChatMessages () {
+      this.isLoadPrevMsgEvent = true
+      this.$store.dispatch('loadPreviousChatMessages')
     }
   },
   computed: {
     chatMessages () {
-      return this.$store.getters.chatMessages ? this.$store.getters.chatMessages : {}
+      return this.$store.getters.chatMessages ? this.$store.getters.chatMessages : []
     },
     isTypingUser () {
       return this.$store.getters.chatPropByName('isTypingUser')
@@ -168,13 +174,20 @@ export default {
     },
     isOnlineUser () {
       return this.$store.getters.chatPropByName('onlineFrom')
+    },
+    isAllMessagesLoaded () {
+      return this.$store.getters.isAllLoaded('messages')
     }
   },
   watch: {
     chatMessages () {
-      this.$nextTick(function () {
-        this.scrollToBottom()
-      })
+      if (!this.isLoadPrevMsgEvent) {
+        this.$nextTick(function () {
+          this.scrollToBottom()
+        })
+      } else {
+        this.isLoadPrevMsgEvent = false
+      }
     }
   }
 }
