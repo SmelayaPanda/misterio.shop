@@ -150,9 +150,9 @@ export default {
     },
     async loadPreviousChatMessages () {
       console.log('Start loading')
-      this.isPrevLoading = true
+      this.isPrevLoading = await true
       await this.$store.dispatch('loadPreviousChatMessages')
-      this.isPrevLoading = false
+      this.isPrevLoading = await false
     },
     autoLoadPrevMsg (event) {
       if (event.target.scrollTop < 100 && !this.isPrevLoading && !this.isAllMessagesLoaded) {
@@ -188,7 +188,7 @@ export default {
     chatMessages () {
       if (this.isPrevLoadingEvent) {
         let chat = this.$refs.chatMessages
-        chat.scrollTop = chat.scrollHeight - this.prevScrollHeight
+        chat.scrollTop = chat.scrollHeight - this.prevScrollHeight + 95
         this.prevScrollHeight = chat.scrollHeight
         this.isPrevLoadingEvent = false
       } else {
@@ -199,7 +199,9 @@ export default {
     }
   },
   created () {
-    this.scrollToBottom()
+    this.$bus.$on('openLiveChat', () => {
+      this.openChat()
+    })
   }
 }
 </script>

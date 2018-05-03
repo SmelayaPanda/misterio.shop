@@ -238,7 +238,7 @@ export default {
             if (snap.exists()) {
               let events = Object.values(snap.val())
               let cursor = Object.keys(snap.val())[0]
-              events.splice(snap.numChildren() - 1, 1)
+              events.splice(snap.numChildren() - 1, 1) // because subscribe give the last element
               commit('setCursor', {name: 'events', value: cursor})
               commit('setUserEvents', events)
             }
@@ -262,24 +262,23 @@ export default {
         })
         .catch(err => dispatch('LOG', err))
     },
-    loadPreviousUserEvents:
-      ({commit, getters}) => {
-        let limit = 15
-        let chatId = getters.chatPropByName('id')
-        let cursor = getters.cursor('events')
-        firebase.database().ref(`liveChats/${chatId}/events`).orderByKey().endAt(cursor).limitToLast(limit).once('value')
-          .then((snap) => {
-            if (snap.exists()) {
-              let events = Object.values(getters.userEvents)
-              events.shift()
-              commit('setCursor', {name: 'events', value: Object.keys(snap.val())[0]})
-              commit('setUserEvents', Object.values(snap.val()).concat(events))
-            }
-            commit('setIsAllLoaded', {name: 'events', value: snap.numChildren() < limit})
-          })
-      },
+    async loadPreviousUserEvents ({commit, getters}) {
+      let limit = 50
+      let chatId = getters.chatPropByName('id')
+      let cursor = getters.cursor('events')
+      await firebase.database().ref(`liveChats/${chatId}/events`).orderByKey().endAt(cursor).limitToLast(limit).once('value')
+        .then((snap) => {
+          if (snap.exists()) {
+            let events = Object.values(getters.userEvents)
+            events.shift()
+            commit('setCursor', {name: 'events', value: Object.keys(snap.val())[0]})
+            commit('setUserEvents', Object.values(snap.val()).concat(events))
+          }
+          commit('setIsAllLoaded', {name: 'events', value: snap.numChildren() < limit})
+        })
+    },
     async loadPreviousChatMessages ({commit, getters}) {
-      let limit = 15
+      let limit = 30
       let chatId = getters.chatPropByName('id')
       let cursor = getters.cursor('messages')
       await firebase.database().ref(`liveChats/${chatId}/messages`).orderByKey().endAt(cursor).limitToLast(limit).once('value')
@@ -339,6 +338,12 @@ export default {
     },
     async setIsAllLoaded ({commit}, payload) {
       commit('setIsAllLoaded', {name: payload.name, value: payload.value})
+    },
+    async setChatMessages ({commit}, payload) {
+      commit('setChatMessages', payload)
+    },
+    async setUserEvents ({commit}, payload) {
+      commit('setUserEvents', payload)
     }
   },
   getters: {

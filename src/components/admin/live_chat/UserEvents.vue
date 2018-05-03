@@ -54,9 +54,9 @@ export default {
     },
     async loadPreviousUserEvents () {
       console.log('Start loading events')
-      this.isPrevLoading = true
+      this.isPrevLoading = await true
       await this.$store.dispatch('loadPreviousUserEvents')
-      this.isPrevLoading = false
+      this.isPrevLoading = await false
     },
     autoLoadPrevEvents (event) {
       if (event.target.scrollTop < 100 && !this.isPrevLoading && !this.isAllEventsLoaded) {
@@ -77,7 +77,7 @@ export default {
     userEvents () {
       if (this.isPrevLoadingEvent) {
         let events = this.$refs.userEvents
-        events.scrollTop = events.scrollHeight - this.prevScrollHeight
+        events.scrollTop = events.scrollHeight - this.prevScrollHeight + 95
         this.prevScrollHeight = events.scrollHeight
         this.isPrevLoadingEvent = false
       } else {

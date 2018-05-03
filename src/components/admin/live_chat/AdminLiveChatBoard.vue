@@ -74,6 +74,8 @@ export default {
       if (this.chatId && this.chatId !== chatId) {
         await Promise.all([
           this.$store.dispatch('setChatProp', {chatId: this.chatId, props: 'isCollapsedAdmin', value: 1}),
+          this.$store.dispatch('setChatMessages', []),
+          this.$store.dispatch('setUserEvents', []),
           this.$store.dispatch('unsubscribeFromChat', this.chatId)
         ])
       }
@@ -84,6 +86,7 @@ export default {
         this.$store.dispatch('openChat', chatId)
       ])
       this.chatId = chatId
+      this.$bus.$emit('openLiveChat')
       this.$store.dispatch('LOADING', false)
     }
   },
