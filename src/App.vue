@@ -32,7 +32,9 @@
       </div>
     </transition-group>
     <transition name="fade">
-      <router-view key="routers" :style="isSecondaryRouters ? 'margin-top: 100px' : ''"></router-view>
+      <router-view key="routers"
+                   :style="isSecondaryRouters && this.$vuetify.breakpoint.name !== 'xs' ? 'margin-top: 100px' : ''">
+      </router-view>
     </transition>
     <transition name="fade">
       <app-footer v-if="isSecondaryRouters && this.$route.path !== '/contacts'" key="footer"></app-footer>

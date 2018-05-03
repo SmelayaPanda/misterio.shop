@@ -3,18 +3,18 @@
     <div id="title">
       <transition :name="this.$vuetify.breakpoint.name === 'xs' ? '' : 'svg-fade'">
         <div v-if="isLoadedSlide1" id="main_title_1">
-          <img src="@/assets/icons/home/slide_1/text_one.svg" height="43px" alt="">
+          <img src="@/assets/icons/home/slide_1/text_one.svg" id="main_title_1_svg" alt="">
         </div>
       </transition>
       <transition name="home-fade">
         <p v-if="isLoadedSlide1" id="main_title_2" align="left">
           МЫ ЗНАЕМ ВСЁ<br v-if="this.$vuetify.breakpoint.name !== 'xs'">
-          <span class="ml-5">О ВАШИХ ЖЕЛАНИЯХ</span>
+          <span :class="this.$vuetify.breakpoint.name === 'xs' ? '' : 'ml-5'">О ВАШИХ ЖЕЛАНИЯХ</span>
         </p>
       </transition>
       <transition :name="this.$vuetify.breakpoint.name === 'xs' ? '' : 'svg-fade'">
         <p v-if="isLoadedSlide1" id="main_title_3" align="right">
-          <img src="@/assets/icons/home/slide_1/text_two.svg" height="28px" alt=""><br>
+          <img src="@/assets/icons/home/slide_1/text_two.svg" id="main_title_2_svg" alt=""><br>
           <router-link to="/shop">
             <app-theme-btn
               class="mt-4"
@@ -73,6 +73,10 @@ export default {
     justify-content: start;
   }
 
+  #main_title_1_svg {
+    height: 43px;
+  }
+
   #main_title_2 {
     position: relative;
     font-family: $secondary-font;
@@ -90,6 +94,10 @@ export default {
     font-weight: bold;
     font-size: 32px;
     margin-top: -8px;
+  }
+
+  #main_title_2_svg {
+    height: 28px;
   }
 
   /* home-fade */
@@ -160,6 +168,12 @@ export default {
     #main_title_2 {
       font-size: 35px;
     }
+    #main_title_1_svg {
+      height: 38px;
+    }
+    #main_title_2_svg {
+      height: 24px;
+    }
   }
 
   @media only screen and (max-width: $xs-screen) {
@@ -176,6 +190,12 @@ export default {
     #main_title_1 {
       margin-left: 20px;
       margin-top: 37vh;
+    }
+    #main_title_1_svg {
+      height: 32px;
+    }
+    #main_title_2_svg {
+      height: 22px;
     }
     #main_title_2 {
       font-size: 24px;
