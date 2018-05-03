@@ -8,6 +8,7 @@
     <div id="info_data">
       <el-row justify="left">
         <el-col :span="22" align="left" class="pr-1 pl-3 mt-2">
+          <p v-if="userId"><el-tag type="success">ИД: {{ userId }}</el-tag></p>
           <p v-if="onlineFrom"><el-tag type="success">Онлайн с: {{ onlineFrom | date }}</el-tag></p>
           <p v-if="lastOnline"><el-tag type="success">Последнее посщение: {{ lastOnline | date }}</el-tag></p>
           <p v-if="onlineFrom && isCollapsedUser"><el-tag type="success">Чат свернут</el-tag></p>
@@ -51,7 +52,7 @@ export default {
     }
   },
   watch: {
-    userId () {
+    userId () { // TODO: user cart products
       // return this.$store.dispatch('loadUserInfoFor')
     }
   }
@@ -65,7 +66,7 @@ export default {
 
   #info_data {
     width: 100%;
-    height: 420px;
+    height: 320px;
     padding-right: 8px;
   }
 </style>

@@ -2,19 +2,19 @@
   <div>
     <el-row type="flex" justify="left" style="flex-wrap: wrap; margin-bottom: 60px;">
       <!--ALL USERS-->
-      <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-2 pr-2 mt-2">
+      <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-3 pr-3 mt-2">
         <users-list/>
       </el-col>
       <!--USER DATA-->
-      <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-2 pr-2 mt-2">
+      <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-3 pr-3 mt-2">
         <user-data/>
       </el-col>
       <!--USER EVENTS-->
-      <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-2 pr-2 mt-2">
+      <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-3 pr-3 mt-2">
         <user-events/>
       </el-col>
       <!--LIVE CHAT-->
-      <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-2 pr-2 mt-2">
+      <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-3 pr-3 mt-2">
         <admin-live-chat/>
       </el-col>
     </el-row>

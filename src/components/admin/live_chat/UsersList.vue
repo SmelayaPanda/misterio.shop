@@ -87,7 +87,7 @@ export default {
 
   #chat_users {
     width: 100%;
-    height: 420px;
+    height: 320px;
     overflow: scroll;
   }
 </style>
