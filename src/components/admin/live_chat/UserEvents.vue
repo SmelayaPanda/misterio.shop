@@ -8,8 +8,21 @@
           Действия пользователя
         </h3>
       </v-card-title>
-      <div ref="userEvents" id="event_messages">
-        <el-button v-if="!isAllLoaded" @click="loadPreviousUserEvents" type="text">Load prev</el-button>
+      <div v-if="userEvents"
+           @scroll="autoLoadPrevEvents"
+           ref="userEvents"
+           id="event_messages">
+        <el-button
+          v-if="!isAllEventsLoaded"
+          @click="loadPreviousUserEvents"
+          :disabled="isPrevLoading"
+          type="text">
+          История
+          <transition name="fade">
+            <i v-if="isPrevLoading" class="el-icon-loading mt-1"></i>
+            <i v-else class="el-icon-date mt-1"></i>
+          </transition>
+        </el-button>
         <el-row v-for="(event, idx) in userEvents"
                 :key="idx"
                 justify="left">
@@ -27,37 +40,50 @@ export default {
   name: 'user-events',
   data () {
     return {
-      isLoadPrevEvent: false
+      isPrevLoadingEvent: false,
+      isPrevLoading: false,
+      prevScrollHeight: 0
     }
   },
   methods: {
-    scrollEventsToBottom () {
+    scrollToBottom () {
       if (this.$refs.userEvents) {
         let events = this.$refs.userEvents
         events.scrollTop = events.scrollHeight
       }
     },
-    loadPreviousUserEvents () {
-      this.isLoadPrevEvent = true
-      this.$store.dispatch('loadPreviousUserEvents')
+    async loadPreviousUserEvents () {
+      console.log('Start loading events')
+      this.isPrevLoading = true
+      await this.$store.dispatch('loadPreviousUserEvents')
+      this.isPrevLoading = false
+    },
+    autoLoadPrevEvents (event) {
+      if (event.target.scrollTop < 100 && !this.isPrevLoading && !this.isAllEventsLoaded) {
+        this.isPrevLoadingEvent = true
+        this.loadPreviousUserEvents()
+      }
     }
   },
   computed: {
     userEvents () {
-      return this.$store.getters.userEvents
+      return this.$store.getters.userEvents ? this.$store.getters.userEvents : []
     },
-    isAllLoaded () {
+    isAllEventsLoaded () {
       return this.$store.getters.isAllLoaded('events')
     }
   },
   watch: {
     userEvents () {
-      if (!this.isLoadPrevEvent) {
-        this.$nextTick(function () {
-          this.scrollEventsToBottom()
-        })
+      if (this.isPrevLoadingEvent) {
+        let events = this.$refs.userEvents
+        events.scrollTop = events.scrollHeight - this.prevScrollHeight
+        this.prevScrollHeight = events.scrollHeight
+        this.isPrevLoadingEvent = false
       } else {
-        this.isLoadPrevEvent = false
+        this.$nextTick(function () {
+          this.scrollToBottom()
+        })
       }
     }
   }
