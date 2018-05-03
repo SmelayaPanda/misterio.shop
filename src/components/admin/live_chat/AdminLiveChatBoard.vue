@@ -2,17 +2,13 @@
   <div>
     <el-row type="flex" justify="left" style="flex-wrap: wrap">
       <!--ALL USERS-->
-      <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8"
-              class="pl-2 pr-2 mt-2">
+      <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8" class="pl-2 pr-2 mt-2">
         <v-card>
           <v-card-title class="event_header primary_a white--text">
             <h3 class="pl-3 white--text">
               Пользователи
             </h3>
-            <el-switch
-              v-model="showOnlineUsers"
-              class="pl-2"
-              active-color="#13ce66">
+            <el-switch v-model="showOnlineUsers" class="pl-2" active-color="#13ce66">
             </el-switch>
             <span class="pl-2">
               <span v-if="showOnlineUsers">онлайн</span>
@@ -20,25 +16,21 @@
             </span>
           </v-card-title>
           <v-card>
-            <div id="chat_users" ref="chatUsers" v-if="liveChats">
-              <div v-for="(chat, id) of liveChats"
+            <div v-if="liveChats" id="chat_users" ref="chatUsers">
+              <div v-if="showOnlineUsers ? chat.props.onlineFrom : chat.props.lastOnline"
+                   v-for="(chat, id) of liveChats"
                    :key="id"
-                   v-if="showOnlineUsers ? chat.props.onlineFrom : chat.props.lastOnline"
                    :class="chatId === id ? 'primary_a' : ''">
                 <span v-if="chat.props.isTypingUser">
                   ...<v-icon size="small" class="primary_a--text">edit</v-icon>
                 </span>
-                <el-button type="text"
-                           :class="chatId === id ? 'white--text' : ''"
-                           @click="openChat(id)">
+                <el-button @click="openChat(id)" type="text" :class="chatId === id ? 'white--text' : ''">
                   {{ chat.props.userEmail ? ( chat.props.userEmail ) : `Анонимный ( ${id.substring(0, 5)} )` }}
-                  <el-tag size="mini"
-                          :type="chatId === id ? '' : 'success'">
+                  <el-tag size="mini" :type="chatId === id ? '' : 'success'">
                     {{ chat.props.unreadByAdmin }}
                   </el-tag>
                   <span class="info--text">/</span>
-                  <el-tag size="mini"
-                          :type="chatId === id ? '' : 'info'">
+                  <el-tag size="mini" :type="chatId === id ? '' : 'info'">
                     <span v-if="chat.events">{{ Object.keys(chat.events).length }}</span>
                     <span v-else>0</span>
                   </el-tag>
@@ -51,12 +43,8 @@
       <!--USER EVENTS-->
       <user-events/>
       <!--LIVE CHAT-->
-      <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8"
-              class="pl-2 pr-2 mt-2">
-        <admin-live-chat
-          v-if="chatId"
-          :chatId="chatId"
-          :isCollapsed="false">
+      <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" class="pl-2 pr-2 mt-2">
+        <admin-live-chat v-if="chatId" :chatId="chatId" :isCollapsed="false">
         </admin-live-chat>
       </el-col>
     </el-row>

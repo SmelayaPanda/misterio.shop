@@ -27,10 +27,22 @@
             </span>
         </transition>
       </v-card-title>
-      <v-card-text v-if="chatMessages"
-                   ref="chatMessages"
-                   class="admin_chat_messages">
-        <el-button v-if="!isAllMessagesLoaded" @click="loadPreviousChatMessages" type="text">Load prev</el-button>
+      <v-card-text
+        v-if="chatMessages"
+        ref="chatMessages"
+        @scroll="autoLoadPrevMsg"
+        class="admin_chat_messages">
+        <el-button
+          v-if="!isAllMessagesLoaded"
+          @click="loadPreviousChatMessages"
+          :disabled="isPrevLoading"
+          type="text">
+          История
+          <transition name="fade">
+            <i v-if="isPrevLoading" class="el-icon-loading mt-1"></i>
+            <i v-else class="el-icon-date mt-1"></i>
+          </transition>
+        </el-button>
         <div v-for="(chat, key) in chatMessages"
              :key="key">
           <el-row>
@@ -51,18 +63,19 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
-      <textarea v-model="msg"
-                ref="msgInput"
-                cols="100" rows="3"
-                placeholder="Type..."
-                class="chat_input"
-                @input="detectTyping"
-                @keydup.shift.enter="msg+='\n'"
-                @keydup.ctrl.enter="msg+='\n'"
-                @keydup.alt.enter="msg+='\n'"
-                @keydup.meta.enter="msg+='\n'"
-                @keydup.down="msg+='\n'"
-                @keyup.enter.exact="sendChatMessage">
+      <textarea
+        v-model="msg"
+        ref="msgInput"
+        cols="100" rows="3"
+        placeholder="Type..."
+        class="chat_input"
+        @input="detectTyping"
+        @keydup.shift.enter="msg+='\n'"
+        @keydup.ctrl.enter="msg+='\n'"
+        @keydup.alt.enter="msg+='\n'"
+        @keydup.meta.enter="msg+='\n'"
+        @keydup.down="msg+='\n'"
+        @keyup.enter.exact="sendChatMessage">
       </textarea>
       </v-card-actions>
     </v-card>
@@ -78,29 +91,25 @@ export default {
       msg: '',
       isTyping: false,
       isCollapsedChat: this.isCollapsed,
-      isLoadPrevMsgEvent: false
+      isPrevLoadingEvent: false,
+      isPrevLoading: false,
+      prevScrollHeight: 0
     }
   },
   methods: {
     openChat () {
-      this.isCollapsedChat = false
-      this.setCollapse()
+      this.setCollapse(0)
       this.setUnread('unreadByAdmin', 0)
       this.$nextTick(function () {
         this.scrollToBottom()
       })
     },
     closeChat () {
-      this.isCollapsedChat = true
-      this.setCollapse()
+      this.setCollapse(1)
     },
     sendChatMessage () {
       if (this.msg.trim()) {
-        this.$store.dispatch('sendChatMessage', {
-          chatId: this.chatId,
-          msg: this.msg,
-          creator: 0 // admin
-        })
+        this.$store.dispatch('sendChatMessage', {chatId: this.chatId, msg: this.msg, creator: 0})
           .then(() => {
             this.$nextTick(function () {
               this.msg = ''
@@ -114,33 +123,21 @@ export default {
       }
     },
     detectTyping () {
-      this.isTyping = true
-      this.setTyping()
+      this.setTyping(1)
       setTimeout(() => {
-        this.isTyping = false
-        this.setTyping()
+        this.setTyping(0)
       }, 4000)
     },
-    setTyping () {
-      this.$store.dispatch('setChatProp', {
-        chatId: this.chatId,
-        props: 'isTypingAdmin',
-        value: this.isTyping ? 1 : 0
-      })
+    setTyping (val) {
+      this.isTyping = val
+      this.$store.dispatch('setChatProp', {chatId: this.chatId, props: 'isTypingAdmin', value: val})
     },
-    setCollapse () {
-      this.$store.dispatch('setChatProp', {
-        chatId: this.chatId,
-        props: 'isCollapsedAdmin',
-        value: this.isCollapsedChat ? 1 : 0
-      })
+    setCollapse (val) {
+      this.isCollapsedChat = val
+      this.$store.dispatch('setChatProp', {chatId: this.chatId, props: 'isCollapsedAdmin', value: val})
     },
     setUnread (by, count) {
-      this.$store.dispatch('setChatProp', {
-        chatId: this.chatId,
-        props: by,
-        value: count
-      })
+      this.$store.dispatch('setChatProp', {chatId: this.chatId, props: by, value: count})
     },
     scrollToBottom () {
       if (this.$refs.chatMessages) {
@@ -151,9 +148,17 @@ export default {
         this.$refs.msgInput.focus()
       }
     },
-    loadPreviousChatMessages () {
-      this.isLoadPrevMsgEvent = true
-      this.$store.dispatch('loadPreviousChatMessages')
+    async loadPreviousChatMessages () {
+      console.log('Start loading')
+      this.isPrevLoading = true
+      await this.$store.dispatch('loadPreviousChatMessages')
+      this.isPrevLoading = false
+    },
+    autoLoadPrevMsg (event) {
+      if (event.target.scrollTop < 100 && !this.isPrevLoading && !this.isAllMessagesLoaded) {
+        this.isPrevLoadingEvent = true
+        this.loadPreviousChatMessages()
+      }
     }
   },
   computed: {
@@ -181,14 +186,20 @@ export default {
   },
   watch: {
     chatMessages () {
-      if (!this.isLoadPrevMsgEvent) {
+      if (this.isPrevLoadingEvent) {
+        let chat = this.$refs.chatMessages
+        chat.scrollTop = chat.scrollHeight - this.prevScrollHeight
+        this.prevScrollHeight = chat.scrollHeight
+        this.isPrevLoadingEvent = false
+      } else {
         this.$nextTick(function () {
           this.scrollToBottom()
         })
-      } else {
-        this.isLoadPrevMsgEvent = false
       }
     }
+  },
+  created () {
+    this.scrollToBottom()
   }
 }
 </script>
@@ -197,6 +208,7 @@ export default {
   #liveChat {
     z-index: 10;
   }
+
   .chat_header_admin {
     margin-bottom: 1px;
     padding-bottom: 12px;
