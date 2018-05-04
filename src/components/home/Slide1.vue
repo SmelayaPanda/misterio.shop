@@ -9,7 +9,9 @@
       <transition name="home-fade">
         <p v-if="isLoadedSlide1" id="main_title_2" align="left">
           МЫ ЗНАЕМ ВСЁ<br v-if="this.$vuetify.breakpoint.name !== 'xs'">
-          <span :class="this.$vuetify.breakpoint.name === 'xs' ? '' : 'ml-5'">О ВАШИХ ЖЕЛАНИЯХ</span>
+          <span id="shift_text">
+            О ВАШИХ ЖЕЛАНИЯХ
+          </span>
         </p>
       </transition>
       <transition :name="this.$vuetify.breakpoint.name === 'xs' ? '' : 'svg-fade'">
@@ -63,7 +65,7 @@ export default {
 <style scoped lang="scss">
   #title {
     position: absolute;
-    left: 54%;
+    left: 53%;
     top: 150px;
     margin-right: 70px;
   }
@@ -80,12 +82,16 @@ export default {
   #main_title_2 {
     position: relative;
     font-family: $secondary-font;
-    font-size: 42px;
+    font-size: 44px;
     margin-bottom: 0;
     padding-right: 30px;
     background: linear-gradient(30deg, $color-secondary 33%, white 50%, $color-secondary 65%);
     color: transparent;
     -webkit-background-clip: text;
+  }
+
+  #shift_text {
+    margin-left: 44px;
   }
 
   #main_title_3 {
@@ -166,7 +172,10 @@ export default {
 
   @media only screen and (max-width: $md-screen) {
     #main_title_2 {
-      font-size: 35px;
+      font-size: 32px;
+    }
+    #shift_text {
+      margin-left: 20px;
     }
     #main_title_1_svg {
       height: 38px;
@@ -203,6 +212,9 @@ export default {
       background: linear-gradient(10deg, $color-secondary 33%, white 50%, $color-secondary 65%);
       color: transparent;
       -webkit-background-clip: text;
+    }
+    #shift_text {
+      margin-left: 0;
     }
     #main_title_3 {
       margin-right: 20px;
