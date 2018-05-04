@@ -184,16 +184,15 @@ export default {
   }
 
   .partner_logo {
-    padding: 10px;
-    transform: scale(0.8);
-    height: 80px;
+    padding: 18px;
+    height: 62px;
   }
 
   #fan_factory_logo {
     padding: 10px;
-    margin-bottom: -10px;
+    margin-bottom: -12px;
     transform: scale(0.8);
-    height: 100px;
+    height: 84px;
   }
 
   @media only screen and (max-width: $xs-screen) {
