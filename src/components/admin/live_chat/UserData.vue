@@ -12,6 +12,7 @@
           <p v-if="onlineFrom"><el-tag type="success">Онлайн с: {{ onlineFrom | date }}</el-tag></p>
           <p v-if="lastOnline"><el-tag type="success">Последнее посщение: {{ lastOnline | date }}</el-tag></p>
           <p v-if="onlineFrom && isCollapsedUser"><el-tag type="success">Чат свернут</el-tag></p>
+          <p v-if="onlineFrom && !isCollapsedUser"><el-tag type="success">Чат открыт</el-tag></p>
         </el-col>
       </el-row>
     </div>
