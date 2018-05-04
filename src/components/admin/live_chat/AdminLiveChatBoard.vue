@@ -7,15 +7,15 @@
       </el-col>
       <!--USER DATA-->
       <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-3 pr-3 mt-2">
-        <user-data/>
+        <user-data :key="chatId"/>
       </el-col>
       <!--USER EVENTS-->
       <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-3 pr-3 mt-2">
-        <user-events/>
+        <user-events :key="chatId"/>
       </el-col>
       <!--LIVE CHAT-->
       <el-col :xs="24" :sm="12" :md="12" :lg="9" :xl="8" class="pl-3 pr-3 mt-2">
-        <admin-live-chat/>
+        <admin-live-chat :key="chatId"/>
       </el-col>
     </el-row>
   </div>
@@ -37,6 +37,11 @@ export default {
   },
   data () {
     return {}
+  },
+  computed: {
+    chatId () {
+      return this.$store.getters.chatPropByName('id')
+    }
   }
 }
 </script>

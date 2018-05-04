@@ -176,13 +176,13 @@ export default {
     },
     async loadPreviousChatMessages () {
       console.log('Start loading')
+      this.isPrevLoadingEvent = await true
       this.isPrevLoading = await true
       await this.$store.dispatch('loadPreviousChatMessages')
       this.isPrevLoading = await false
     },
     autoLoadPrevMsg (event) {
       if (event.target.scrollTop < 100 && !this.isPrevLoading && !this.isAllMessagesLoaded) {
-        this.isPrevLoadingEvent = true
         this.loadPreviousChatMessages()
       }
     }

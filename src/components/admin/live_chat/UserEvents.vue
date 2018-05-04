@@ -52,13 +52,13 @@ export default {
     },
     async loadPreviousUserEvents () {
       console.log('Start loading events')
+      this.isPrevLoadingEvent = true
       this.isPrevLoading = await true
       await this.$store.dispatch('loadPreviousUserEvents')
       this.isPrevLoading = await false
     },
     autoLoadPrevEvents (event) {
       if (event.target.scrollTop < 100 && !this.isPrevLoading && !this.isAllEventsLoaded) {
-        this.isPrevLoadingEvent = true
         this.loadPreviousUserEvents()
       }
     }

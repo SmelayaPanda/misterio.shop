@@ -29,8 +29,8 @@
       </v-card-title>
       <v-card-text
         v-if="chatMessages"
-        ref="chatMessages"
         @scroll="autoLoadPrevMsg"
+        ref="adminChatMessages"
         class="admin_chat_messages">
         <el-button
           v-if="!isAllMessagesLoaded"
@@ -141,20 +141,20 @@ export default {
       this.$store.dispatch('setChatProp', {chatId: this.chatId, props: by, value: count})
     },
     scrollToBottom () {
-      if (this.$refs.chatMessages) {
-        let chat = this.$refs.chatMessages
+      if (this.$refs.adminChatMessages) {
+        let chat = this.$refs.adminChatMessages
         chat.scrollTop = chat.scrollHeight
       }
     },
     async loadPreviousChatMessages () {
       console.log('Start loading')
+      this.isPrevLoadingEvent = true
       this.isPrevLoading = await true
       await this.$store.dispatch('loadPreviousChatMessages')
       this.isPrevLoading = await false
     },
     autoLoadPrevMsg (event) {
       if (event.target.scrollTop < 100 && !this.isPrevLoading && !this.isAllMessagesLoaded) {
-        this.isPrevLoadingEvent = true
         this.loadPreviousChatMessages()
       }
     }
@@ -188,7 +188,7 @@ export default {
   watch: {
     chatMessages () {
       if (this.isPrevLoadingEvent) {
-        let chat = this.$refs.chatMessages
+        let chat = this.$refs.adminChatMessages
         chat.scrollTop = chat.scrollHeight - this.prevScrollHeight + 95
         this.prevScrollHeight = chat.scrollHeight
         this.isPrevLoadingEvent = false
