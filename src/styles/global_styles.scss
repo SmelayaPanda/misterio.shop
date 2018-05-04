@@ -56,6 +56,15 @@ $lg-screen: 1920px;
   transform: rotate(180deg) scale(2.5);
 }
 
+.el-message {
+  padding-right: 40px;
+}
+
+.el-message__closeBtn {
+  margin: 0;
+  top: 15px;
+}
+
 .el-dialog__headerbtn {
   right: 35px;
   top: 35px;

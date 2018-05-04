@@ -63,8 +63,8 @@ export default {
       await this.$store.dispatch('openChat', chatId)
       this.$store.dispatch('setChatProp', {chatId: chatId, props: 'isCollapsedAdmin', value: 0})
       this.$store.dispatch('setChatProp', {chatId: chatId, props: 'unreadByAdmin', value: 0})
+      this.$store.dispatch('setChatProp', {chatId: chatId, props: 'id', value: chatId})
       this.chatId = chatId
-      this.$bus.$emit('openLiveChat')
       await this.$store.dispatch('LOADING', false)
     }
   },

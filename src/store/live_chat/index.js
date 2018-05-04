@@ -125,26 +125,25 @@ export default {
           type: 'success',
           showClose: true,
           message: `Новое сообщение от ${userName}`,
-          duration: 10000
+          duration: 30000
         })
         let audio = new Audio(require('@/assets/sounds/iphone_notification.mp3'))
         audio.setAttribute('crossorigin', 'anonymous')
         audio.play()
       }
     },
-    async subscribeToAllChats ({commit, getters, dispatch}) { // for admin
+    subscribeToAllChats ({commit, getters, dispatch}) { // for admin
       commit('setAdminOnline', 1)
-      firebase.database().ref('liveChats').on('child_changed',
-        data => {
-          let liveChats = {...getters.liveChats}
-          liveChats[data.key] = data.val()
-          dispatch('newMessageSoundNotify', data)
-          commit('setLiveChats', liveChats)
-        })
+      firebase.database().ref('liveChats').on('child_changed', data => {
+        let liveChats = {...getters.liveChats}
+        liveChats[data.key] = data.val()
+        dispatch('newMessageSoundNotify', data)
+        commit('setLiveChats', liveChats)
+      })
     },
-    subscribeToChat ({commit, getters, dispatch}, payload) {
+    async subscribeToChat ({commit, getters, dispatch}, payload) {
       let chatRef = firebase.database().ref(`liveChats/${payload}`)
-      return Promise.all([
+      await Promise.all([
         chatRef.child('messages').limitToLast(1).on('child_added', data => {
           if (data.exists()) {
             let chatMessages = getters.chatMessages ? getters.chatMessages : []
@@ -164,21 +163,21 @@ export default {
         }),
         dispatch('subscribeToAdminConnectionDevices')
       ])
+      await commit('setChatProp', {name: 'id', value: payload}) // TODO: remove
     },
-    subscribeToAdminConnectionDevices: // for users to detect online admin
-      ({commit}) => {
-        let adminConn = firebase.database().ref('admin').child('connections')
-        return Promise.all([
-          adminConn.on('child_added', () => {
-            commit('setAdminOnline', 1)
-          }),
-          adminConn.on('child_removed', () => {
-            adminConn.once('value').then(snap => {
-              if (!snap.exists()) commit('setAdminOnline', 0)
-            })
+    subscribeToAdminConnectionDevices ({commit}) { // for users to detect online admin
+      let adminConn = firebase.database().ref('admin').child('connections')
+      return Promise.all([
+        adminConn.on('child_added', () => {
+          commit('setAdminOnline', 1)
+        }),
+        adminConn.on('child_removed', () => {
+          adminConn.once('value').then(snap => {
+            if (!snap.exists()) commit('setAdminOnline', 0)
           })
-        ])
-      },
+        })
+      ])
+    },
     unsubscribeFromChat ({commit, getters}, payload) {
       let chatRef = firebase.database().ref(`liveChats/${payload}`)
       return Promise.all([
@@ -190,76 +189,62 @@ export default {
     async initializeChat ({commit, getters, dispatch}, payload) {
       if (!payload.uid) return
       let chatProps = firebase.database().ref(`liveChats/${payload.uid}`).child('props')
-      chatProps
-        .once('value')
-        .then(snap => {
-          if (!snap.exists()) {
-            console.log('Chat: new initialization')
-            return chatProps.set({
-              id: payload.uid,
-              lastOnline: 0,
-              onlineFrom: 0,
-              isTypingUser: 0,
-              isTypingAdmin: 0,
-              isCollapsedUser: 1,
-              isCollapsedAdmin: 1,
-              unreadByUser: 0,
-              unreadByAdmin: 0,
-              userEmail: payload.email
-            })
-          } else {
-            console.log('Chat: old initialized')
-            return commit('setAllChatPros', snap.val())
-          }
-        })
-        .then(() => {
-          dispatch('openChat', payload.uid)
-        })
-        .catch(err => dispatch('LOG', err))
+      await chatProps.once('value').then(snap => {
+        if (snap.exists()) {
+          console.log('Chat: old initialized')
+        } else {
+          console.log('Chat: new initialization')
+          return chatProps.set({
+            id: payload.uid,
+            lastOnline: 0,
+            onlineFrom: 0,
+            isTypingUser: 0,
+            isTypingAdmin: 0,
+            isCollapsedUser: 1,
+            isCollapsedAdmin: 1,
+            unreadByUser: 0,
+            unreadByAdmin: 0,
+            userEmail: payload.email
+          })
+        }
+      }).catch(err => dispatch('LOG', err))
+      await dispatch('openChat', payload.uid)
+      await dispatch('observeUserConnection', payload.uid)
     },
-    openChat:
-      ({commit, dispatch, getters}, payload) => {
-        let limit = 15
-        return Promise.all([
-          firebase.database().ref(`liveChats/${payload}/events`).orderByKey().limitToLast(limit).once('value')
-            .then((snap) => {
-              if (snap.exists()) {
-                let events = Object.values(snap.val())
-                let cursor = Object.keys(snap.val())[0]
-                events.splice(snap.numChildren() - 1, 1) // because subscribe give the last element
-                commit('setCursor', {name: 'events', value: cursor})
-                commit('setUserEvents', events)
-              }
-              commit('setIsAllLoaded', {name: 'events', value: snap.numChildren() < limit})
-            }),
-          firebase.database().ref(`liveChats/${payload}/messages`).orderByKey().limitToLast(limit).once('value')
-            .then((snap) => {
-              if (snap.exists()) {
-                let messages = Object.values(snap.val())
-                let cursor = Object.keys(snap.val())[0]
-                messages.splice(snap.numChildren() - 1, 1)
-                commit('setCursor', {name: 'messages', value: cursor})
-                commit('setChatMessages', messages)
-              }
-              commit('setIsAllLoaded', {name: 'messages', value: snap.numChildren() < limit})
-            }),
-          firebase.database().ref(`liveChats/${payload}/props`).once('value')
-            .then((snap) => {
-              commit('setAllChatPros', snap.val())
-            })
-        ])
-          .then(() => {
-            commit('setChatProp', {name: 'id', value: payload}) // TODO: remove
-            return Promise.all([
-              dispatch('observeUserConnection', payload.uid),
-              dispatch('subscribeToChat', payload)
-            ])
+    async openChat ({commit, dispatch, getters}, payload) {
+      let limit = 15
+      await Promise.all([
+        firebase.database().ref(`liveChats/${payload}/events`).orderByKey().limitToLast(limit).once('value')
+          .then((snap) => {
+            if (snap.exists()) {
+              let events = Object.values(snap.val())
+              let cursor = Object.keys(snap.val())[0]
+              events.splice(snap.numChildren() - 1, 1) // because subscribe give the last element
+              commit('setCursor', {name: 'events', value: cursor})
+              commit('setUserEvents', events)
+            }
+            commit('setIsAllLoaded', {name: 'events', value: snap.numChildren() < limit})
+          }),
+        firebase.database().ref(`liveChats/${payload}/messages`).orderByKey().limitToLast(limit).once('value')
+          .then((snap) => {
+            if (snap.exists()) {
+              let messages = Object.values(snap.val())
+              let cursor = Object.keys(snap.val())[0]
+              messages.splice(snap.numChildren() - 1, 1)
+              commit('setCursor', {name: 'messages', value: cursor})
+              commit('setChatMessages', messages)
+            }
+            commit('setIsAllLoaded', {name: 'messages', value: snap.numChildren() < limit})
+          }),
+        firebase.database().ref(`liveChats/${payload}/props`).once('value')
+          .then((snap) => {
+            commit('setAllChatPros', snap.val())
           })
-          .then(() => {
-            console.log('Chat is opened')
-          })
-          .catch(err => dispatch('LOG', err))
-      },
+      ]).catch(err => dispatch('LOG', err))
+      await commit('setChatProp', {name: 'id', value: payload}) // TODO: remove
+      await dispatch('subscribeToChat', payload)
+      console.log('Chat is fully opened!')
+    },
     async loadPreviousUserEvents ({commit, getters}) {
       let limit = 50
       let chatId = getters.chatPropByName('id')

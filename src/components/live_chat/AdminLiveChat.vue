@@ -198,11 +198,6 @@ export default {
         })
       }
     }
-  },
-  created () {
-    this.$bus.$on('openLiveChat', () => {
-      this.openChat()
-    })
   }
 }
 </script>

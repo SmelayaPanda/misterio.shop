@@ -7,7 +7,7 @@
       </v-card-title>
       <div v-if="userEvents"
            @scroll="autoLoadPrevEvents"
-           ref="userEvents"
+           ref="userEventsAdmin"
            id="event_messages">
         <el-button
           v-if="!isAllEventsLoaded"
@@ -45,8 +45,8 @@ export default {
   },
   methods: {
     scrollToBottom () {
-      if (this.$refs.userEvents) {
-        let events = this.$refs.userEvents
+      if (this.$refs.userEventsAdmin) {
+        let events = this.$refs.userEventsAdmin
         events.scrollTop = events.scrollHeight
       }
     },
@@ -74,7 +74,7 @@ export default {
   watch: {
     userEvents () {
       if (this.isPrevLoadingEvent) {
-        let events = this.$refs.userEvents
+        let events = this.$refs.userEventsAdmin
         events.scrollTop = events.scrollHeight - this.prevScrollHeight + 95
         this.prevScrollHeight = events.scrollHeight
         this.isPrevLoadingEvent = false
