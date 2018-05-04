@@ -5,7 +5,9 @@
         <el-col :xs="24" :sm="7" :md="7" :lg="7" :xl="7">
           <router-link to="/favorites" exact>
             <div>
-              <span v-if="Object.keys(this.$store.getters.user.favorites).length">
+              <span v-if="this.$store.getters.user &&
+                          this.$store.getters.user.favorites &&
+              Object.keys(this.$store.getters.user.favorites).length">
                 <img v-if="this.$route.path === '/favorites'"
                      src="@/assets/icons/user/favorite_full_white.svg" alt=""
                      class="favorite_icon"

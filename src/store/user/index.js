@@ -13,7 +13,8 @@ export default {
       orders: [],
       oneclick: []
     },
-    isAdmin: false
+    isAdmin: false,
+    admins: ['smelayapandagm@gmail.com', 'otkrovennieigri@mail.ru', 'shop.misterio@gmail.ru']
   },
   mutations: { // change state
     setUser:
@@ -26,28 +27,22 @@ export default {
       }
   },
   actions: {
-    fetchUserData: // one action with another vuex dependencies
+    fetchUserData:
       ({commit, dispatch, getters}, payload) => {
         commit('LOADING', true)
         let user = {...payload} // auth object read only, copy them!
-        firebase.firestore().collection('users').doc(user.uid).get()
+        return firebase.firestore().collection('users').doc(user.uid).get()
           .then(snap => {
-            // add to auth user data own firestore
-            let extendUser = Object.assign(user, snap.data())
-            commit('setUser', extendUser)
-            commit('setAdmin',
-              user.email === 'smelayapandagm@gmail.com' ||
-              user.email === 'otkrovennieigri@mail.ru' ||
-              user.email === 'shop.misterio@gmail.ru'
-            )
+            commit('setUser', Object.assign(user, snap.data())) // add to auth user data own firestore
             return Promise.all([
+              dispatch('setAdmin'),
               dispatch('loadOwnProducts'),
               dispatch('fetchOrders', {userId: user.uid})
             ])
           })
           .then(() => {
             commit('LOADING', false)
-            console.log('Fetched: user data')
+            console.log('Fetched: all user data')
           })
           .catch(err => dispatch('LOG', err))
       },
@@ -237,7 +232,10 @@ export default {
             console.log('Fetched: user cart products')
           })
           .catch(err => dispatch('LOG', err))
-      }
+      },
+    async setAdmin ({commit, getters}) {
+      commit('setAdmin', await getters.admins.indexOf(getters.user.email) !== -1)
+    }
   },
   getters: {
     user:
@@ -247,6 +245,10 @@ export default {
     isAdmin:
       state => {
         return state.isAdmin
+      },
+    admins:
+      state => {
+        return state.admins
       }
   }
 }
