@@ -62,9 +62,7 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="4" :lg="4" :xl="4" align="start">
             <div id="search_count">
-              <i v-if="this.isLoading"
-                 class="el-icon-loading white--text">
-              </i>
+              <i v-if="this.isLoading" class="el-icon-loading white--text"></i>
               <div v-if="!this.isLoading && this.$store.getters.algoliaSearchText">
                 <el-tag type="danger" size="mini" class="white--text">
                   <span v-if="products">
@@ -461,9 +459,10 @@ export default {
       margin-top: 0;
     }
     #search_count {
-      margin-top: 0;
+      margin-top: -5px;
       margin-left: 50%;
       transform: translateX(-90px);
+      margin-bottom: 15px;
     }
   }
 </style>

@@ -49,7 +49,9 @@
             <el-col :span="24" class="info--text chat_msg_meta">
                 <span :class="chat.creator ? 'left' : 'right'">
                 <span>{{ chat.creator ? 'Клиент' : 'Вы' }}:</span>
-                {{ new Date(chat.date) | chatTime }}
+                <el-tooltip :content="new Date(chat.date) | date" placement="bottom">
+                  <span class="info--text">{{ new Date(chat.date) | chatTime }}</span>
+                </el-tooltip>
                 </span>
             </el-col>
           </el-row>

@@ -21,8 +21,8 @@
                   ...<v-icon size="small" class="primary_a--text">edit</v-icon>
                 </span>
           <span v-if="chat.props.unreadByAdmin">
-                  <v-icon>fiber_manual_record</v-icon>
-                </span>
+            <v-icon class="error--text">fiber_manual_record</v-icon>
+          </span>
           <el-button @click="openChat(id)" type="text" :class="chatId === id ? 'white--text' : ''">
             {{ chat.props.userEmail ? ( chat.props.userEmail ) : `Анонимный ( ${id.substring(0, 5)} )` }}
             <el-tag size="mini" :type="chatId === id ? '' : 'success'">

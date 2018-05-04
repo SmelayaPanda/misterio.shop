@@ -23,8 +23,10 @@
         <el-row v-for="(event, idx) in userEvents"
                 :key="idx"
                 justify="left">
-          <el-col :span="6" class="info--text left pr-1 chat_time">
-            {{ new Date(event.date) | chatTime }}
+          <el-col :span="5">
+            <el-tooltip :content="new Date(event.date) | date" placement="bottom">
+             <span class="info--text chat_time">{{ new Date(event.date) | chatTime }}</span>
+            </el-tooltip>
           </el-col>
           <el-col :span="18" align="left" class="pb-2">{{ event.name }}</el-col>
         </el-row>

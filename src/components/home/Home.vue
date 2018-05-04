@@ -155,6 +155,7 @@ export default {
   },
   created () {
     this.$store.dispatch('loadNews', {type: 'sale'})
+    this.$vuetify.breakpoint.name === 'xs' ? this.swiperOption.effect = 'slide' : this.swiperOption.effect = 'fade'
   },
   mounted () {
     this.isMountedHome = true
@@ -178,6 +179,7 @@ export default {
   .welcome-leave-active {
     opacity: 0;
   }
+
   /* END transitions */
 
   .home_page {
