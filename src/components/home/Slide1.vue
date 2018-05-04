@@ -65,9 +65,9 @@ export default {
 <style scoped lang="scss">
   #title {
     position: absolute;
-    left: 53%;
+    left: 52%;
     top: 150px;
-    margin-right: 70px;
+    margin-right: 64px;
   }
 
   #main_title_1 {
@@ -84,14 +84,14 @@ export default {
     font-family: $secondary-font;
     font-size: 44px;
     margin-bottom: 0;
-    padding-right: 30px;
+    padding-right: 0;
     background: linear-gradient(30deg, $color-secondary 33%, white 50%, $color-secondary 65%);
     color: transparent;
     -webkit-background-clip: text;
   }
 
   #shift_text {
-    margin-left: 44px;
+    margin-left: 22px;
   }
 
   #main_title_3 {

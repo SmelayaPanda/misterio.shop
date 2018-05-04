@@ -23,19 +23,22 @@
             <el-col :xs="24" :sm="22" :md="11" :lg="11" :xl="11" align="left">
               <transition name="app-fade-left">
                 <p v-show="isLoadedData" class="about_text">
-                  Разнообразный и богатый опыт укрепление и развитие структуры позволяет выполнять важные задания по
-                  разработке системы обучения кадров, соответствует насущным потребностям. Разнообразный и богатый опыт
-                  укрепление и развитие структуры способствует подготовки и реализации модели развития.
+                  Мы продаем не просто товары, мы продаем удовольствие! А также убеждены, что слово «сексшоп» не в полной
+                  мере раскрывает суть нашей деятельности. В основу концепции нашего магазина заложено удовольствие
+                  покупателя. В прямом смысле этого слова! Мы помогаем людям сделать жизнь приятнее, интереснее и ярче!
+                  Мы продаем эмоции – этого вы не купите больше нигде. Продаем уверенность в себе и своих силах – это
+                  многого стоит! Мы продаем гармонию в жизни…
                 </p>
               </transition>
             </el-col>
             <el-col :xs="24" :sm="22" :md="11" :lg="11" :xl="11" align="left">
               <transition name="app-fade-right">
-                <p v-show="isLoadedData" class="about_text">
-                  Не следует, однако забывать, что постоянное информационно-пропагандистское обеспечение нашей
-                  деятельности представляет собой интересный эксперимент проверки модели развития. Идейные соображения
-                  высшего порядка, а также консультация с широким активом обеспечивает широкому кругу (специалистов)
-                  участие в формировании направлений прогрессивного развития.
+                <p v-show="isLoadedData" class="about_text" style="margin-top: 2px;">
+                  Берите от жизни всё прямо сейчас! Она слишком коротка, чтобы чего-то ждать! Наш ассортимент игрушек,
+                  белья и другой продукции был отобран с тем, чтобы быть интересным всем, независимо от возраста, пола и
+                  ориентации. Неважно, гетеросексуальны Вы, бисексуальны или гомосексуальны; женщина, мужчина или
+                  транссексуал. Двадцать Вам, сорок или семьдесят — в любом случае на misterio.shop Вы найдете полезные
+                  для себя товары и услуги.
                 </p>
               </transition>
             </el-col>
@@ -56,10 +59,16 @@
           <el-col :xs="22" :sm="20" :md="20" :lg="20" :xl="20" type="flex">
             <h2 id="partners_title">Наши партнеры</h2>
             <div id="partners">
-              <img class="partner_logo" src="@/assets/img/about/company_logo1.png" alt="">
-              <img class="partner_logo" src="@/assets/img/about/company_logo2.png" alt="">
-              <img class="partner_logo" src="@/assets/img/about/company_logo1.png" alt="">
-              <img class="partner_logo" src="@/assets/img/about/company_logo2.png" alt="">
+              <img class="partner_logo" src="@/assets/img/about/1.png" alt="">
+              <img class="partner_logo" src="@/assets/img/about/2.png" alt="">
+              <img class="partner_logo" src="@/assets/img/about/3.png" alt="">
+              <img class="partner_logo" src="@/assets/img/about/4.png" alt="">
+              <img class="partner_logo" src="@/assets/img/about/5.png" alt="">
+              <img id="fan_factory_logo" src="@/assets/img/about/6.png" alt="">
+              <img class="partner_logo" src="@/assets/img/about/7.png" alt="">
+              <img class="partner_logo" src="@/assets/img/about/8.png" alt="">
+              <img class="partner_logo" src="@/assets/img/about/9.png" alt="">
+              <img class="partner_logo" src="@/assets/img/about/10.png" alt="">
             </div>
           </el-col>
         </el-row>
@@ -177,6 +186,14 @@ export default {
   .partner_logo {
     padding: 10px;
     transform: scale(0.8);
+    height: 80px;
+  }
+
+  #fan_factory_logo {
+    padding: 10px;
+    margin-bottom: -10px;
+    transform: scale(0.8);
+    height: 100px;
   }
 
   @media only screen and (max-width: $xs-screen) {
