@@ -1,6 +1,6 @@
 <template>
   <el-row type="flex" justify="center" class="main_header">
-    <span id="attention_dev">Сайт в разработке!</span>
+    <span id="attention_dev">Скоро открытие!</span>
     <div id="app_main_logo_wrapper">
       <img id="app_main_logo" src="@/assets/icons/logo/logo_site.svg" alt="">
       <img v-if="color === 'black'" class="text_logo" src="@/assets/icons/logo/text_black.svg" alt="">

@@ -70,6 +70,7 @@ export default {
         })
     },
     generateSitemap () {
+      this.$store.dispatch('LOADING', true)
       let zip = new JSZip()
       let xml = ''
       firebase.firestore().collection('products').get()
