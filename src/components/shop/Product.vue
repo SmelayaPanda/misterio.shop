@@ -229,6 +229,11 @@ export default {
         product: product
       })
     }
+  },
+  created () {
+    if (!this.$store.getters.products[this.id]) {
+      this.$store.dispatch('loadSingleProduct', this.id)
+    }
   }
 }
 </script>

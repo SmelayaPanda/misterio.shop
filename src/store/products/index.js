@@ -50,6 +50,16 @@ export default {
       }
   },
   actions: {
+    loadSingleProduct ({commit, getters, dispatch}, payload) {
+      let products = getters.products ? getters.products : {}
+      return firebase.firestore().collection('products').doc(payload).get()
+        .then(snap => {
+          products[snap.id] = snap.data()
+          commit('setProducts', {...products})
+          console.log('Single product loaded')
+        })
+        .catch(err => dispatch('LOG', err))
+    },
     fetchProducts:
       ({commit, getters, dispatch}) => {
         commit('LOADING', true)
