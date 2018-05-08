@@ -6,7 +6,9 @@
     @touchend="hoveredCard = false"
     @mouseover="hoveredCard = true"
     @mouseleave="hoveredCard = false"
-    class="card_wrapper">
+    class="card_wrapper"
+    itemscope
+    itemtype="http://schema.org/Product">
     <v-card
       class="main_card primary"
       :height="this.$vuetify.breakpoint.name === 'xs' ? '460px' :
@@ -15,24 +17,27 @@
         :src="product.img_0.card"
         :height="this.$vuetify.breakpoint.name === 'xs' ? '458px' :
                 (this.$vuetify.breakpoint.name === 'md' ? '368px' : '418px')"
-        style="border-radius: 2px"></v-card-media>
+        style="border-radius: 2px">
+      </v-card-media>
       <div id="product_title">
         <el-row type="flex" justify="space-evenly">
           <el-col :span="6" align="right">
             <transition name="fade">
-              <el-tooltip v-if="user.favorites[id]"
-                          class="item" effect="dark"
-                          content="Убрать из избранных"
-                          placement="top-start">
+              <el-tooltip
+                v-if="user.favorites[id]"
+                class="item" effect="dark"
+                content="Убрать из избранных"
+                placement="top-start">
                 <v-icon
                   @click.stop="updateOwnProduct(product, 'favorites', 'remove')"
                   class="own_product_icon secondary--text">favorite
                 </v-icon>
               </el-tooltip>
-              <el-tooltip v-else-if="hoveredCard"
-                          class="item" effect="dark"
-                          content="В избранное"
-                          placement="top-start">
+              <el-tooltip
+                v-else-if="hoveredCard"
+                class="item" effect="dark"
+                content="В избранное"
+                placement="top-start">
                 <v-icon
                   @click.stop="updateOwnProduct(product, 'favorites', 'add')"
                   class="own_product_icon white--text">favorite_border
@@ -41,31 +46,35 @@
             </transition>
           </el-col>
           <el-col :span="12">
-            <p class="grey--text pl-2">
-              {{ product.price | price }}<span v-html="RUB"></span>
+            <p class="grey--text pl-2" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+              <span itemprop="price" :content="product.price">{{ product.price | price }}</span>
+              <span v-html="RUB" itemprop="priceCurrency" content="RUB"></span>
             </p>
           </el-col>
           <el-col :span="6" align="left">
             <transition name="fade">
-              <el-tooltip v-if="product.totalQty < 1 && hoveredCard"
-                          class="item" effect="dark"
-                          content="Нет в наличии"
-                          placement="top-start">
+              <el-tooltip
+                v-if="product.totalQty < 1 && hoveredCard"
+                class="item" effect="dark"
+                content="Нет в наличии"
+                placement="top-start">
                 <v-icon class="own_product_icon white--text">info_outline</v-icon>
               </el-tooltip>
-              <el-tooltip v-else-if="user.cart[id]"
-                          class="item" effect="dark"
-                          content="Убрать из корзины"
-                          placement="top-start">
+              <el-tooltip
+                v-else-if="user.cart[id]"
+                class="item" effect="dark"
+                content="Убрать из корзины"
+                placement="top-start">
                 <v-icon
                   @click.stop="updateOwnProduct(product, 'cart', 'remove')"
                   class="own_product_icon secondary--text">el-icon-goods
                 </v-icon>
               </el-tooltip>
-              <el-tooltip v-else-if="hoveredCard"
-                          class="item" effect="dark"
-                          content="В корзину"
-                          placement="top-start">
+              <el-tooltip
+                v-else-if="hoveredCard"
+                class="item" effect="dark"
+                content="В корзину"
+                placement="top-start">
                 <v-icon
                   @click.stop="updateOwnProduct(product, 'cart', 'add')"
                   class="own_product_icon white--text">el-icon-goods
@@ -75,7 +84,7 @@
           </el-col>
         </el-row>
         <el-row id="product_title_wrapper">
-          <p id="shop_product_title">
+          <p id="shop_product_title" itemprop="name">
             {{ product.title | snippet(56) }}
           </p>
         </el-row>

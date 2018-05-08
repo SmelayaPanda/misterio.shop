@@ -15,19 +15,19 @@
           </router-link>
         </el-col>
         <el-col :xs="24" :sm="20" :md="21" :lg="18" :xl="16" type="flex" align="middle">
-          <el-card id="product_card">
+          <el-card id="product_card" itemscope itemtype="http://schema.org/Product">
             <el-row type="flex" style="flex-wrap: wrap">
               <el-col :xs="24" :sm="4" :md="3" :lg="3" :xl="3" id="product_thumbnails_desctop">
                 <img v-if="product.img_0.thumbnail" :src="product.img_0.thumbnail" @click="loadOriginal(0)"
-                     ref="d_img_0" class="thumb_img active"/>
+                     ref="d_img_0" class="thumb_img active" itemprop="image"/>
                 <img v-if="product.img_1.thumbnail" :src="product.img_1.thumbnail" @click="loadOriginal(1)"
-                     ref="d_img_1" class="thumb_img"/>
+                     ref="d_img_1" class="thumb_img" itemprop="image"/>
                 <img v-if="product.img_2.thumbnail" :src="product.img_2.thumbnail" @click="loadOriginal(2)"
-                     ref="d_img_2" class="thumb_img"/>
+                     ref="d_img_2" class="thumb_img" itemprop="image"/>
                 <img v-if="product.img_3.thumbnail" :src="product.img_3.thumbnail" @click="loadOriginal(3)"
-                     ref="d_img_3" class="thumb_img"/>
+                     ref="d_img_3" class="thumb_img" itemprop="image"/>
                 <img v-if="product.img_4.thumbnail" :src="product.img_4.thumbnail" @click="loadOriginal(4)"
-                     ref="d_img_4" class="thumb_img"/>
+                     ref="d_img_4" class="thumb_img" itemprop="image"/>
               </el-col>
               <el-col :xs="24" :sm="20" :md="9" :lg="9" :xl="10">
                 <zoom-on-hover :img-normal="viewImage ? viewImage : product.img_0.original"
@@ -36,15 +36,15 @@
                 </zoom-on-hover>
                 <el-row id="product_thumbnails_mobile">
                   <img v-if="product.img_0.thumbnail" :src="product.img_0.thumbnail" @click="loadOriginal(0)"
-                       ref="m_img_0" class="thumb_img active"/>
+                       ref="m_img_0" class="thumb_img active" itemprop="image"/>
                   <img v-if="product.img_1.thumbnail" :src="product.img_1.thumbnail" @click="loadOriginal(1)"
-                       ref="m_img_1" class="thumb_img"/>
+                       ref="m_img_1" class="thumb_img" itemprop="image"/>
                   <img v-if="product.img_2.thumbnail" :src="product.img_2.thumbnail" @click="loadOriginal(2)"
-                       ref="m_img_2" class="thumb_img"/>
+                       ref="m_img_2" class="thumb_img" itemprop="image"/>
                   <img v-if="product.img_3.thumbnail" :src="product.img_3.thumbnail" @click="loadOriginal(3)"
-                       ref="m_img_3" class="thumb_img"/>
+                       ref="m_img_3" class="thumb_img" itemprop="image"/>
                   <img v-if="product.img_4.thumbnail" :src="product.img_4.thumbnail" @click="loadOriginal(4)"
-                       ref="m_img_4" class="thumb_img"/>
+                       ref="m_img_4" class="thumb_img" itemprop="image"/>
                 </el-row>
                 <el-row class="mt-3">
                   <p id="misterio_shop">
@@ -56,7 +56,7 @@
               </el-col>
               <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12"
                       v-model="product">
-                <p id="product_title">
+                <p id="product_title" itemprop="name">
                   {{ product.title }}
                   <span>
                     <v-icon
@@ -71,16 +71,17 @@
                 </p>
                 <v-divider class="mb-2 mt-2"></v-divider>
                 <div class="product_info">
-                  <p class="info--text">Арт. : {{ product.SKU }}</p>
+                  <p class="info--text">Арт. :<span itemprop="sku">{{ product.SKU }}</span></p>
                   <el-row type="flex">
                     <el-col :span="12" align="left">
                       <p>
                         <img class="property_icon" src="@/assets/icons/product/brand.svg" width="21px" alt="">
-                        {{ product.brand }}
+                        <span itemprop="brand">{{ product.brand }}</span>
                       </p>
                       <p>
                         <img class="property_icon" src="@/assets/icons/product/color.svg" width="20px" alt="">
-                        {{ product.color }} </p>
+                        <span itemprop="color">{{ product.color }}</span>
+                      </p>
                       <p>
                         <img class="property_icon" src="@/assets/icons/product/qty.svg" width="20px" alt="">
                         <span v-if="product.totalQty < 1" class="error--text">
@@ -104,11 +105,16 @@
                     </el-col>
                   </el-row>
                   <div id="product_descr_wrapper">
-                    <p>{{ product.description }} </p>
+                    <p itemprop="description">{{ product.description }} </p>
                   </div>
                 </div>
                 <v-divider class="mb-3 mt-4"></v-divider>
-                <p>Цена: {{ product.price | price }}<span v-html="RUB"></span></p>
+                <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                <p>
+                  Цена: <span itemprop="price" :content="product.price">{{ product.price | price }}</span>
+                  <span v-html="RUB" itemprop="priceCurrency" content="RUB"></span>
+                </p>
+                </div>
                 <el-button v-if="!alreadyAddedProduct"
                            id="into_cart_btn"
                            :disabled="product.totalQty < 1"

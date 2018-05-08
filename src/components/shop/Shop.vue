@@ -179,9 +179,10 @@
         </el-collapse>
         <el-row type="flex" justify="center" style="flex-wrap: wrap">
           <el-col :xs="23" :sm="12" :md="8" :lg="8" :xl="8"
-                  v-for="(p,key) in products" :key="key">
+                  v-for="(p,key) in products" :key="key"
+                  itemscope itemtype="http://schema.org/ItemList">
             <!--PRODUCT CART-->
-            <product-card :id="p.productId"/>
+            <product-card :id="p.productId" itemprop="itemListElement" itemtype="http://schema.org/Product"/>
           </el-col>
         </el-row>
         <div class="mb-4 mt-3">
