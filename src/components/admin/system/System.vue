@@ -5,6 +5,10 @@
       <v-icon class="white--text">dns</v-icon>
       Снять копию базы данных
     </el-button>
+    <el-button @click="generateSitemap" class="success_a white--text">
+      <v-icon class="white--text">map</v-icon>
+      Сгенерировать Sitemap.xml
+    </el-button>
   </div>
 </template>
 
@@ -63,6 +67,34 @@ export default {
         })
         .catch(err => {
           console.log(err)
+        })
+    },
+    generateSitemap () {
+      let zip = new JSZip()
+      let xml = ''
+      firebase.firestore().collection('products').get()
+        .then(snap => {
+          xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+          let URL = 'https://misterio.shop/'
+          let mainPages = ['', 'shop', 'about', 'news', 'contacts']
+          mainPages.forEach(el => {
+            xml += `<url><loc>${URL}${el}</loc></url>`
+          })
+          snap.docs.forEach(doc => {
+            xml += `<url><loc>${URL}${doc.id}</loc></url>`
+          })
+          xml += '</urlset>'
+          zip.file('sitemap.xml', xml)
+          zip.generateAsync({type: 'blob'})
+            .then((content) => {
+              let date = new Date().toISOString().substring(0, 10)
+              FileSaver.saveAs(content, 'sitemap_' + date + '.zip')
+              this.$store.dispatch('LOADING', false)
+            })
+            .catch(err => {
+              console.log(err)
+              this.$store.dispatch('LOADING', false)
+            })
         })
     }
   }
