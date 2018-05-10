@@ -78,8 +78,9 @@ export default {
           xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
           let URL = 'https://misterio.shop/'
           let mainPages = ['', 'shop', 'about', 'news', 'contacts']
+          let lastmod = new Date().toISOString()
           mainPages.forEach(el => {
-            xml += `<url><loc>${URL}${el}</loc></url>`
+            xml += `<url><loc>${URL}${el}</loc><lastmod>${lastmod}</lastmod></url>`
           })
           snap.docs.forEach(doc => {
             xml += `<url><loc>${URL}product/${doc.id}</loc></url>`
