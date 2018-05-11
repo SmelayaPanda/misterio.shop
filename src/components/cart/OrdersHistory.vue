@@ -23,21 +23,11 @@
                 <el-switch v-model="order.showDetails" type="text" class="pl-4 pb-1"></el-switch>
               </el-col>
               <el-col :xs="18" :sm="21" :md="21" :lg="22" :xl="22" class="mb-2">
-                <el-tag type="info">
-                  ИД: {{ order.id }}
-                </el-tag>
-                <el-tag type="info">
-                  {{ order.history.created | date }}
-                </el-tag>
-                <el-tag type="info">
-                  {{ order.amount.final.value }} {{ order.amount.final.currency }}
-                </el-tag>
-                <el-tag type="info">
-                  {{ ORDER_STATUSES[order.status].label }}
-                </el-tag>
-                <el-tag type="info">
-                  {{ PAYMENT_STATUSES[order.payment.status].label }}
-                </el-tag>
+                <el-tag type="info">ИД: {{ order.id }}</el-tag>
+                <el-tag type="info">{{ order.history.created | date }}</el-tag>
+                <el-tag type="info">{{ order.amount.final.value }} {{ order.amount.final.currency }}</el-tag>
+                <el-tag type="info">{{ ORDER_STATUSES[order.status].label }}</el-tag>
+                <el-tag type="info">{{ PAYMENT_STATUSES[order.payment.status].label }}</el-tag>
                 <!--PAYPAL-->
                 <!--<pay-pal-paymet-dialog-->
                   <!--:orderId="order.id"-->
@@ -46,13 +36,21 @@
                   <!--v-if="order.status === 'payPending'">-->
                 <!--</pay-pal-paymet-dialog>-->
                 <!--YANDEX PAYMENT-->
-                <yandex-payment-dialog
-                  v-if="order.payment.status === PAYMENT_STATUSES.none.value &&
-                        order.payment.type === PAYMENT_TYPES.online.value"
-                  :orderId="order.id"/>
+                <div v-if="order.payment.status === PAYMENT_STATUSES.none.value &&
+                           order.payment.type === PAYMENT_TYPES.online.value">
+                  <yandex-payment-dialog :orderId="order.id"/>
+                  <el-button
+                    v-if="confirmationObj &&
+                          confirmationObj.orderId === order.id &&
+                          confirmationObj.url"
+                             @click="openConfirmationLink"
+                             id="confirm_payment">
+                    Подтвердить платеж
+                  </el-button>
+                </div>
               </el-col>
             </el-row>
-            <!--DEATAILS-->
+            <!--DETAILS-->
             <div v-show="order.showDetails === true">
               <el-row type="flex" justify="center" style="flex-wrap: wrap;">
                 <el-col :xs="20" :sm="10" :md="10" :lg="10" :xl="10">
@@ -152,18 +150,19 @@ export default {
     YandexPaymentDialog
   },
   data () {
-    return {
-      statusTooltips: {
-        payPending: `Если вы уже оплатили товар, то необходимо дождаться подтверждения платежа с PayPal.
-                     После этого статус вашего товара автоматически сменится на оплачено.
-                     Если у Вас возникли трудности, свяжитесь с нами по контактному номеру`,
-        sentPending: `Ваша покупка будет отправленая в ближайшее время`
-      }
+    return {}
+  },
+  methods: {
+    openConfirmationLink () {
+      window.location.assign(this.confirmationObj.url)
     }
   },
   computed: {
     userOrders () {
       return this.$store.getters.orders
+    },
+    confirmationObj () {
+      return this.$store.getters.confirmationObj
     }
   }
 }
@@ -199,5 +198,12 @@ export default {
   .info_title {
     font-size: 16px;
     font-weight: 600;
+  }
+
+  #confirm_payment {
+    margin-top: 10px;
+    color: white;
+    border: 1px solid $color-secondary;
+    background: $color-secondary;
   }
 </style>

@@ -126,7 +126,9 @@ export default {
             const {params} = res.error
             let msg = 'Ошибка: '
             if (params) {
-              params.forEach(el => { msg += el.message + '. ' })
+              params.forEach(el => {
+                msg += el.message + '. '
+              })
             } else {
               msg += 'что-то пошло не так, обратитесь к администратору.'
               this.$store.dispatch('LOG', res)
@@ -152,18 +154,23 @@ export default {
         idempotenceKey: this.orderId,
         order: this.order
       })
-        .then((response) => {
-          if (response.data.status === 'pending') {
-            // console.log(response.data.obj)
+        .then((res) => {
+          console.log(res)
+          let data = res.data
+          if (data.status === 'pending') {
             this.$notify.success({
               title: 'Инфо',
               message: 'Ваш платеж поступил в обработку и ожидает подтверждения',
               offset: 100,
               duration: 60000
             })
+            if (data.obj.confirmation.type === 'redirect') {
+              let url = data.obj.confirmation.confirmation_url
+              this.setConfirmationUrl(url)
+              window.location.assign(url)
+            }
           }
-          if (response.data.status === 'succeeded') {
-            // console.log(response.data.obj)
+          if (data.status === 'succeeded') {
             this.$notify.success({
               title: 'Поздравляем!',
               message: 'Ваш платеж успешно совершен! Мы свяжемся с Вами в ближайшее время',
@@ -171,17 +178,29 @@ export default {
               duration: 60000
             })
           }
-          if (response.data.status === 'error') {
+          if (data.status === 'error') {
             this.$notify.error({
               title: 'Что-то пошло не так.',
               message: 'Попробуйте повторить попытку позже или свяжитесь с администратором.',
               offset: 100,
               duration: 60000
             })
-            throw response.data.obj
+            throw data.obj
+          }
+          if (data.status === 'canceled') {
+            this.$notify.error({
+              title: 'Что-то пошло не так.',
+              message: 'Истекло время подтверждения платежа или платеж был отвергнут банком-эмитентом или платежным сервисом.',
+              offset: 100,
+              duration: 60000
+            })
+            throw data.obj
           }
         })
         .catch((err) => this.$store.dispatch('LOG', err))
+    },
+    setConfirmationUrl (url) {
+      this.$store.dispatch('setConfirmationObj', {orderId: this.orderId, url: url})
     }
   },
   computed: {

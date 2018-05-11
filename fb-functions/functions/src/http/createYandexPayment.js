@@ -52,12 +52,12 @@ exports.handler = function (req, res, admin, transporter) {
       .then((result) => {
         console.log('Payment Result:', result)
         // result.status = pending / waiting_for_capture / succeeded / canceled
-        return res.status(200).send({status: result.status, obj: JSON.stringify(result)})
+        return res.status(200).send({status: result.status, obj: result})
       })
       .catch((err) => {
         console.error(err)
         // 200 - for avoid loop invocation
-        return res.status(200).send({status: 'error', obj: JSON.stringify(err)})
+        return res.status(200).send({status: 'error', obj: err})
       })
   });
 }

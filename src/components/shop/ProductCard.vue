@@ -47,7 +47,7 @@
           </el-col>
           <el-col :span="12">
             <p class="grey--text pl-2" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-              <span itemprop="price" :content="product.price">{{ product.price | price }}</span>
+              <span itemprop="price" :content="product.price.toFixed(2)">{{ product.price | price }}</span>
               <span v-html="RUB" itemprop="priceCurrency" content="RUB"></span>
             </p>
           </el-col>

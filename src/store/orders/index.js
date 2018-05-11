@@ -12,7 +12,8 @@ export default {
       delivered: 0,
       refused: 0,
       totalOrders: 0
-    }
+    },
+    confirmationObj: {orderId: '', url: ''} // { orderId: '', url: '' } for confirm payment button
   },
   mutations: {
     setOrders:
@@ -22,7 +23,10 @@ export default {
     orderStatistics:
       (state, payload) => {
         state.orderStatistics = payload
-      }
+      },
+    setConfirmationObj (state, payload) {
+      state.confirmationObj = payload
+    }
   },
   actions: {
     fetchOrders:
@@ -129,16 +133,14 @@ export default {
             commit('orderStatistics', snapshot.data())
           })
           .catch(err => dispatch('LOG', err))
-      }
+      },
+    setConfirmationObj ({commit}, payload) {
+      commit('setConfirmationObj', payload)
+    }
   },
   getters: {
-    orders:
-      state => {
-        return state.orders
-      },
-    orderStatistics:
-      state => {
-        return state.orderStatistics
-      }
+    orders: state => state.orders,
+    orderStatistics: state => state.orderStatistics,
+    confirmationObj: state => state.confirmationObj
   }
 }

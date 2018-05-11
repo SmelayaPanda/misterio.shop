@@ -111,7 +111,7 @@
                 <v-divider class="mb-3 mt-4"></v-divider>
                 <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                 <p>
-                  Цена: <span itemprop="price" :content="product.price">{{ product.price | price }}</span>
+                  Цена: <span itemprop="price" :content="product.price.toFixed(2)">{{ product.price | price }}</span>
                   <span v-html="RUB" itemprop="priceCurrency" content="RUB"></span>
                 </p>
                 </div>
