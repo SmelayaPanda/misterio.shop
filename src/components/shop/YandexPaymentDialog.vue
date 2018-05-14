@@ -17,9 +17,7 @@
             Номер ордера: {{ orderId }}
           </el-tag>
           <br>
-          <el-tag v-if="tokenizeError"
-                  type="danger"
-                  class="mt-2 mb-3">
+          <el-tag v-if="tokenizeError" type="danger" class="mt-2 mb-3">
             {{ tokenizeError }}
           </el-tag>
           <div id="credit_card_form" class="card">
@@ -75,10 +73,17 @@
               </el-tooltip>
             </form>
           </div>
-          <el-button v-if="order" @click="tokenizeCard" id="success_pay_btn">
+          <el-button
+            v-if="order && !isPaymentCreationProcess"
+            @click="tokenizeCard"
+            id="success_pay_btn">
             Оплатить {{ order.amount.final.value }}<span v-html="RUB"></span>
             <i v-if="isTokenizeInProcess" class="el-icon-loading"></i>
           </el-button>
+          <div id="payment_progress" v-if="isPaymentCreationProcess">
+            <el-tag type="success">Производится оплата</el-tag>
+            <v-progress-linear :indeterminate="true" color="success" height="3"></v-progress-linear>
+          </div>
         </el-col>
       </el-row>
     </el-dialog>
@@ -96,11 +101,12 @@ export default {
       dialogVisible: true,
       tokenizeError: '',
       isTokenizeInProcess: false,
+      isPaymentCreationProcess: false,
       card: {
-        number: '1111111111111026',
-        cvc: '000',
-        month: '12',
-        year: '25'
+        number: '',
+        cvc: '',
+        month: '',
+        year: ''
       }
     }
   },
@@ -140,9 +146,9 @@ export default {
     },
     // Cloud functions create payment
     async createPayment (paymentToken) {
+      this.isPaymentCreationProcess = await true
       await this.$store.dispatch('subscribeToOrderModification', this.orderId)
-      this.dialogVisible = false
-      console.log(paymentToken)
+      console.log('Payment token created')
       let url = ''
       if (process.env.NODE_ENV === 'production') {
         url = 'https://us-central1-misterio-prod.cloudfunctions.net/createYandexPayment'
@@ -155,6 +161,8 @@ export default {
         order: this.order
       })
         .then((res) => {
+          this.isPaymentCreationProcess = false
+          this.dialogVisible = false
           console.log(res)
           let data = res.data
           if (data.status === 'pending') {
@@ -295,10 +303,19 @@ export default {
     box-shadow: -4px -2px 6px $color-primary, -4px -2px 3px $color-secondary, -180px -2px 6px $color-secondary, -180px -2px 4px $color-secondary;
   }
 
+  #payment_progress {
+    width: 400px;
+    margin-top: 10px;
+  }
+
   @media only screen and (max-width: $xs-screen) {
     .card {
       width: 320px;
       height: 220px;
+    }
+    #payment_progress {
+      width: 320px;
+      margin-top: 8px;
     }
   }
 </style>
