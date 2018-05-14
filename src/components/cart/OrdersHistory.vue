@@ -30,10 +30,10 @@
                 <el-tag type="info">{{ PAYMENT_STATUSES[order.payment.status].label }}</el-tag>
                 <!--PAYPAL-->
                 <!--<pay-pal-paymet-dialog-->
-                  <!--:orderId="order.id"-->
-                  <!--:orderItems="order.products"-->
-                  <!--:amount="order.totalPrice"-->
-                  <!--v-if="order.status === 'payPending'">-->
+                <!--:orderId="order.id"-->
+                <!--:orderItems="order.products"-->
+                <!--:amount="order.totalPrice"-->
+                <!--v-if="order.status === 'payPending'">-->
                 <!--</pay-pal-paymet-dialog>-->
                 <!--YANDEX PAYMENT-->
                 <div v-if="order.payment.status === PAYMENT_STATUSES.none.value &&
@@ -43,8 +43,8 @@
                     v-if="confirmationObj &&
                           confirmationObj.orderId === order.id &&
                           confirmationObj.url"
-                             @click="openConfirmationLink"
-                             id="confirm_payment">
+                    @click="openConfirmationLink"
+                    id="confirm_payment">
                     Подтвердить платеж
                   </el-button>
                 </div>
@@ -92,9 +92,10 @@
                     <p>
                       <v-icon class="info--text">airplanemode_active</v-icon>
                       <span class="info_title">
-                        Способ доставки:
+                        Способ и стоимость доставки:
                       </span><br>
                       {{ DELIVERY_METHODS[order.delivery.method].label }}
+                      - {{ order.amount.delivery.value }} <span v-html="RUB"></span>
                     </p>
                   </div>
                 </el-col>
@@ -121,13 +122,13 @@
                       </p>
                     </div>
                   </div>
-                  <p v-if="order.comments">
-                    <span>
-                      <i class="el-icon-warning"></i>
-                      Комментарии:
-                    </span>
-                    {{ order.comments.user }}<br>
-                  </p>
+                  <!--<p v-if="order.comments">-->
+                  <!--<span>-->
+                  <!--<i class="el-icon-warning"></i>-->
+                  <!--Комментарии:-->
+                  <!--</span>-->
+                  <!--{{ order.comments.user }}<br>-->
+                  <!--</p>-->
                 </el-col>
               </el-row>
             </div>

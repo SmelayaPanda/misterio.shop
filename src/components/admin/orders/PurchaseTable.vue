@@ -167,7 +167,7 @@ Common table for one click and orders
     <!--NAME-->
     <el-table-column
       label="Имя Фамилия"
-      width="140">
+      width="150">
       <template slot-scope="scope">
         <el-popover trigger="hover" placement="top">
           <p>{{ scope.row.buyer.firstname.concat(' ',scope.row.buyer.lastname ) }}</p>

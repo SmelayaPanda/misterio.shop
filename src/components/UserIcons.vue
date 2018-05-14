@@ -62,15 +62,15 @@
               <img v-if="this.$route.path === '/cart'"
                    src="@/assets/icons/user/bag_white.svg"
                    alt=""
-                   height="40px">
+                   height="38px">
               <img v-else-if="color === 'red'"
                    src="@/assets/icons/user/bag.svg"
                    alt=""
-                   height="40px">
+                   height="38px">
               <img v-else
                    src="@/assets/icons/user/bag_black.svg"
                    alt=""
-                   height="40px">
+                   height="38px">
             </div>
           </router-link>
         </el-col>

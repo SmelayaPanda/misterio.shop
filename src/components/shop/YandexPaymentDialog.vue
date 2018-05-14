@@ -3,6 +3,15 @@
     <el-button @click="dialogVisible = true" id="buy_btn">
       Оплатить
     </el-button>
+    <v-tooltip right>
+      <v-icon slot="activator" class="ml-1 secondary--text">lightbulb_outline</v-icon>
+      <span class="text-xs-center">
+        Если вы уже оплатили покупку и получили подтверждение о списании средств, <br>
+        а статус покупки не изменился, то попробуйте обновить страницу еще раз. <br>
+        Если у Вас возникли трудности - свяжитесь с нами по телефону горячей линии
+        {{ this.$store.getters.companyInfo.contacts.phone }}
+      </span>
+    </v-tooltip>
     <el-dialog title="Misterio Shop"
                :visible.sync="dialogVisible"
                fullscreen

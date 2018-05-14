@@ -668,7 +668,7 @@ export default {
   .order_info {
     font-size: 16px;
     margin-bottom: 14px;
-    padding-top: 0;
+    padding: 5px;
   }
 
   #my_order_wrap {
