@@ -355,7 +355,9 @@
                     <el-radio :label="PAYMENT_TYPES.online.value" border class="mt-1">
                       {{ PAYMENT_TYPES.online.label }}
                     </el-radio>
-                    <el-radio :label="PAYMENT_TYPES.receipt.value" border class="mt-1">
+                    <el-radio v-if="delivery.method !== DELIVERY_METHODS.cdek.value &&
+                                    delivery.method !== DELIVERY_METHODS.pickpoint.value"
+                              :label="PAYMENT_TYPES.receipt.value" border class="mt-1">
                       {{ PAYMENT_TYPES.receipt.label }}
                     </el-radio>
                   </el-radio-group>
@@ -385,10 +387,7 @@
               <el-col :xs="22" :sm="18" :md="18" :lg="18" :xl="18">
                 <div v-if="activeStep === 5" class="white--text">
                   <p>Нажимая оформить вы соглашаетесь с
-                    <a target="_blank" class="secondary--text"
-                       href="https://misterio.shop/userAgreement">
-                      офертой
-                    </a>
+                    <a target="_blank" class="secondary--text" href="https://misterio.shop/userAgreement">офертой</a>
                   </p>
                   <el-button class="mb-4" @click="checkout" type="danger">
                     ОФОРМИТЬ
@@ -460,18 +459,18 @@ export default {
       },
       discount: '',
       buyer: {
-        firstname: 'ALEXEY',
-        lastname: 'AZAROV',
-        email: 'smelayapandagm@gmail.com',
-        phone: '89994677857'
+        firstname: '',
+        lastname: '',
+        email: '',
+        phone: ''
       },
       address: {
-        country: 'Россия',
-        city: 'Новосибирск',
-        street: 'Сиреневая',
-        build: '31',
-        house: '65',
-        postCode: '630030'
+        country: '',
+        city: '',
+        street: '',
+        build: '',
+        house: '',
+        postCode: ''
       },
       buyerFormRules: {
         firstname: [{validator: notEmptyString, trigger: 'blur'}],
