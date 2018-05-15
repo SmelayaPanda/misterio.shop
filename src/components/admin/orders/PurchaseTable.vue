@@ -31,7 +31,7 @@ Common table for one click and orders
                 Статус:
                 <span :class="props.row.payment.status === PAYMENT_STATUSES.none.value ||
                               props.row.payment.status === PAYMENT_STATUSES.canceled.value ?
-                              'error--text' : 'success--text'" >
+                              'error--text' : 'success--text'">
                   {{ PAYMENT_STATUSES[props.row.payment.status].label }}
                 </span> <br>
               </span>
@@ -204,21 +204,27 @@ Common table for one click and orders
     <!--Process-->
     <el-table-column
       v-if="type === 'order'"
-      width="150"
+      width="186"
       label="Действия">
       <template slot-scope="scope">
         <!--CHANGE STATUS-->
-        <change-order-status :orderId="scope.row.id"></change-order-status>
+        <change-order-status :orderId="scope.row.id"/>
+        <change-order-payment-status
+          v-if="scope.row.payment.status !== PAYMENT_STATUSES.succeeded.value"
+          :orderId="scope.row.id"/>
       </template>
     </el-table-column>
     <el-table-column
       v-if="type === 'oneclick'"
-      width="150"
+      width="186"
       label="Действия">
       <template slot-scope="scope">
         <el-row type="flex" justify="start">
           <process-one-click v-if="status === 'created'" :oneClickId="scope.row.id"/>
           <change-one-click-status :oneClickId="scope.row.id"/>
+          <change-one-click-payment-status
+            v-if="scope.row.payment.status !== PAYMENT_STATUSES.succeeded.value"
+            :oneClickId="scope.row.id"/>
         </el-row>
       </template>
     </el-table-column>
@@ -228,10 +234,14 @@ Common table for one click and orders
 import ChangeOrderStatus from './ChangeOrderStatus'
 import ProcessOneClick from '../oneclick/ProcessOneClick'
 import ChangeOneClickStatus from '../oneclick/ChangeOneClickStatus'
+import ChangeOneClickPaymentStatus from '../oneclick/ChangeOneClickPaymentStatus'
+import ChangeOrderPaymentStatus from './ChangeOrderPaymentStatus'
 
 export default {
   name: 'purchase-table',
   components: {
+    ChangeOrderPaymentStatus,
+    ChangeOneClickPaymentStatus,
     ChangeOrderStatus,
     ProcessOneClick,
     ChangeOneClickStatus

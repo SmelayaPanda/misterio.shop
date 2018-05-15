@@ -6,7 +6,9 @@
       <v-icon small v-if="order.status === ORDER_STATUSES.pending.value">flight_takeoff</v-icon>
       <v-icon small v-if="order.status === ORDER_STATUSES.sent.value">flight_land</v-icon>
     </el-button>
-    <el-button v-if="order.status !== ORDER_STATUSES.refused.value" @click="refuseDialogVisible = true">
+    <el-button v-if="order.status !== ORDER_STATUSES.refused.value"
+               @click="refuseDialogVisible = true"
+               style="margin-left: 0;">
       <v-icon small>close</v-icon>
     </el-button>
     <!--Main statuses dialog-->
@@ -82,7 +84,7 @@ export default {
           'history.delivered': new Date()
         }
       }
-      this.$store.dispatch('updateOrder', {orderId: this.orderId, updateData: obj})
+      this.$store.dispatch('updateOrder', {id: this.orderId, updateData: obj})
     }
   },
   computed: {

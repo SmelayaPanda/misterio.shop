@@ -115,10 +115,13 @@ export default {
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
         let orders = getters.orders
-        firebase.firestore().collection('orders').doc(payload.orderId).update(payload.updateData)
+        firebase.firestore().collection('orders').doc(payload.id).update(payload.updateData)
           .then(() => {
-            // Fact: total product qty not increased on refuse
-            delete orders[payload.orderId]
+            if (payload.type === 'payment_success') {
+              orders[payload.id].payment.status = 'succeeded'
+            } else {
+              delete orders[payload.id]
+            }
             console.log('Order updated')
             commit('setOrders', {...orders})
             commit('LOADING', false)

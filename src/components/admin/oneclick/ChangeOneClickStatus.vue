@@ -7,7 +7,8 @@
       <v-icon small v-if="oneclick.status === ORDER_STATUSES.sent.value">flight_land</v-icon>
     </el-button>
     <el-button @click="refuseDialogVisible = true"
-               v-if="oneclick.status !== ORDER_STATUSES.refused.value">
+               v-if="oneclick.status !== ORDER_STATUSES.refused.value"
+               style="margin-left: 0;">
       <i class="el-icon-close"></i>
     </el-button>
     <!--Main statuses dialog-->

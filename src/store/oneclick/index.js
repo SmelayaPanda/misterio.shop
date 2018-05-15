@@ -78,7 +78,11 @@ export default {
             }
           })
           .then(() => {
-            delete oneclick[payload.id]
+            if (payload.type === 'payment_success') {
+              oneclick[payload.id].payment.status = 'succeeded'
+            } else {
+              delete oneclick[payload.id]
+            }
             console.log('One Click updated')
             commit('setOneClick', {...oneclick})
             commit('LOADING', false)

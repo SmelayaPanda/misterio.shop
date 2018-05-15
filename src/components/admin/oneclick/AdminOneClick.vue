@@ -43,16 +43,10 @@ ORDER STATUS CHAIN:
 </template>
 
 <script>
-import ProcessOneClick from './ProcessOneClick'
-import ChangeOneClickStatus from './ChangeOneClickStatus'
 import PurchaseTable from '../orders/PurchaseTable'
 
 export default {
-  components: {
-    PurchaseTable,
-    ProcessOneClick,
-    ChangeOneClickStatus
-  },
+  components: {PurchaseTable},
   name: 'AdminOneClick',
   data () {
     return {
