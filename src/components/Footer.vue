@@ -15,17 +15,16 @@
           <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" class="footer_block" align="left">
             <contacts-phone id="contacts_phone"/>
           </el-col>
-          <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" class="footer_block" align="left">
-            <p id="watch_news" align="left">СЛЕДИ ЗА НОВОСТЯМИ</p>
-            <contacts-social class="ml-3 mb-4"/>
+          <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" class="footer_block" id="soc_wrap">
+            <p id="watch_news">СЛЕДИ ЗА НОВОСТЯМИ</p>
+            <contacts-social id="contacts_social"/>
           </el-col>
         </el-row>
       </el-col>
       <el-row id="rehigh_logo_wrap" onclick="window.open('https://rehigh.pro/', '_blank')">
         <el-col :span="24">
           <img src="@/assets/icons/rehigh/reHIGH.svg" id="rehigh_logo" alt="Re:High Studio">
-          <br>
-          <span id="created_by">created by</span>
+          <p id="created_by">created by</p>
         </el-col>
       </el-row>
     </el-row>
@@ -71,13 +70,14 @@ export default {
     font-weight: 600;
     font-size: 13px;
     color: $color-info;
+    text-align: left;
   }
 
   #rehigh_logo_wrap {
     display: flex;
     align-items: center;
-    justify-content: start;
-    margin-bottom: 25px;
+    justify-content: center;
+    margin-bottom: 10px;
     margin-top: 5px;
   }
 
@@ -86,20 +86,42 @@ export default {
   }
 
   #rehigh_logo {
-    height: 18px;
+    height: 15px;
   }
 
   #created_by {
     color: $color-info;
-    font-size: 12px;
+    font-size: 11px;
+    margin-top: -2px;
+  }
+
+  #soc_wrap {
+    text-align: left;
+  }
+
+  #contacts_social {
+    margin-left: 20px;
   }
 
   @media only screen and (max-width: $xs-screen) {
+    .app_footer {
+      padding-top: 20px;
+    }
     .footer_block {
-      padding: 20px 0 0;
+      padding: 0;
     }
     .footer_container {
       margin: 0;
+    }
+    #watch_news {
+      text-align: center;
+      margin-top: -5px;
+    }
+    #soc_wrap {
+      text-align: center;
+      margin-left: -7.2vw;
+    }
+    #contacts_social {
     }
   }
 </style>
