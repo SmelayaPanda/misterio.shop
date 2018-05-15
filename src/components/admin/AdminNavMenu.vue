@@ -46,7 +46,7 @@
       <el-menu-item index="/admin/liveChat" route="/admin/liveChat">
         <v-icon>chat</v-icon>
         <span slot="title">
-          <span class="mr-1">Онлайн чат</span>
+          <span class="mr-1">Онлайн-чат</span>
           <v-chip small outline label color="primary_a">
             {{ onlineUsers }}
           </v-chip>

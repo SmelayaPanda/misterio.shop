@@ -86,6 +86,7 @@ export default {
     }
   },
   created () {
+    this.$store.dispatch('fetchDictionaries')
     this.loadStatusOneClick()
   }
 }

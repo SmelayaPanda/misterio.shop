@@ -23,7 +23,7 @@
       </el-col>
       <el-row id="rehigh_logo_wrap" onclick="window.open('https://rehigh.pro/', '_blank')">
         <el-col :span="24">
-          <img src="@/assets/icons/rehigh/reHIGH.svg" id="rehigh_logo" alt="">
+          <img src="@/assets/icons/rehigh/reHIGH.svg" id="rehigh_logo" alt="Re:High Studio">
           <br>
           <span id="created_by">created by</span>
         </el-col>

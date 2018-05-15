@@ -23,10 +23,17 @@ Common table for one click and orders
               <span class="info_title">
                   Оплата:
                 </span><br>
-              <span v-if="props.row.payment.type && props.row.payment.method && props.row.payment.status">
+              <span v-if="props.row.payment.type && props.row.payment.method">
                 {{ PAYMENT_TYPES[props.row.payment.type].label }}:
                 {{ PAYMENT_METHODS[props.row.payment.method].label }} <br>
-                Статус: {{ PAYMENT_STATUSES[props.row.payment.status].label }} <br>
+              </span>
+              <span v-if="props.row.payment.status">
+                Статус:
+                <span :class="props.row.payment.status === PAYMENT_STATUSES.none.value ||
+                              props.row.payment.status === PAYMENT_STATUSES.canceled.value ?
+                              'error--text' : 'success--text'" >
+                  {{ PAYMENT_STATUSES[props.row.payment.status].label }}
+                </span> <br>
               </span>
               Стоимость товаров: {{ props.row.amount.products.value }} <span v-html="RUB"></span><br>
               Стоимость доставки: {{ props.row.amount.delivery.value }} <span v-html="RUB"></span><br>

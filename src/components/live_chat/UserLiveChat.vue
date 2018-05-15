@@ -23,7 +23,7 @@
         </el-col>
         <el-col :span="9" align="left">
           <div class="chat_header">
-            Онлайн чат
+            Онлайн-чат
           </div>
         </el-col>
         <el-col :span="7" align="right">
