@@ -123,25 +123,15 @@ const webpackConfig = merge(baseWebpackConfig, {
     //   staticDir: path.join(__dirname, '../dist'),
     //   // Required - Routes to render.
     //   routes: [
-    //     // '/', '/shop', '/about', '/news', '/contacts',
-    //     '/product/04YgZkpj4kcvaMrgTWE4',
-    //     '/product/04wOcrlzmcfm3cvSPnSP',
-    //     '/product/087OiLqmsqxlGIcGCb0n',
-    //     '/product/09MbCzvP0WSwTIG1d7t1',
-    //     '/product/0A41ZOJBpdsH2SRne2TW',
-    //     '/product/0C9o7boCHWoteH7EtUPO',
-    //     '/product/0GlxVyAKDLpfs7V7Xy7i',
-    //     '/product/0JCA9QLoWh85cexPp1VJ',
-    //     '/product/0JHx6HFjZHnRGz5Og8TU',
-    //     '/product/0KQSICoOgdd5nysIpCW8',
-    //     '/product/0LlpAqKXi8QNaNYCbFiY',
-    //     '/product/0OUTWUjzl9MAcLPn0jE2',
-    //     '/product/0QNtJvjx4IPoCcvTDCob',
-    //     '/product/0Us9xOWYIxlZd1o8O0DQ',
-    //     '/product/0VBdIgwIipBhESenpYNT'
+    //     '/', '/shop', '/about', '/news', '/contacts'
+    //     // '/product/u6CjWkKSxRP1ZnUhqpJm',
+    //     // '/product/u6zW5PbwK92qHR51Ff7K',
+    //     // '/product/uAZyOUo198TnCAydWgs5'
     //   ],
     //   renderer: new Renderer({
-    //     renderAfterElementExists: '#product_card', // ? for all routes?
+    //     // renderAfterElementExists: '#product_card', // not for all routes?
+    //     maxConcurrentRoutes: 5,
+    //     renderAfterTime: 8000
     //   })
     // })
   ]

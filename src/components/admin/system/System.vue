@@ -83,7 +83,7 @@ export default {
             xml += `<url><loc>${URL}${el}</loc><lastmod>${lastmod}</lastmod></url>`
           })
           snap.docs.forEach(doc => {
-            xml += `<url><loc>${URL}product/${doc.id}</loc></url>`
+            xml += `<url><loc>${URL}product/${doc.id}/</loc></url>`
           })
           xml += '</urlset>'
           zip.file('sitemap.xml', xml)
