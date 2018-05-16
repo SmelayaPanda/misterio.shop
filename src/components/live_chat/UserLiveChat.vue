@@ -8,8 +8,10 @@
           </span>
         </h2>
         <div v-else>
-          <img v-if="heartbeat" src="@/assets/icons/common/heartbeat.svg" alt="">
-          <img v-else src="@/assets/icons/common/chat_common.svg" id="chat_icon" alt="">
+          <transition name="el-fade-in-linear">
+            <img v-if="heartbeat" src="@/assets/icons/common/heartbeat.svg" key="heart" alt="">
+            <img v-else src="@/assets/icons/common/chat_common.svg" id="chat_icon" key="chat"  alt="">
+          </transition>
         </div>
       </div>
     </div>
@@ -369,7 +371,9 @@ export default {
 
   #chat_icon {
     color: white;
-    height: 23px;
+    height: 21px;
+    margin-top: 2px;
+    margin-left: 2px;
   }
 
   /* User live chat heart */
