@@ -7,17 +7,17 @@ export const appConstants = {
         label: 'Секс-игрушки',
         icon: '/static/icon/shop/big/penis.svg',
         children: [
+          {value: 'analToy', label: 'анальные игрушки'},
+          {value: 'vaginalBall', label: 'вагинальные шарики'},
           {value: 'vibrator', label: 'вибраторы'},
           {value: 'pulsator', label: 'пульсаторы'},
-          {value: 'dildo', label: 'фаллоимитаторы'},
-          {value: 'clitorisStimulator', label: 'стимуляторы клитора'},
-          {value: 'vaginalBall', label: 'вагинальные шарики'},
-          {value: 'analToy', label: 'анальные игрушки'},
-          {value: 'strap', label: 'страпоны'},
-          {value: 'ring', label: 'кольца и насадки'},
           {value: 'masturbator', label: 'мастурбаторы'},
-          {value: 'pump', label: 'помпы'},
+          {value: 'dildo', label: 'фаллоимитаторы'},
+          {value: 'strap', label: 'страпоны'},
           {value: 'prostate', label: 'массажеры простаты'},
+          {value: 'clitorisStimulator', label: 'стимуляторы клитора'},
+          {value: 'ring', label: 'кольца и насадки'},
+          {value: 'pump', label: 'помпы'},
           {value: 'sexDoll', label: 'секс-куклы'},
           {value: 'sexMachine', label: 'секс-машины'}
         ]
@@ -26,15 +26,15 @@ export const appConstants = {
         label: 'BDSM, фетиш',
         icon: '/static/icon/shop/big/cuffs.svg',
         children: [
-          {value: 'fixation', label: 'фиксация и бондаж'},
+          {value: 'bdsmClothes', label: 'BDSM-одежда'},
+          {value: 'sets', label: 'наборы и комплекты'},
+          {value: 'medical', label: 'медицинский фетиш'},
+          {value: 'nipple', label: 'зажимы для сосков'},
+          {value: 'gag', label: 'кляпы'},
           {value: 'mask', label: 'маски'},
           {value: 'collar', label: 'ошейники'},
-          {value: 'gag', label: 'кляпы'},
-          {value: 'sets', label: 'наборы и комплекты'},
-          {value: 'bdsmClothes', label: 'BDSM-одежда'},
-          {value: 'nipple', label: 'зажимы для сосков'},
-          {value: 'medical', label: 'медицинский фетиш'},
-          {value: 'percussion', label: 'ударные девайсы'}
+          {value: 'percussion', label: 'ударные девайсы'},
+          {value: 'fixation', label: 'фиксация и бондаж'}
         ]
       }, {
         value: 'cosmetic',
