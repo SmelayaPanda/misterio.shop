@@ -17,18 +17,11 @@ REVIEW STATUSES:
       height="350px">
       <el-carousel-item v-for="(item, idx) in reviews" :key="idx">
         <el-card class="review_card">
-          <div slot="header" class="clearfix">
-            <el-row>
-              <el-col :span="24">
-                <img src="@/assets/icons/common/anonymous-logo.png" height="40px">
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="24">
-                <span>{{ item.name }}</span>
-              </el-col>
-            </el-row>
-          </div>
+          <el-row>
+            <el-col :span="24">
+              <h4 class="mb-2">{{ item.name }}</h4>
+            </el-col>
+          </el-row>
           <el-col :span="24">
             <div class="review_text_wrapper">
               <p>
@@ -110,6 +103,7 @@ export default {
     padding: 0;
     margin: 0;
     height: 330px;
+    color: $color-primary;
   }
 
   #reviews_title {
@@ -122,7 +116,6 @@ export default {
 
   .el-card {
     border-radius: 20px;
-    background: white;
   }
 
   .review_text_wrapper {
