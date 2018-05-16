@@ -90,7 +90,7 @@ export default {
   .text_logo {
     position: absolute;
     top: 17px;
-    left: 70px;
+    left: 73px;
     height: 40px;
   }
 

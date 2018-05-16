@@ -4,12 +4,11 @@
       <h3 class="pl-3 white--text">
         Пользователи
       </h3>
-      <el-switch v-model="showOnlineUsers" class="pl-2" active-color="#13ce66">
-      </el-switch>
+      <el-switch v-model="showOnlineUsers" class="pl-2" active-color="#13ce66"></el-switch>
       <span class="pl-2">
-              <span v-if="showOnlineUsers">онлайн</span>
-              <span v-else>оффлайн</span>
-            </span>
+        <span v-if="showOnlineUsers">онлайн</span>
+        <span v-else>оффлайн</span>
+      </span>
     </v-card-title>
     <v-card>
       <div v-if="liveChats" id="chat_users" ref="chatUsers">

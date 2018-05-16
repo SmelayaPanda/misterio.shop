@@ -7,7 +7,10 @@
             +{{ unreadByUser }}
           </span>
         </h2>
-        <img v-else src="@/assets/icons/common/heartbeat.svg" alt="">
+        <div v-else>
+          <img v-if="heartbeat" src="@/assets/icons/common/heartbeat.svg" alt="">
+          <img v-else src="@/assets/icons/common/chat_common.svg" id="chat_icon" alt="">
+        </div>
       </div>
     </div>
     <v-card v-if="!isCollapsedChat"
@@ -119,7 +122,8 @@ export default {
       isCollapsedChat: this.isCollapsed,
       isPrevLoadingEvent: false,
       isPrevLoading: false,
-      prevScrollHeight: 0
+      prevScrollHeight: 0,
+      heartbeat: true
     }
   },
   methods: {
@@ -144,7 +148,7 @@ export default {
             })
           })
       }
-      if (this.isCollapsedAdmin) {
+      if (this.isCollapsedAdmin || !this.isOnlineAdmin) {
         this.setUnread('unreadByAdmin', this.unreadByAdmin + 1)
       }
     },
@@ -228,6 +232,9 @@ export default {
     this.$bus.$on('openLiveChat', () => {
       this.openChat()
     })
+    setInterval(() => {
+      this.heartbeat = !this.heartbeat
+    }, 4000)
   }
 }
 </script>
@@ -358,6 +365,11 @@ export default {
   .chat_msg {
     white-space: pre-wrap;
     text-align: left;
+  }
+
+  #chat_icon {
+    color: white;
+    height: 23px;
   }
 
   /* User live chat heart */

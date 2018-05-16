@@ -87,23 +87,24 @@ export default {
         }
       })
     },
-    observeAdminConnection () {
-      // TODO: every new admin sign in detected as new device
-      // since admin connect from multiple devices or browser tabs,
-      // we store each connection instance separately
-      // any time that connectionsRef's value is null (i.e. has no children) - admin offline
-      firebase.database().ref('.info/connected').on('value', snap => {
-        if (snap.val() === true) {
-          // Admin connected (or reconnected)
-          let con = firebase.database().ref('admin').child('connections').push()
-          // When admin disconnect, remove this device
-          con.onDisconnect().remove()
-          // Add this device to connections list,
-          // this value could contain info about the device or a timestamp too
-          con.set(true)
-        }
-      })
-    },
+    // NOT correct work in prod, connection not removed sometimes
+    // observeAdminConnection () {
+    //   // TODO: every new admin sign in detected as new device
+    //   // since admin connect from multiple devices or browser tabs,
+    //   // we store each connection instance separately
+    //   // any time that connectionsRef's value is null (i.e. has no children) - admin offline
+    //   firebase.database().ref('.info/connected').on('value', snap => {
+    //     if (snap.val() === true) {
+    //       // Admin connected (or reconnected)
+    //       let con = firebase.database().ref('admin').child('connections').push()
+    //       // When admin disconnect, remove this device
+    //       con.onDisconnect().remove()
+    //       // Add this device to connections list,
+    //       // this value could contain info about the device or a timestamp too
+    //       con.set(true)
+    //     }
+    //   })
+    // },
     fetchAllChats ({commit, dispatch}) { // for admin
       firebase.database().ref('liveChats').once('value')
         .then(snapshot => {
@@ -112,7 +113,7 @@ export default {
         })
         .then(() => {
           dispatch('subscribeToAllChats')
-          dispatch('observeAdminConnection')
+          // dispatch('observeAdminConnection')
         })
         .catch(err => dispatch('LOG', err))
     },
@@ -166,17 +167,22 @@ export default {
       await commit('setChatProp', {name: 'id', value: payload}) // TODO: remove
     },
     subscribeToAdminConnectionDevices ({commit}) { // for users to detect online admin
-      let adminConn = firebase.database().ref('admin').child('connections')
-      return Promise.all([
-        adminConn.on('child_added', () => {
-          commit('setAdminOnline', 1)
-        }),
-        adminConn.on('child_removed', () => {
-          adminConn.once('value').then(snap => {
-            if (!snap.exists()) commit('setAdminOnline', 0)
-          })
-        })
-      ])
+      return firebase.database().ref('admin').on('child_changed', snap => {
+        if (snap.exists() && snap.key === 'isOnline') {
+          commit('setAdminOnline', Number(snap.val()))
+        }
+      })
+      // Autodetect sometimes not remove connection devices
+      // return Promise.all([
+      //   adminConn.on('child_added', () => {
+      //     commit('setAdminOnline', 1)
+      //   }),
+      //   adminConn.on('child_removed', () => {
+      //     adminConn.once('value').then(snap => {
+      //       if (!snap.exists()) commit('setAdminOnline', 0)
+      //     })
+      //   })
+      // ])
     },
     unsubscribeFromChat ({commit, getters}, payload) {
       let chatRef = firebase.database().ref(`liveChats/${payload}`)
@@ -330,6 +336,12 @@ export default {
     },
     async setUserEvents ({commit}, payload) {
       commit('setUserEvents', payload)
+    },
+    setAdminOnline ({commit}, payload) {
+      return firebase.database().ref('admin').child('isOnline').set(payload)
+        .then(() => {
+          commit('setAdminOnline', payload)
+        })
     }
   },
   getters: {

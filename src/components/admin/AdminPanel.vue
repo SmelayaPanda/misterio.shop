@@ -29,6 +29,16 @@
           Misterio Shop
         </router-link>
       </v-toolbar-title>
+      <el-switch
+        v-model="isOnlineAdmin"
+        @change="changeAdminOnline"
+        id="online_admin"
+        active-color="#13ce66">
+      </el-switch>
+      <span class="pl-2">
+        <span v-if="isOnlineAdmin">онлайн</span>
+        <span v-else>оффлайн</span>
+      </span>
       <app-balls-loader v-if="this.isLoading"></app-balls-loader>
       <v-toolbar-side-icon
         @click="sideNav = !sideNav"
@@ -112,7 +122,8 @@ export default {
   },
   data: function () {
     return {
-      sideNav: false
+      sideNav: false,
+      isOnlineAdmin: false
     }
   },
   methods: {
@@ -125,6 +136,9 @@ export default {
     },
     onDismissed () {
       this.$store.dispatch('CLEAR_ERR') // action
+    },
+    changeAdminOnline (val) {
+      this.$store.dispatch('setAdminOnline', val ? 1 : 0)
     }
   },
   computed: {
@@ -159,5 +173,10 @@ export default {
 
   #admin_panel {
     background: white;
+  }
+
+  #online_admin {
+    padding-left: 10px;
+    padding-top: 2px;
   }
 </style>
