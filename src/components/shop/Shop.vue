@@ -280,7 +280,7 @@ export default {
         })
     },
     changeCategory (key) {
-      let groupList = ['sexToy', 'bdsm', 'baa', 'condom', 'eroticLingerie', 'cosmetic']
+      let groupList = ['sexToy', 'bdsm', 'baa', 'condom', 'eroticLingerie', 'cosmetic', 'gifts']
       if (groupList.indexOf(key) !== -1) {
         this.selectedGroup = key
         this.selectedCategory = null
@@ -379,7 +379,7 @@ export default {
 
 <style scoped lang="scss">
   #shop_nav_menu {
-    width: 280px;
+    width: 300px;
   }
 
   .search_input {

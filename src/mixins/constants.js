@@ -17,7 +17,9 @@ export const appConstants = {
           {value: 'ring', label: 'кольца и насадки'},
           {value: 'masturbator', label: 'мастурбаторы'},
           {value: 'pump', label: 'помпы'},
-          {value: 'prostate', label: 'массажеры простаты'}
+          {value: 'prostate', label: 'массажеры простаты'},
+          {value: 'sexDoll', label: 'секс-куклы'},
+          {value: 'sexMachine', label: 'секс-машины'}
         ]
       }, {
         value: 'bdsm',
@@ -28,7 +30,7 @@ export const appConstants = {
           {value: 'mask', label: 'маски'},
           {value: 'collar', label: 'ошейники'},
           {value: 'gag', label: 'кляпы'},
-          {value: 'sets', label: 'наборы'},
+          {value: 'sets', label: 'наборы и комплекты'},
           {value: 'bdsmClothes', label: 'BDSM-одежда'},
           {value: 'nipple', label: 'зажимы для сосков'},
           {value: 'medical', label: 'медицинский фетиш'},
@@ -39,17 +41,28 @@ export const appConstants = {
         label: 'Интим-косметика',
         icon: '/static/icon/shop/big/cream.svg',
         children: [
-          {value: 'lubricant', label: 'спреи, крема, лубриканты'},
-          {value: 'oil', label: 'массажные масла'},
-          {value: 'perfume', label: 'духи с феромонами'}
+          {value: 'bathSoul', label: 'косметика для ванны и душа'},
+          {value: 'bodyArt', label: 'средства для массажа и боди-арт'},
+          {value: 'perfume', label: 'духи с феромонами'},
+          {value: 'stimulationCream', label: 'крема для стимуляции'},
+          {value: 'correctionCream', label: 'крема для коррекции размеров'},
+          {value: 'intimateHygiene', label: 'средства для интимной гигиены'},
+          {value: 'analGel', label: 'смазки для анального секса'},
+          {value: 'vaginalGel', label: 'смазки для вагинального секса'},
+          {value: 'edible', label: 'съедобные гели и смазки'},
+          {value: 'toyCare', label: 'уход за секс игрушками'}
         ]
       }, {
         value: 'eroticLingerie',
         label: 'Эротическое белье',
         icon: '/static/icon/shop/big/underwear.svg',
         children: [
-          {value: 'womenEroticLingerie', label: 'женское'},
-          {value: 'menEroticLingerie', label: 'мужское'}
+          {value: 'womenEroticLingerie', label: 'женская одежда'},
+          {value: 'womenUnderwear', label: 'женское нижнее белье'},
+          {value: 'menEroticLingerie', label: 'мужская одежда и белье'},
+          {value: 'roleSuit', label: 'ролевые костюмы'},
+          {value: 'tights', label: 'чулки и колготки'},
+          {value: 'accessories', label: 'аксессуары'}
         ]
       }, {
         value: 'condom',
@@ -64,6 +77,10 @@ export const appConstants = {
           {value: 'menBaa', label: 'для мужчин'},
           {value: 'unisexBaa', label: 'унисекс'}
         ]
+      }, {
+        value: 'gifts',
+        label: 'Подарки и игры',
+        icon: '/static/icon/shop/big/condom.svg'
       }
       ],
       PAYMENT_METHODS: {
