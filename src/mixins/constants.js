@@ -69,6 +69,10 @@ export const appConstants = {
         label: 'Презервативы',
         icon: '/static/icon/shop/big/condom.svg'
       }, {
+        value: 'gifts',
+        label: 'Подарки и игры',
+        icon: '/static/icon/shop/big/gift_game.svg'
+      }, {
         value: 'baa',
         label: 'БАДы',
         icon: '/static/icon/shop/big/pills.svg',
@@ -77,10 +81,6 @@ export const appConstants = {
           {value: 'menBaa', label: 'для мужчин'},
           {value: 'unisexBaa', label: 'унисекс'}
         ]
-      }, {
-        value: 'gifts',
-        label: 'Подарки и игры',
-        icon: '/static/icon/shop/big/gift_game.svg'
       }
       ],
       PAYMENT_METHODS: {
