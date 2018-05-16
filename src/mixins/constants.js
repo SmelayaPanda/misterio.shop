@@ -80,7 +80,7 @@ export const appConstants = {
       }, {
         value: 'gifts',
         label: 'Подарки и игры',
-        icon: '/static/icon/shop/big/condom.svg'
+        icon: '/static/icon/shop/big/gift_game.svg'
       }
       ],
       PAYMENT_METHODS: {
