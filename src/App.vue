@@ -4,19 +4,19 @@
       <app-header v-if="isSecondaryRouters" key="head" id="app_header"></app-header>
     </transition>
     <transition-group name="app-fade-left">
-      <img v-show="this.$route.path === '/contacts'"
+      <img v-show="$route.path === '/contacts'"
            class="router_header"
            key="contacts"
            src="@/assets/img/contacts/header.png" alt="">
-      <img v-show="this.$route.path.includes('news') && !this.$route.path.includes('admin')"
+      <img v-show="$route.path.includes('news') && !$route.path.includes('admin')"
            class="router_header"
            key="news"
            src="@/assets/img/news/header.png" alt="">
-      <img v-show="this.$route.path === '/about'"
+      <img v-show="$route.path === '/about'"
            class="router_header"
            key="about"
            src="@/assets/img/about/header.png" alt="">
-      <img v-show="this.$route.path === '/shop' || this.$route.path.includes('/product/')"
+      <img v-show="$route.path === '/shop' || $route.path.includes('/product/')"
            class="router_header"
            key="shop"
            src="@/assets/img/shop/shop_bg.png" alt="">
@@ -25,7 +25,7 @@
            key="liveChat"
            id="live_chat">
         <user-live-chat
-          :chatId="this.$store.getters.user.uid"
+          :chatId="$store.getters.user.uid"
           :isCollapsed="true"
           key="userLiveChat">
         </user-live-chat>
@@ -33,19 +33,19 @@
     </transition-group>
     <transition name="fade">
       <router-view key="routers"
-                   :style="isSecondaryRouters && this.$vuetify.breakpoint.name !== 'xs' ? 'margin-top: 100px' : ''">
+                   :style="isSecondaryRouters && $vuetify.breakpoint.name !== 'xs' ? 'margin-top: 100px' : ''">
       </router-view>
     </transition>
     <transition name="fade">
-      <app-footer v-if="isSecondaryRouters && this.$route.path !== '/contacts'" key="footer"></app-footer>
+      <app-footer v-if="isSecondaryRouters && $route.path !== '/contacts'" key="footer"></app-footer>
     </transition>
-    <back-to-top v-if="this.$route.path !== '/'"
+    <back-to-top v-if="$route.path !== '/'"
                  visibleOffset="500"
                  id="back_to_bottom"
-                 :style="this.$vuetify.breakpoint.name === 'sm' || this.$vuetify.breakpoint.name === 'xs' ?
+                 :style="$vuetify.breakpoint.name === 'sm' || $vuetify.breakpoint.name === 'xs' ?
                   'right: ;left: 20px; bottom: 12px' :
                   'right: 140px; bottom: 37px'">
-      <v-btn fab :class="this.$route.path.includes('admin') ? 'primary_a white--text' : 'secondary'">
+      <v-btn fab :class="$route.path.includes('admin') ? 'primary_a white--text' : 'secondary'">
         <v-icon>keyboard_arrow_up</v-icon>
       </v-btn>
     </back-to-top>

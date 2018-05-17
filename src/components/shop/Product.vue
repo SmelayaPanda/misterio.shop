@@ -56,8 +56,8 @@
               </el-col>
               <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12"
                       v-model="product">
-                <p id="product_title" itemprop="name">
-                  {{ product.title }}
+                <p id="product_title">
+                  <span itemprop="name">{{ product.title }}</span>
                   <span>
                     <v-icon
                       v-if="this.$store.getters.user.favorites[product.productId]"
