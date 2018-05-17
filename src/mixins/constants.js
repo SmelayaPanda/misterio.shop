@@ -60,7 +60,7 @@ export const appConstants = {
           {value: 'womenEroticLingerie', label: 'женская одежда'},
           {value: 'womenUnderwear', label: 'женское нижнее белье'},
           {value: 'menEroticLingerie', label: 'мужская одежда и белье'},
-          {value: 'roleSuit', label: 'ролевые костюмы'},
+          {value: 'roleSuit', label: 'женские ролевые костюмы'},
           {value: 'tights', label: 'чулки и колготки'},
           {value: 'accessories', label: 'аксессуары'}
         ]
