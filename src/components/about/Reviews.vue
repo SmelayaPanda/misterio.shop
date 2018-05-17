@@ -19,7 +19,7 @@ REVIEW STATUSES:
         <el-card class="review_card">
           <el-row>
             <el-col :span="24">
-              <h4 class="mb-2">{{ item.name }}</h4>
+              <p class="user_name">{{ item.name }}</p>
             </el-col>
           </el-row>
           <el-col :span="24">
@@ -125,6 +125,10 @@ export default {
     height: 120px;
   }
 
+  .user_name {
+    font-size: 16px;
+    margin: 15px;
+  }
   .review_text {
   }
 </style>
