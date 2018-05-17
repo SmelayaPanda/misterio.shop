@@ -13,7 +13,7 @@
           <v-list-tile-content>{{ item.title }}</v-list-tile-content>
         </v-list-tile>
         <!--Logout-->
-        <v-list-tile v-if="!this.isAnonymousUser" @click="onLogout">
+        <v-list-tile v-if="!isAnonymousUser" @click="onLogout">
           <v-list-tile-action>
             <v-icon>exit_to_app</v-icon>
           </v-list-tile-action>
@@ -30,16 +30,17 @@
         </router-link>
       </v-toolbar-title>
       <el-switch
+        v-if="isAdmin"
         v-model="isOnlineAdmin"
         @change="changeAdminOnline"
         id="online_admin"
         active-color="#13ce66">
       </el-switch>
-      <span class="pl-2">
+      <span v-if="isAdmin" class="pl-2">
         <span v-if="isOnlineAdmin">онлайн</span>
         <span v-else>оффлайн</span>
       </span>
-      <app-balls-loader v-if="this.isLoading"></app-balls-loader>
+      <app-balls-loader v-if="isLoading"></app-balls-loader>
       <v-toolbar-side-icon
         @click="sideNav = !sideNav"
         class="hidden-md-and-up">
@@ -62,7 +63,7 @@
 
         <!--Logout-->
         <v-btn flat
-               v-if="!this.isAnonymousUser"
+               v-if="!isAnonymousUser"
                @click="onLogout"
                class="primary_a white--text">
           <v-icon left dark>exit_to_app</v-icon>
@@ -71,7 +72,7 @@
       </v-toolbar-items>
     </v-toolbar>
     <!--No admin case-->
-    <el-row v-if="!this.isAdmin">
+    <el-row v-if="!isAdmin">
       <v-card>
         <!--Alert message-->
         <v-layout row v-if="error">
@@ -98,7 +99,7 @@
       </v-card>
     </el-row>
 
-    <el-row type="flex" justify="start" v-if="this.isAdmin">
+    <el-row type="flex" justify="start" v-if="isAdmin">
       <el-col style="width: 180px">
         <div>
           <admin-nav-menu></admin-nav-menu>
