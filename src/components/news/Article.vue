@@ -79,7 +79,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('loadNews', {id: this.id})
+    this.$store.dispatch('loadOneNews', this.id)
   }
 }
 </script>

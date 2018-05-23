@@ -19,17 +19,12 @@ export default {
     loadNews:
       ({commit, dispatch}, payload) => {
         commit('LOADING', true)
+        commit('setLoadedNewsType', payload.type)
         let query = firebase.firestore().collection('news')
-        if (payload.type && payload.type !== 'all') {
-          commit('setLoadedNewsType', payload.type)
-          query = query
-            .where('type', '==', payload.type)
-            .orderBy('creationDate', 'desc')
+        if (payload.type !== 'all') {
+          query = query.where('type', '==', payload.type)
         }
-        if (payload.id) {
-          query = query.where('id', '==', payload.id)
-        }
-        query.get()
+        query.orderBy('creationDate', 'desc').get()
           .then(snap => {
             let news = {}
             snap.docs.forEach(doc => {
@@ -42,6 +37,18 @@ export default {
           })
           .catch(err => dispatch('LOG', err))
       },
+    loadOneNews ({commit, dispatch}, payload) {
+      commit('LOADING', true)
+      return firebase.firestore().collection('news').doc(payload).get()
+        .then(doc => {
+          let news = {}
+          news[doc.id] = doc.data()
+          news[doc.id].id = doc.id
+          commit('setNews', {...news})
+          commit('LOADING', false)
+        })
+        .catch(err => dispatch('LOG', err))
+    },
     addNews:
       ({commit, getters, dispatch}, payload) => {
         commit('LOADING', true)
