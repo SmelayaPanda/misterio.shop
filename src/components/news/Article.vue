@@ -77,6 +77,9 @@ export default {
       }
       return lastNews
     }
+  },
+  created () {
+    this.$store.dispatch('loadNews', {id: this.id})
   }
 }
 </script>
