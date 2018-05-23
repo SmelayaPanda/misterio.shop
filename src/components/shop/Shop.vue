@@ -10,7 +10,7 @@
           id="shop_nav_menu"
           :default-active="selectedCategory"
           @select="changeCategory"
-          background-color="transparent"
+          :background-color="isCollapsed ? '#0d0d0d' : 'transparent'"
           unique-opened
           text-color="#fff"
           active-text-color="#810101"
