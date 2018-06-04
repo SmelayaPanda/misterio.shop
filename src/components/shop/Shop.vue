@@ -275,6 +275,7 @@ export default {
           if (this.algoliaSearchText) {
             return this.$store.dispatch('algoliaSearch', this.algoliaSearchText)
           } else {
+            this.$store.dispatch('setAlgoliaSearchText', null)
             return this.$store.dispatch('fetchProducts')
           }
         })
