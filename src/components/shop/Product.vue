@@ -8,8 +8,8 @@
             <el-button id="back_to_shop_btn" type="text" style="margin-left: -10px;" class="hidden-sm-and-down">
               <p class="back_to_shop secondary--text">
                 Обратно в каталог
-                <v-icon class="secondary--text pr-2 ml-1">keyboard_arrow_right</v-icon>
-                <v-icon class="secondary--text pr-2 ml-1" style="margin-top: -10px;">keyboard_arrow_right</v-icon>
+                <v-icon class="secondary--text pr-2">keyboard_arrow_right</v-icon>
+                <v-icon class="secondary--text pr-2" style="margin-top: -10px;">keyboard_arrow_right</v-icon>
               </p>
             </el-button>
           </router-link>
