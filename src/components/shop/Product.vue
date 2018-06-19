@@ -5,11 +5,11 @@
       <el-row el-row type="flex" justify="center" v-if="product" id="product_card_wrap">
         <el-col :span="1">
           <router-link to="/shop">
-            <el-button type="text" style="margin-left: -10px;" class="hidden-sm-and-down">
+            <el-button id="back_to_shop_btn" type="text" style="margin-left: -10px;" class="hidden-sm-and-down">
               <p class="back_to_shop secondary--text">
                 Обратно в каталог
-                <v-icon class="secondary--text pr-2">keyboard_arrow_right</v-icon>
-                <v-icon class="secondary--text pr-2" style="margin-top: -10px;">keyboard_arrow_right</v-icon>
+                <v-icon class="secondary--text pr-2 ml-1">keyboard_arrow_right</v-icon>
+                <v-icon class="secondary--text pr-2 ml-1" style="margin-top: -10px;">keyboard_arrow_right</v-icon>
               </p>
             </el-button>
           </router-link>
@@ -266,6 +266,11 @@ export default {
     transition: all 0.5s;
     transform: scale(1.08);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  #back_to_shop_btn {
+    width: 24px;
+    height: 300px
   }
 
   .back_to_shop {
