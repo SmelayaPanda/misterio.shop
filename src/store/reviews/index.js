@@ -52,7 +52,7 @@ export default {
             console.log('Review added')
             Notification({
               title: 'Спасибо',
-              message: 'Ваш отзыв будет опубликован после проходения модерации!',
+              message: 'Ваш отзыв будет опубликован после прохождения модерации!',
               type: 'success',
               showClose: true,
               duration: 10000,

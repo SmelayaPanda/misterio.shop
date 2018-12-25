@@ -38,7 +38,7 @@ global.CONST = require('./src/common/constants')
 
 // firebase functions:config:set admin.email="shop.misterio@gmail.com"
 // firebase functions:config:set admin.password="***"
-// firebase functions:config:set developer.email="SmelayaPandaGM@gmail.com"
+// firebase functions:config:set developer.email="shop.misterio@gmail.com"
 // firebase functions:config:set developer.password="***"
 
 // TODO: set for prod
