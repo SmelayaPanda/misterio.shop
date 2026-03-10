@@ -1,7 +1,4 @@
-# E-commerce Novosibirk Sexshop
+# E-commerce Novosibirk Online store
 https://misterio.shop/
 
-<p align="center">
-<img alt="Misterio Logo" src="https://github.com/SmelayaPanda/openexgame-source/blob/master/src/assets/icons/logo/logo_site.svg" height="360px"/>
-</p>  
 
